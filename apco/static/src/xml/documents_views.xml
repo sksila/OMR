@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template t-name="apco.DocumentsViews.buttons" t-inherit="documents.DocumentsViews.buttons" t-inherit-mode="extension">
+        <xpath expr="//div/button[hasclass('o_documents_kanban_upload')]" position="after">
+            <button type="button" t-attf-class="btn btn-secondary o_documents_kanban_new_document" disabled="disabled">
+                Add New Document
+            </button>
+        </xpath>
+    </template>
+
+    <template t-name="apco.DocumentsInspector.buttons" t-inherit="documents.DocumentsInspector.buttons" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('btn-group')]" position="inside">
+                                    <button class="btn fa fa-external-link o_inspector_button o_inspector_onlyoffice" aria-label="OnlyOffice" title="OnlyOffice"/>
+        </xpath>
+    </template>
+
+</odoo>

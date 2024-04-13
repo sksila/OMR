@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.isell</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="sync_google_calendar_setting" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="isell_integration_setting">
+                <div class="o_setting_right_pane">
+                <div class="text-muted">
+                    OnlyOffice Integration
+                </div>
+                    <div class="content-group">
+                        <div class="mt16 row">
+                            <label for="onlyoffice_host" string="Host" class="col-3 col-lg-3 o_light_label"/>
+                            <field name="onlyoffice_host" nolabel="1"/>
+                            <label for="onlyoffice_username" string="Username" class="col-3 col-lg-3 o_light_label"/>
+                            <field name="onlyoffice_username" nolabel="1"/>
+                            <label for="onlyoffice_password" string="Password" class="col-3 col-lg-3 o_light_label"/>
+                            <field name="onlyoffice_password" password="True" nolabel="1"/>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="social_post_form_inherit">
+        <field name="model">social.post</field>
+        <field name="inherit_id" ref="social.social_post_view_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//button[@name='action_post']" position="before">
+                    <button name="request_approval" string="Request Approval" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                     <button name="refuse" string="Refuse" type="object" class="oe_highlight" invisible="1"/>
+                     <button name="action_draft" string="Reset To Draft" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['done','draft'])]}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_post']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state','!=','scheduled')]}</attribute>
+                    <attribute name="string">Approve</attribute>
+                 </xpath>
+                <xpath expr="//field[@name='post_method']" position="after">
+                        <field name="approval_id" attrs="{'invisible': [('approval_id', '=', False)]}" />
+                 </xpath>
+            </data>
+
+        </field>
+    </record>
+
+</odoo>
