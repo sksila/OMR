@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ajw_survey_survey_view_form" model="ir.ui.view">
+            <field name="name">awj.survey.survey.view.form.inherit</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="after">
+                    <group>
+                        <group>
+                            <label for="is_exam" class="oe_inline"/>
+                            <div class="o_row o_row_readonly">
+                                <field name="is_exam"/>
+                            </div>
+                            <field name="teacher_id"/>
+                            <field name="class_name"/>
+                        </group>
+                        <group>
+                            <field name="date_exam"/>
+                            <field name="current_date"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='questions']" position="after">
+                    <page string="Student's answers" name="student_answers">
+                        <field name="answer_student_ids" widget="many2many_binary"/>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='options']" position="after">
+                    <page string="Final Score" name="final_score">
+                        <group>
+                            <group>
+                                <button string="Compute final score" name="compute_result" type="object"
+                                        class="btn-primary"/>
+                            </group>
+<!--                            <group>-->
+<!--                                <button string="Compute final score" name="compute_final_score" type="object"-->
+<!--                                        class="btn-primary"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <button string="Show final result" name="show_score" type="object" class="btn-primary"/>-->
+<!--                            </group>-->
+
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="awj_action_survey_form">
+            <field name="name">Surveys</field>
+            <field name="res_model">survey.survey</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="context">{'search_default_groupby_state': 1}</field>
+            <field name="domain">[('is_exam','=', True)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new survey
+                </p>
+                <p>
+                    You can create surveys for different purposes: customer opinion, services feedback, recruitment
+                    interviews, employee's periodical evaluations, marketing campaigns, etc.
+                </p>
+                <p>
+                    Design easily your survey, send invitations and analyze answers.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Exam"
+                  id="menu_exam"
+                  web_icon="ajw_omr,static/description/icon.png"
+                  sequence="10"/>
+
+        <menuitem id="menu_exam_root" name="Exam" action="awj_action_survey_form" parent="menu_exam" sequence="1"/>
+
+    </data>
+</odoo>
