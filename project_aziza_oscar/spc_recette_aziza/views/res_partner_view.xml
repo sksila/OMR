@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+ 	<record id="view_tr_partner_form_inherit" model="ir.ui.view">
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="spc_oscar_aziza.view_partner_form_spc" />
+		<field name="arch" type="xml">
+			
+			<field name="type" position="after">
+				<field name="type_tr" string="Type (TR / CC)" attrs="{'invisible': [('type', '!=', 'other')],'required': [('type', '=', 'other')]}" />
+			</field>
+
+		</field>
+	</record>
+	
+	<record id="action_oscar_fournisseur_tr" model="ir.actions.act_window">
+		<field name="name">Fournisseur Tickets Restaurant &amp; Chèques Cadeaux</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">res.partner</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('type_tr','!=',False)]</field>
+		<field name="context">{
+        'default_type_tr': 'TR',
+        'default_type': 'other',
+        'default_supplier': True,
+        }</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+				Créer un nouveau fournisseur.
+			</p>
+			<p>
+				Oscar vous aide à gérer facilement vos fournisseurs.
+			</p>
+		</field>
+	</record>
+	
+	<!--Supplier menu item-->
+    <menuitem id="menu_fournisseur_tr_cc" name="Fournisseurs TR &amp; CC"
+              parent="spc_oscar_aziza.menu_oscar_configuration"
+              action="action_oscar_fournisseur_tr" sequence="45"/>
+	
+</odoo>

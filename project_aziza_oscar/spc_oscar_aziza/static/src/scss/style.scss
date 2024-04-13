@@ -1,0 +1,11 @@
+
+$oscar-black-color: #343638;
+$oscar-tfoot-color: #ffdd0a;
+
+.o_menu_apps .dropdown-menu.show .o-app-name{
+	color: $oscar-black-color !important;
+}
+
+.o_list_view tfoot{
+	background-color: $oscar-tfoot-color;
+}

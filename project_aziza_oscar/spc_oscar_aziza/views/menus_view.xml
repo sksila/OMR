@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- Top menu item -->
+    <menuitem id="menu_oscar_administration"
+              name="Administration"
+              sequence="90"
+              web_icon="spc_oscar_aziza,static/description/icon.png"
+              groups="spc_oscar_aziza.group_admin_oscar,spc_oscar_aziza.group_drh,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DE,spc_oscar_aziza.group_DRE"/>
+
+    <menuitem id="menu_users_groups"
+              name="Utilisateurs et groupes"
+              parent="menu_oscar_administration"
+              sequence="50"/>
+
+    <menuitem id="menu_oscar_product"
+			name="Articles" parent="menu_oscar_administration" sequence="100" />
+
+    <menuitem id="menu_oscar_configuration"
+              name="Configuration"
+              parent="menu_oscar_administration"
+              sequence="900"/>
+
+    <menuitem id="menu_gold_view"
+              name="Tables d'interface"
+              parent="menu_oscar_administration"
+              sequence="990"/>
+              
+    <record id="make_invisible" model="res.groups">
+        <field name="name">Invisible</field>
+    </record>
+
+</odoo>

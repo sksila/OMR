@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="ha_view_commande_inter_form" model="ir.ui.view">
+        <field name="name">oscar.commande.inter.form</field>
+        <field name="model">oscar.commande.inter</field>
+        <field name="arch" type="xml">
+            <form string="fournisseur">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="num_cmd"/>
+                            <field name="date_cmd"/>
+                            <field name="code_site"/>
+                            <field name="lib_site"/>
+                            <field name="code_fr"/>
+                            <field name="lib_fr"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--   test -->
+
+    <record id="ha_view_commande_inter_tree" model="ir.ui.view">
+        <field name="name">oscar.commande.inter.tree</field>
+        <field name="model">oscar.commande.inter</field>
+        <field name="arch" type="xml">
+            <tree string="Commande Gold List">
+                <field name="num_cmd"/>
+                <field name="date_cmd"/>
+                <field name="code_site"/>
+                <field name="lib_site"/>
+                <field name="code_fr"/>
+                <field name="lib_fr"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_commande_inter_filter" model="ir.ui.view">
+        <field name="name">oscar.commande.inter.search.view</field>
+        <field name="model">oscar.commande.inter</field>
+        <field name="arch" type="xml">
+            <search string="Commande Gold Search">
+                <field name="code_fr"/>
+                <field name="code_site"/>
+                <group expand="0" string="Group By">
+                    <filter string="Par fournisseur" name="fournisseur" context="{'group_by':'lib_fr'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_commande_form" model="ir.actions.act_window">
+        <field name="name">Commandes GOLD</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oscar.commande.inter</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new commandes.
+            </p>
+            <p>
+                Oscar helps you easily to manage your commandes
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_commande_inter" name="Commandes Gold"
+              parent="spc_oscar_aziza.menu_gold_view"
+              action="action_commande_form"/>
+
+</odoo>

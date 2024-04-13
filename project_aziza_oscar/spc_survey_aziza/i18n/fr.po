@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* spc_survey_aziza
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200417\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-10 14:00+0000\n"
+"PO-Revision-Date: 2021-02-10 15:11+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_survey_question__site
+msgid "Apply per site"
+msgstr "Appliquer par site"
+
+#. module: spc_survey_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_user_input_form_inherit_spc_aziza
+msgid "Auditor"
+msgstr "Auditeur"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_survey_question__plano_facing_family
+msgid "Family"
+msgstr "Catégorie Plano"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__id
+msgid "ID"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model:res.groups,name:spc_survey_aziza.make_invisible
+msgid "Invisible"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_survey_question__is_plano_facing_model
+msgid "Is Plano Facing Model"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_survey_question__is_product_model
+msgid "Is Product Model"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: spc_survey_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_form_inherit_spc_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_kanban_inherit_spc_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_tree_inherit_spc_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_user_input_form_inherit_spc_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_user_input_tree_inherit_spc_aziza
+msgid "Maquette"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_form_inherit_spc_aziza
+msgid "Pages"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_survey_question__plano_facing_category_id
+msgid "Plano Facing Category"
+msgstr "Catégorie Plano"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__category_name
+msgid "Plano category"
+msgstr "Catégorie Plano"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__element_level
+msgid "Plano type"
+msgstr "Type Plano"
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_oscar_site__plano_facing_site_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.oscar_site_view_form_plano
+msgid "Plano-Facing Details"
+msgstr "Détails du Plano-Facing"
+
+#. module: spc_survey_aziza
+#: model:ir.ui.menu,name:spc_survey_aziza.plano_facing_site_action_menu
+msgid "Plano-Facing by site"
+msgstr "Plano-Facing par site"
+
+#. module: spc_survey_aziza
+#: model:ir.actions.act_window,name:spc_survey_aziza.plano_facing_site_action
+msgid "Plano-Facing details per site"
+msgstr "Détails du Plano-Facing par site"
+
+#. module: spc_survey_aziza
+#: model:ir.model,name:spc_survey_aziza.model_oscar_site
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_plano_facing_site__site_id
+msgid "Site"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_survey_question__column_name
+msgid "Site Column"
+msgstr "Colonne concernée"
+
+#. module: spc_survey_aziza
+#: model:ir.model,name:spc_survey_aziza.model_survey_survey
+msgid "Survey"
+msgstr "Maquette"
+
+#. module: spc_survey_aziza
+#: model:ir.model,name:spc_survey_aziza.model_survey_question
+msgid "Survey Question"
+msgstr "Question du maquette"
+
+#. module: spc_survey_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_form_inherit_spc_aziza
+msgid "Tester la maquette"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_form_inherit_spc_aziza
+msgid "Titre du maquette"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model:ir.model.fields,field_description:spc_survey_aziza.field_survey_question__product_type_ids
+msgid "Type"
+msgstr ""
+
+#. module: spc_survey_aziza
+#: model_terms:ir.ui.view,arch_db:spc_survey_aziza.survey_user_input_form_inherit_spc_aziza
+msgid "View answers"
+msgstr "Voir les réponses"
+
+#. module: spc_survey_aziza
+#: model:ir.model,name:spc_survey_aziza.model_plano_facing_site
+msgid "plano_facing.site"
+msgstr ""

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!--Customer menu item-->
+    <menuitem id="menu_customer_inherit"
+              name="Clients"
+              parent="spc_oscar_aziza.menu_oscar_configuration"
+              action="base.action_partner_customer_form"
+              sequence="30"/>
+
+</odoo>

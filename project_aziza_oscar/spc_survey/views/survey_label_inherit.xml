@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record model="ir.ui.view" id="smart_survey_label_tree">
+            <field name="name">survey_label_tree col smart</field>
+            <field name="model">survey.label</field>
+            <field name="arch" type="xml">
+                <tree string="Survey Label" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="col_question_id" invisible="0"/>
+                    <field name="value"/>
+					<field name="col_type_resp" string="Type"/>
+					<field name="options" attrs="{'invisible': [('col_type_resp', '!=', 'dropdown')]}"/>
+					<field name="min"
+						   attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_mumber'])]}"/>
+					<field name="max"
+						   attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_mumber'])]}"/>
+					<field name="min_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+					<field name="max_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+					<field name="today" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}"/>
+                </tree>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="action_columns_from_question">
+			<field name="name">Columns</field>
+			<field name="res_model">survey.label</field>
+			<field name="view_id" ref="spc_survey.smart_survey_label_tree"/>
+			<field name="view_type">form</field>
+			<field name="domain">[('col_question_id', '=', active_id)]</field>
+			<field name="context">{}</field>
+		</record>
+
+		<record model="ir.ui.view" id="smart_survey_label_tree2">
+            <field name="name">survey_label_tree row smart</field>
+            <field name="model">survey.label</field>
+            <field name="arch" type="xml">
+                <tree string="Survey Label" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="row_question_id" invisible="1"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+	<record model="ir.actions.act_window" id="action_rows_from_question">
+			<field name="name">Rows</field>
+			<field name="res_model">survey.label</field>
+			<field name="view_id" ref="spc_survey.smart_survey_label_tree2"/>
+			<field name="view_type">form</field>
+			<field name="domain">[('row_question_id', '=', active_id)]</field>
+			<field name="context">{}</field>
+		</record>
+
+</odoo>

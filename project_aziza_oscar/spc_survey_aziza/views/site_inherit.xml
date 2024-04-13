@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+	
+		<record id="oscar_site_view_form_plano" model="ir.ui.view">
+            <field name="model">oscar.site</field>
+            <field name="inherit_id" ref="spc_oscar_aziza.oscar_site_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook//page[2]" position="after">
+
+                        <page string="Plano-Facing Details">
+							<field name="plano_facing_site_ids">
+								<tree editable="bottom">
+									<field name="category_name" required="1"/>
+									<field name="element_level" required="1"/>
+									<field name="site_id" invisible="1"/>
+								</tree>
+								<form>
+									<group>
+										<field name="category_name" />
+										<field name="element_level"/>
+									</group>
+								</form>
+							</field>
+						</page>
+
+                </xpath>
+
+            </field>
+        </record>
+		
+		
+		
+		
+		
+	</odoo>

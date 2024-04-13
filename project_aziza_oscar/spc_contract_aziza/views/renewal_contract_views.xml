@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+
+	  	<!-- Top menu contract -->
+		<menuitem name="Contrats" id="menu_contract" sequence="80" web_icon="spc_contract_aziza,static/description/icon.png"/>
+
+		<menuitem name="Renouvellement contrat"
+			id="menu_contract_renouvellement" parent="menu_contract"
+			sequence="10"
+			 />
+
+		<menuitem name="Magasin"
+			id="menu_contract_renouvellement_magasin" parent="menu_contract_renouvellement"
+			sequence="10"
+			 />
+
+		<!-- menu Configuration -->
+		<menuitem name="Configuration"
+			id="menu_contract_configuration" parent="menu_contract"
+			sequence="200" 
+			groups="spc_oscar_aziza.group_drh"
+			/>
+		
+		 <record model="ir.actions.act_window"
+			id="action_evaluation_by_employee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Evaluations</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('employee_id', '=', active_id)]</field>
+			<field name="context">{'default_employee_id' : active_id}</field>
+		</record>
+		
+		<record id="contract_hr_hr_employee_view_form" model="ir.ui.view">
+            <field name="name">contract.hr.hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//div[@name='button_box']" position="inside">
+                        <button name="%(action_evaluation_by_employee)d"
+							class="oe_stat_button" icon="fa-star" type="action" >
+							<field name="evaluations_count" widget="statinfo"
+								string="Évaluations" /> 
+						</button>
+						
+                    </xpath>
+                    
+                </data>
+            </field>
+        </record> 
+        
+        
+  <!-- view filter -->
+		<record id="view_renewal_contrat_filter" model="ir.ui.view">
+			<field name="name">renewal.contrat.search.view</field>
+			<field name="model">oscar.contract.renewal</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher des nouveaux contrats">
+					<field name="name" />
+					<field name="type_id" />
+					<field name="employee_id"/>
+					<field name="department_id"/>
+					<field name="job_id"/>
+					<field name="state"/>
+					<separator /> 
+					 <filter string="Nouveau Contrat" name="new_contrat"
+						domain="[('state', '=', 'new')]" />
+					<filter string="Contrat renouvelé par MD" name="renew_contrat_md"
+						domain="[('state', '=', 'validate_md')]" />
+					<filter string="Contrat renouvelé par DRE" name="renew_contrat_dre"
+						domain= "[('state', '=', 'validate_dre')]"/>
+					<filter string="Contrat renouvelé par DHRBP" name="renew_contrat_dhrbp"
+						domain="[('state', '=', 'validate_dhrbp')]" />
+					
+					<filter string="Contrat renouvelé par DE" name="renew_contrat_de"
+						domain="[('state', '=', 'validate_de')]" />
+					<filter string="Contrat renouvelé par DG" name="renew_contrat_dg"
+						domain="[('state', '=', 'validate_dg')]" />
+					 
+					
+					<group expand="1" string="Group By">
+						 <filter string="Type de contrat" name="type" context="{'group_by':'type_id'}" />
+						 <separator />
+						 <filter string="Employé" name="employé" context="{'group_by':'employee_id'}" />
+						 <separator />
+						 <filter string="Direction" name="direction" context="{'group_by':'department_id'}" />
+						 <separator />
+						 <filter string="Poste" name="poste" context="{'group_by':'job_id'}" />
+						 <separator />
+						 <filter name="Statut" string="statut de contrat" context="{'group_by':'state'}" /> 
+						 <separator />
+						
+						
+					</group>
+				</search>
+			</field>
+		</record> 
+		
+		
+		<!-- Renouvellement contrat form view : Magasin-->
+		<record model="ir.ui.view" id="contract_renewal_view_form">
+			<field name="name">contract.renewal.view.form</field>
+			<field name="model">oscar.contract.renewal</field>
+			<field name="arch" type="xml">
+				<form string="Renouvellement contrat">
+					<header>
+						<button name="validate_contract_renewal" string="Valider"
+							type="object"
+							states="new,validate_md,validate_dre,validate_dhrbp,validate_de"
+							class="btn-primary oe_read_only"
+							confirm="Vous désirez valider la demande de renouvellement de contrat?"
+							/>
+						<field name="state" widget="statusbar"
+							statusbar_visible="new,validate_md,validate_dre,validate_dhrbp,validate_de,validate_dg"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1> 
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+
+						<group>
+							<group>
+								<field name="type" invisible="1"/>
+								<field name="employee_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="job_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="department_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="manager_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="magasin_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+							<group>
+							    <field name="type_current_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_embauche" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_start" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_end" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="remaining_leaves" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+						</group>
+
+						<notebook colspan="4">
+						
+						
+							<page string="Décision">
+								<group>
+									<group>
+										<field name="type_id" attrs="{'invisible': [('end_contract', '!=', False)], 'required': [('end_contract', '=', False)],'readonly': [('state','=','validate_dg')]}"/>
+										<field name="number_months" attrs="{'invisible': [('end_contract', '!=', False)],'readonly': [('state','=','validate_dg')]}"/>
+										<field name="end_contract" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+									</group>
+								</group>
+							</page>
+							
+								<page string="Notes">
+								<group>
+									<group>
+									<field name="notes" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+									</group>
+								</group>
+								</page>
+						</notebook>
+						
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="contract_renewal_view_form_siege">
+			<field name="name">contract.renewal.view.siege.form</field>
+			<field name="model">oscar.contract.renewal</field>
+			<field name="arch" type="xml">
+				<form string="Renouvellement contrat">
+					<header>
+						<button name="validate_contract_renewal" string="Valider"
+							type="object"
+							states="new,validate_sub_dir_concernee,validate_dir_concernee,validate_drh,validate_dg"
+							class="btn-primary oe_read_only"
+							confirm="Vous désirez valider la demande de renouvellement de contrat?"
+							/>
+						<field name="state" widget="statusbar"
+							statusbar_visible="new,validate_sub_dir_concernee,validate_dir_concernee,validate_drh,validate_dg" />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+
+						<group>
+							<group>
+								<field name="type" invisible="1"/>
+								<field name="employee_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="job_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="department_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="manager_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="magasin_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+							<group>
+							    <field name="type_current_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_embauche" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_start" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_end" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="remaining_leaves" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+						</group>
+
+						<notebook colspan="4">
+
+
+							<page string="Décision">
+								<group>
+									<group>
+										<field name="type_id" attrs="{'invisible': [('end_contract', '!=', False)], 'required': [('end_contract', '=', False)],'readonly': [('state','=','validate_dg')]}"/>
+										<field name="number_months" attrs="{'invisible': [('end_contract', '!=', False)],'readonly': [('state','=','validate_dg')]}"/>
+										<field name="end_contract" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+									</group>
+								</group>
+							</page>
+
+								<page string="Notes">
+								<group>
+									<group>
+									<field name="notes" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+									</group>
+								</group>
+								</page>
+						</notebook>
+
+					</sheet>
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Renouvellement contrat tree view -->
+		<record model="ir.ui.view" id="contract_renewal_view_tree">
+			<field name="name">contract.renewal.view.tree</field>
+			<field name="model">oscar.contract.renewal</field>
+			<field name="arch" type="xml">
+				<tree decoration-bf="message_needaction == True" decoration-danger="is_expired!=False">
+					<field name="name"/>
+					<field name="type_id" />
+					<field name="date" />
+					<field name="employee_id" />
+					<field name="job_id" />
+					<field name="department_id" />
+					<field name="date_start" />
+					<field name="date_end" />
+					<field name="magasin_id" />
+					<field name="state" />
+					<field name="type" invisible="1" />
+					<field name="is_expired" invisible="1" />
+					<field name="message_needaction" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+		
+         <!-- vue tree pour les postes -->
+          <record id="hr.view_hr_job_tree" model="ir.ui.view">
+            <field name="name">hr.job.tree</field>
+            <field name="model">hr.job</field>
+            <field name="arch" type="xml">
+                <tree string="Job" decoration-bf="message_needaction==True">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                    <field name="no_of_employee"/>
+                    <field name="no_of_recruitment" invisible="1"/>
+                    <field name="expected_employees" invisible="1"/>
+                    <field name="no_of_hired_employee" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                    <field name="message_needaction" invisible="1"/>
+                </tree>
+            </field>
+        </record>   
+
+		<!-- actions nouvelle demande de renouvellement -->
+		<record model="ir.actions.act_window"
+			id="action_new_demande_renouvellement">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Renouvellement contrat</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form')})]"
+			/>
+			<field name="domain">[('state', '=', 'new'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Créer une nouvelle demande.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions renouvellement validee par MD -->
+		<record model="ir.actions.act_window"
+			id="action_renouvellement_validate_md">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par MD</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form')})]"
+			/>
+			<field name="domain">[('state','=','validate_md'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions renouvellement validee par DRE -->
+		<record model="ir.actions.act_window"
+			id="action_renouvellement_validate_dre">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par DRE</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+   				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form')})]"
+			/>
+			<field name="domain">[('state','=','validate_dre'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions renouvellement validee par D. HRBP -->
+		<record model="ir.actions.act_window"
+			id="action_renouvellement_validate_dhrbp">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par D. HRBP</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form')})]"
+			/>
+			<field name="domain">[('state','=','validate_dhrbp'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions renouvellement validee par DE -->
+		<record model="ir.actions.act_window"
+			id="action_renouvellement_validate_de">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par DE</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form')})]"
+			/>
+			<field name="domain">[('state','=','validate_de'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions renouvellement validee par DG -->
+		<record model="ir.actions.act_window"
+			id="action_renouvellement_validate_dg">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par DG</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form')})]"
+			/>
+			<field name="domain">[('state','=','validate_dg'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- menu demande de renouvellement -->
+		<menuitem name="Nouvelles demandes"
+			id="menu_new_demande_renouvellement"
+			parent="menu_contract_renouvellement_magasin"
+			action="action_new_demande_renouvellement" sequence="10" 
+			
+			/>
+		
+		<!-- menu renouvellement validee par MD -->
+		<menuitem name="Validées par MD"
+			id="menu_renouvellement_validate_md"
+			parent="menu_contract_renouvellement_magasin"
+			action="action_renouvellement_validate_md" sequence="20" 
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE"
+			/>
+		
+		<!-- menu renouvellement validee par DRE -->
+		<menuitem name="Validées par DRE"
+			id="menu_renouvellement_validate_dre"
+			parent="menu_contract_renouvellement_magasin"
+			action="action_renouvellement_validate_dre" sequence="30"
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_dhrbp"
+			 />
+		
+		<!-- menu renouvellement validee par D. HRBP -->
+		<menuitem name="Validées par D. HRBP"
+			id="menu_renouvellement_validate_dhrbp"
+			parent="menu_contract_renouvellement_magasin"
+			action="action_renouvellement_validate_dhrbp" sequence="40" 
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dhrbp,spc_oscar_aziza.group_DE"
+			/>
+		
+		<!-- menu renouvellement validee par DE -->
+		<menuitem name="Validées par DE"
+			id="menu_renouvellement_validate_de"
+			parent="menu_contract_renouvellement_magasin"
+			action="action_renouvellement_validate_de" sequence="50" 
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_DE,spc_oscar_aziza.group_dg"
+			/>
+		
+		<!-- menu renouvellement validee par DG -->
+		<menuitem name="Validées par DG"
+			id="menu_renouvellement_validate_dg"
+			parent="menu_contract_renouvellement_magasin"
+			action="action_renouvellement_validate_dg" sequence="60"
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dg"
+			/>
+		
+		<!-- menu employés -->
+		  <menuitem name="Employés" id="menu_contract_employee"
+			parent="menu_contract_configuration" action="hr.open_view_employee_list_my"
+			sequence="100" 
+			/> 
+		
+		
+		<!-- menu types de contrat -->
+		 <menuitem name="Types de Contrat" id="menu_contract_type"
+			parent="menu_contract_configuration" action="hr_contract.action_hr_contract_type"
+			sequence="400" 
+			/> 
+		
+		<!-- menu direction -->
+		<menuitem name="Directions" id="menu_contract_direction"
+			parent="menu_contract_configuration" action="hr.open_module_tree_department"
+			sequence="200"
+			 /> 
+			 
+		<!-- menu postes -->
+        <menuitem name="Postes" id="menu_contract_poste"
+         parent="menu_contract_configuration" action="hr.action_hr_job"
+         sequence="300"
+              /> 
+        
+         <record id="action_import_excel_wizard" model="ir.actions.act_window">
+			<field name="name">Importation fichier excel (Renouvellement contrat)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">import.excel.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_import_excel_wizard" />
+			<field name="target">new</field>
+			<field name="context">{'default_type_file':'renewal'}</field>
+		</record>
+        
+		<!-- menu Importer -->
+		<menuitem name="Importer nouvelles demandes"
+			id="menu_import_excel_wizard"
+			parent="menu_contract_renouvellement"
+			action="spc_contract_aziza.action_import_excel_wizard" sequence="100" 
+			groups="spc_oscar_aziza.group_drh"
+			/>
+
+
+		<!-- depatment -->
+
+		<record model="ir.ui.view" id="hr_employee_tree_contract">
+			<field name="name">hr.employee.tree.for_department.contract</field>
+			<field name="model">hr.employee</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" />
+					<field name="code_rh" />
+					<field name="job_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_department_form_inherit_contract" model="ir.ui.view">
+            <field name="name">hr.department.form.inherit.contract</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@col='4']" position="after">
+                    <group string="Gestionnaires">
+						<field name="manager_ids" context="{'tree_view_ref':'spc_contract_aziza.hr_employee_tree_contract'}">
+							<tree>
+								<field name="name" />
+								<field name="code_rh" />
+								<field name="job_id" />
+							</tree>
+						</field>
+					</group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_department_tree_inherit_contract" model="ir.ui.view">
+            <field name="name">hr.department.tree.inherit.contract</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="manager_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+            </field>
+        </record>
+
+		<!-- Siege -->
+
+		<menuitem name="Siége"
+			id="menu_contract_renouvellement_siege" parent="menu_contract_renouvellement"
+			sequence="20"
+			 />
+
+		<!-- action demande de renouvellement -->
+		<record model="ir.actions.act_window"
+			id="action_new_demande_renouvellement_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Nouvelles demandes</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','new'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par sous D.concernée  -->
+		<record model="ir.actions.act_window"
+			id="action_validatate_concerned_sub_direction_renouvellement_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par sous D.concernée</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_sub_dir_concernee'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par D.concernée  -->
+		<record model="ir.actions.act_window"
+			id="action_validatate_concerned_direction_renouvellement_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par D.concernée</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_dir_concernee'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par DRH  -->
+		<record model="ir.actions.act_window"
+			id="action_validate_drh_renouvellement_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par DRH</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_drh'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par DG  -->
+		<record model="ir.actions.act_window"
+			id="action_validate_dg_renouvellement_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par DG</field>
+			<field name="res_model">oscar.contract.renewal</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_renewal_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_renewal_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_dg'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- menu demande de renouvellement -->
+		<menuitem name="Nouvelles demandes"
+			id="menu_new_demande_renouvellement_siege"
+			parent="menu_contract_renouvellement_siege"
+			action="action_new_demande_renouvellement_siege" sequence="10"
+
+			/>
+
+		<!-- menu renouvellement validee par sous D.concernée -->
+		<menuitem name="Validées par sous D.concernée"
+			id="menu_validatate_concerned_sub_direction_renouvellement_siege"
+			parent="menu_contract_renouvellement_siege"
+			action="action_validatate_concerned_sub_direction_renouvellement_siege" sequence="15"
+			/>
+
+		<!-- menu renouvellement validee par D.concernée -->
+		<menuitem name="Validées par D.concernée"
+			id="menu_validatate_concerned_direction_renouvellement_siege"
+			parent="menu_contract_renouvellement_siege"
+			action="action_validatate_concerned_direction_renouvellement_siege" sequence="20"
+			groups="spc_oscar_aziza.group_drh,hr_contract.group_hr_contract_manager"
+			/>
+
+		<!-- menu renouvellement validee par DRH -->
+		<menuitem name="Validées par DRH"
+			id="menu_validate_drh_renouvellement_siege"
+			parent="menu_contract_renouvellement_siege"
+			action="action_validate_drh_renouvellement_siege" sequence="30"
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dg"
+			 />
+
+		<!-- menu renouvellement validee par DG -->
+		<menuitem name="Validées par DG"
+			id="menu_validate_dg_renouvellement_siege"
+			parent="menu_contract_renouvellement_siege"
+			action="action_validate_dg_renouvellement_siege" sequence="60"
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dg"
+			/>
+
+			
+	</data>
+</odoo>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<template id="print_template_pages_session_spc_survey_inherit_extra" inherit_id="spc_survey.print_template_pages_session_spc_survey">
+		<xpath expr="//div[@t-foreach='page.question_ids']" position="replace">
+			<div t-foreach="page.question_ids" t-as="question">
+				<p class="h5 border border-dark" style="color:#000;background-color:#E3E7F1;padding:8px;" t-field='question.question' />
+				<div style="margin-top:12px;"></div>
+				<t t-if="question.type == 'advanced_matrix'">
+					<t t-set="nbre_cols" t-value="len(question.labels_adv_matrix_cols_ids)" />
+					<t t-set="prefix" t-value="'%s_%s_%s' % (surv.survey_id.id, page.id, question.id)" />
+					<t t-if="not question.fill_auto">
+						<t t-set="nbre_rows" t-value="len(question.labels_adv_matrix_rows_ids)" />
+						<table class="table table-condensed" style="width: 100%; border: 1px solid #000;">
+							<thead class="thead-dark">
+								<tr>
+									<th> </th>
+									<th t-foreach="question.labels_adv_matrix_cols_ids" t-as="col" class="align-middle">
+										<span><span t-field="col.value" /></span>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="tbody">
+								<tr t-foreach="question.labels_adv_matrix_rows_ids" t-as="row_label" style="background-color:#F9F9F9;">
+									<th style="text-align:left"> <span t-field="row_label.value" style="text-align: justify;" /> </th>
+									<td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+										<t t-set="prefix" t-value="'%s_%s_%s' % (prefix, row_label.id, col_label.id)" />
+										<t t-set="content" t-value="question.get_value(surv.user_input_line_ids,prefix,surv.id)" />
+										<t t-if="content">
+											<t t-if="col_label.col_type_resp == 'cam'">
+												<img t-att-src="content" alt="capture" style="height:200px;width=200px" />
+											</t>
+											<t t-if="col_label.col_type_resp == 'attachment'">
+												<ul class="list-group" t-foreach="content" t-as="attach">
+													<li class="list-group-item">
+														<t t-esc="attach[0]"/> : <a t-att-href="'/web/content/' + attach[1] + '?download=true'">[Voir]</a>
+													</li>
+												</ul>
+											</t>
+											<t t-else="">
+												<span t-esc="content"/>
+											</t>
+										</t>
+										<t t-set="prefix" t-value="'%s_%s_%s' % (surv.survey_id.id, page.id, question.id)" />
+										<t t-set="content" t-value="" />
+									</td>
+								</tr>
+
+								<!-- add line -->
+								<t t-if="question.add_line_feature">
+
+									<t t-set="response" t-value="env['survey.user_input'].search([('token','=',surv.token)])" />
+                    				<t t-if="response.user_input_line_ids">
+										<t t-set="final_row" t-value="999999" />
+										<t t-set="nb_rows" t-value="" />
+										<t t-foreach="env['survey.user_input_line'].search([('user_input_id','=',response.id),('question_id','=',question.id)])" t-as="line">
+											<t t-set="nb_rows" t-value="str(nb_rows) + ',' + str(int(line.a_tag.split('_')[3]))" />
+											<t t-if="int(line.a_tag.split('_')[3]) &lt; int(final_row)">
+												<t t-set="final_row" t-value="int(line.a_tag.split('_')[3])" />
+											</t>
+										</t>
+										<t t-set="not_add_line_rows" t-value="len(question.labels_adv_matrix_rows_ids)" /> <!-- number of not add_line rows -->
+										<t t-set="all_rows" t-value="len(list(set(nb_rows.split(',')))) - 1" /> <!-- number of all rows (add_line & not_add_line) ; why -1? to eliminate None -->
+									</t>
+									<t t-if="final_row">
+										<t>
+											<tr t-foreach="range(int(all_rows) - int(not_add_line_rows))" t-as="line">
+												<th>
+													<span/>
+												</th>
+												<td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+
+													<t t-set="prefix" t-value="'%s_%s_%s' % (prefix, str(final_row+line+1), col_label.id)" />
+													<t t-set="content" t-value="question.get_value(surv.user_input_line_ids,prefix,surv.id)" />
+													<t t-if="content">
+														<t t-if="col_label.col_type_resp == 'cam'">
+															<img t-att-src="content" alt="capture" style="height:200px;width=200px" />
+														</t>
+														<t t-if="col_label.col_type_resp == 'attachment'">
+															<ul class="list-group" t-foreach="content" t-as="attach">
+																<li class="list-group-item">
+																	<t t-esc="attach[0]"/> : <a t-att-href="'/web/content/' + attach[1] + '?download=true'">[Voir]</a>
+																</li>
+															</ul>
+														</t>
+														<t t-else="">
+															<span t-esc="content"/>
+														</t>
+													</t>
+													<t t-set="prefix" t-value="'%s_%s_%s' % (surv.survey_id.id, page.id, question.id)" />
+													<t t-set="content" t-value="" />
+												</td>
+											</tr>
+										</t>
+									</t>
+								</t>
+
+							</tbody>
+						</table>
+					</t>
+
+					<t t-else="question.fill_auto">
+						<t t-set="nbre_rows" t-value="surv.automatic_fill_lines(question)" />
+						<table class="table table-condensed" style="width: 100%; border: 1px solid #000;">
+							<thead class="thead-dark">
+								<tr>
+									<th> </th>
+									<th t-foreach="question.labels_adv_matrix_cols_ids" t-as="col" class="align-middle">
+										<span><span t-field="col.value" /></span>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="tbody">
+								<tr t-foreach="range(nbre_rows)" t-as="row" style="background-color:#F9F9F9;">
+									<th> </th>
+									<td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+
+										<t t-set="prefix" t-value="'%s_%s_%s' % (prefix, row, col_label.id)" />
+										<t t-set="content" t-value="question.get_value(surv.user_input_line_ids,prefix,surv.id)" />
+										<t t-if="content">
+											<t t-if="col_label.col_type_resp == 'cam'">
+												<img t-att-src="content" alt="capture" style="height:200px;width=200px" />
+											</t>
+											<t t-if="col_label.col_type_resp == 'attachment'">
+												<ul class="list-group" t-foreach="content" t-as="attach">
+													<li class="list-group-item">
+														<t t-esc="attach[0]"/> : <a t-att-href="'/web/content/' + attach[1] + '?download=true'">[Voir]</a>
+													</li>
+												</ul>
+											</t>
+											<t t-else="">
+												<span t-esc="content"/>
+											</t>
+										</t>
+										<t t-set="prefix" t-value="'%s_%s_%s' % (surv.survey_id.id, page.id, question.id)" />
+										<t t-set="content" t-value="" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</t>
+
+					<!-- Details -->
+					<t t-if="question.detail">
+						<br/>
+						<t t-set="response" t-value="env['survey.user_input'].search([('token','=',surv.token)])" />
+                    	<t t-if="response.user_input_line_ids">
+                        	<t t-set="nb_rows" t-value="0" />
+                        	<t t-foreach="env['survey.user_input_line'].search([('user_input_id','=',response.id),('question_id','=',question.id)])" t-as="line">
+                            	<t t-if="'_details' in line.a_tag and int(line.a_tag.split('_')[3]) > nb_rows">
+                                	<t t-set="nb_rows" t-value="int(line.a_tag.split('_')[3])" />
+                            	</t>
+                        	</t>
+                    	</t>
+
+					    <table class="table table-condensed" style="width: 100%;border: 1px solid #000;">
+							<thead class="thead-dark">
+								<tr>
+									<th> </th>
+									<th t-foreach="question.detail_labels_adv_matrix_cols_ids" t-as="col_label_detail" class="align-middle" style="text-align:left">
+										<span><span t-field="col_label_detail.value" /></span>
+									</th>
+							  	</tr>
+						    </thead>
+						    <tbody class="tbody">
+							    <t t-if="nb_rows >= 0">
+								    <tr t-foreach="range(nb_rows+1)" t-as="line">
+                                        <th>
+                                            <span/>
+                                        </th>
+                                        <td t-foreach="question.detail_labels_adv_matrix_cols_ids" t-as="col_label_detail">
+
+											<t t-set="prefix" t-value="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" />
+											<t t-set="content" t-value="question.get_value(surv.user_input_line_ids,prefix,surv.id)" />
+											<t t-if="content">
+												<t t-if="col_label_detail.col_type_resp == 'cam'">
+													<img t-att-src="content" alt="capture" style="height:200px;width=200px" />
+												</t>
+												<t t-if="col_label_detail.col_type_resp == 'attachment'">
+													<ul class="list-group" t-foreach="content" t-as="attach">
+														<li class="list-group-item">
+															<t t-esc="attach[0]"/> : <a t-att-href="'/web/content/' + attach[1] + '?download=true'">[Voir]</a>
+														</li>
+													</ul>
+												</t>
+												<t t-else="">
+													<span t-esc="content"/>
+												</t>
+											</t>
+											<t t-set="prefix" t-value="'%s_%s_%s' % (surv.survey_id.id, page.id, question.id)" />
+											<t t-set="content" t-value="" />
+										</td>
+                                    </tr>
+								</t>
+						  </tbody>
+
+
+					  </table>
+					</t>
+
+				</t>
+			</div>
+
+		</xpath>
+	</template>
+
+
+
+
+
+
+
+	<template id="print_template_session_spc_survey_extra_inherit" inherit_id="spc_survey.print_template_session_spc_survey">
+		<xpath expr="//t[@t-call='spc_survey.print_template_pages_session_spc_survey']" position="replace">
+			<t t-call="spc_survey_extra.print_template_pages_session_spc_survey_inherit_extra" />
+		</xpath>
+    </template>
+
+
+    
+    
+
+
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--        Visibilité pour le groupe Qualité-->
+    <record id="derogation_view_form_inherited_cg" model="ir.ui.view">
+        <field name="inherit_id" ref="derogation_view_form"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('spc_oscar_aziza.group_cg_aziza'),ref('spc_oscar_aziza.group_bo_oscar')
+                        ,ref('spc_oscar_aziza.group_admin_oscar')])]"/>
+        <field name="model">derogation.derogation</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='facturation']" position="attributes">
+                <attribute name="attrs">{'invisible':1}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

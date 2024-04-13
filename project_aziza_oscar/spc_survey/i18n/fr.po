@@ -1,0 +1,2073 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* spc_survey
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200417\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-01 09:10+0000\n"
+"PO-Revision-Date: 2021-04-01 10:16+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_page_tree
+msgid "#Questions"
+msgstr "Nb de questions"
+
+#. module: spc_survey
+#: model:mail.template,report_name:spc_survey.spc_survey_template_final_report
+msgid "${(object.survey_session_id.name)} ${(object.site_id.name)}"
+msgstr ""
+
+#. module: spc_survey
+#: selection:survey.label,today:0
+msgid "< today"
+msgstr "< Aujourd’hui"
+
+#. module: spc_survey
+#: selection:survey.label,today:0
+msgid "<= today"
+msgstr "<= Aujourd’hui"
+
+#. module: spc_survey
+#: model:mail.template,body_html:spc_survey.spc_survey_template_final_report
+msgid ""
+"<div>\n"
+"\t\t\t    Bonjour ,<br/>\n"
+"\t\t\t    ci-joint le rapport audit du magasin Aziza ${(object.site_id.name)} .\n"
+"\t\t\t</div> <br/>\n"
+"            <table class=\"table table-condensed\" style=\"width: 100%; border: 1px solid #fff;\">\n"
+"                <tr style=\"color:black;background-color:rgba(254,217,6,0.8);\">\n"
+"                    <td>Score Final du Magasin</td>\n"
+"                    <td>${round(object.session_final_score)}</td>\n"
+"                </tr>\n"
+"            </table>\n"
+"\t\t\t<br/>\n"
+"                <hr/>\n"
+"\t\t\t\n"
+"\t\t\t<div>\n"
+"\t\t\t\tCordialement. <br/>\n"
+"\t\t\t\tDirection Audit et Veille Stratégique \n"
+"\t\t\t</div>\n"
+"            "
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-2x\" role=\"img\" aria-label=\"Numeric\" title=\"Numeric\">123..</i>"
+msgstr "<i class=\"fa fa-2x\" role=\"img\" aria-label=\"Nombres\" title=\"Nombres\">123..</i>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-align-justify fa-4x\" role=\"img\" aria-label=\"Multiple lines\" title=\"Multiple Lines\"/>"
+msgstr "<i class=\"fa fa-align-justify fa-4x\" role=\"img\" aria-label=\"Lignes multiples\" title=\"Lignes multiples\"/>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_external_layout
+msgid "<i class=\"fa fa-at\" role=\"img\" aria-label=\"Email\" title=\"Email\"/>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.cam_modal_template
+msgid "<i class=\"fa fa-check-circle fa-2x\"> Validate</i>"
+msgstr "<i class=\"fa fa-check-circle fa-2x\">Valider</i>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-check-square-o fa-lg\"/> answer"
+msgstr "<i class=\"fa fa-check-square-o fa-lg\"/> réponse"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-circle-o  fa-lg\"/> answer"
+msgstr "<i class=\"fa fa-circle-o fa-lg\"/> réponse"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-circle-o fa-lg\" role=\"img\" aria-label=\"Not checked\" title=\"Not checked\"/>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-dot-circle-o fa-lg\" role=\"img\" aria-label=\"Checked\" title=\"Checked\"/>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-dot-circle-o fa-lg\"/> answer"
+msgstr "<i class=\"fa fa-dot-circle-o fa-lg\"/> réponse"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_external_layout
+msgid "<i class=\"fa fa-globe\" role=\"img\" aria-label=\"Website\" title=\"Website\"/>"
+msgstr "<i class=\"fa fa-globe\" role=\"img\" aria-label=\"Site Web\" title=\"Site Web\"/>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+msgid "<i class=\"fa fa-minus fa-2x\" role=\"img\" aria-label=\"Champs\" title=\"Champs à remplir\"/>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-minus fa-4x\" role=\"img\" aria-label=\"Single Line\" title=\"Single Line\"/>"
+msgstr "<i class=\"fa fa-minus fa-4x\" role=\"img\" aria-label=\"Une seule ligne\" title=\"Une seule ligne\"/>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.cam_modal_template
+msgid "<i class=\"fa fa-reply-all fa-2x\"> Try Again</i>"
+msgstr "<i class=\"fa fa-reply-all fa-2x\"> Réessayer</i>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "<i class=\"fa fa-square-o fa-lg\"/> answer"
+msgstr "<i class=\"fa fa-square-o fa-lg\"/> réponse"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.cam_modal_template
+msgid "<i class=\"fa fa-times-circle fa-2x\"> Cancel</i>"
+msgstr "<i class=\"fa fa-times-circle fa-2x\"> Annuler</i>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Code magasin : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Date De Visite : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Dir-Régional : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Heure Début Audit : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Heure Fin Audit : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Nom du magasin : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Rang : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Responsable Magasin : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_session_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_session_spc_survey
+msgid "<span style=\"font-weight:bold;\">Responsable Zone : </span>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_page_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_maq
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_session_spc_survey
+msgid "<strong>Auditeur :  </strong>"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_page_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_maq
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_session_spc_survey
+msgid "<strong>Magasin  :  </strong>"
+msgstr ""
+
+#. module: spc_survey
+#: selection:survey.label,today:0
+msgid "> today"
+msgstr "> Aujourd’hui"
+
+#. module: spc_survey
+#: selection:survey.label,today:0
+msgid ">= today"
+msgstr ">= Aujourd'hui"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:46
+#, python-format
+msgid "A label must be attached to only one question."
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_needaction
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_needaction
+msgid "Action Needed"
+msgstr "Nécessite une action"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Activate/Desactivate"
+msgstr "Activer/Désactiver"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__active
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session
+msgid "Active"
+msgstr "Actif"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__activity_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__activity_ids
+msgid "Activities"
+msgstr "Activités"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_mail_activity
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__activity_id
+msgid "Activity"
+msgstr "Activité"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__activity_state
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__activity_state
+msgid "Activity State"
+msgstr "Status de l'Activité"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_user_input_form_inherit
+msgid "Add a line"
+msgstr "Ajouter une ligne"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_user_input_form_inherit
+msgid "Add a section"
+msgstr "Ajouter une section"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.spc_survey_type_action
+msgid "Add survey type."
+msgstr "Ajouter le type de maquette."
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat
+msgid "Advance Matrix answer"
+msgstr "Réponse de la matrice avancée"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_attachment
+msgid "Advanced Matrix Attachments answer"
+msgstr "Réponse de la matrice avancée [attachements]"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_date
+msgid "Advanced Matrix Date answer"
+msgstr "Réponse de la matrice avancée [date]"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_dropdown
+msgid "Advanced Matrix Dropdown answer"
+msgstr "Réponse de la matrice avancée [liste déroulante]"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_float_number
+msgid "Advanced Matrix FloatNumber answer"
+msgstr "Réponse de la matrice avancée [nombre flottant]"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_number
+msgid "Advanced Matrix Number answer"
+msgstr "Réponse de la matrice avancée [nombre entier]"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_user_input_line_form_inherit
+msgid "Advanced Matrix Question type informations"
+msgstr "Informations sur le type de question Matrice avancée"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_text
+msgid "Advanced Matrix Text answer"
+msgstr "Réponse de la matrice avancée [text]"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_textarea
+msgid "Advanced Matrix Textarea answer"
+msgstr "Réponse de la matrice avancée [textarea]"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__value_adv_mat_cam
+msgid "Advanced Matrix cam answer"
+msgstr "Réponse de la matrice avancée [cam]"
+
+#. module: spc_survey
+#: selection:survey.user_input_line,answer_type:0
+msgid "Advanced Matrix field"
+msgstr "Champ Matrice avancée"
+
+#. module: spc_survey
+#: selection:survey.question,type:0
+msgid "Advanced matrix"
+msgstr "Matrice avancée"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session
+msgid "All"
+msgstr "Tous"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Allow Comments"
+msgstr "Autoriser les commentaires"
+
+#. module: spc_survey
+#: model:ir.actions.report,name:spc_survey.only_final_anomalies
+msgid "Anomalies Report"
+msgstr "Rapport d'anomalies"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__anomalies_report_ids
+msgid "Anomalies report"
+msgstr "Rapport d'anomalies"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Anomalies report configuration"
+msgstr "Configuration du rapport d'anomalies"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__answer_type
+msgid "Answer Type"
+msgstr "Type de réponse"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__column
+msgid "Answer column"
+msgstr "Colonne de réponse"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__row
+msgid "Answer row"
+msgstr "Ligne de réponse"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__a_tag
+msgid "Answer tag"
+msgstr "Tag du réponse"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_survey_user_input_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Answers"
+msgstr "Réponses"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:20
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:42
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Attachment"
+msgstr "Attachement"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_attachment_count
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
+
+#. module: spc_survey
+#: model:ir.ui.menu,name:spc_survey.my_audit_sessions_menu
+#: model:mail.activity.type,name:spc_survey.audit_activity_data
+msgid "Audit"
+msgstr ""
+
+#. module: spc_survey
+#: model:mail.template,subject:spc_survey.spc_survey_template_final_report
+msgid "Audit ${(object.site_id.name)} "
+msgstr ""
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_other_audit
+msgid "Audit Other"
+msgstr ""
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_rz
+msgid "Audit RZ"
+msgstr ""
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_interne
+msgid "Audit interne"
+msgstr ""
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_audit_manager
+msgid "Audit manager"
+msgstr ""
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_metier
+msgid "Audit métier"
+msgstr ""
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_qesh
+msgid "Audit qesh"
+msgstr ""
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_quality
+msgid "Audit qualité"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__auditor_id
+#: model:res.groups,name:spc_survey.group_auditor
+msgid "Auditor"
+msgstr "Auditeur"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.single_survey_scores
+msgid "Back"
+msgstr "Retour"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "CORRECTION TIME"
+msgstr "Temps de correction"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:21
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:43
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Camera"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_page_final_score_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_session_final_score_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.cam_modal_template
+msgid "Capture"
+msgstr "Capturer"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Choices"
+msgstr "Choix"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Choose"
+msgstr "Choisissez"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_session.py:87
+#: code:addons/spc_survey/models/survey_session.py:93
+#: code:addons/spc_survey/models/survey_session.py:99
+#, python-format
+msgid "Choose an operation!"
+msgstr "Choisissez une opération!"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.scoring_form
+msgid "Choose criteria"
+msgstr "Choisissez des critères"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_session.py:44
+#, python-format
+msgid "Choose one more criteria!"
+msgstr "Choisissez un autre critère!"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_session.py:57
+#, python-format
+msgid "Choose one more page!"
+msgstr "Choisissez une page de plus!"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_session.py:70
+#, python-format
+msgid "Choose one more survey!"
+msgstr "Choisissez une autre maquette!"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.column_type_dropdown_template
+msgid "Choose..."
+msgstr "Sélectionner..."
+
+#. module: spc_survey
+#: model:ir.actions.server,name:spc_survey.clean_test_sessions
+msgid "Clean test sessions"
+msgstr "Effacer les sessions de test"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "Click!"
+msgstr "Cliquez!"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__closing_date
+msgid "Closing date"
+msgstr "Date de clôture"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__coefficient
+msgid "Coefficient"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+msgid "Colonnes"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_question__cols_count
+msgid "Cols Count"
+msgstr "Comptage des colonnes"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__column_id
+msgid "Column"
+msgstr "Colonne"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.report_structure_form
+msgid "Column's titles"
+msgstr "Titres des colonnes"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__column1
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__column1_id
+msgid "Column1"
+msgstr "Colonne1"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__column2
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__column2_id
+msgid "Column2"
+msgstr "Colonne2"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__column3
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__column3_id
+msgid "Column3"
+msgstr "Colonne3"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__column4
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__column4_id
+msgid "Column4"
+msgstr "Colonne4"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__column5
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__column5_id
+msgid "Column5"
+msgstr "Colonne5"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__column6
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__column6_id
+msgid "Column6"
+msgstr "Colonne6"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_columns_from_question
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__column_ids
+#: model:ir.model.fields,field_description:spc_survey.field_survey_question__labels_adv_matrix_cols_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+msgid "Columns"
+msgstr "Colonnes"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de config"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Constraints"
+msgstr "Contraintes"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "Correction Table"
+msgstr "Table de correction"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_questions_from_page
+msgid "Create Page questions."
+msgstr "Créez des questions de page."
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_spc_survey_session
+msgid "Create new survey session"
+msgstr "Créer une nouvelle session d'audit"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_spc_survey_session_information
+msgid "Create new survey session information"
+msgstr "Créer les informations du nouvelle session d'audit"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_pages_from_survey
+msgid "Create survey pages."
+msgstr "Créer des pages de maquette."
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__create_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__create_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__criteria_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__final_score_criteria
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__scoring_criteria_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__scoring_criteria_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__criteria_id
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_user_input_form_inherit
+msgid "Criteria"
+msgstr "Critéres"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__criteria_name
+msgid "Criteria name"
+msgstr "Nom du critère"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input__criteria_ids
+msgid "Critéres"
+msgstr ""
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:18
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:40
+#: selection:survey.label,col_type_resp:0 selection:survey.question,type:0
+#: selection:survey.user_input_line,answer_type:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Date"
+msgstr "Date "
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__description
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Description"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__detail_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session_information
+#: model_terms:ir.ui.view,arch_db:spc_survey.report_structure_form
+msgid "Details"
+msgstr "Détails"
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.group_audit_direction
+msgid "Direction d'audit"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__display_name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__display_type
+msgid "Display Type"
+msgstr "Type d'affichage"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Display mode"
+msgstr "Mode d'affichage"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_survey_form_inherit
+msgid "Do Survey"
+msgstr "Commencer la maquette"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__domain_columns
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__domain_columns_ids
+msgid "Domain Columns"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__domain_pages_ids
+msgid "Domain Pages"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__domain_rows_ids
+msgid "Domain Rows"
+msgstr "Domaine de lignes"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__domain_scoring_criteria_ids
+msgid "Domain Scoring Criteria"
+msgstr ""
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:19
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:41
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Dropdown"
+msgstr "Liste déroulante"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.edit
+msgid "Edit"
+msgstr "Modifier"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Empty rows in line : apply to all rows in question"
+msgstr "lignes vides en ligne: appliquer à toutes les lignes en question"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_res_config_settings__enable_survey_session
+msgid "Enable survey session"
+msgstr "Activer la session d'audit"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_config_settings_view_form
+msgid "Enable survey session feature"
+msgstr "Activer la fonction de session d'audit"
+
+#. module: spc_survey
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Field model"
+msgstr "Champs Modèle"
+
+#. module: spc_survey
+#: model:ir.actions.report,name:spc_survey.print_report_session_spc_survey
+msgid "Final Report"
+msgstr "Rapport finale"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input__final_score
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input__final_score_char
+msgid "Final Score"
+msgstr "Score finale"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_user_input_form_inherit
+msgid "Final Score :"
+msgstr "Score finale :"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__session_final_score_criteria
+msgid "Final score session Criteria"
+msgstr "Score finale du session"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:17
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:39
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Float number"
+msgstr "Nombre flottant"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_follower_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_channel_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Abonnés (Canaux)"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_partner_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (Partenaires)"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Format"
+msgstr ""
+
+#. module: spc_survey
+#: selection:survey.user_input_line,answer_type:0
+msgid "Free Text"
+msgstr "Texte libre"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__group_ids
+msgid "Group"
+msgstr "Groupe"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session_information
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_search_for_survey_session
+msgid "Group by"
+msgstr "Regrouper par"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session_information
+msgid "Group per auditor"
+msgstr "Grouper par auditeur"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session_information
+msgid "Group per closing date monthly"
+msgstr "Grouper par date de fermeture mensuelle"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session_information
+msgid "Group per closing date yearly"
+msgstr "Grouper par date de fermeture annuelle"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session_information
+msgid "Group per site"
+msgstr "Grouper par site"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__group_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_type_form_view
+msgid "Groups"
+msgstr "Groupes"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__id
+msgid "ID"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__message_unread
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages demandent votre attention."
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__message_needaction
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si coché, de nouveaux messages demandent votre attention."
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__message_has_error
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si actif, certains messages ont une erreur de livraison."
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "If you wish, you can"
+msgstr "Si vous le voulez, vous pouvez"
+
+#. module: spc_survey
+#: model:res.groups,name:spc_survey.make_invisible
+msgid "Invisible"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__is_final
+msgid "Is Final"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_is_follower
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_is_follower
+msgid "Is Follower"
+msgstr "Est un abonné"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_mail_activity__is_only_auditor
+msgid "Is Only Auditor"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_mail_activity__is_survey_session
+msgid "Is Survey Session"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__is_test_session
+msgid "Is Test Session"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type____last_update
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__write_uid
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__write_date
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.mail_activity_view_form_popup_spc_survey_inherit
+msgid "Launch"
+msgstr "Lancer"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__line_title
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__column_title
+#: model_terms:ir.ui.view,arch_db:spc_survey.report_structure_form
+msgid "Line title"
+msgstr "Titre de la ligne"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_external_layout
+msgid "Logo"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_main_attachment_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Pièce jointe principale"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Mandatory Answer"
+msgstr "Réponse obligatoire"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__survey_ids
+msgid "Maquettes"
+msgstr ""
+
+#. module: spc_survey
+#: selection:survey.question,type:0
+msgid "Matrix"
+msgstr "Matrice"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_has_error
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur d'envoi du message"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: spc_survey
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Model"
+msgstr "Modèle"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:15
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:37
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Multilines text"
+msgstr "Texte libre"
+
+#. module: spc_survey
+#: selection:survey.question,type:0
+msgid "Multiple Lines Text Box"
+msgstr "Plusieurs lignes de champ de texte"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Multiple choice with multiple answers"
+msgstr "Choix mutiple avec réponses multiples"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Multiple choice with one answer"
+msgstr "Choix multiple avec une seule réponse"
+
+#. module: spc_survey
+#: selection:survey.question,type:0
+msgid "Multiple choice: multiple answers allowed"
+msgstr "Choix multiples : réponses multiples"
+
+#. module: spc_survey
+#: selection:survey.question,type:0
+msgid "Multiple choice: only one answer"
+msgstr "Choix multiples : une seule réponse possible"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_spc_survey_related_session_information_auditors
+msgid "My Related Sessions (Auditors)"
+msgstr "Mes sessions (Auditeurs)"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_spc_survey_related_session_information_rm
+msgid "My Related Sessions (RM)"
+msgstr "Mes sessions (RM)"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_spc_survey_related_session_information_rz
+msgid "My Related Sessions (RZ)"
+msgstr "Mes sessions (RZ)"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_spc_survey_my_session_information
+msgid "My Sessions"
+msgstr "Mes sessions"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_spc_survey_my_session_information
+msgid "My Survey session Information"
+msgstr "Informations de mes sessions d'Audit"
+
+#. module: spc_survey
+#: model:ir.ui.menu,name:spc_survey.menu_spc_survey_my_related_sessions_auditors
+msgid "My related sessions (Auditeurs)"
+msgstr "Mes sessions (Auditeurs)"
+
+#. module: spc_survey
+#: model:ir.ui.menu,name:spc_survey.menu_spc_survey_my_related_sessions_rm
+msgid "My related sessions (RM)"
+msgstr "Mes sessions (RM)"
+
+#. module: spc_survey
+#: model:ir.ui.menu,name:spc_survey.menu_spc_survey_my_related_sessions_rz
+msgid "My related sessions (RZ)"
+msgstr "Mes sessions (RZ)"
+
+#. module: spc_survey
+#: model:ir.ui.menu,name:spc_survey.menu_spc_survey_my_sessions
+msgid "My sessions"
+msgstr "Mes sessions"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_type__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__activity_date_deadline
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Date limite de l'Activité à Venir"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__activity_summary
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__activity_summary
+msgid "Next Activity Summary"
+msgstr "Résumé d'activité suivant"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__activity_type_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__activity_type_id
+msgid "Next Activity Type"
+msgstr "Type d'Activités à Venir"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "Next page"
+msgstr "Page suivante"
+
+#. module: spc_survey
+#: model_terms:ir.actions.act_window,help:spc_survey.action_survey_user_input_spc_survey
+msgid "Nobody has replied to your surveys yet"
+msgstr "Personne n'a encore répondu à votre sondage"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__name
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+msgid "Nom"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session
+msgid "Non active"
+msgstr ""
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:16
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:38
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,answer_type:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Number"
+msgstr "Nombre entier"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_needaction_counter
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'actions"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Number of columns"
+msgstr "Nombre de colonnes"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_has_error_counter
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_has_error_counter
+msgid "Number of error"
+msgstr "Nombre d'erreurs"
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__message_needaction_counter
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Nombre de messages exigeant une action"
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__message_has_error_counter
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec des erreurs d'envoi"
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__message_unread_counter
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Nombre de messages non lus"
+
+#. module: spc_survey
+#: selection:survey.question,type:0
+msgid "Numerical Value"
+msgstr "Valeur numérique"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__opening_date
+msgid "Opening date"
+msgstr "Date d’ouverture"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__operation
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__operation
+msgid "Operation"
+msgstr "Opération"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Options"
+msgstr ""
+
+#. module: spc_survey
+#: selection:spc_survey.session,activity_state:0
+#: selection:spc_survey.session.info,activity_state:0
+msgid "Overdue"
+msgstr "En retard"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__page_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__page_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__page_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__page_id
+msgid "Page"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__page_question_ids
+msgid "Page Question"
+msgstr "Question de la page"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_page_form
+msgid "Page Title"
+msgstr "Titre de la page"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.spc_survey_page_final_score_wizard_action
+#: model_terms:ir.ui.view,arch_db:spc_survey.scoring_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_page_final_score_wizard_form
+msgid "Page final score"
+msgstr "Score final de la page"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_survey__sequence
+msgid "Page number"
+msgstr "Numéro de page"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_external_layout
+msgid ""
+"Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    of\n"
+"                    <span class=\"topage\"/>"
+msgstr ""
+"Page :\n"
+" <span class=\"page\"/>\n"
+" sur\n"
+"<span class=\"topage\"/>"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_pages_from_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__page_ids
+#: model:ir.model.fields,field_description:spc_survey.field_survey_survey__total_pages
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_survey_form_inherit
+msgid "Pages"
+msgstr ""
+
+#. module: spc_survey
+#: selection:spc_survey.session,activity_state:0
+#: selection:spc_survey.session.info,activity_state:0
+msgid "Planned"
+msgstr "Planifié"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__question_id
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__col_question_id
+msgid "Question"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__row_question_id
+msgid "Question 2"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Question Name"
+msgstr "Nom de la question"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Question name"
+msgstr "Nom de la question"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_questions_from_page
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__question_ids
+#: model:ir.model.fields,field_description:spc_survey.field_survey_page__total_questions
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_page_form
+msgid "Questions"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__rank
+msgid "Rang"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_spc_survey_related_session_information_auditors
+msgid "Related Survey session Information Auditors"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_spc_survey_related_session_information_rm
+msgid "Related Survey session Information Responsable Magasin / Adjoint"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_spc_survey_related_session_information_rz
+msgid "Related Survey session Information Responsable Zone"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure_details__report_structure_id
+msgid "Report Structure"
+msgstr "Structure du rapport"
+
+#. module: spc_survey
+#: model:ir.actions.report,name:spc_survey.print_report_page_spc_survey
+msgid "Report current page response"
+msgstr "Rapport du réponse"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_report_structure
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.report_structure_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.report_structure_tree
+msgid "Report structure"
+msgstr "Structure de rapport"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input_line__type_resp
+msgid "Response type"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session_information
+msgid "Responses"
+msgstr "Réponses"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__activity_user_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__activity_user_id
+msgid "Responsible User"
+msgstr "Responsable"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__score_float
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__score_text
+msgid "Result"
+msgstr "Résultat"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Row1"
+msgstr "Rangée 1"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Row2"
+msgstr "Rangée 2"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Row3"
+msgstr "Rangée 3"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_rows_from_question
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__row_ids
+#: model:ir.model.fields,field_description:spc_survey.field_survey_question__labels_adv_matrix_rows_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Rows"
+msgstr "Rangée"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_mail_activity__resource_ref
+msgid "Référence"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.spc_survey_config_act_window
+msgid "SPC Survey config window action"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.module.category,name:spc_survey.module_spc_survey_category
+msgid "SPEC Survey"
+msgstr "Audit"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_config_settings_view_form
+msgid "SPECTRUM Survey"
+msgstr "Audit"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_print_inherit
+msgid "Save"
+msgstr "Sauvegarder"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.single_survey_scores
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_user_input_form_inherit
+msgid "Score"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_page_spc_survey
+msgid "Score :"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_scoring
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_page_final_score__scoring_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__scoring_id
+#: model_terms:ir.ui.view,arch_db:spc_survey.scoring_criteria_tree
+#: model_terms:ir.ui.view,arch_db:spc_survey.scoring_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.scoring_tree
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_page_form
+msgid "Scoring"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.scoring_form
+msgid "Scoring criteria"
+msgstr "critéres scoring"
+
+#. module: spc_survey
+#: selection:spc_survey.user_input_criteria,display_type:0
+msgid "Section"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Select surveys"
+msgstr "Sélectionnez des maquettes"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__send_to_users_ids
+msgid "Send final report to :"
+msgstr "Envoyer le rapport final vers :"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__session_id
+msgid "Session"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__session_scoring_id
+msgid "Session Scoring"
+msgstr ""
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/mail_activity.py:36
+#, python-format
+msgid "Session already done."
+msgstr "Session déjà terminée."
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.spc_survey_session_final_score_wizard_action
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__session_final_score
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_session_final_score_wizard_form
+msgid "Session final score"
+msgstr "Score final de la session"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session_information
+msgid "Session name"
+msgstr "Nom de session"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__session_scoring_ids
+msgid "Session scoring"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_final_score__session_criteria_ids
+msgid "Session scoring Criteria"
+msgstr "Score final de la session"
+
+#. module: spc_survey
+#: model:ir.ui.menu,name:spc_survey.spc_survey_res_configuration
+msgid "Settings"
+msgstr "Configuration"
+
+#. module: spc_survey
+#: selection:survey.question,type:0
+msgid "Single Line Text Box"
+msgstr "Ligne de texte unique"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__site_id
+msgid "Site"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_init_inherit
+msgid "Start"
+msgstr "Démarrer"
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__activity_state
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Statut basé sur les activités\n"
+"En retard : la date d'échéance est déjà dépassée\n"
+"Aujourd'hui : la date d'activité est aujourd'hui\n"
+"Planifiée : activités futures"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_page_final_score_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_session_final_score_wizard_form
+msgid "Submit"
+msgstr "Soumettre"
+
+#. module: spc_survey
+#: selection:survey.user_input_line,answer_type:0
+msgid "Suggestion"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_survey_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__survey_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__survey_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__survey_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey.single_survey_scores
+msgid "Survey"
+msgstr "Sondage"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_survey_label
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_label_tree
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_label_tree2
+msgid "Survey Label"
+msgstr "Étiquette du sondage"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_survey_page
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_page_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_page_tree
+msgid "Survey Page"
+msgstr "Page de sondage"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_survey_question
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_tree
+msgid "Survey Question"
+msgstr "Question du sondage"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__survey_session_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__survey_session_id
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_config_settings_view_form
+msgid "Survey Session"
+msgstr "Session d'audit"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_user_input__survey_session_info_id
+msgid "Survey Session Info"
+msgstr "Informations du session d'audit"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_survey_user_input
+msgid "Survey User Input"
+msgstr "Saisie utilisateur du sondage"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr "Ligne de saisie pour l'utilisateur du sondage"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_search_for_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_tree_for_survey_session
+msgid "Survey list"
+msgstr "Liste des maquettes"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_spc_survey_session
+#: model:ir.ui.menu,name:spc_survey.menu_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.tree_spc_survey_session
+msgid "Survey session"
+msgstr "Session d'audit"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_session
+msgid "Survey session (series of surveys)"
+msgstr "session d'audit"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.action_spc_survey_session_information
+msgid "Survey session Information"
+msgstr "informations du session d'audit"
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_session_info
+msgid "Survey session info"
+msgstr "informations du session d'audit"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.search_spc_survey_session_information
+#: model_terms:ir.ui.view,arch_db:spc_survey.tree_spc_survey_session_information
+msgid "Survey session information"
+msgstr "informations du session d'audit"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session_information
+msgid "Survey session informations"
+msgstr "informations du session d'audit"
+
+#. module: spc_survey
+#: model:ir.actions.act_window,name:spc_survey.spc_survey_type_action
+#: model:ir.model.fields,field_description:spc_survey.field_mail_activity__survey_type_id
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__survey_type_id
+#: model:ir.model.fields,field_description:spc_survey.field_survey_survey__survey_type_id
+#: model:ir.ui.menu,name:spc_survey.spc_survey_type_menu
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_type_form_view
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_type_tree_view
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_survey_search_inherit
+msgid "Survey type"
+msgstr "Type de maquette"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_type_form_view
+msgid "Survey type title"
+msgstr "Titre de type de maquette"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__symbol
+msgid "Symbol"
+msgstr "Symbole"
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_user_input_criteria__display_type
+msgid "Technical field for UX purpose."
+msgstr "Champ technique utilisé à des fins ergonomiques."
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.form_spc_survey_session
+msgid "Test session"
+msgstr "Session de test"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_label_inherit.py:14
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:36
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,answer_type:0
+#: selection:survey.user_input_line,type_resp:0
+#, python-format
+msgid "Text"
+msgstr "Texte"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "Thank you!"
+msgstr "Merci !"
+
+#. module: spc_survey
+#: code:addons/spc_survey/models/survey_user_input_line_inherit.py:61
+#, python-format
+msgid "The answer must be in the right type"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_report_structure__name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__final_score_title
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__session_final_score_title
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__name
+#: model_terms:ir.ui.view,arch_db:spc_survey.report_structure_form
+msgid "Title"
+msgstr "Titre"
+
+#. module: spc_survey
+#: selection:spc_survey.session,activity_state:0
+#: selection:spc_survey.session.info,activity_state:0
+msgid "Today"
+msgstr "Aujourd’hui"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_label_tree
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_search_for_survey_session
+msgid "Type"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_question__type
+msgid "Type of Question"
+msgstr "Type de question"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "Type of answers"
+msgstr "Type de réponses"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_survey_kanban_inherit
+msgid "Type:"
+msgstr "Type :"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_unread
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_unread
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__message_unread_counter
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Compteur de messages non lus"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__user_input_id
+msgid "User Input"
+msgstr "Saisie pour l'utilisateur"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_anomalies_report__column_value
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring_criteria__column_value
+msgid "Value"
+msgstr "Valeur"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session__website_message_ids
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__website_message_ids
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: spc_survey
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session__website_message_ids
+#: model:ir.model.fields,help:spc_survey.field_spc_survey_session_info__website_message_ids
+msgid "Website communication history"
+msgstr "Historique de communication du site web"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid ""
+"YYYY-MM-DD\n"
+"                                            <i class=\"fa fa-calendar fa-2x\" role=\"img\" aria-label=\"Calendar\" title=\"Calendar\"/>"
+msgstr ""
+"AAAA-MM-JJ\n"
+"                                            <i class=\"fa fa-calendar fa-2x\" role=\"img\" aria-label=\"Calendar\" title=\"Calendar\"/>"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "You scored"
+msgstr "Vous avez obtenu"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_page_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_maq
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_session_spc_survey
+msgid "[Voir]"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.smart_survey_question_form
+msgid "ans"
+msgstr "et"
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+#: selection:spc_survey.session_scoring,operation:0
+msgid "average"
+msgstr "moyenne"
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "average (max of denominator)"
+msgstr "moyenne (max du dénominateur)"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_page_spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_only_anomalies_maq
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_pages_session_spc_survey
+msgid "capture"
+msgstr "Capturer"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_user_input_criteria__coefficient
+msgid "coefficient"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+msgid "col1"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+msgid "col2"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+msgid "col3"
+msgstr ""
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+#: selection:spc_survey.session_scoring,operation:0
+msgid "count"
+msgstr "compter"
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "count percentage"
+msgstr "compter (pourcentage)"
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "count total percentage with same condition"
+msgstr "compter  (pourcentage total avec la même condition appliqué au dénominateur)"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.spc_survey_external_layout
+msgid "hh <i class=\"fa fa-phone\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__max
+msgid "max"
+msgstr "maximum"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__max_date
+msgid "max date"
+msgstr "date maximale"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__min
+msgid "min"
+msgstr "minimum"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__min_date
+msgid "min date"
+msgstr "date minimale"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_scoring__name
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__name
+#: model_terms:ir.ui.view,arch_db:spc_survey.scoring_form
+msgid "name"
+msgstr "nom"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__options
+msgid "options"
+msgstr ""
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+#: selection:spc_survey.session_scoring,operation:0
+msgid "percentage"
+msgstr "pourcentage"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "points."
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.print_template_page_spc_survey
+msgid "pp"
+msgstr ""
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.sfinished_inherit
+msgid "review and edit your answers"
+msgstr "revoir et modifier vos réponses"
+
+#. module: spc_survey
+#: model_terms:ir.ui.view,arch_db:spc_survey.inherit_smart_survey_question_form
+#: model_terms:ir.ui.view,arch_db:spc_survey.survey_question_form_inherit
+msgid "row1"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_scoring__sequence
+msgid "seq number"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_anomalies_report
+msgid "spc_survey.anomalies.report"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_page_final_score
+msgid "spc_survey.page_final_score"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_report_structure
+msgid "spc_survey.report_structure"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_report_structure_details
+msgid "spc_survey.report_structure_details"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_scoring
+msgid "spc_survey.scoring"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_scoring_criteria
+msgid "spc_survey.scoring.criteria"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_session_final_score
+msgid "spc_survey.session_final_score"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_session_scoring
+msgid "spc_survey.session_scoring"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_type
+msgid "spc_survey.type"
+msgstr ""
+
+#. module: spc_survey
+#: model:ir.model,name:spc_survey.model_spc_survey_user_input_criteria
+msgid "spc_survey.user_input_criteria"
+msgstr ""
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+#: selection:spc_survey.session_scoring,operation:0
+msgid "sum"
+msgstr "Somme"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_spc_survey_session_info__survey_session_id
+msgid "survey session"
+msgstr "Session d'audit"
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "syntax"
+msgstr "Syntaxe"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__today
+msgid "today"
+msgstr "Aujourd’hui"
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "total average"
+msgstr "moyenne totale"
+
+#. module: spc_survey
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "total average with condition"
+msgstr "moyenne totale avec condition"
+
+#. module: spc_survey
+#: model:ir.model.fields,field_description:spc_survey.field_survey_label__col_type_resp
+msgid "type"
+msgstr ""

@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<odoo>
+	
+	<!-- Site search view -->
+	<record id="oscar_site_view_search" model="ir.ui.view">
+		<field name="name">oscar.site.search.view</field>
+		<field name="model">oscar.site</field>
+		<field name="arch" type="xml">
+			<search string="Site">		
+				<field name="name"/>
+				<field name="code"/>
+				<field name="user_id"/>
+				<field name="resp_zone_id"/>
+				<separator/>
+				<filter string="Magasin" name="store" domain="[('site_type', '=', 'MAGASIN')]"/>
+				<filter string="Entrepôt" name="warehouse" domain="[('site_type', '=', 'ENTREPOT')]"/>
+				<filter string="Centrale" name="seat" domain="[('site_type', '=', 'CENTRALE')]"/>
+				<separator/>
+				<filter name="group_site_by_type" string="Type" context="{'group_by':'site_type'}"/>
+				<filter name="group_zone_by_type" string="Zone" context="{'group_by':'zone_id'}"/>
+				<filter name="group_region_by_type" string="Région" context="{'group_by':'region_id'}"/>
+			</search>		
+		</field>
+	</record>
+   
+	<!-- Site form view -->
+	<record model="ir.ui.view" id="oscar_site_view_form">
+		<field name="name">oscar.site.view.form</field>
+		<field name="model">oscar.site</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object"
+							class="oe_stat_button" icon="fa-check-square-o">
+							<field name="active" widget="boolean_button"
+								options="{&quot;terminology&quot;: &quot;Désactiver&quot;}" />
+						</button>
+					</div>
+					<field name="site_type" widget="radio" options="{'horizontal': true}" />
+					<div class="oe_title">
+						<label for="default_name" class="oe_edit_only" />
+						<h1>
+							<field name="default_name" />
+						</h1>
+					</div>
+					<group>
+						<group>
+							<field name="code" />
+							<field name="name" />
+							<field name="user_id" />
+						</group>
+						<group>
+							<field name="date_ouverture" />
+							<field name="ville" />
+							<field name="region_id" />
+							<field name="region" invisible="1"/>
+							<field name="zone_id" />
+							<field name="zone" invisible="1"/>
+						</group>
+					</group>
+					<group attrs="{'invisible': [('site_type','not in',['MAGASIN'])]}">
+						<group>
+							<field name="resp_zone_id" />
+							<field name="dre_id" />
+						</group>
+					</group>
+					<notebook colspan="4">
+						<page string="Utilisateurs" groups="spc_oscar_aziza.group_admin_oscar" >
+							<field name="user_ids">
+								<tree>
+									<field name="name" />
+									<field name="login" />
+									<field name="profil" />
+									<field name="login_date" />
+								</tree>
+							</field>
+						</page>
+						<page string="Type Versement" attrs="{'invisible': [('site_type','not in',['MAGASIN'])]}">
+							<group>
+								<group>
+									<field name="type_versement" widget="radio" />
+									<field name="bank_id" />
+								</group>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<!-- Site form view -->
+    <record id="oscar_site_view_kanban" model="ir.ui.view">
+	    <field name="name">oscar.site.view.kanban</field>
+	    <field name="model">oscar.site</field>
+	    <field name="arch" type="xml">
+	        <kanban class="o_kanban_small_column" archivable="false">
+	            <field name="default_name"/>
+	            <field name="site_type"/>
+	            <field name="region"/>
+	            <field name="user_id"/>
+	            <field name="message_needaction_counter"/>
+	            <field name="activity_summary"/>
+	            <field name="activity_state" />
+	            <field name="activity_ids" />
+	            <field name="color"/>
+	            <field name="active"/>
+	            <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}' sum_field="planned_revenue" help="This bar allows to filter the opportunities based on scheduled activities."/>
+	            <templates>
+	                <t t-name="kanban-box">
+	                    <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+	                        <div class="o_dropdown_kanban dropdown">
+	
+	                            <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+	                                <span class="fa fa-ellipsis-v"/>
+	                            </a>
+	                            <div class="dropdown-menu" role="menu">
+	                                <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Modifier</a></t>
+	                                <ul class="oe_kanban_colorpicker" data-field="color"/>
+	                            </div>
+	                        </div>
+	                        <div class="oe_kanban_content">
+	                            <div>
+	                                <strong class="o_kanban_record_title"><field name="default_name"/></strong>
+	                            </div>
+	                            <div>
+	                                <field name="region"/>
+	                            </div>
+	                            <div class="o_kanban_record_bottom">
+	                                <div class="oe_kanban_bottom_left">
+	                                    <t t-if="record.message_needaction_counter.raw_value">
+	                                        <span role="alert" class='oe_kanban_mail_new' title='Unread Messages'><i class='fa fa-comments' aria-label="Unread messages" role="img"/><t t-raw="record.message_needaction_counter.raw_value"/></span>
+	                                    </t>
+	                                    <field name="activity_ids" widget="kanban_activity"/>
+	                                </div>
+	                                <div class="oe_kanban_bottom_right">
+	                                    <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)" t-att-title="record.user_id.value" t-att-alt="record.user_id.value" width="24" height="24" class="oe_kanban_avatar"/>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="oe_clear"/>
+	                    </div>
+	                </t>
+	            </templates>
+	        </kanban>
+	    </field>
+	</record>
+
+	<!-- Site tree view -->
+	<record model="ir.ui.view" id="oscar_site_view_tree">
+		<field name="name">oscar.site.view.tree</field>
+		<field name="model">oscar.site</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="code" />
+				<field name="name" />
+				<field name="site_type" />
+				<field name="date_ouverture" />
+				<field name="ville" />
+				<field name="region" />
+				<field name="zone" />
+			</tree>
+		</field>
+	</record>
+
+	<!-- actions liste de sites -->
+	<record model="ir.actions.act_window"
+		id="action_oscar_site_menu">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Sites</field>
+		<field name="res_model">oscar.site</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau site.
+              </p><p>
+                Oscar vous aide à gérer facilement vos Sites.
+              </p>
+    	</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_magasin_menu">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Magasin</field>
+		<field name="res_model">oscar.site</field>
+		<field name="view_mode">tree,form,kanban</field>
+		<field name="domain">[('site_type','=','MAGASIN')]</field>
+		<field name="context">{'default_site_type': 'MAGASIN'}</field>
+		<field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau magasin.
+              </p><p>
+                Oscar vous aide à gérer facilement vos Magasins.
+              </p>
+    	</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_entrepot_menu">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Entrepôt</field>
+		<field name="res_model">oscar.site</field>
+		<field name="view_mode">tree,form,kanban</field>
+		<field name="domain">[('site_type','=','ENTREPOT')]</field>
+		<field name="context">{'default_site_type': 'ENTREPOT'}</field>
+		<field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau entrepôt.
+              </p><p>
+                Oscar vous aide à gérer facilement vos Entrepôts.
+              </p>
+    	</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="action_centrale_menu">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Siège</field>
+		<field name="res_model">oscar.site</field>
+		<field name="view_mode">tree,form,kanban</field>
+		<field name="domain">[('site_type','=','CENTRALE')]</field>
+		<field name="context">{'default_site_type': 'CENTRALE'}</field>
+		<field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau site.
+              </p><p>
+                Oscar vous aide à gérer facilement vos Sites.
+              </p>
+    	</field>
+	</record>
+
+
+	<!-- menu Sites -->
+	<menuitem id="menu_oscar_site" name="Sites"
+		action="action_oscar_site_menu"
+		parent="spc_oscar_aziza.menu_oscar_administration" sequence="10" />
+
+	<menuitem id="menu_magasin" name="Magasin"
+		action="action_magasin_menu"
+		parent="spc_oscar_aziza.menu_oscar_site" sequence="100" />
+
+	<menuitem id="menu_entrepot" name="Entrepôt"
+		action="action_entrepot_menu"
+		parent="spc_oscar_aziza.menu_oscar_site" sequence="110" />
+
+	<menuitem id="menu_centrale" name="Centrale"
+		action="action_centrale_menu"
+		parent="spc_oscar_aziza.menu_oscar_site" sequence="120" />
+
+	<!-- Zone View Form -->
+		<record id="view_oscar_zone_form" model="ir.ui.view">
+			<field name="name">oscar.zone.form</field>
+			<field name="model">oscar.zone</field>
+			<field name="arch" type="xml">
+				<form string="Zone form">
+					<group colspan="4">
+						<group colspan="2" col="2">
+							<separator string="Zone" colspan="2" />
+							<field name="name" />
+						</group>
+					</group>
+					<group>
+						<group colspan="2" col="2">
+							<field name="code" />
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!-- Zone View Tree -->
+		<record id="view_oscar_zone_tree" model="ir.ui.view">
+			<field name="name">oscar.zone.tree</field>
+			<field name="model">oscar.zone</field>
+			<field name="arch" type="xml">
+				<tree string="Zone Tree">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_oscar_zone_act_window" model="ir.actions.act_window">
+            <field name="name">Zones</field>
+            <field name="res_model">oscar.zone</field>
+           <field name="view_id" ref="spc_oscar_aziza.view_oscar_zone_tree"/>
+			<field name="view_type">form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+					Créer une nouvelle Zone.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos zones.
+				</p>
+            </field>
+        </record>
+
+		<!--Zone menu item -->
+		<menuitem id="menu_oscar_zone"
+			name="Zones"
+			parent="spc_oscar_aziza.menu_oscar_configuration"
+			action="view_oscar_zone_act_window" sequence="150" />
+
+	<!-- Région View Form -->
+		<record id="view_oscar_region_form" model="ir.ui.view">
+			<field name="name">oscar.region.form</field>
+			<field name="model">oscar.region</field>
+			<field name="arch" type="xml">
+				<form string="Region form">
+					<group colspan="4">
+						<group colspan="2" col="2">
+							<separator string="Région" colspan="2" />
+							<field name="name" />
+						</group>
+					</group>
+					<group>
+						<group colspan="2" col="2">
+							<field name="code" />
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!-- Zone View Tree -->
+		<record id="view_oscar_region_tree" model="ir.ui.view">
+			<field name="name">oscar.region.tree</field>
+			<field name="model">oscar.region</field>
+			<field name="arch" type="xml">
+				<tree string="Zone Tree">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_oscar_region_act_window" model="ir.actions.act_window">
+            <field name="name">Régions</field>
+            <field name="res_model">oscar.region</field>
+           <field name="view_id" ref="spc_oscar_aziza.view_oscar_region_tree"/>
+			<field name="view_type">form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+					Créer une nouvelle Région.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos régions.
+				</p>
+            </field>
+        </record>
+
+		<!--Zone menu item -->
+		<menuitem id="menu_oscar_region"
+			name="Régions"
+			parent="spc_oscar_aziza.menu_oscar_configuration"
+			action="view_oscar_region_act_window" sequence="200" />
+
+</odoo>

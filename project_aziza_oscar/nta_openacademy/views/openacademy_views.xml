@@ -1,0 +1,3 @@
+<odoo>
+    <menuitem id="root_menu" name="Open Academy" sequence="0"/>
+</odoo>

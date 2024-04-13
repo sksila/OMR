@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oscar_site_calendar,oscar.site.calendar,model_oscar_site_calendar,,1,1,1,1
+access_import_activity_wizard,import_activity_wizard,model_import_activity_wizard,spc_activity.group_responsable_planification,1,1,1,1
+access_oscar_site_calendar_admin,oscar.site.calendar,model_oscar_site_calendar,spc_activity.group_responsable_planification,1,1,1,1
+access_oscar_site_calendar_user,oscar.site.calendar,model_oscar_site_calendar,spc_activity.group_user_planification,1,0,0,0

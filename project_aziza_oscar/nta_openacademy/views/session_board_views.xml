@@ -1,0 +1,61 @@
+<odoo>
+    <record id="session_action_graph" model="ir.actions.act_window">
+        <field name="name">Attendees by Course</field>
+        <field name="res_model">openacademy.session</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="openacademy.session_course_view_graph"/>
+    </record>
+
+    <record id="session_action_calendar" model="ir.actions.act_window">
+        <field name="name">Sessions</field>
+        <field name="res_model">openacademy.session</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="openacademy.session_view_calendar"/>
+    </record>
+
+    <record id="session_action_list" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">openacademy.course</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="openacademy.course_view_list"/>
+    </record>
+
+    <record id="board_session_view_form" model="ir.ui.view">
+        <field name="name">Session dashboard</field>
+        <field name="model">board.board</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Session dashboard">
+                <board style="2-1">
+                    <column>
+                        <action string="Attendees by course"
+                                name="%(session_action_graph)d"
+                                height="150"
+                                width="510"/>
+                        <action string="Sessions"
+                                name="%(session_action_calendar)d"/>
+                    </column>
+                    <column>
+                        <action string="Courses"
+                                name="%(session_action_list)d"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+
+    <record id="board_session_action" model="ir.actions.act_window">
+        <field name='name'>Session Dashboard</field>
+        <field name="res_model">board.board</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="board_session_view_form"/>
+    </record>
+
+    <menuitem id="board_session_menu" name="Session Dashboard"
+              parent="base.menu_reporting_dashboard" action="board_session_action" sequence="1"/>
+</odoo>

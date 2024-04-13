@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+	
+
+		<record id="smart_survey_question_form_inherit_extra" model="ir.ui.view">
+            <field name="model">survey.question</field>
+            <field name="inherit_id" ref="spc_survey_extra.smart_survey_question_form_inherit_extra"/>
+            <field name="arch" type="xml">
+
+                <field name="filter_domain" position="before">
+                    <field name="is_plano_facing_model" invisible="1"/>
+                </field>
+                <field name="filter_domain" position="after">
+                    <field name="is_product_model" invisible="1" />
+                    <field name="product_type_ids" widget="many2many_checkboxes" options="{'no_create': True, 'no_create_edit':True}" attrs="{'invisible' : [('is_product_model','=',False)]}"/>
+<!--                    <field name="site" options="{'no_create_edit': True}" attrs="{'invisible' : ['|', ('model_id', '=', False), ('is_plano_facing_model', '=', True)]}"/>-->
+                    <field name="apply_per" attrs="{'invisible' : ['|', ('model_id', '=', False), ('is_plano_facing_model', '=', True)]}"/>
+                    <field name="column_name" options="{'no_create_edit': True}" attrs="{'invisible' : ['|', ('model_id', '=', False), ('is_plano_facing_model', '=', True)]}" domain="[('id', 'in', model_fields_ids)]"/>
+                    <field name="plano_facing_family" attrs="{'invisible' : [('is_plano_facing_model', '=', False)], 'required' : [('is_plano_facing_model', '=', True)]}"/>
+                </field>
+
+            </field>
+        </record>
+		
+
+	</odoo>
+

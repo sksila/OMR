@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <record id="module_spc_survey_category" model="ir.module.category">
+            <field name="name">SPEC Survey</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="group_auditor" model="res.groups">
+            <field name="name">Auditor</field>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <record id="group_audit_manager" model="res.groups">
+            <field name="name">Audit manager</field>
+            <field name="implied_ids" eval="[(4, ref('group_auditor'))]" />
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <record id="make_invisible" model="res.groups">
+		    <field name="name">Invisible</field>
+		</record>
+
+        <!-- Audit métier -->
+        <record id="group_metier" model="res.groups">
+            <field name="name">Audit métier</field>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <!-- Audit qesh -->
+        <record id="group_qesh" model="res.groups">
+            <field name="name">Audit qesh</field>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <!-- Audit qualité -->
+        <record id="group_quality" model="res.groups">
+            <field name="name">Audit qualité</field>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <!-- Audit interne -->
+        <record id="group_interne" model="res.groups">
+            <field name="name">Audit interne</field>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <!-- Audit RZ -->
+        <record id="group_rz" model="res.groups">
+            <field name="name">Audit RZ</field>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <!-- Audit Other -->
+        <record id="group_other_audit" model="res.groups">
+            <field name="name">Audit Other</field>
+            <field name="category_id" ref="module_spc_survey_category"/>
+        </record>
+
+        <!-- Audit consulting -->
+        <record id="group_audit_consulting" model="res.groups">
+		    <field name="name">Consulting audit</field>
+		    <field name="category_id" ref="module_spc_survey_category" />
+	    </record>
+
+    </data>
+</odoo>

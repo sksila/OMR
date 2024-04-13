@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    <report
+            id="_derogation_xls_report"
+            string="Derogation xls report"
+            model="derogation.derogation"
+            report_type="xlsx"
+            name="spc_derogation_aziza.xlsx_report_derogation.xlsx"
+            file="spc_derogation_aziza.xlsx_report_derogation.xlsx"
+            menu="True"/>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+	
+ <menuitem name="Enveloppes à recevoir au Siège" id="spc_oscar_aziza.menu_receive_envelope_siege" sequence="40"
+			parent="spc_oscar_aziza.ha_menu_envelope" action="spc_oscar_aziza.action_receive_envelope_siege"
+			groups="spc_sav_aziza.group_responsable_sav"
+			 />	
+ <menuitem name="Bordereaux à recevoir au Siège" id="spc_oscar_aziza.menu_receive_bordereau_siege"
+			sequence="40" parent="spc_oscar_aziza.ha_menu_bordereau" action="spc_oscar_aziza.action_receive_bordereau_siege" 
+			groups="spc_sav_aziza.group_responsable_sav"
+			/>
+ <menuitem id="spc_oscar_aziza.ha_menu_configuration"
+              name="Configuration"
+              parent="spc_oscar_aziza.ha_menu_administration"
+              sequence="1"
+              groups="spc_sav_aziza.group_responsable_sav"
+              />			
+	</data>
+</odoo>

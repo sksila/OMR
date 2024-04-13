@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+  
+  <!-- menu action bordereau -->
+<!--    	<menuitem name="Bordereaux et transfert" id="ha_menu_bordereau"-->
+<!--        		sequence="100" parent="ha_menu_flux_document_root"-->
+<!--        		 />-->
+  
+ 	 <!--<record id="seq_codification_bordereau_document" model="ir.sequence">
+			<field name="name">Bordereau</field>
+			<field name="code">document.bordereau</field>
+			<field name="padding">5</field>
+			<field name="prefix">BR-%(year)s%(month)s-</field>
+		</record>-->
+
+
+
+		<!-- Bordereau form view -->
+	<!--	<record model="ir.ui.view" id="doc_bordereau_view_form">
+			<field name="name">oscar.bordereau.view.form.inherit</field>
+			<field name="model">oscar.bordereau</field>
+			 <field name="inherit_id" ref="spc_transfer_aziza.bordereau_view_form"/>
+			<field name="arch" type="xml">
+			<xpath expr="//field[@name='user_id']" position="after">
+				<field name="print_date"/>
+			</xpath>
+			</field>
+		</record>-->
+
+
+		
+		<!-- actions liste de bordereaux -->
+
+		<!-- actions liste de nouveaux bordereaux -->
+
+		<!-- actions liste de bordereaux a recevoir -->
+
+		<!-- actions liste de bordereaux a recevoir -->
+
+		<!-- actions liste de bordereaux a recevoir au siege -->
+
+		<!-- actions liste de bordereaux envoyes -->
+
+		<!-- actions liste de bordereaux recus -->
+<!--		<record model="ir.actions.act_window" id="action_doc_bordereaux_recus">-->
+<!--			<field name="type">ir.actions.act_window</field>-->
+<!--			<field name="name">Bordereaux</field>-->
+<!--			<field name="res_model">oscar.doc.bordereau</field>-->
+<!--			<field name="view_mode">tree,form</field>-->
+<!--			<field name="domain">[]</field>-->
+<!--			<field name="context">{-->
+<!--				'create': False,-->
+<!--				'delete': False,-->
+<!--				'search_default_recu_bordereau': 1,-->
+<!--				}-->
+<!--			</field>-->
+<!--			<field name="help" type="html">-->
+<!--				<p>-->
+<!--					Oscar vous aide à gérer facilement vos Bordereaux-->
+<!--				</p>-->
+<!--			</field>-->
+<!--		</record>-->
+
+
+  </data>
+</odoo>

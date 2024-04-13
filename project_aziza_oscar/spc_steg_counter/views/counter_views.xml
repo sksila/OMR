@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+        <!-- view filter Relevés compteur STEG -->
+        <record id="view_counter_steg_filter" model="ir.ui.view">
+            <field name="name">oscar.counter.steg.search.view</field>
+            <field name="model">oscar.counter.steg</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher des compteurs">
+                    <field name="name" />
+                    <field name="magasin_id" groups="spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_DE" />
+                    <separator/>
+                    <filter string="Tous" name="all_counter" domain="['|',('active', '=', True),('active', '=', False)]"/>
+                    <separator/>
+                    <filter name="group_reading_by_magasin" string="Magasin" context="{'group_by':'magasin_id'}" groups="spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_DE"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="spc_compteur_steg_form_view">
+            <field name="name">spc.counter.steg.form</field>
+            <field name="model">oscar.counter.steg</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="spc_oscar_aziza.group_admin_oscar"
+                                class="oe_stat_button" icon="fa-check-square-o">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;Désactiver&quot;}" />
+                            </button>
+                        </div>
+                        <div class="oe_title">
+							<label for="name" class="oe_edit_only" string="Compteur" />
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+                        <group>
+                        <group>
+                            <field name="index"/>
+                        </group>
+                        <group>
+                            <field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                        </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="spc_counter_steg_list_view">
+            <field name="name">spc.counter.steg.list</field>
+            <field name="model">oscar.counter.steg</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="index"/>
+                    <field name="magasin_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="spc_counter_steg_action">
+            <field name="name">Compteurs STEG</field>
+            <field name="res_model">oscar.counter.steg</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer un nouveau compteur STEG.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos compteurs.
+                </p>
+            </field>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem name="Relevé des Compteurs STEG" id="spc_counter_steg_menu_root"
+                  web_icon="spc_steg_counter,static/description/icon.png" sequence="80"/>
+
+
+        <menuitem name="Configuration"
+            id="spc_counter_steg_config_menu"
+            sequence="500"
+            parent="spc_steg_counter.spc_counter_steg_menu_root"
+            groups="spc_oscar_aziza.group_admin_oscar"/>
+
+        <!-- menu categories -->
+        <menuitem id="spc_counter_steg_menu"
+            name="Compteurs STEG"
+            parent="spc_counter_steg_config_menu"
+            action="spc_counter_steg_action"
+            sequence="200"/>
+    </data>
+</odoo>

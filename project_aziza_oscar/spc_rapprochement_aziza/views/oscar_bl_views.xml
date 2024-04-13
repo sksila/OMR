@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- BL search view -->
+    <record id="oscar_bl_view_search" model="ir.ui.view">
+        <field name="name">oscar.bl.search.view</field>
+        <field name="model">oscar.bl</field>
+        <field name="arch" type="xml">
+            <search string="BL">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- BRV form view -->
+    <record model="ir.ui.view" id="oscar_bl_view_form">
+        <field name="name">oscar.bl.view.form</field>
+        <field name="model">oscar.bl</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!--                    <button name="action_validate" string="Valider" states="draft"-->
+                    <!--                        type="object" class="btn-primary oe_read_only" />-->
+                    <field name="state" widget="statusbar" statusbar_visible="new,validated"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-check-square-o">
+                            <field name="active" widget="boolean_button"
+                                   options="{&quot;terminology&quot;: &quot;Désactiver&quot;}"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="client_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="date_bl"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Détails">
+                            <field name="bl_line_ids">
+                                <tree editable="true">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="qte_livree" sum="Total"/>
+                                    <field name="unite_livree"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- BL tree view -->
+    <record model="ir.ui.view" id="oscar_bl_view_tree">
+        <field name="name">oscar.bl.view.tree</field>
+        <field name="model">oscar.bl</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_bl"/>
+                <field name="state" widget="colored_state"
+                       options="{'new': { 'class': 'badge-info', 'name': 'Nouveau' },
+                       'validated': { 'class': 'badge-success', 'name': 'Validé' }}"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de nouveaux BL -->
+    <record model="ir.actions.act_window"
+            id="action_oscar_bl_new">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Nouveaux BL</field>
+        <field name="res_model">oscar.bl</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau BL.
+            </p>
+            <p>
+                Oscar vous aide à gérer facilement vos BL.
+            </p>
+        </field>
+    </record>
+
+    <!-- actions liste de BL validés -->
+    <record model="ir.actions.act_window"
+            id="action_oscar_bl_validated">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">BL validés</field>
+        <field name="res_model">oscar.bl</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucun BL trouvé.
+            </p>
+        </field>
+    </record>
+
+    <!-- menu BL -->
+    <menuitem id="menu_oscar_bl" name="Bon de livraison"
+              parent="menu_oscar_rapprochement" sequence="200"/>
+
+    <menuitem id="menu_oscar_bl_new" name="Nouveaux BL"
+              action="action_oscar_bl_new"
+              parent="menu_oscar_bl" sequence="10"/>
+
+    <menuitem id="menu_oscar_bl_validated" name="BL validés"
+              action="action_oscar_bl_validated"
+              parent="menu_oscar_bl" sequence="20"/>
+
+</odoo>

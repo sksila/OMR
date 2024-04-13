@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="survey_user_input_form_inherit" model="ir.ui.view">
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="replace">
+                    <div class="oe_button_box" name="button_box">
+                        <label for="final_score" string="Final Score : " class="display-4"/>
+                        <field string="Score" name="final_score" widget="gauge" style="width:120px;height:90px;cursor:pointer;"/>
+                    </div>
+			    </xpath>
+
+                <field name="user_input_line_ids" position="before">
+                    <field name="criteria_ids" nolabel="1" widget="section_and_note_one2many" mode="tree">
+                        <tree string="Criteria" create="false" edit="false" delete="false" editable="bottom" decoration-bf="display_type == 'line_section'">
+                            <control>
+                                <create string="Add a line"/>
+                                <create string="Add a section" context="{'default_display_type': 'line_section'}" />
+                            </control>
+                            <field name="name" widget="section_and_note_text" readonly="1"/>
+                            <field name="score_text" readonly="1"/>
+                            <field name="display_type" invisible="1"/>
+                            <field name="score_float" invisible="1"/>
+                            <field name="page_id" invisible="1" />
+                            <field name="is_final" invisible="1" />
+                            <field name="user_input_id" invisible="1"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="name" />
+                                <field name="score_text" />
+                            </group>
+                        </form>
+                    </field>
+
+                    <field name="final_score_char" invisible="1"/>
+
+                </field>
+
+                <xpath expr="//form" position="attributes">
+                    <attribute name="edit">false</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

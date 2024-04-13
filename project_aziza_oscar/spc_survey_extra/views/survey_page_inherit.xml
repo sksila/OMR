@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+
+		<record id="smart_survey_page_form_inherit_extra" model="ir.ui.view">
+			<field name="model">survey.page</field>
+			<field name="inherit_id" ref="spc_survey.smart_survey_page_form" />
+			<field name="arch" type="xml">
+			
+				<field name="question_ids" position="before">
+					<group> 
+						<field name="is_correction" />
+					</group>
+				</field>
+				
+			</field>
+		</record>
+
+
+
+
+        <record model="ir.ui.view" id="smart_survey_page_tree_inherit_extra">
+			<field name="model">survey.page</field>
+			<field name="inherit_id" ref="spc_survey.smart_survey_page_tree" />
+            <field name="arch" type="xml">
+
+				<field name="question_ids" position="before">
+					<field name="is_correction" />
+				</field>
+
+            </field>
+        </record>
+
+
+
+		
+		
+		
+		
+		
+	</odoo>

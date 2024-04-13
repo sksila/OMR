@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<odoo>
+
+        <record id="spc_view_commande_gold_form" model="ir.ui.view">
+            <field name="name">commande.gold.form</field>
+            <field name="model">commande.gold</field>
+            <field name="arch" type="xml">
+                <form string="Commande">
+                <sheet>
+                     <group>
+                     	<group>
+                     		<field name="name"/>
+                     		<field name="date_commande"/>
+                     		<field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+                     		<field name="code_site"/>
+                     		<field name="lib_site"/>
+                            <field name="fournisseur_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+                     		<field name="code_fr"/>
+                            <field name="lib_fr"/>
+                     	</group>
+                     </group>
+                     </sheet>
+                </form>
+            </field>
+        </record>
+      <!--   test -->
+        
+        <record id="spc_view_commande_gold_tree" model="ir.ui.view">
+            <field name="name">commande.gold.tree</field>
+            <field name="model">commande.gold</field>
+            <field name="arch" type="xml">
+                <tree string="Commande Gold List">
+                	<field name="name"/>
+               		<field name="date_commande"/>
+               		<field name="code_site"/>
+               		<field name="lib_site"/>
+               		<field name="lib_fr"/>
+               		<field name="code_fr"/>
+                </tree>
+            </field>
+        </record>
+
+    <record id="view_commande_gold_filter" model="ir.ui.view">
+      <field name="name">commande.gold.search.view</field>
+      <field name="model">commande.gold</field>
+      <field name="arch" type="xml">
+        <search string="Commande Gold Search">
+         <field name="name" />
+         <field name="code_fr" />
+         <field name="code_site" />
+         <group expand="0" string="Group By">
+             <filter string="Par fournisseur" name="lib_fr" context="{'group_by':'lib_fr'}"/>
+             <filter string="Par site" name="lib_site" context="{'group_by':'lib_site'}"/>
+         </group>
+        </search>
+      </field>
+    </record>
+        
+        <record id="action_commande_gold_form" model="ir.actions.act_window">
+            <field name="name">Commandes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">commande.gold</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Aucune commande trouvée.
+              </p><p>
+                Oscar vous aide à gérer facilement vos Commandes
+              </p>
+            </field>
+        </record>
+    
+         <menuitem id="spc_menu_commande_gold"
+            name="Commandes"
+            action="action_commande_gold_form"
+            parent="spc_oscar_aziza.menu_oscar_configuration"
+            sequence="20"/>
+         
+         
+
+</odoo>

@@ -1,0 +1,1061 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- extending column types ========================================================================== -->
+        <!-- extend column type text -->
+
+        <template id="extend_column_type_text_template" inherit_id="spc_survey.column_type_text_template">
+            <xpath expr="input" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+            </xpath>
+            <xpath expr="input" position="after">
+                <input t-if="question.model_id" type="text" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" class="form-control" t-att-column="1" />
+            </xpath>
+        </template>
+        <!-- extend column type textarea -->
+        <template id="extend_column_type_textarea_template" inherit_id="spc_survey.column_type_textarea_template">
+            <xpath expr="textarea" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+            </xpath>
+            <xpath expr="textarea" position="after">
+                <textarea t-if="question.model_id" rows="2" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" class="form-control" t-att-column="1"></textarea>
+            </xpath>
+        </template>
+        <!-- extend column type number -->
+        <template id="extend_column_type_number_template" inherit_id="spc_survey.column_type_number_template">
+            <xpath expr="input" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data_correction">style_correction</attribute>
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+            </xpath>
+            <xpath expr="input" position="after">
+                <input t-if="question.model_id" type="number" t-att-min="col_label.min" t-att-max="col_label.max" step="1" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-style="style" t-att-data_col_name="col_label.value" t-att-data-col_dependency_style="col_dependency_style" class="form-control" t-att-data_correction="style_correction" t-att-column="1" />
+            </xpath>
+        </template>
+        <!-- extend column type float_number -->
+        <template id="extend_column_type_float_number_template" inherit_id="spc_survey.column_type_float_number_template">
+            <xpath expr="input" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data_correction">style_correction</attribute>
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+            </xpath>
+            <xpath expr="input" position="after">
+                <input t-if="question.model_id" type="number" t-att-min="col_label.min" t-att-max="col_label.max" step="any" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-style="style" t-att-data_col_name="col_label.value" t-att-data-col_dependency_style="col_dependency_style" class="form-control" t-att-data_correction="style_correction" t-att-column="1" />
+            </xpath>
+        </template>
+        <!-- extend column type date -->
+        <template id="extend_column_type_date_template" inherit_id="spc_survey.column_type_date_template">
+            <xpath expr="//div" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data_date_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+            </xpath>
+            <xpath expr="//input[@type='text']" position="attributes">
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-style">style</attribute>
+            </xpath>
+            <xpath expr="div" position="after">
+                <div t-if="question.model_id" t-att-style="style" class="form-group">
+	            <div class="input-group date" t-attf-id="datetimepicker_#{'%s_%s_%s' % (prefix, str(row), col_label.id)}" data-target-input="nearest" t-att-data-mindate="minimum"
+                    t-att-data-maxdate="maximum" t-att-data_date_col_name="col_label.value">
+		            <input type="text" class="form-control datetimepicker-input" t-attf-data-target="#datetimepicker_#{'%s_%s_%s' % (prefix, str(row), col_label.id)}" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-data_col_name="col_label.value" t-att-column="1" t-att-data-col_dependency_style="col_dependency_style" t-att-style="style"/>
+		            <div class="input-group-append" t-attf-data-target="#datetimepicker_#{'%s_%s_%s' % (prefix, str(row), col_label.id)}" data-toggle="datetimepicker">
+		                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+	            </div>
+	        </div>
+            </xpath>
+        </template>
+        <!-- extend column type dropdown -->
+        <template id="extend_column_type_dropdown_template" inherit_id="spc_survey.column_type_dropdown_template">
+            <xpath expr="div" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data_correction">style_correction</attribute>
+            </xpath>
+            <xpath expr="//select" position="attributes">
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+                <attribute name="t-att-style">style</attribute>
+            </xpath>
+            <!-- check if there are options in row -->
+            <xpath expr="//t[@t-set='choices']" position="after">
+                <t t-if="row_label.row_dropdown_options">
+                    <t t-set="choices" t-value="row_label.row_dropdown_options.split(',')"/>
+                </t>
+            </xpath>
+            <!-- auto-fill case-->
+            <xpath expr="div" position="after">
+                <div t-if="question.model_id" t-att-style="style" class="js_drop row" t-att-data_correction="style_correction">
+                <div class="col-lg-12">
+                    <select class="form-control" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" t-att-column="1" t-att-style="style">
+                        <option disabled="1" selected="1" value="">Choose...</option>
+                        <t t-set="choices" t-value="col_label.options.split(',')" />
+                        <t t-foreach='choices' t-as='choice'>
+                            <option><t t-esc='choice'/></option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+            </xpath>
+        </template>
+        <!-- extend column type attachment -->
+        <template id="extend_column_type_attachment_template" inherit_id="spc_survey.column_type_attachment_template">
+            <xpath expr="div" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data_correction">style_correction</attribute>
+<!--                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>-->
+<!--                <attribute name="t-att-data_col_name">col_label.value</attribute>-->
+<!--                <attribute name="t-att-column">1</attribute>-->
+            </xpath>
+            <xpath expr="//input" position="attributes">
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+                <attribute name="t-att-style">style</attribute>
+            </xpath>
+            <xpath expr="div" position="after">
+                <div t-if="question.model_id" t-att-style="style" t-att-data_correction="style_correction">
+				    <input type="file" class="file form-control" multiple="multiple" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-data_col_name="col_label.value" t-att-data-col_dependency_style="col_dependency_style" t-att-column="1"/>
+                    <ul t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)">
+
+                    </ul>
+				</div>
+            </xpath>
+        </template>
+        <!-- extend column type camera -->
+        <template id="extend_column_type_cam_template" inherit_id="spc_survey.column_type_cam_template">
+            <xpath expr="div" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+                <attribute name="t-att-style">style</attribute>
+                <attribute name="t-att-data-col_dependency_style">col_dependency_style</attribute>
+                <attribute name="t-att-data_col_name">col_label.value</attribute>
+                <attribute name="t-att-column">1</attribute>
+            </xpath>
+            <xpath expr="div" position="after">
+                <div t-if="question.model_id" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" class="picture-div" style="display:flex;">
+                    <a role="button" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" t-att-column="1" class="btn btn-primary play mr-2 align-self-start" href="#snapModal" rel="modal:open">
+                        <i class="fa fa-camera fa-2x"></i>
+                    </a>
+                    <input type="hidden" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" value="" />
+			    </div>
+            </xpath>
+        </template>
+        <!-- extending column types done ========================================================================== -->
+
+        <!-- Column type : model -->
+        <template id="column_type_model_template" name="model colum type in advanced matrix">
+			<div t-if="not question.model_id" class="ui-widget" t-att-style="style">
+                <t t-if="col_label.model_filter_field_id and '/correction' not in request.httprequest.url">
+                    <div class="input-group mb-1">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><t t-esc="col_label.model_filter_field_id.field_description" /></span>
+                      </div>
+                        <input type="search" class="form-control bg-light column_type_model closest_filter" t-att-data-model="col_label.model_id.model" t-att-data_filter_field="col_label.model_filter_field_id.name" id="column_type_model_filter column_type_model" t-att-data_col_name="col_label.value" />
+                    </div>
+                </t>
+			    <input type="search" t-att-name="'%s_%s_%s' % (prefix, row_label.id, col_label.id)" t-att-data-model="col_label.model_id.model" id="column_type_model" class="column_type_model form-control" t-att-data_col_name="col_label.value" t-att-column="1" t-att-data-col_dependency_style="col_dependency_style" t-att-style="style" t-att-data_is_filter_on="1 if col_label.model_filter_field_id != False else 0" t-att-data_filter_field="col_label.model_filter_field_id.name"/>
+			</div>
+            <div t-if="question.model_id" class="ui-widget" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style">
+                <t t-if="col_label.model_filter_field_id and '/correction' not in request.httprequest.url">
+                    <div class="input-group mb-1">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><t t-esc="col_label.model_filter_field_id.field_description" /></span>
+                      </div>
+                        <input type="search" class="form-control bg-light column_type_model closest_filter" t-att-data-model="col_label.model_id.model" t-att-data_filter_field="col_label.model_filter_field_id.name" id="column_type_model_filter column_type_model" t-att-data_col_name="col_label.value" />
+                    </div>
+                </t>
+                <input type="search" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-data-model="col_label.model_id.model" id="column_type_model" class="column_type_model form-control" t-att-data_col_name="col_label.value" t-att-column="1" t-att-data-col_dependency_style="col_dependency_style" t-att-style="style" t-att-data_is_filter_on="1 if col_label.model_filter_field_id != False else 0" t-att-data_filter_field="col_label.model_filter_field_id.name"/>
+			</div>
+        </template>
+
+        <!-- Column type : field_model -->
+        <template id="column_type_field_model_template" name="field_model colum type in advanced matrix">
+            <t t-set="field_name" t-value="col_label.equivalent_field_id.name" />
+            <input type="text" t-att-name="'%s_%s_%s' % (prefix, str(row), col_label.id)" t-att-value="question.column_type_field_model_value(rec[field_name])" t-att-title="question.column_type_field_model_value(rec[field_name])" class="form-control field_model_col" readonly="readonly" tabindex="-1" t-att-data_col_name="col_label.value" t-att-column="1"/>
+        </template>
+
+        <!-- Auto filling template -->
+        <template id="auto_fill_template" name="Auto fill template">
+            <!-- anomaly correction thing -->
+            <t t-if="'/correction' in current_url_full_path">
+                <t t-if="env['question.display'].search([('question_id','=',question.id)]).anomaly_columns_ids">
+                    <t t-set="anomaly_columns_ids" t-value="env['question.display'].search([('question_id','=',question.id)]).anomaly_columns_ids" />
+                    <t t-set="anomaly_columns" t-value="question.get_anomaly_columns(anomaly_columns_ids)"/>
+                </t>
+            </t>
+            <!-- / anomaly correction thing -->
+
+            <th>
+                <span> <t t-esc="row" /> </span>
+            </th>
+
+            <t t-set="style_correction_counter" t-value="0" />
+            <td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+                <t t-set="style_correction" t-value="" />
+                <t t-set="col_dependency_style" t-value="" />
+                <!-- anomaly correction thing -->
+                <t t-if="'/correction' in current_url_full_path">
+                    <t t-if="anomaly_columns">
+                        <t t-if="col_label.id in anomaly_columns">
+                            <t t-set="col_a_tag" t-value="'%s_%s_%s_%s_%s' % (survey.id,page.id,question.id,row,col_label.id)" />
+                            <t t-set="user_input_id" t-value="env['survey.user_input'].search([('token','=',token)])" />
+                            <t t-set="col_value" t-value="env['survey.user_input_line'].search([('user_input_id','=',user_input_id.id),('a_tag','=',col_a_tag)]).value_adv_mat" />
+                            <!-- getting values -->
+                            <t t-if="col_value in anomaly_columns[col_label.id].split(',')">
+                                <t t-set="style_correction_counter" t-value="1" />
+                            </t>
+                            <t t-else="">
+                                <t t-set="style_correction_counter" t-value="0" />
+                            </t>
+                        </t>
+                    </t>
+
+
+                    <t t-if="not col_label.data_correction">
+                        <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                    </t>
+                </t>
+                <t t-else=""> <!-- not correction -->
+                    <t t-if="dependency_ids">
+                        <t t-foreach="dependency_ids" t-as="dependency">
+                            <t t-if="col_label.id == dependency.column_id.id">
+                                <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                            </t>
+                        </t>
+                    </t>
+                    <t t-if="row_dependency_ids">
+                        <t t-foreach="row_dependency_ids" t-as="row_dependency">
+                            <t t-if="col_label.id == row_dependency.column_id.id">
+                                <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+
+                <t t-if="anomaly_columns">
+                    <t t-if="col_label.id in anomaly_columns">
+                        <t t-if="style_correction_counter == 0">
+                            <t t-set="style_correction" t-value="str('hide_row')" />
+                        </t>
+                        <t t-if="style_correction_counter == 1">
+                            <t t-set="style_correction" t-value="str('show_row')" />
+                        </t>
+                    </t>
+                </t>
+                <!-- / anomaly correction thing -->
+                <!-- check if this is the correction case or not ! -->
+                <t t-set="style" t-value="" />
+                <t t-if="'correction' not in current_url_full_path"> <!-- data entry case -->
+                    <t t-if="col_label.data_correction">
+                        <t t-set="style" t-value="str('display:none;')" />
+                    </t>
+                </t>
+                <!-- call column type template -->
+                <t t-if="col_label.col_type_resp == 'text'"><t t-call="spc_survey.column_type_text_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'textarea'"><t t-call="spc_survey.column_type_textarea_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'number'"><t t-call="spc_survey.column_type_number_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'float_number'"><t t-call="spc_survey.column_type_float_number_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'date'"><t t-call="spc_survey.column_type_date_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'dropdown'"><t t-call="spc_survey.column_type_dropdown_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'attachment'"><t t-call="spc_survey.column_type_attachment_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'cam'"><t t-call="spc_survey.column_type_cam_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'model'"><t t-call="spc_survey_extra.column_type_model_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                <t t-if="col_label.col_type_resp == 'field_model'"><t t-call="spc_survey_extra.column_type_field_model_template"/><t t-set="col_dependency_style" t-value="col_dependency_style"/></t>
+            </td>
+        </template>
+
+        <!-- details table template -->
+        <template id="details_table_column_type_text_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <input t-if="question.detail" type="text" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" class="form-control" t-att-data_col_name="col_label_detail.value" />
+        </template>
+
+        <template id="details_table_column_type_textarea_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <textarea t-if="question.detail" rows="2" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" class="form-control" t-att-data_col_name="col_label_detail.value"></textarea>
+        </template>
+
+        <template id="details_table_column_type_number_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <input t-if="question.detail" type="number" t-att-min="col_label_detail.min" t-att-max="col_label_detail.max" step="1" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" class="form-control" t-att-data_col_name="col_label_detail.value"></input>
+        </template>
+
+        <template id="details_table_column_type_float_number_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <input t-if="question.detail" type="number" t-att-min="col_label_detail.min" t-att-max="col_label_detail.max" step="any" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" t-att-data_col_name="col_label_detail.value" class="form-control" />
+        </template>
+
+        <template id="details_table_column_type_date_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <t t-set="minimum" t-value="" />
+            <t t-set="maximum" t-value="" />
+            <t t-set="today" t-value="" />
+            <t t-if="col_label_detail.today">
+                <t t-set="today" t-value="col_label_detail.today" />
+            </t>
+            <t t-if="today">
+                <t t-if="today == 'lte_today'"><t t-set="maximum" t-value="question.date_today(col_label_detail.today)"/></t>
+                <t t-if="today == 'lt_today'"><t t-set="maximum" t-value="question.date_today(col_label_detail.today)"/></t>
+                <t t-if="today == 'gte_today'"><t t-set="minimum" t-value="question.date_today(col_label_detail.today)"/></t>
+                <t t-if="today == 'gt_today'"><t t-set="minimum" t-value="question.date_today(col_label_detail.today)"/></t>
+            </t>
+            <t t-if="col_label_detail.min_date">
+                <t t-set="minimum" t-value="col_label_detail.min_date" />
+            </t>
+            <t t-if="col_label_detail.max_date">
+                <t t-set="maximum" t-value="col_label_detail.max_date" />
+            </t>
+            <div t-if="question.detail" class="form-group">
+	            <div class="input-group date" t-attf-id="datetimepicker_#{'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)}" data-target-input="nearest" t-att-data-mindate="minimum"
+                    t-att-data-maxdate="maximum">
+		            <input type="text" class="form-control datetimepicker-input" t-attf-data-target="#datetimepicker_#{'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)}" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" t-att-data_col_name="col_label_detail.value"/>
+		            <div class="input-group-append" t-attf-data-target="#datetimepicker_#{'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)}" data-toggle="datetimepicker">
+		                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+	            </div>
+	        </div>
+        </template>
+
+        <template id="details_table_column_type_dropdown_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <div t-if="question.detail" class="js_drop row">
+                <div class="col-lg-12">
+                    <select class="form-control" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" t-att-data_col_name="col_label_detail.value">
+                        <option disabled="1" selected="1" value="">Choose...</option>
+                        <t t-set="choices" t-value="col_label_detail.options.split(',')" />
+                        <t t-foreach='choices' t-as='choice'>
+                            <option><t t-esc='choice'/></option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </template>
+
+        <template id="details_table_column_type_attachment_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <div t-if="question.detail">
+                <input type="file" class="file form-control" multiple="multiple" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" t-att-data_col_name="col_label_detail.value"/>
+                <ul t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)">
+                </ul>
+            </div>
+        </template>
+
+        <template id="details_table_column_type_cam_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <div t-if="question.detail" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" class="picture-div" style="display:flex;">
+                <a role="button" t-att-data_col_name="col_label_detail.value" class="btn btn-primary play mr-2 align-self-start" href="#snapModal" rel="modal:open">
+                    <i class="fa fa-camera fa-2x"></i>
+                </a>
+                <input type="hidden" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" value="" />
+            </div>
+        </template>
+
+        <template id="details_table_column_type_model_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <div t-if="question.detail" class="ui-widget">
+                <t t-if="col_label_detail.model_filter_field_id and '/correction' not in request.httprequest.url">
+                    <div class="input-group mb-1">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><t t-esc="col_label_detail.model_filter_field_id.field_description" /></span>
+                      </div>
+                        <input type="search" class="form-control bg-light column_type_model closest_filter" t-att-data-model="col_label_detail.model_id.model" t-att-data_filter_field="col_label_detail.model_filter_field_id.name" id="column_type_model_filter column_type_model" t-att-data_col_name="col_label_detail.value" />
+                    </div>
+                </t>
+			    <input type="search" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" t-att-data-model="col_label_detail.model_id.model" id="column_type_model" class="column_type_model form-control" t-att-data_col_name="col_label_detail.value" t-att-data_is_filter_on="1 if col_label_detail.model_filter_field_id != False else 0" t-att-data_filter_field="col_label_detail.model_filter_field_id.name" />
+			</div>
+        </template>
+
+        <template id="details_table_column_type_field_model_template">
+            <t t-if="not line">
+                <t t-set="line" t-value="0" />
+            </t>
+            <t t-set="field_name" t-value="col_label_detail.equivalent_field_id.name" />
+            <input type="text" t-att-name="'%s_%s_%s_details' % (prefix, str(line), col_label_detail.id)" t-att-value="question.column_type_field_model_value(rec[field_name])" class="form-control field_model_col" readonly="readonly" tabindex="-1" t-att-data_col_name="col_label.value"/>
+        </template>
+
+        <!-- -->
+
+        <template id="add_line_column_type_text_template">
+            <input type="text" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" class="form-control" t-att-column="1" />
+        </template>
+
+        <template id="add_line_column_type_textarea_template">
+            <textarea rows="2" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" class="form-control" t-att-column="1"></textarea>
+        </template>
+
+        <template id="add_line_column_type_number_template">
+            <input type="number" t-att-min="col_label.min" t-att-max="col_label.max" step="1" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-style="style" t-att-data_col_name="col_label.value" t-att-data-col_dependency_style="col_dependency_style" class="form-control" t-att-data_correction="style_correction" t-att-column="1" />
+        </template>
+
+        <template id="add_line_column_type_float_number_template">
+            <input type="number" t-att-min="col_label.min" t-att-max="col_label.max" step="any" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-style="style" t-att-data_col_name="col_label.value" t-att-data-col_dependency_style="col_dependency_style" class="form-control" t-att-data_correction="style_correction" t-att-column="1" />
+        </template>
+
+        <template id="add_line_column_type_date_template">
+            <t t-set="minimum" t-value="" />
+            <t t-set="maximum" t-value="" />
+            <t t-set="today" t-value="" />
+            <t t-if="col_label.today">
+                <t t-set="today" t-value="col_label.today" />
+            </t>
+            <t t-if="today">
+                <t t-if="today == 'lte_today'"><t t-set="maximum" t-value="question.date_today(col_label.today)"/></t>
+                <t t-if="today == 'lt_today'"><t t-set="maximum" t-value="question.date_today(col_label.today)"/></t>
+                <t t-if="today == 'gte_today'"><t t-set="minimum" t-value="question.date_today(col_label.today)"/></t>
+                <t t-if="today == 'gt_today'"><t t-set="minimum" t-value="question.date_today(col_label.today)"/></t>
+            </t>
+            <t t-if="col_label.min_date">
+                <t t-set="minimum" t-value="col_label.min_date" />
+            </t>
+            <t t-if="col_label.max_date">
+                <t t-set="maximum" t-value="col_label.max_date" />
+            </t>
+            <div t-att-style="style" t-att-data-col_dependency_style="col_dependency_style" class="form-group">
+	            <div class="input-group date" t-attf-id="datetimepicker_#{'%s_%s_%s' % (prefix, str(line), col_label.id)}" data-target-input="nearest" t-att-data-mindate="minimum"
+                    t-att-data-maxdate="maximum">
+		            <input type="text" class="form-control datetimepicker-input" t-attf-data-target="#datetimepicker_#{'%s_%s_%s' % (prefix, str(line), col_label.id)}" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-data_col_name="col_label.value" t-att-column="1"/>
+		            <div class="input-group-append" t-attf-data-target="#datetimepicker_#{'%s_%s_%s' % (prefix, str(line), col_label.id)}" data-toggle="datetimepicker">
+		                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+	            </div>
+            </div>
+        </template>
+
+        <template id="add_line_column_type_dropdown_template">
+            <div t-att-style="style" class="js_drop row" t-att-data_correction="style_correction">
+                <div class="col-lg-12">
+                    <select class="form-control" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" t-att-column="1">
+                        <option disabled="1" selected="1" value="">Choose...</option>
+                        <t t-set="choices" t-value="col_label.options.split(',')" />
+                        <t t-foreach='choices' t-as='choice'>
+                            <option><t t-esc='choice'/></option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </template>
+
+        <template id="add_line_column_type_attachment_template">
+            <div t-att-style="style" t-att-data-col_dependency_style="col_dependency_style">
+                <input type="file" class="file form-control" multiple="multiple" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-data_col_name="col_label.value" t-att-column="1"/>
+                <ul t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)">
+
+                </ul>
+            </div>
+        </template>
+
+        <template id="add_line_column_type_cam_template">
+            <div t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" class="picture-div" style="display:flex;">
+                <a role="button" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style" t-att-data_col_name="col_label.value" t-att-column="1" class="btn btn-primary play mr-2 align-self-start" href="#snapModal" rel="modal:open">
+                    <i class="fa fa-camera fa-2x"></i>
+                </a>
+                <input type="hidden" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" value="" />
+            </div>
+        </template>
+
+        <template id="add_line_column_type_model_template">
+            <div class="ui-widget" t-att-style="style" t-att-data-col_dependency_style="col_dependency_style">
+			    <input type="search" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-data-model="col_label.model_id.model" id="column_type_model" class="column_type_model form-control" t-att-data_col_name="col_label.value" t-att-column="1"/>
+			</div>
+        </template>
+
+        <template id="add_line_column_type_field_model_template">
+            <t t-set="field_name" t-value="col_label.equivalent_field_id.name" />
+            <input type="text" t-att-name="'%s_%s_%s' % (prefix, str(line), col_label.id)" t-att-value="question.column_type_field_model_value(rec[field_name])" class="form-control field_model_col" readonly="readonly" tabindex="-1" t-att-data_col_name="col_label.value" t-att-column="1"/>
+        </template>
+
+        <template id="advanced_matrix_template_extend" inherit_id="spc_survey.advanced_matrix_template">
+
+            <xpath expr="//table" position="before">
+                <t t-set="current_url_full_path" t-value="request.httprequest.full_path" />
+                <!-- Add line feature -->
+                <p t-if="'/edit/' not in request.httprequest.full_path and '/print/' not in request.httprequest.full_path and question.add_line_feature">
+                    <input type="button" id="add_row" value="Add New Row" t-att-data_table_name="prefix"/>
+                </p>
+            </xpath>
+
+            <xpath expr="//table" position="attributes">
+                <attribute name="t-att-name">prefix</attribute>
+            </xpath>
+
+            <xpath expr="//thead" position="after">
+                <!-- Columns dependencies -->
+                <t t-if="env['column.calculation'].search([('question_id','=',question.id)])">
+                    <t t-set="dependency_ids" t-value="env['column.calculation'].search([('question_id','=',question.id)]).dependency_ids" />
+                    <t t-set="row_dependency_ids" t-value="env['column.calculation'].search([('question_id','=',question.id)]).row_dependency_ids" />
+                    <input type="hidden" t-att-name="'%s_columns_dependencies' % (prefix)" t-att-value="question.prepare_dependencies(dependency_ids)" />
+                    <input type="hidden" t-att-name="'%s_rows_columns_dependencies' % (prefix)" t-att-value="question.prepare_row_dependencies(row_dependency_ids)" />
+                </t>
+
+                <t t-if="env['question.display'].search([('question_id','=',question.id)]).show_hide_cond_ids">
+                    <t t-set="show_hide_cond_ids" t-value="env['question.display'].search([('question_id','=',question.id)]).show_hide_cond_ids" />
+                    <input type="hidden" t-att-name="'%s_show_hide_cond_ids' % (prefix)" t-att-value="question.prepare_show_hide_cond_lines(show_hide_cond_ids)" />
+                </t>
+
+                <t t-if="question.question_detail_relation_ids">
+                    <input type="hidden" t-att-name="'%s_question_detail_relation' % (prefix)" t-att-value="question.prepare_question_detail_relation(question.question_detail_relation_ids)" />
+                </t>
+
+            </xpath>
+
+            <xpath expr="//span[@t-field='col_label.value']" position="replace">
+                <t t-if="'/correction' not in current_url_full_path">
+                    <span t-if="not col_label.data_correction" t-field="col_label.value"/>
+                </t>
+                <t t-if="'/correction' in current_url_full_path">
+                    <span t-field="col_label.value"/>
+                </t>
+            </xpath>
+
+
+            <!-- add a condition to distinguish the not automatic fill matrix (normal case) -->
+            <xpath expr="//tbody" position="attributes">
+                <attribute name="t-if">not question.model_id</attribute>
+            </xpath>
+            <!-- add another tbody for auto fill matrix questions -->
+            <xpath expr="//tbody" position="after">
+                <tbody t-if="question.model_id">
+                    <t t-set="domain" t-value="question.filter_domain_refact(question.filter_domain)" />
+                    <t t-if="question.limit > 0">
+                        <t t-set="records" t-value="env[question.model_id.model].search(domain, limit=question.limit)" />
+                        <t t-set="limit_counter" t-value="0" />
+                        <tr t-foreach="records" t-as="rec" t-if="limit_counter != question.limit">
+                            <t t-call="spc_survey_extra.auto_fill_template">
+                                <t t-set="row" t-value="limit_counter" />
+                            </t>
+                            <t t-set="limit_counter" t-value="limit_counter + 1" />
+                        </tr>
+                        <input type="hidden" t-att-name="'automatic_fill_%s' % (prefix)" t-att-value="limit_counter" />
+                    </t>
+                    <t t-else="">
+                        <t t-set="records" t-value="env[question.model_id.model].search(domain)" />
+                        <t t-set="limit_counter" t-value="0" />
+                        <tr t-foreach="records" t-as="rec">
+                            <t t-call="spc_survey_extra.auto_fill_template">
+                                <t t-set="row" t-value="limit_counter" />
+                            </t>
+                            <t t-set="limit_counter" t-value="limit_counter + 1" />
+                        </tr>
+                        <input type="hidden" t-att-name="'automatic_fill_%s' % (prefix)" t-att-value="limit_counter" />
+                    </t>
+                </tbody>
+            </xpath>
+
+            <!-- display -->
+            <xpath expr='//td[@t-foreach="question.labels_adv_matrix_cols_ids"]' position="replace">
+                <!-- anomaly correction thing -->
+                <t t-if="'/correction' in current_url_full_path">
+                    <t t-if="env['question.display'].search([('question_id','=',question.id)]).anomaly_columns_ids">
+                        <t t-set="anomaly_columns_ids" t-value="env['question.display'].search([('question_id','=',question.id)]).anomaly_columns_ids" />
+                        <t t-set="anomaly_columns" t-value="question.get_anomaly_columns(anomaly_columns_ids)"/>
+                    </t>
+                </t>
+                <!-- / anomaly correction thing -->
+                <t t-set="style_correction_counter" t-value="0" />
+                <td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+                    <t t-set="style_correction" t-value="" />
+                    <t t-set="col_dependency_style" t-value="" />
+
+                    <!-- anomaly correction thing -->
+                    <t t-if="'/correction' in current_url_full_path">
+                        <t t-if="anomaly_columns">
+                            <t t-if="col_label.id in anomaly_columns">
+                                <t t-set="col_a_tag" t-value="'%s_%s_%s_%s_%s' % (survey.id,page.id,question.id,row_label.id,col_label.id)" />
+                                <t t-set="user_input_id" t-value="env['survey.user_input'].search([('token','=',token)])" />
+                                <t t-set="col_value" t-value="env['survey.user_input_line'].search([('user_input_id','=',user_input_id.id),('a_tag','=',col_a_tag)]).value_adv_mat" />
+                                <!-- getting values -->
+                                <t t-if="col_value in anomaly_columns[col_label.id].split(',')">
+                                    <t t-set="style_correction_counter" t-value="1" />
+                                </t>
+                                <t t-else="">
+                                    <t t-set="style_correction_counter" t-value="0" />
+                                </t>
+                            </t>
+                        </t>
+
+                        <t t-if="not col_label.data_correction">
+                            <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                        </t>
+
+                        <t t-if="col_label.data_correction">
+                            <t t-if="dependency_ids">
+                                <t t-foreach="dependency_ids" t-as="dependency">
+                                    <t t-if="col_label.id == dependency.column_id.id">
+                                        <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                    </t>
+                                </t>
+                            </t>
+                            <t t-if="row_dependency_ids">
+                                <t t-foreach="row_dependency_ids" t-as="row_dependency">
+                                    <t t-if="col_label.id == row_dependency.column_id.id">
+                                        <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+
+                    </t>
+                    <t t-else=""> <!-- not correction -->
+                        <t t-if="dependency_ids">
+                            <t t-foreach="dependency_ids" t-as="dependency">
+                                <t t-if="col_label.id == dependency.column_id.id">
+                                    <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                </t>
+                            </t>
+                        </t>
+                        <t t-if="row_dependency_ids">
+                            <t t-foreach="row_dependency_ids" t-as="row_dependency">
+                                <t t-if="col_label.id == row_dependency.column_id.id">
+                                    <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+
+                    <t t-if="anomaly_columns">
+                        <t t-if="col_label.id in anomaly_columns">
+                            <t t-if="style_correction_counter == 0">
+                                <t t-set="style_correction" t-value="str('hide_row')" />
+                            </t>
+                            <t t-if="style_correction_counter == 1">
+                                <t t-set="style_correction" t-value="str('show_row')" />
+                            </t>
+                        </t>
+                    </t>
+
+
+                    <!-- / anomaly correction thing -->
+
+                    <t t-set="style" t-value="" />
+                    <t t-if="row_label.display_cols">
+                        <t t-if="str(col_label.id) not in row_label.display_cols.split(',')">
+                            <t t-set="style" t-value="str('display:none;')" />
+                        </t>
+                    </t>
+                    <!-- check if this is the correction case or not ! -->
+                    <t t-if="'/correction' not in current_url_full_path"> <!-- data entry case -->
+                        <t t-if="col_label.data_correction">
+                            <t t-set="style" t-value="str('display:none;')" />
+                        </t>
+                    </t>
+                    <!-- call column type template -->
+                    <t t-if="col_label.col_type_resp == 'text'"><t t-call="spc_survey.column_type_text_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                    <t t-if="col_label.col_type_resp == 'textarea'"><t t-call="spc_survey.column_type_textarea_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                    <t t-if="col_label.col_type_resp == 'number'"><t t-call="spc_survey.column_type_number_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                    <t t-if="col_label.col_type_resp == 'float_number'"><t t-call="spc_survey.column_type_float_number_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                    <t t-if="col_label.col_type_resp == 'date'"><t t-call="spc_survey.column_type_date_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                    <t t-if="col_label.col_type_resp == 'dropdown'"><t t-call="spc_survey.column_type_dropdown_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                    <t t-if="col_label.col_type_resp == 'attachment'"><t t-call="spc_survey.column_type_attachment_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                    <t t-if="col_label.col_type_resp == 'cam'"><t t-call="spc_survey.column_type_cam_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/></t></t>
+                </td>
+            </xpath>
+
+            <!-- call column type model -->
+            <xpath expr="//tbody//tr//td//t[9]" position='after'>
+                <t t-if="col_label.col_type_resp == 'model'"><t t-call="spc_survey_extra.column_type_model_template"><t t-set="style" t-value="style" /></t></t>
+            </xpath>
+
+            <!-- details table manipulation -->
+            <xpath expr="//table" position="after">
+                <t t-if="question.detail">
+
+                    <!-- add line rows  -->
+                    <t t-set="response" t-value="env['survey.user_input'].search([('token','=',token)])" />
+                    <t t-if="response.user_input_line_ids">
+                        <t t-set="nb_rows" t-value="0" />
+                        <t t-foreach="env['survey.user_input_line'].search([('user_input_id','=',response.id),('question_id','=',question.id)])" t-as="line">
+                            <t t-if="'_details' in line.a_tag and int(line.a_tag.split('_')[3]) > nb_rows">
+                                <t t-set="nb_rows" t-value="int(line.a_tag.split('_')[3])" />
+                            </t>
+                        </t>
+                    </t>
+                    <!-- -->
+
+                    <!-- Add line feature -->
+                    <p t-if="'/edit/' not in request.httprequest.full_path and '/print/' not in request.httprequest.full_path">
+                        <input type="button" id="add_row" value="Add New Row" t-att-data_table_name="prefix + '_details'"/>
+                    </p>
+                    <!-- /Add line feature -->
+                    <!-- Detail table -->
+                    <table class="table table-hover" t-att-name="prefix + '_details'">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th t-foreach="question.detail_labels_adv_matrix_cols_ids" t-as="col_label_detail">
+                                    <span t-field="col_label_detail.value"/>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <span/>
+                                </th>
+                                <td t-foreach="question.detail_labels_adv_matrix_cols_ids" t-as="col_label_detail">
+                                    <!-- call column type template -->
+                                    <t t-if="col_label_detail.col_type_resp == 'text'"><t t-call="spc_survey_extra.details_table_column_type_text_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'textarea'"><t t-call="spc_survey_extra.details_table_column_type_textarea_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'number'"><t t-call="spc_survey_extra.details_table_column_type_number_template"></t></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'float_number'"><t t-call="spc_survey_extra.details_table_column_type_float_number_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'date'"><t t-call="spc_survey_extra.details_table_column_type_date_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'dropdown'"><t t-call="spc_survey_extra.details_table_column_type_dropdown_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'attachment'"><t t-call="spc_survey_extra.details_table_column_type_attachment_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'cam'"><t t-call="spc_survey_extra.details_table_column_type_cam_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'model'"><t t-call="spc_survey_extra.details_table_column_type_model_template"/></t>
+                                    <t t-if="col_label_detail.col_type_resp == 'field_model'"><t t-call="spc_survey_extra.details_table_column_type_field_model_template" /> </t>
+                                </td>
+                            </tr>
+                            <t t-if="nb_rows">
+                                <t t-esc="nb_rows" />
+                                <t>
+                                    <tr t-foreach="range(nb_rows)" t-as="line">
+                                        <th>
+                                            <span/>
+                                        </th>
+                                        <td t-foreach="question.detail_labels_adv_matrix_cols_ids" t-as="col_label_detail">
+                                            <t t-if="col_label_detail.col_type_resp == 'text'"><t t-call="spc_survey_extra.details_table_column_type_text_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'textarea'"><t t-call="spc_survey_extra.details_table_column_type_textarea_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'number'"><t t-call="spc_survey_extra.details_table_column_type_number_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'float_number'"><t t-call="spc_survey_extra.details_table_column_type_float_number_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'date'"><t t-call="spc_survey_extra.details_table_column_type_date_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'dropdown'"><t t-call="spc_survey_extra.details_table_column_type_dropdown_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'attachment'"><t t-call="spc_survey_extra.details_table_column_type_attachment_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'cam'"><t t-call="spc_survey_extra.details_table_column_type_cam_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'model'"><t t-call="spc_survey_extra.details_table_column_type_model_template"><t t-set="line" t-value="line+1" /></t></t>
+                                            <t t-if="col_label_detail.col_type_resp == 'field_model'"><t t-call="spc_survey_extra.details_table_column_type_field_model_template"><t t-set="line" t-value="line+1" /></t> </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <!-- /Detail table -->
+                </t>
+            </xpath>
+
+            <xpath expr="//tr[@t-foreach='question.labels_adv_matrix_rows_ids']" position="after">
+                <t t-if="question.add_line_feature">
+                    <!-- add line rows  -->
+                    <t t-set="response" t-value="env['survey.user_input'].search([('token','=',token)])" />
+                    <t t-set="saved_question" t-value="env['survey.user_input_line'].search([('user_input_id','=',response.id),('question_id','=',question.id)])" />
+                    <t t-if="response.user_input_line_ids and saved_question">
+                        <t t-set="final_row" t-value="999999" />
+                        <t t-set="nb_rows" t-value="" />
+                        <t t-foreach="env['survey.user_input_line'].search([('user_input_id','=',response.id),('question_id','=',question.id)])" t-as="line">
+                            <t t-set="nb_rows" t-value="str(nb_rows) + ',' + str(int(line.a_tag.split('_')[3]))" />
+                            <t t-if="int(line.a_tag.split('_')[3]) &lt; int(final_row)">
+                                <t t-set="final_row" t-value="int(line.a_tag.split('_')[3])" />
+                            </t>
+                        </t>
+                        <t t-set="not_add_line_rows" t-value="len(question.labels_adv_matrix_rows_ids)" /> <!-- number of not add_line rows -->
+                        <t t-set="all_rows" t-value="len(list(set(nb_rows.split(',')))) - 1" /> <!-- number of all rows (add_line & not_add_line) ; why -1? to eliminate None -->
+                    </t>
+                    <!-- -->
+                    <t t-if="final_row">
+                        <t>
+                            <tr t-foreach="range(int(all_rows) - int(not_add_line_rows))" t-as="line">
+                                <th>
+                                    <span/>
+                                </th>
+
+
+                                <!-- anomaly correction thing -->
+                                <t t-if="'/correction' in current_url_full_path">
+                                    <t t-if="env['question.display'].search([('question_id','=',question.id)]).anomaly_columns_ids">
+                                        <t t-set="anomaly_columns_ids" t-value="env['question.display'].search([('question_id','=',question.id)]).anomaly_columns_ids" />
+                                        <t t-set="anomaly_columns" t-value="question.get_anomaly_columns(anomaly_columns_ids)"/>
+<!--                                        <t t-esc="anomaly_columns" />-->
+                                    </t>
+                                </t>
+                                <!-- / anomaly correction thing -->
+                                <t t-set="style_correction_counter" t-value="0" />
+                                <td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+                                    <t t-set="style_correction" t-value="" />
+                                    <t t-set="col_dependency_style" t-value="" />
+                                    <!-- anomaly correction thing -->
+                                    <t t-if="'/correction' in current_url_full_path">
+                                        <t t-if="anomaly_columns">
+                                            <t t-if="col_label.id in anomaly_columns">
+                                                <t t-set="col_a_tag" t-value="'%s_%s_%s_%s_%s' % (survey.id,page.id,question.id,row_label.id,col_label.id)" />
+                                                <t t-set="user_input_id" t-value="env['survey.user_input'].search([('token','=',token)])" />
+                                                <t t-set="col_value" t-value="env['survey.user_input_line'].search([('user_input_id','=',user_input_id.id),('a_tag','=',col_a_tag)]).value_adv_mat" />
+                                                <!-- getting values -->
+                                                <t t-if="col_value in anomaly_columns[col_label.id].split(',')">
+                                                    <t t-set="style_correction_counter" t-value="1" />
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-set="style_correction_counter" t-value="0" />
+                                                </t>
+                                            </t>
+                                        </t>
+
+                                        <t t-if="not col_label.data_correction">
+                                            <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                        </t>
+
+                                        <t t-if="col_label.data_correction">
+                                            <t t-if="dependency_ids">
+                                                <t t-foreach="dependency_ids" t-as="dependency">
+                                                    <t t-if="col_label.id == dependency.column_id.id">
+                                                        <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                                    </t>
+                                                </t>
+                                            </t>
+                                            <t t-if="row_dependency_ids">
+                                                <t t-foreach="row_dependency_ids" t-as="row_dependency">
+                                                    <t t-if="col_label.id == row_dependency.column_id.id">
+                                                        <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </t>
+
+                                    </t>
+                                    <t t-else=""> <!-- not correction -->
+                                        <t t-if="dependency_ids">
+                                            <t t-foreach="dependency_ids" t-as="dependency">
+                                                <t t-if="col_label.id == dependency.column_id.id">
+                                                    <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-if="row_dependency_ids">
+                                            <t t-foreach="row_dependency_ids" t-as="row_dependency">
+                                                <t t-if="col_label.id == row_dependency.column_id.id">
+                                                    <t t-set="col_dependency_style" t-value="str('readonly_columns')" />
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </t>
+
+                                    <t t-if="anomaly_columns">
+                                        <t t-if="col_label.id in anomaly_columns">
+                                            <t t-if="style_correction_counter == 0">
+                                                <t t-set="style_correction" t-value="str('hide_row')" />
+                                            </t>
+                                            <t t-if="style_correction_counter == 1">
+                                                <t t-set="style_correction" t-value="str('show_row')" />
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <!-- / anomaly correction thing -->
+
+                                    <t t-set="style" t-value="" />
+
+                                    <!-- check if this is the correction case or not ! -->
+                                    <t t-if="'/correction' not in current_url_full_path"> <!-- data entry case -->
+                                        <t t-if="col_label.data_correction">
+                                            <t t-set="style" t-value="str('display:none;')" />
+                                        </t>
+                                    </t>
+
+
+                                    <t t-if="col_label.col_type_resp == 'text'"><t t-call="spc_survey_extra.add_line_column_type_text_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'textarea'"><t t-call="spc_survey_extra.add_line_column_type_textarea_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'number'"><t t-call="spc_survey_extra.add_line_column_type_number_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'float_number'"><t t-call="spc_survey_extra.add_line_column_type_float_number_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'date'"><t t-call="spc_survey_extra.add_line_column_type_date_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'dropdown'"><t t-call="spc_survey_extra.add_line_column_type_dropdown_template"><t t-set="style" t-value="style" /><t t-set="style_correction" t-value="style_correction" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'attachment'"><t t-call="spc_survey_extra.add_line_column_type_attachment_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'cam'"><t t-call="spc_survey_extra.add_line_column_type_cam_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'model'"><t t-call="spc_survey_extra.add_line_column_type_model_template"><t t-set="style" t-value="style" /><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t></t>
+                                    <t t-if="col_label.col_type_resp == 'field_model'"><t t-call="spc_survey_extra.add_line_column_type_field_model_template"/><t t-set="col_dependency_style" t-value="col_dependency_style"/><t t-set="line" t-value="final_row+line+1" /></t>
+
+
+                                </td>
+
+
+
+
+                            </tr>
+                        </t>
+                    </t>
+
+                </t>
+
+
+            </xpath>
+
+
+        </template>
+
+
+        <!-- correction table -->
+        <template id="correction" name="Correction table">
+            <style>
+                tr[is_corrected="True"] {
+                    background-color: rgba(247,204,2,0.7);
+                }
+                a[id="stop"] {
+                    display:none;
+                }
+                a[id="pass"] {
+                    display:;
+                }
+            </style>
+            <t t-call="survey.layout">
+                <div class="wrap">
+                    <div class="container">
+                        <t t-set="correction_counter" t-value="0" />
+                        <t t-set="calc_score_display" t-value="" />
+                        <t t-if="survey_session_info">
+                            <!--<t t-set="survey_session_surveys" t-value="survey_session_info.survey_session_id.survey_ids" />-->
+                            <t t-set="surveys_reponses" t-value="env['survey.user_input'].search([('survey_session_info_id','=',survey_session_info.id)], order='create_date')" />
+                            <t t-set="surveys_reponses" t-value="surveys_reponses.extract_surveys_to_correct(surveys_reponses)" />
+                        </t>
+                        <br/>
+                        <div>
+                            <table class="table table-bordered text-center" id="correction_table">
+                                <thead style="background-color:#E33E22;color:white">
+                                    <tr>
+                                        <th>Survey</th>
+                                        <th>Correct</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="surveys_reponses" t-as="surv_rep" t-att-is_corrected="surv_rep.is_correction_done">
+                                        <t t-if="surv_rep.is_correction_done">
+                                            <t t-set="correction_counter" t-value="correction_counter + 1" />
+                                        </t>
+                                        <td class="align-middle"> <t t-esc="surv_rep.survey_id.title" /> </td>
+                                        <td>
+                                            <a role="button" class="btn btn-secondary btn-lg loading_class" t-att-href="'/survey/print/%s/%s/%s/correction' % (slug(surv_rep.survey_id),surv_rep.token,slug(survey_session_info))">Correct </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2">
+                                            <t t-if="correction_counter == len(surveys_reponses)">
+                                                <t t-set="calc_score_display" t-value="'pass'" />
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="calc_score_display" t-value="'stop'" />
+                                            </t>
+                                            <a role="button" class="btn btn-primary btn-lg loading_class" t-att-href="'/survey/scoring/%s/correction' % (slug(survey_session_info))" t-att-id="calc_score_display">
+                                                Calculate scores
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+
+        <template id="sfinished_inherit_extra" inherit_id="spc_survey.sfinished_inherit">
+
+            <xpath expr="//t[@t-else='']//div//a" position="attributes">
+                <attribute name="t-att-href">'/survey/%s/correction' % (slug(survey_session_info))</attribute>
+            </xpath>
+
+        </template>
+
+        <!-- edit survey responses template inherit to add correction case -->
+        <template id="edit_inherit_extra" inherit_id="spc_survey.edit">
+
+            <xpath expr="//t[@t-set='edit_url']" position="after">
+                <t t-set="current_url_full_path" t-value="request.httprequest.full_path" />
+                <t t-if="'/correction' in current_url_full_path">
+                    <t t-set="edit_url" t-value="'/survey/edit/%s/%s/%s/correction' % (slug(survey), token, slug(survey_session_info))" />
+                </t>
+            </xpath>
+
+        </template>
+
+        <template id="survey_print_inherit_extra" inherit_id="spc_survey.survey_print_inherit">
+
+            <xpath expr="//button[@value='finish']" position="before">
+                <t t-if="'/correction' in request.httprequest.url">
+                    <input type="hidden" name="correction" value="correction" />
+                    <input type="hidden" name="survey_session_info" t-att-value="survey_session_info.id" />
+                </t>
+            </xpath>
+
+        </template>
+
+
+        <!-- session scores table -->
+        <template id="session_scores" name="Session scores">
+            <t t-call="survey.layout">
+                <div class="wrap">
+                    <div class="container">
+                        <t t-set="surveys_reponses" t-value="env['survey.user_input'].search([('survey_session_info_id','=',survey_session_info.id)])" />
+                        <br/>
+                        <div>
+                            <table class="table table-bordered text-center border border-dark">
+                                <thead>
+                                    <tr>
+                                        <th>Survey</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="surveys_reponses">
+                                        <tr t-foreach="surveys_reponses" t-as="surv_rep">
+                                            <td class="align-middle"> <t t-esc="surv_rep.survey_id.title" /> </td>
+                                            <td class="align-middle"> <t t-if="len(surv_rep.criteria_ids) != 0"> <t t-esc="round(surv_rep.final_score)" /> % </t></td>
+                                        </tr>
+                                    </t>
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2">
+                                            <a role="button" class="btn btn-primary btn-lg loading_class" t-att-href="'/survey/end_session/%s' % (slug(survey_session_info))">
+                                                End Survey session
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data noupdate="0">
+  
+        <!-- sequence of claim -->
+    	<record id="sequence_claim_seq" model="ir.sequence">
+            <field name="name">Numéro Réclamation</field>
+            <field name="code">oscar.sav.client.claim</field>
+            <field name="prefix">RC/%(range_year)s/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">5</field>
+        </record>
+        
+        <!-- sequence of prefix RI-->
+    	<record id="sequence_prefix_ri_seq" model="ir.sequence">
+            <field name="name">Numéro Réclamation</field>
+            <field name="code">oscar.sav.internal.claim</field>
+            <field name="prefix">RI/%(range_year)s/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">5</field>
+        </record>
+        
+        <!-- sequence de bon de sortie -->
+    	<record id="sequence_bon_sortie_seq" model="ir.sequence">
+            <field name="name">Numéro Bon de Sortie</field>
+            <field name="code">oscar.sav.bon.sortie.wizard</field>
+            <field name="prefix">BS/%(range_year)s/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">5</field>
+        </record>
+        
+       
+		
+       <!--Recapitulation claims planned hors guarantee action 
+        <record id="ir_cron_recapitulation_claims_hors_guarantee_action" model="ir.cron">
+			<field name="name">Planned recapitulation claims hors garuantee</field>
+			<field name="user_id" ref="base.user_root"/>
+			<field name="interval_number">1</field>
+			<field name="priority">0</field>
+			<field name="interval_type">minutes</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall"/>
+			<field eval="'res.users'" name="model"/>
+			<field eval="'send_mail_notification_product_hors_guarantee'" name="function"/>
+		</record> -->
+<!--		  <record  id="ir_cron_send_notification_check_date_current_claim_scheduler_action" model="ir.cron">-->
+<!--            <field name="name">Check Date Current Claim</field>-->
+<!--            <field name="model_id" ref="model_oscar_sav_claim"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.check_date_current_claim()</field>-->
+<!--            <field name="user_id" ref="base.user_root" />-->
+<!--            <field name="interval_number">1</field>-->
+<!--            <field name="interval_type">days</field>-->
+<!--            <field name="numbercall">-1</field>-->
+<!--            <field eval="False" name="doall" />-->
+<!--        </record>  -->
+		
+		
+    </data>
+</odoo>

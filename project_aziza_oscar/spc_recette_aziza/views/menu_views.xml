@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<!-- Top menu Oscar -->
+		<menuitem id="menu_oscar_recette"
+              name="Flux Financier"
+              web_icon="spc_recette_aziza,static/description/icon.png"/>
+
+		<!-- menu Préparation de journées -->
+		<menuitem name="Préparation des journées" id="menu_preparation_journee"
+			parent="menu_oscar_recette" sequence="100"
+			groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_DE,spc_recette_aziza.group_consulting_oscar,spc_recette_aziza.group_responsable_financier_oscar"
+			 /> 
+			
+		<!-- menu Ecarts -->
+		<menuitem name="Écarts" id="menu_ecart_magasin" parent="menu_oscar_recette" sequence="200"
+			groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_DE,spc_recette_aziza.group_consulting_oscar,spc_recette_aziza.group_responsable_financier_oscar" />
+		
+		<!-- menu report -->
+		<menuitem name="Rapports" id="menu_oscar_report" parent="menu_oscar_recette" sequence="900"
+			groups="spc_recette_aziza.group_consulting_oscar,spc_recette_aziza.group_responsable_financier_oscar,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_DE" />
+		
+		<!-- menu Réception de journées -->
+		<menuitem name="Réception de journées" id="menu_reception_journee"
+			parent="menu_oscar_recette" sequence="300"
+			groups="spc_recette_aziza.group_agent_reception_oscar,spc_recette_aziza.group_consulting_oscar" /> 
+
+		<!-- menu Vérification de journées -->
+		<menuitem name="Vérification de journées" id="menu_verification_journee"
+			parent="menu_oscar_recette" sequence="400" /> 
+		
+		<!-- menu action litige -->
+		<menuitem name="Litige" id="menu_litige" sequence="500"
+			parent="menu_oscar_recette" groups="spc_recette_aziza.group_responsable_financier_oscar,spc_recette_aziza.group_consulting_oscar,spc_oscar_aziza.group_DE" />
+		
+		<!-- Menu Versements -->
+		<menuitem name="Versements" id="menu_oscar_versement"
+			sequence="150" parent="menu_oscar_recette" />
+		
+		
+	</data>
+</odoo>

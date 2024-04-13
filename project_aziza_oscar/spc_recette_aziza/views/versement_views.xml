@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+
+		<!-- view filter versement -->
+		<record id="view_versement_filter" model="ir.ui.view">
+			<field name="name">versement.search.view</field>
+			<field name="model">oscar.versement</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher des versements">
+					<field name="name" />
+					<field name="journee_id" />
+					<field name="keepsafe_billet" />
+					<field name="keepsafe_monnaie" />
+					<separator/>
+					<filter string="Brouillon" name="draft_versement" domain="[('state', '=', 'draft')]" />
+					<filter string="Validé" name="validate_versement" domain="[('state', '=', 'validate')]" />
+					<filter string="Versée" name="paid_versement" domain="[('state', '=', 'paid')]" />
+					<filter string="Ramassée par IBS" name="paid_ibs_versement"
+						domain="[('state', '=', 'paid_ibs')]" />
+					<separator />
+					<filter name="group_versement_by_magasin" string="Magasin"
+						context="{'group_by':'magasin_id'}" groups="spc_oscar_aziza.group_admin_oscar" />
+					<filter name="group_versement_by_bank" string="Banque"
+						context="{'group_by':'bank_id'}" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Versement form view -->
+		<record model="ir.ui.view" id="versement_view_form">
+			<field name="name">versement.view.form</field>
+			<field name="model">oscar.versement</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button name="action_validate" string="Valider" states="draft"
+							type="object" class="btn-primary oe_read_only" />
+						<button name="action_verser" string="Verser" states="validate"
+							type="object" class="btn-primary" />
+						<button name="versement_print" string="Imprimer" states="paid,paid_ibs"
+							type="object" class="oe_highlight" />
+						<button string="Remettre en brouillon" type="object"
+							name="action_draft" states="paid,paid_ibs" groups="oscar_aziza.group_admin_oscar" />
+						<field name="state" widget="statusbar" statusbar_visible="draft,validate" />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" string="N° Versement" />
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="journee_id" options="{'no_create':1,'no_create_edit':1}" />
+								<field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="user_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+									attrs="{'invisible':[('journee_id','=', False)]}" />
+								<field name="currency_id" groups="base.group_no_one"/>
+								<field name="type_versement" invisible="1" />
+							</group>
+							<group>
+								<field name="date_versement" />
+								<field name="bank_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="reste_a_verser" widget="monetary" states="draft"/>
+								<field name="montant_versement" widget="monetary" states="validate,paid,paid_ibs"/>
+							</group>
+						</group>
+						<group attrs="{'invisible': [('type_versement', '!=', 'ibs')]}">
+							<group string="Versement IBS">
+								<field name="keepsafe_billet" attrs="{'required': [('state', '=', 'draft'),('type_versement', '=', 'ibs')]}"/>
+								<field name="billet" widget="monetary" attrs="{'required': [('state', '=', 'draft'),('type_versement', '=', 'ibs')]}"/>
+								<field name="keepsafe_monnaie" />
+								<field name="pieces_monnaie" widget="monetary" />
+							</group>
+						</group>
+						<notebook colspan="4">
+							<page string="Notes internes">
+								<field name="comment" />
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"
+							groups="base.group_user" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Versement graph view -->
+		<record model="ir.ui.view" id="versement_view_graph">
+			<field name="name">versement.view.graph</field>
+			<field name="model">oscar.versement</field>
+			<field name="arch" type="xml">
+				<graph string="Versement">
+					<field name="magasin_id" />
+					<field name="montant_versement" type="measure" />
+				</graph>
+			</field>
+		</record>
+
+		<!-- Versement tree view -->
+		<record model="ir.ui.view" id="versement_view_tree">
+			<field name="name">versement.view.tree</field>
+			<field name="model">oscar.versement</field>
+			<field name="arch" type="xml">
+				<tree decoration-info="state == ' draft'" decoration-bf="message_needaction == True">
+					<field name="name" />
+					<field name="magasin_id" groups="spc_oscar_aziza.group_admin_oscar" />
+					<field name="journee_id" />
+					<field name="date_versement" />
+					<field name="bank_id" />
+					<field name="montant_versement" sum="Total" />
+					<field name="state" widget="colored_state" options="{'draft': { 'class': 'badge-secondary', 'name': 'Brouillon' },
+															'validate': { 'class': 'badge-info', 'name': 'Validé' },
+          													'paid': { 'class': 'badge-success', 'name': 'Versée' },
+          													'paid_ibs': { 'class': 'badge-success', 'name': 'Ramassée par IBS' }}"/>
+					<field name="message_needaction" invisible="1" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- actions liste des versements journee -->
+		<record model="ir.actions.act_window" id="action_versement_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des versements</field>
+			<field name="res_model">oscar.versement</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucun versement trouvé.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Versements
+				</p>
+			</field>
+		</record>
+
+		<!-- Menu Admin OSCAR -->
+		<!-- actions liste des tous versements des journees -->
+		<record model="ir.actions.act_window" id="action_all_versement_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des versements</field>
+			<field name="res_model">oscar.versement</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'search_default_group_versement_by_magasin': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucun versement trouvé.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Versements
+				</p>
+			</field>
+		</record>
+
+		<!-- view filter versement cheque -->
+		<record id="view_versement_cheque_filter" model="ir.ui.view">
+			<field name="name">versement.cheque.search.view</field>
+			<field name="model">oscar.versement.cheque</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher des versements cheques">
+					<filter string="Brouillon" name="draft_versement" domain="[('state', '=', 'draft')]" />
+					<filter string="Validé" name="validate_versement" domain="[('state', '=', 'validate')]" />
+					<filter string="Versé" name="paid_versement" domain="[('state', '=', 'paid')]" />
+					<separator />
+					<filter name="group_versement_by_bank" string="Banque"
+						context="{'group_by':'bank_id'}" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Versement Cheque tree view -->
+		<record model="ir.ui.view" id="versement_cheque_view_tree">
+			<field name="name">versement.cheque.view.tree</field>
+			<field name="model">oscar.versement.cheque</field>
+			<field name="arch" type="xml">
+				<tree decoration-info="state == ' draft'">
+					<field name="name" />
+					<field name="user_id" />
+					<field name="date_versement" />
+					<field name="bank_id" />
+					<field name="montant_versement" sum="Total" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- actions cheques -->
+		<record model="ir.actions.act_window" id="action_cheque_of_versement">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Chèques</field>
+			<field name="res_model">oscar.mode.paiement.recue</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[('versement_cheque_id', '=', active_id)]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				'search_default_group_mode_by_mg': 1,
+				}
+			</field>
+		</record>
+
+		<!-- Versement cheque form view -->
+		<record model="ir.ui.view" id="versement_cheque_view_form">
+			<field name="name">versement.cheque.view.form</field>
+			<field name="model">oscar.versement.cheque</field>
+			<field name="arch" type="xml">
+				<form string="Versement cheque">
+					<header>
+						<button name="action_validate" string="Valider" states="draft"
+							type="object" class="btn-primary" />
+						<button name="action_verser" string="Verser" states="validate"
+							type="object" class="btn-primary" />
+						<button name="versement_print" string="Imprimer" states="paid"
+							type="object" class="oe_highlight" />
+						<button string="Remettre en brouillon" type="object"
+							name="action_draft" states="paid" groups="spc_oscar_aziza.group_admin_oscar" />
+						<field name="state" widget="statusbar" statusbar_visible="draft,validate,paid" />
+					</header>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button class="oe_stat_button" type="action"
+								name="%(action_cheque_of_versement)d" icon="fa-money"
+								context="{'default_versement_cheque_id': active_id}" attrs="{'invisible': [('cheque_count', '=', 0)]}"
+								help="Chèques">
+								<field string="Chèque(s)" name="cheque_count" widget="statinfo" />
+							</button>
+						</div>
+						<div class="oe_title">
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="user_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+							</group>
+							<group>
+								<field name="date_versement" />
+								<field name="bank_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+							</group>
+						</group>
+						<notebook colspan="4">
+							<page string="Chèques">
+								<!-- <field name="cheque_ids_domain" invisible="1" /> -->
+								<!-- <field name="mode_cheque_ids" options="{'no_create':1,'no_create_edit':1}"
+									domain="cheque_ids_domain" context="{'search_default_group_mode_by_mg': '1'}"
+									widget="many2many"> -->
+								<field name="mode_cheque_ids" options="{'no_create': True, 'no_create_edit': True}"
+									 context="{'search_default_group_mode_by_mg': '1'}"
+									widget="many2many">
+									<tree limit="10">
+										<field name="moyen_paiement_id" invisible="1" />
+										<field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+										<field name="date_journee" />
+										<field name="code_cheque" />
+										<field name="oscar_bank_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+										<field name="cin" />
+										<field name="name_user" />
+										<field name="phone_user" />
+										<field name="montant_vr" />
+										<field name="state" />
+									</tree>
+								</field>
+								<group class="oe_subtotal_footer oe_right" colspan="2">
+									<field name="montant_versement" />
+								</group>
+								<div>
+									<field name="comment" placeholder="Notes complémentaires..." />
+								</div>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"
+							groups="base.group_user" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<!-- actions liste des versements cheques -->
+		<record model="ir.actions.act_window" id="action_versement_cheque">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Versements Chèques</field>
+			<field name="res_model">oscar.versement.cheque</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucun versement trouvé.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Versements
+				</p>
+			</field>
+		</record>
+
+		<!-- Menu Versement Espèce -->
+		<menuitem name="Versements espèces" id="menu_versement_espece"
+			sequence="100" parent="menu_oscar_versement" action="spc_recette_aziza.action_versement_journee" />
+
+		<!-- Menu Versement chéque -->
+		<menuitem name="Versements chèques" id="menu_versement_cheque"
+			sequence="200" parent="menu_oscar_versement" action="spc_recette_aziza.action_versement_cheque"
+			groups="spc_recette_aziza.group_responsable_financier_oscar" /> 
+
+	</data>
+</odoo>

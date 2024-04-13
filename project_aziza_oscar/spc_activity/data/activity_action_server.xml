@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="spc_activity_validate_action_server" model="ir.actions.server">
+        <field name="name">Valider</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_mail_activity"/>
+        <field name="binding_model_id" ref="model_mail_activity"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.action_to_validate()
+        </field>
+    </record>
+
+    <record id="spc_activity_cloturer_action_server" model="ir.actions.server">
+        <field name="name">Terminer</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_mail_activity"/>
+        <field name="binding_model_id" ref="model_mail_activity"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.action_to_do()
+        </field>
+    </record>
+
+
+</odoo>

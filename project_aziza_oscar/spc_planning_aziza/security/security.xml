@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.rule" id="spc_mail_activity_user_rule">
+	        <field name="name">Planification: activités de Utilisateurs</field>
+	        <field name="model_id" ref="mail.model_mail_activity"/>
+	        <field name="domain_force">[('site_id.user_ids', 'child_of', [user.id])]</field>
+			<field name="groups" eval="[(4, ref('spc_oscar_aziza.group_reponsable_magasin')), (4, ref('spc_oscar_aziza.group_reponsable_zone')), (4, ref('spc_oscar_aziza.group_DRE'))]"/>
+   		</record>
+
+		<record model="ir.rule" id="spc_mail_activity_responsable_rule">
+	        <field name="name">Planification: activités de responsable</field>
+	        <field name="model_id" ref="mail.model_mail_activity"/>
+	        <field name="domain_force">[(1, '=', 1)]</field>
+			<field name="groups" eval="[(4, ref('spc_oscar_aziza.group_admin_oscar')), (4, ref('spc_oscar_aziza.group_DE'))]"/>
+   		</record>
+
+		   <!--Access Rules of Groups-->
+        <record model="ir.rule" id="model_mail_activity_type_rule_admin">
+            <field name="name">Group peut voir tout les activités</field>
+            <field name="model_id" ref="spc_activity.model_mail_activity_type"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('spc_oscar_aziza.group_admin_oscar')),
+                                        (4, ref('spc_oscar_aziza.group_dg'))
+                                        ]"/>
+        </record>
+
+        <record model="ir.rule" id="model_mail_activity_type_rule_other_group">
+            <field name="name">Chaque group peut voir seulement ses activités</field>
+            <field name="model_id" ref="spc_activity.model_mail_activity_type"/>
+            <field name="domain_force">[('group_ids', 'in', [g.id for g in user.groups_id])]</field>
+            <field name="groups" eval="[(4, ref('spc_oscar_aziza.group_reponsable_magasin')),
+                                        (4, ref('spc_oscar_aziza.group_reponsable_zone')),
+                                        (4, ref('spc_oscar_aziza.group_DE')),
+                                        (4, ref('spc_oscar_aziza.group_DRE')),
+                                        (4, ref('spc_oscar_aziza.group_reponsable_entrepot')),
+                                        (4, ref('spc_oscar_aziza.group_cg_aziza')),
+                                        (4, ref('spc_oscar_aziza.group_quality_product_aziza')),
+                                        (4, ref('spc_oscar_aziza.group_drh')),
+                                        (4, ref('spc_oscar_aziza.group_dhrbp')),
+                                        (4, ref('spc_oscar_aziza.group_approvisioneur_aziza')),
+                                        (4, ref('spc_oscar_aziza.group_direction_approvisionnement')),
+                                        ]"/>
+        </record>
+
+        <record model="ir.rule" id="model_oscar_site_calendar_rule_admin">
+            <field name="name">Acces rule pour le filtre:Utilisateur a accès à tout les sites</field>
+            <field name="model_id" ref="spc_planning_aziza.model_oscar_site_calendar"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('spc_oscar_aziza.group_admin_oscar')),
+                                (4, ref('spc_oscar_aziza.group_dg'))
+                                ]"/>
+        </record>
+
+        <record model="ir.rule" id="model_oscar_site_calendar_rule_user">
+            <field name="name">Acces rule pour le filtre:Utilisateur a accès à ses sites seulement</field>
+            <field name="model_id" ref="spc_planning_aziza.model_oscar_site_calendar"/>
+            <field name="domain_force">[('site_calendar_id','in',[m.id for m in user.magasin_ids])]</field>
+            <field name="groups" eval="[(4, ref('spc_oscar_aziza.group_reponsable_magasin')),
+                                        (4, ref('spc_oscar_aziza.group_reponsable_zone')),
+                                        (4, ref('spc_oscar_aziza.group_DE')),
+                                        (4, ref('spc_oscar_aziza.group_DRE')),
+                                        (4, ref('spc_oscar_aziza.group_reponsable_entrepot')),
+                                        (4, ref('spc_oscar_aziza.group_cg_aziza')),
+                                        (4, ref('spc_oscar_aziza.group_quality_product_aziza')),
+                                        (4, ref('spc_oscar_aziza.group_drh')),
+                                        (4, ref('spc_oscar_aziza.group_dhrbp')),
+                                        (4, ref('spc_oscar_aziza.group_approvisioneur_aziza')),
+                                        (4, ref('spc_oscar_aziza.group_direction_approvisionnement')),
+                                        ]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+
+    </data>
+</odoo>

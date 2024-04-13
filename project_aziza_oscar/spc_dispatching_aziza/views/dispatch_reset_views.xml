@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="ha_view_dispatch_reset_tree" model="ir.ui.view">
+        <field name="name">dispatch.reset.tree</field>
+        <field name="model">oscar.dispatch.reset</field>
+        <field name="arch" type="xml">
+            <tree string="Reset">
+                <field name="name"/>
+                <field name="date_reset"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_reset_by_dispatch">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Remettre à l'initiateur</field>
+        <field name="res_model">oscar.dispatch.reset</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('dispatch_id', '=', active_id)]</field>
+        <field name="context">{
+            'create': False,
+            }
+        </field>
+    </record>
+
+</odoo>

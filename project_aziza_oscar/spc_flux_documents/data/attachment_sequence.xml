@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+
+		<record id="seq_codification_document_aziza" model="ir.sequence">
+			<field name="name">Document Code</field>
+			<field name="code">ir.attachment.seq</field>
+			<field name="prefix">DOC/%(range_year)s/</field>
+			<field eval="1" name="number_increment"/>
+			<field eval="True" name="use_date_range"/>
+			<field name="padding">5</field>
+		</record>
+
+</odoo>

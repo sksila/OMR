@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+	<record id="row_columns_display_wizard_form" model="ir.ui.view">
+		<field name="name">row.columns.display.form</field>
+		<field name="model">row.columns.display</field>
+		<field name="arch" type="xml">
+			<form string="Columns to display">
+					<h2><field name="line" nolabel="1" readonly="1"/></h2>
+					<group string="Choose columns to display for this row">
+						<field name="columns_ids" widget="many2many_checkboxes" options="{'no_create': True, 'no_create_edit':True}" nolabel="1"
+							domain="[('id', 'in', context.get('columns', []))]"/>
+					</group>
+				<footer>
+					<button name="add_columns" string="Submit" type="object" class="btn btn-sm" />
+					<button string="Cancel" class="btn btn-sm btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="row_columns_display_wizard_action" model="ir.actions.act_window">
+		<field name="name">columns to display for this row :</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">row.columns.display</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="row_columns_display_wizard_form" />
+		<field name="target">new</field>
+	</record>
+    
+</odoo>

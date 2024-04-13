@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top menu item -->
+    <menuitem
+            id="spc_menu_derogation_root"
+            name="Dérogation"
+            web_icon="spc_derogation_aziza,static/description/icon.png"
+            sequence="1"/>
+
+    <menuitem id="spc_menu_derogation"
+              name="Validation Dérogation"
+              parent="spc_menu_derogation_root"
+              sequence="10"/>
+
+    <menuitem id="spc_menu_derogation_retour"
+              name="Suivi de retour Dérogation"
+              parent="spc_menu_derogation_root"
+              sequence="20"/>
+
+
+    <record id="spc_view_derogation_reset_tree" model="ir.ui.view">
+        <field name="name">derogation.reset.tree</field>
+        <field name="model">derogation.reset</field>
+        <field name="arch" type="xml">
+            <tree string="Reset">
+                <field name="name"/>
+                <field name="date_reset"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_reset_by_derogation">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Remettre à l'initiateur</field>
+        <field name="res_model">derogation.reset</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('derogation_id', '=', active_id)]</field>
+        <field name="context">{ 'create': False,}</field>
+    </record>
+
+
+    <record id="derogation_view_form" model="ir.ui.view">
+        <field name="name">derogation.view.form</field>
+        <field name="model">derogation.derogation</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Derogation">
+                <header>
+                    <button name="%(action_rejet_wizard)d"
+                            states="to_approve,approve_exp,approve_quality,approve_dg"
+                            string="Remettre à l'initiateur"
+                            context="{'default_type_rejet':'reset'}"
+                            type="action"
+                    />
+
+                    <button name="button_to_approve"
+                            string="Valider" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|',('state', '!=', 'draft'), ('type','=','retrait_produit')]}"
+                            groups="spc_oscar_aziza.group_approvisioneur_aziza, spc_oscar_aziza.group_direction_approvisionnement"
+                    />
+
+                    <button name="%(action_comment_wizard)d"
+                            states="to_approve"
+                            string="Approuver"
+                            type="action"
+                            context="{'default_type_comment': 'purchase'}"
+                            class="oe_highlight"
+                            groups="spc_oscar_aziza.group_direction_approvisionnement"
+                    />
+
+                    <button name="button_approve_cg"
+                            states="controle_gestion"
+                            string="Valider"
+                            type="object"
+                            class="oe_highlight"
+                            groups="spc_oscar_aziza.group_cg_aziza"
+                    />
+
+                    <button name="%(action_comment_wizard)d"
+                            states="approve_exp"
+                            string="Valider"
+                            type="action"
+                            context="{'default_type_comment': 'exploitation'}"
+                            class="oe_highlight"
+                            groups="spc_oscar_aziza.group_DE"
+                    />
+
+                    <button name="%(action_comment_wizard)d"
+                            states="approve_quality"
+                            string="Passer à DG"
+                            type="action"
+                            context="{'default_type_comment': 'quality'}"
+                            class="oe_highlight"
+                            groups="spc_oscar_aziza.group_quality_product_aziza"
+                    />
+
+                    <button name="%(action_comment_wizard_magasin)d"
+                            states="approve_quality"
+                            string="Passer au magasin"
+                            type="action"
+                            context="{'default_type_comment': 'magasin'}"
+                            class="oe_highlight"
+                             attrs="{'invisible':[('is_inv', '=', True)]}"
+                            groups="spc_oscar_aziza.group_quality_product_aziza,spc_oscar_aziza.group_dg,spc_oscar_aziza.group_admin_oscar"
+                    />
+
+                    <button name="button_retour_fournisseur"
+                            string="Valider"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('is_inv', '=', True)]}"
+
+                    />
+
+                    <button name="button_to_done"
+                            states="retour_fournisseur,approve_dg"
+                            string="Clôturer"
+                            type="object"
+                            class="oe_highlight"
+                            groups="spc_oscar_aziza.group_approvisioneur_aziza"
+                    />
+
+                    <button name="button_quality_to_approve_exp"
+                            string="Passer à Exploitation"
+                            type="object"
+                            attrs="{'invisible': ['|',('state', '!=', 'approve_quality'), ('type','!=','produit')]}"
+                            class="oe_highlight"
+                            groups = "spc_oscar_aziza.group_quality_product_aziza"
+                    />
+
+                    <button name="%(action_rejet_wizard)d"
+                            states="to_approve,approve_exp,approve_quality,approve_dg"
+                            string="Rejeter"
+                            context="{'default_type_rejet':'reject'}"
+                            type="action"
+                    />
+
+                    <button name="open_wizard_add_quantity"
+                            states="magasin"
+                            string="Ajouter la quantité de produit"
+                            type="object"
+                            groups="spc_oscar_aziza.group_reponsable_magasin"
+                    />
+
+
+                    <field name="state" invisible="1"/>
+                    <field name="state_dlv_entrepot" widget="statusbar"
+                           statusbar_visible="draft,to_approve,approve_exp,approve_quality,approve_dg,magasin,done"
+                           attrs="{'invisible': [('type','in', ['dlv_reception','produit','retrait_produit', False])]}"/>
+                    <field name="state_dlv_reception" widget="statusbar"
+                           statusbar_visible="draft,to_approve,controle_gestion,approve_exp,approve_quality,approve_dg,magasin,retour_fournisseur,done"
+                           attrs="{'invisible': [('type','in', ['dlv_entrepot','produit', 'retrait_produit', False])]}"/>
+                    <field name="state_produit" widget="statusbar"
+                           statusbar_visible="draft,to_approve,approve_exp,approve_quality,approve_dg,magasin,retour_fournisseur,done"
+                           attrs="{'invisible': [('type','in', ['dlv_entrepot','dlv_reception','retrait_produit', False])]}"/>
+                    <field name="state_retrait_produit" widget="statusbar"
+                           statusbar_visible="magasin,retour_fournisseur,done"
+                           attrs="{'invisible': [('type','in', ['dlv_entrepot','dlv_reception','produit', False])]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action"
+                                name="%(action_reset_by_derogation)d" icon="fa-repeat"
+                                context="{'default_derogation_id': active_id}"
+                                attrs="{'invisible': [('reset_count', '=', 0)]}">
+                            <field string="Remettre à l'initiateur" name="reset_count"
+                                   widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Numéro"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="type" attrs="{'invisible':[('state','=','magasin')], 'readonly':[('state','not in', ['draft'])]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group name="identification_produit" string="1. Identification Produit">
+                            <field name="requested_by"/>
+                            <field name="is_inv" invisible="1"/>
+                            <field name="date_derogation" attrs="{'invisible':[('state','=','magasin')]}"/>
+                            <field name="code_produit" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+                            <field name="produit" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+                            <field name="category_id"
+                                   attrs="{'readonly':[('state','not in', ['draft'])], 'invisible':[('state','in', ['magasin'])]}"/>
+                            <field name="vl_product" placeholder="Numéro ..." attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+                            <field name="origin"
+                                   attrs="{'readonly':[('state','not in', ['draft'])],'invisible':[('state','in', ['magasin'])]}"/>
+                            <field name="fournisseur"
+                                   attrs="{'readonly':[('state','not in', ['draft'])],'invisible':[('state','in', ['magasin'])]}"/>
+                            <field name="date_dlc" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+
+                        </group>
+
+                        <notebook>
+                            <page string="Entrepôts de l'article">
+                                <field name="product_ids">
+                                    <tree editable="bottom">
+                                        <field name="entrepot_id"/>
+                                        <field name="date_reception"/>
+                                        <field name="qty_derogation" attrs="{'invisible':[('state','in', ['magasin'])], 'readonly':[('state','not in', ['draft'])]}"/>
+                                        <field name="qty_partielle" attrs="{'invisible':['|',('type', 'in', ['dlv_reception', 'produit', 'retrait_produit']),('state','not in',['approve_exp'])], 'readonly':[('state','not in',['approve_exp'])], 'required':[('state','in',['approve_exp'])]}"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="type" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                        <group name="motif" string="2. Motif">
+                            <field name="confomity"/>
+                            <field name="image" widget="image"/>
+                        </group>
+                        <group name="paln_action" string="3. Plan d'action"
+                               attrs="{'invisible':[('type','in', ['retrait_produit'])]}">
+                            <field name="date_dlv_actuel" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+                            <field name="operation_speciale" attrs="{'readonly':[('state','not in', ['draft'])]}"/>
+                            <label for="taux_couverture"/>
+                            <div class="o_row">
+                                <field name="taux_couverture" style="width: 70%" class="oe_inline" placeholder="Nombre de jour" attrs="{'readonly':[('state','not in', ['draft'])], 'required':[('type','!=', 'retrait_produit')]}"/>
+                                Jours
+                            </div>
+                            <field name="date_dlv_new"/>
+                            <field name="date_fin_operation"
+                                   attrs="{'invisible':[('option_envoie_fournisseur','!=', 'fin_operation')], 'readonly':[('state','not in', ['draft'])]}"/>
+                            <field name="option_envoie_fournisseur" widget="radio"/>
+                        </group>
+
+                        <group name="commentaires" string="4. Commentaires"
+                               attrs="{'invisible':[('type','in', ['retrait_produit'])]}">
+                            <field name="commentaire_achat" readonly="1"/>
+                            <field name="commentaire_exploitation" readonly="1"/>
+                            <field name="commentaire_dqp" readonly="1"/>
+                            <field name="commentaire_magasin" readonly="1"/>
+                        </group>
+                        <group name="facturation" string="5. Facturation"
+                               attrs="{'invisible':[('type','in', ['retrait_produit'])]}">
+                            <field name="qty_magasin"/>
+                            <field name="qty_entrepot"/>
+                            <field name="qty_retounee"
+                                   attrs="{'required':[('state','in', ['retour_fournisseur'])], 'readonly':[('state','not in', ['draft','retour_fournisseur'])]}"/>
+                            <field name="prix_revient"
+                                   attrs="{'readonly':[('state','not in', ['draft','retour_fournisseur'])]}"/>
+                            <field name="cout_stockage"
+                                   attrs="{'readonly':[('state','not in', ['draft','retour_fournisseur'])]}"/>
+                            <field name="cout_logistique"
+                                   attrs="{'readonly':[('state','not in', ['draft','retour_fournisseur'])]}"/>
+                            <field name="montant"
+                                   attrs="{'required':[('state','in', ['retour_fournisseur']),('qty_retounee','!=', 0)], 'readonly':['|',('state','not in', ['retour_fournisseur']),('qty_retounee','=', 0)]}"/>
+                            <field name="montant_recu"
+                                   attrs="{'readonly':[('state','not in', ['draft','retour_fournisseur'])]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Liste des magasins" attrs="{'invisible':[('state','not in', ['magasin'])]}">
+                            <group>
+                                <div class="oe_inline">
+                                    <field name="derogation_line_ids">
+                                        <tree create="false">
+                                            <field name="magasin_id"/>
+                                            <field name="responsable_magasin_id"/>
+                                            <field name="quantity"/>
+                                            <field name="bon_retour"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_quantity"/>
+                            </group>
+                        </page>
+                        <page string="Description" attrs="{'invisible': [('type', '!=', 'retrait_produit')]}">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="spc_view_derogation_tree" model="ir.ui.view">
+        <field name="name">derogation.derogation.tree</field>
+        <field name="model">derogation.derogation</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Derogation">
+                <field name="name" string="Numéro"/>
+                <field name="requested_by"/>
+                <field name="date_derogation"/>
+                <field name="produit"/>
+                <field name="fournisseur"/>
+                <field name="date_dlc"/>
+                <field name="qty_derogation"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    <record id="ha_view_derogation_filter" model="ir.ui.view">-->
+    <!--        <field name="name">derogation.derogation.list.select</field>-->
+    <!--        <field name="model">derogation.derogation</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <search string="Search derogation">-->
+    <!--                <field name="name" string="Numéro"/>-->
+    <!--                <separator/>-->
+    <!--                <field name="requested_by"/>-->
+    <!--                <separator/>-->
+
+    <!--                <field name="date_derogation"/>-->
+    <!--                <separator/>-->
+    <!--                <field name="state"/>-->
+
+    <!--                <filter domain="[('requested_by','=', uid)]"-->
+    <!--                        help="My"/>-->
+
+    <!--                <filter name="state_draft" string="Draft"-->
+    <!--                        domain="[('state','=','draft')]"-->
+    <!--                        help="Request is to be approved"/>-->
+    <!--                <filter name="state_to_approve" string="To Approve"-->
+    <!--                        domain="[('state','=','to_approve')]"-->
+    <!--                        help="Request is to be approved"/>-->
+
+    <!--                <filter name="state_rejected" string="Rejected"-->
+    <!--                        domain="[('state','=','rejected')]"-->
+    <!--                        help="Request is rejected"/>-->
+    <!--                <filter name="state_done" string="Done"-->
+    <!--                        domain="[('state','=','done')]"-->
+    <!--                        help="Request is done"/>-->
+    <!--                <group expand="0" string="Group By">-->
+    <!--                    <filter string="Utilisateur" domain="[]" context="{'group_by':'requested_by'}"/>-->
+    <!--                    <filter string="Par Mois" domain="[]" context="{'group_by':'date_dispatch'}"/>-->
+    <!--                </group>-->
+    <!--            </search>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="action_derogation_form" model="ir.actions.act_window">
+        <field name="name">Dérogation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a derogation.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_action"
+              name="Demade de dérogation"
+              action="action_derogation_form"
+              parent="spc_menu_derogation"
+              sequence="11"
+              groups="spc_oscar_aziza.group_approvisioneur_aziza,spc_oscar_aziza.group_quality_product_aziza"
+    />
+
+    <record id="action_demande_derogation_form" model="ir.actions.act_window">
+        <field name="name">Demande de dérogation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'draft')]</field>
+    </record>
+
+    <record id="action_derogation_achat_form" model="ir.actions.act_window">
+        <field name="name">Validation Marchandise</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': False, 'delete': False}</field>
+        <field name="domain">[('state', '=', 'to_approve')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_demande_derogation"
+              name="Mes demandes de dérogation"
+              action="action_demande_derogation_form"
+              parent="spc_menu_derogation"
+              sequence="12"
+              groups="spc_oscar_aziza.group_approvisioneur_aziza,spc_oscar_aziza.group_quality_product_aziza"
+    />
+
+    <menuitem id="spc_menu_derogation_achat_action"
+              name="Validation Marchandise"
+              action="action_derogation_achat_form"
+              parent="spc_menu_derogation"
+              sequence="13"
+              groups="spc_oscar_aziza.group_approvisioneur_aziza,spc_oscar_aziza.group_direction_approvisionnement"
+    />
+
+    <record id="action_derogation_cg_form" model="ir.actions.act_window">
+        <field name="name">Validation CG</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': False, 'delete': False, 'edit': False }</field>
+        <field name="domain">[('state', '=', 'controle_gestion')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_cg_action"
+              name="Validation CG"
+              action="action_derogation_cg_form"
+              parent="spc_menu_derogation"
+              sequence="14"
+              groups="spc_oscar_aziza.group_approvisioneur_aziza,spc_oscar_aziza.group_direction_approvisionnement,spc_oscar_aziza.group_cg_aziza"
+    />
+
+    <record id="action_derogation_to_approve_form" model="ir.actions.act_window">
+        <field name="name">Validation Exploitation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': False, 'delete': False}</field>
+        <field name="domain">[('state', '=', 'approve_exp')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_to_approve_action"
+              name="Exploitation"
+              action="action_derogation_to_approve_form"
+              parent="spc_menu_derogation"
+              sequence="15"
+              groups="spc_oscar_aziza.group_approvisioneur_aziza,spc_oscar_aziza.group_direction_approvisionnement,spc_oscar_aziza.group_DE"
+    />
+
+    <record id="action_derogation_approve_quality_form" model="ir.actions.act_window">
+        <field name="name">Validation Qualité</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': True, 'default_type': 'retrait_produit'}</field>
+        <field name="domain">[('state', '=', 'approve_quality')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_approve_quality_action"
+              name="Qualité"
+              action="action_derogation_approve_quality_form"
+              parent="spc_menu_derogation"
+              sequence="16"
+              groups="spc_oscar_aziza.group_approvisioneur_aziza,spc_oscar_aziza.group_direction_approvisionnement,spc_oscar_aziza.group_quality_product_aziza"
+    />
+
+    <record id="action_derogation_approve_dg_form" model="ir.actions.act_window">
+        <field name="name">Validation DG</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': False, 'delete': False, 'edit': False }</field>
+        <field name="domain">[('state', '=', 'approve_dg')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_approve_dg_action"
+              name="Validation DG"
+              action="action_derogation_approve_dg_form"
+              parent="spc_menu_derogation"
+              sequence="17"
+              groups="spc_oscar_aziza.group_approvisioneur_aziza,spc_oscar_aziza.group_direction_approvisionnement,spc_oscar_aziza.group_dg"
+    />
+
+    <record id="action_derogation_retour_magasin" model="ir.actions.act_window">
+        <field name="name">Suivi Magasin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': False, 'delete': False, 'edit': True }</field>
+        <field name="domain">[('state', '=', 'magasin')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_magasin_action"
+              name="Magasin"
+              action="action_derogation_retour_magasin"
+              parent="spc_menu_derogation_retour"
+              sequence="21"/>
+
+    <record id="action_derogation_retour_fournisseur_form" model="ir.actions.act_window">
+        <field name="name">Suivie retour fournisseur</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': False, 'delete': False, 'edit': True }</field>
+        <field name="domain">[('state', '=', 'retour_fournisseur')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_retour_fournisseur_action"
+              name="Retour fournisseur"
+              action="action_derogation_retour_fournisseur_form"
+              parent="spc_menu_derogation_retour"
+              sequence="22"/>
+
+    <record id="action_derogation_done_form" model="ir.actions.act_window">
+        <field name="name">Derogation cloturée</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{ 'create': False, 'delete': False, 'edit': False }</field>
+        <field name="domain">[('state', '=', 'done')]</field>
+    </record>
+
+    <menuitem id="spc_menu_derogation_done_action"
+              name="Derogation clôturée"
+              action="action_derogation_done_form"
+              parent="spc_menu_derogation_retour"
+              sequence="23"/>
+
+</odoo>

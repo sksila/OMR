@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="report_renouvellement_document">
+		 <t t-call="web.html_container">
+			<t t-call="web.external_layout">
+			  <t t-foreach="docs" t-as="o">
+				<div class="page">
+					<h2 style="text-align:center;">
+						<span>Fiche Renouvellement Contrat</span>
+					</h2>
+					<br></br>
+					<br></br>
+					<br></br>
+					<br></br>
+
+					<table class="table table-condensed">
+						<thead
+							style="border:solid rgba(215, 242, 254, 0.72);background-color:rgba(215, 242, 254, 0.72);border-radius:10px 0px 10px 0px;text-align:center;">
+							<tr>
+								<th colspan="2">Identification de l'employé</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<span>Prénom et Nom</span> : <span t-field="o.employee_id.name"/>
+								</td>
+								<td>
+									<span>Date d'embauche</span> : <span t-field="o.date_embauche"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>Poste</span> : <span t-field="o.job_id.name"/>
+								</td>
+								<td>
+									<span>Date de début contrat</span> : <span t-field="o.date_start"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>Direction</span> : <span t-field="o.department_id.name"/>
+								</td>
+								<td>
+									<span>Date de fin contrat</span> : <span t-field="o.date_end"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>Manager Direct</span> : <span t-field="o.manager_id.name"/>
+								</td>
+								<td>
+									<span>Solde de congé</span> : <span t-field="o.remaining_leaves"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<br></br>
+					<br></br>
+					
+					<table class="table table-condensed">
+						<thead
+							style="border:solid rgba(215, 242, 254, 0.72);background-color:rgba(215, 242, 254, 0.72);border-radius:10px 0px 10px 0px;text-align:center;">
+							<tr>
+								<th>Décision</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<span t-if="o.type_id" >&#10003; Contrat <span t-field="o.type_id.name"/><span t-if="o.number_months" > : <span t-field="o.number_months"/> Mois</span></span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span t-if="o.end_contract" >&#10003; Mettre fin à la relation contractuelle</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<br></br>
+					<br></br>
+					
+					<h4><u>Signatures</u></h4>
+					<br></br>
+					<center>
+					<table class="table table-bordered" >
+						<thead>
+							<tr>
+								<th style="text-align:center;" >Manager Direct</th>
+								<th style="text-align:center;" >DRE</th>
+								<th style="text-align:center;" >Directeur HRBP</th>
+								<th style="text-align:center;" >Directeur Exploitation</th>
+								<th style="text-align:center;" >Direction Générale</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td width="400"  height="100" ><center t-if="o.state != 'new'" >Signature électronique <br></br> <span t-field="o.date_md"/></center></td>
+								<td width="400"  height="100" ><center t-if="o.state not in ['new','validate_md']" >Signature électronique <br></br> <span t-field="o.date_dre"/></center></td>
+								<td width="400"  height="100" ><center t-if="o.state not in ['new','validate_md','validate_dre']" >Signature électronique <br></br> <span t-field="o.date_dhrbp"/></center></td>
+								<td width="400"  height="100" ><center t-if="o.state in ['validate_de','validate_dg']" >Signature électronique <br></br> <span t-field="o.date_de"/></center></td>
+								<td width="400"  height="100" ><center t-if="o.state in ['validate_dg']" >Signature électronique <br></br> <span t-field="o.date_dg"/></center></td>
+							</tr>
+						</tbody>
+					</table>
+					</center>
+
+
+				</div>
+			</t>
+			</t>
+			</t>
+		</template>
+
+		
+
+	</data>
+</odoo>

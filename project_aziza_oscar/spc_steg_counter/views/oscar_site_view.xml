@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="counter_oscar_site_view_form_inherit" model="ir.ui.view">
+            <field name="name">counter.oscar.site.form.inherit</field>
+            <field name="model">oscar.site</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="spc_oscar_aziza.oscar_site_view_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="compteur_steg" string="Compteurs STEG">
+                        <field name="counter_ids" domain="[('magasin_id','=',False)]" widget="many2many">
+                            <tree>
+                                <field name="name" />
+                                <field name="index" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- verifier paiement wizard -->
+		<record id="verifier_paiement_wizard_view" model="ir.ui.view">
+			<field name="name">Verifier paiement</field>
+			<field name="model">verifier.paiement.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Verifier paiement">
+					<field name="details_ids" />
+					<footer>
+						<button string="Confirmer"
+							name="confirm_button" type="object" class="btn-primary" />
+						<button string="Cancel" class="btn-default"
+							special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="verifier_paiement_wizard_tree_view" model="ir.ui.view">
+			<field name="name">verifier.paiement.details.tree</field>
+			<field name="model">verifier.paiement.details</field>
+			<field name="arch" type="xml">
+				<!-- the user list is editable, but one cannot add or delete rows -->
+				<tree string="Users" editable="bottom" create="false" delete="false">
+					<field name="process_id" readonly="True"/>
+					<field name="montant" readonly="True" />
+					<field name="moyen_paiement_id" options="{'no_create': True, 'no_create_edit':True}" required="True" />
+					<field name="num_avoir" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="verifier_paiement_wizard_action" model="ir.actions.act_window">
+			 <field name="name">Vérifier les paiements</field>
+			 <field name="res_model">verifier.paiement.wizard</field>
+			 <field name="view_type">form</field>
+			 <field name="view_mode">form</field>
+			 <field name="target">new</field>
+	 	</record>
+
+	</data>
+</odoo>

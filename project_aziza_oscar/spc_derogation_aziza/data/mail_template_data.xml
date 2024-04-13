@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_derogation" model="mail.template">
+            <field name="name">Dérogation: Envoyer email pour responsable magasin</field>
+            <field name="model_id" ref="spc_derogation_aziza.model_derogation_derogation"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+            <field name="email_to">${(user.email)}</field>
+            <field name="subject">Quantité de produit à retourner pour ${object.name} </field>
+            <field name="body_html"><![CDATA[
+         <p>Bonjour ${(user.name)},<br/><br/>
+         Merci de saisir les quantités à retourner correspond aux détails suivants:<br/></p>
+         Code article: ${object.code_produit.name},<br/>
+         Libellé article: ${object.produit},<br/>
+         DLC: ${object.date_dlc},<br/><br/>
+              Cordialement<br/>
+               ]]></field>
+        </record>
+    </data>
+</odoo>

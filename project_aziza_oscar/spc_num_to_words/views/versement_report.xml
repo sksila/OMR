@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="num_to_words_inherit_report_versement_document" inherit_id="spc_recette_aziza.report_versement_document">
+        <xpath expr="//p[@t-if='o.comment']" position="before">
+            <p t-if='o.montant_lettre'>
+                <strong>Montant total en lettre:</strong>
+                <span t-field="o.montant_lettre"/>
+            </p>
+        </xpath>
+
+    </template>
+</odoo>

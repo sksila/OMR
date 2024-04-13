@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+        <record id="avoir_mail_template" model="mail.template">
+            <field name="name">Avoir send mail to RZ group members template</field>
+            <field name="model_id" ref="spc_sav_aziza.model_oscar_sav_claim"/>
+            <field name="subject">Magasin ${(object.magasin_id.name)} </field>
+            <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+            <field name="email_to">${object.magasin_id.resp_zone_id.partner_id.email}</field>
+            <field name="report_name">${(object.magasin_id.name)} Avoir</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Un avoir a été validé par le SAV au magasin ${(object.magasin_id.name)} pour la RC ${(object.name)}.</p>
+                    <p>Prière de l'émettre rapidement.</p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="True"/>
+        </record>
+
+        <record id="echange_mail_template" model="mail.template">
+            <field name="name">Echange send mail to RM, RZ group members template</field>
+            <field name="model_id" ref="spc_sav_aziza.model_oscar_sav_claim"/>
+            <field name="subject">Magasin ${(object.magasin_id.name)} </field>
+            <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+            <field name="email_to">${object.magasin_id.user_id.partner_id.email,object.magasin_id.user_id.partner_id.email}</field>
+            <field name="report_name">${(object.magasin_id.name)} Echange</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Un échange a été validé par le SAV pour la RC ${(object.name)}.</p>
+                    <p>Prière le valider pour le client..</p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="True"/>
+        </record>
+
+    </data>
+ </odoo>

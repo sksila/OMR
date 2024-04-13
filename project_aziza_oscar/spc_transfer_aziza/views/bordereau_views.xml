@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- view filter -->
+        <record id="view_doc_borderau_filter" model="ir.ui.view">
+            <field name="name">oscar.bordereau.search.view</field>
+            <field name="model">oscar.bordereau</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher des bordereaux">
+                    <field name="name"/>
+                    <field name="source_id"/>
+                    <field name="destinataire_id"/>
+                    <field name="user_id"/>
+                    <separator/>
+                    <filter string="Mes bordereaux" name="my_bordereaux" domain="[('user_id.id', '=', uid)]"/>
+                    <separator/>
+                    <filter string="Nouveau bordereau" name="new_bordereau"
+                            domain="[('state', '=', 'new')]"/>
+                    <filter string="Bordereau envoyé" name="sent_bordereau"
+                            domain="[('state', '=', 'sent')]"/>
+                    <filter string="Partiellement reçu" name="partially_received_bordereau"
+                            domain="[('state', '=', 'partially_received')]"/>
+                    <filter string="Bordereau reçu" name="recu_bordereau"
+                            domain="[('state', 'in', ['receive_warehouse','receive_siege','receive_store'])]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_envelope_in_bordereau">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Enveloppes</field>
+            <field name="res_model">oscar.envelope</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('bordereau_ids', 'in', [active_id])]</field>
+            <field name="context">{
+                'create': False,
+                'edit': False,
+                'delete': False,
+                }
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_envelope_receive_in_bordereau">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Enveloppes reçues</field>
+            <field name="res_model">oscar.envelope</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('bordereau_ids', 'in', [active_id]),('state', 'in',
+                ['receive_siege','receive_store'])]
+            </field>
+            <field name="context">{
+                'create': False,
+                'edit': False,
+                'delete': False,
+                }
+            </field>
+        </record>
+
+        <!-- Bordereau form view -->
+        <record model="ir.ui.view" id="bordereau_view_form">
+            <field name="name">oscar.bordereau.view.form</field>
+            <field name="model">oscar.bordereau</field>
+            <field name="arch" type="xml">
+                <form string="Bordereau">
+                    <header>
+                        <button name="envoyer_bordereau" string="Envoyer" type="object"
+                                states="new" class="btn-primary oe_read_only"/>
+                        <button name="recevoir_bordereau" string="Recevoir" type="object"
+                                attrs="{'invisible': ['|',('user_id', '=', 'uid'),('state', '!=', 'sent')]}"
+                                class="btn-primary"/>
+                        <button name="imprimer_bordereau" string="Imprimer" type="object"
+                                states="sent" class="oe_read_only"/>
+						<button name="%(change_source_wizard_action)d" string="Modifier la source"
+                                type="action" class="oe_read_only" context="{'model_type': 'bordereau'}"
+                                groups="spc_oscar_aziza.group_admin_oscar"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,sent"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="action"
+                                    name="%(action_envelope_in_bordereau)d"
+                                    icon="fa-envelope-o" attrs="{'invisible': [('envelope_count', '=', 0)]}"
+                                    help="Enveloppes">
+                                <field string=" Enveloppe(s)" name="envelope_count" widget="statinfo"/>
+                            </button>
+                            <button class="oe_stat_button" type="action"
+                                    name="%(action_envelope_receive_in_bordereau)d"
+                                    icon="fa-envelope-open-o" attrs="{'invisible': [('envelope_open_count', '=', 0)]}"
+                                    help="Enveloppes reçues">
+                                <field string=" Enveloppes reçues" name="envelope_open_count" widget="statinfo"/>
+                            </button>
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" groups="spc_oscar_aziza.group_admin_oscar"
+                                    icon="fa-check-square-o">
+                                <field name="active" widget="boolean_button"
+                                       options="{&quot;terminology&quot;: &quot;Désactiver&quot;}"/>
+                            </button>
+                        </div>
+
+                        <field name="partially_received" invisible="1"/>
+                        <div class="badge-pill badge-warning float-right"
+                             attrs="{'invisible': [('partially_received', '=', False)]}">Partiellement reçu
+                        </div>
+
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="N° Bordereau"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="source_id" attrs="{'required': True}"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="type_destinataire" widget="radio"/>
+                                <field name="destinataire_id"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="user_id" required="1"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="date_bordereau" readonly="1"/>
+                                <field name="sending_date" attrs="{'invisible': [('state', '=', 'new')]}"/>
+                                <field name="print_date" attrs="{'invisible': [('print_date', '=', False)]}"/>
+                                <field name="fleet_id"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="chauffeur_id" required="1"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Liste des enveloppes">
+                                <field name="envelope_ids" domain="[('state', 'in', ['new','receive_warehouse'])]"
+                                       options="{'no_create': True, 'no_create_edit': True}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"
+                               groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Bordereau tree view -->
+        <record model="ir.ui.view" id="oscar_bordereau_view_tree">
+            <field name="name">oscar.bordereau.view.tree</field>
+            <field name="model">oscar.bordereau</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="chauffeur_id"/>
+                    <field name="fleet_id"/>
+                    <field name="source_id"/>
+                    <field name="type_destinataire"/>
+                    <field name="destinataire_id" string="Destinataire"/>
+                    <field name="state" widget="colored_state" options="{'new': { 'class': 'badge-info', 'name': 'Nouveau' },
+					 													'sent': { 'class': 'badge-light', 'name': 'Envoyé' },
+					 													'partially_received': { 'class': 'badge-warning', 'name': 'Partiellement reçu' },
+					  													'receive_warehouse': { 'class': 'badge-success', 'name': 'Reçu à l\'Entrepôt' },
+					   													'receive_siege': { 'class': 'badge-success', 'name': 'Reçu au Siège' },
+					   													'receive_store': { 'class': 'badge-success', 'name': 'Reçu au Magasin' }}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions liste de bordereaux -->
+        <record model="ir.actions.act_window" id="action_all_bordereaux">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Bordereaux</field>
+            <field name="res_model">oscar.bordereau</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer un nouveau Bordereau.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Bordereaux
+                </p>
+            </field>
+        </record>
+
+        <!-- actions liste de nouveaux bordereaux -->
+        <record model="ir.actions.act_window" id="action_new_bordereaux">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Bordereaux</field>
+            <field name="res_model">oscar.bordereau</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{
+                'search_default_new_bordereau': 1,
+                }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer un nouveau Bordereau.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Bordereaux
+                </p>
+            </field>
+        </record>
+
+        <!-- actions liste de bordereaux envoyes -->
+        <record model="ir.actions.act_window" id="action_sent_bordereau">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Bordereaux envoyés</field>
+            <field name="res_model">oscar.bordereau</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'create': False,
+                'delete': False,
+                }
+            </field>
+            <field name="domain">[('state', '=', 'sent')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun bordereau trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Bordereaux
+                </p>
+            </field>
+        </record>
+
+        <!-- actions liste de bordereaux partiellement reçus -->
+        <record model="ir.actions.act_window" id="action_partially_received_bordereau">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Bordereaux partiellement reçus</field>
+            <field name="res_model">oscar.bordereau</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'create': False,
+                'delete': False,
+                }
+            </field>
+            <field name="domain">[('state', '=', 'partially_received')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun bordereau trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Bordereaux
+                </p>
+            </field>
+        </record>
+
+        <!-- actions liste de bordereaux recus -->
+        <record model="ir.actions.act_window" id="action_receive_bordereau">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Bordereaux reçus</field>
+            <field name="res_model">oscar.bordereau</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'create': False,
+                'delete': False,
+                }
+            </field>
+            <field name="domain">[('state', 'in', ['receive_warehouse','receive_siege','receive_store'])]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun bordereau trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Bordereaux
+                </p>
+            </field>
+        </record>
+
+
+        <!-- menu all Bordereau -->
+        <menuitem name="Bordereaux" id="menu_oscar_bordereau"
+                  parent="menu_oscar_transfer" action="action_all_bordereaux"
+                  sequence="20"/>
+
+        <menuitem name="Nouveaux bordereaux" id="menu_new_bordereaux"
+                  parent="menu_oscar_bordereau" action="action_new_bordereaux"
+                  sequence="10"/>
+
+        <menuitem name="Bordereaux envoyés" id="menu_sent_bordereau"
+                  sequence="20" parent="menu_oscar_bordereau" action="action_sent_bordereau"
+        />
+
+        <menuitem name="Partiellement reçus" id="menu_partially_received_bordereau"
+                  sequence="25" parent="menu_oscar_bordereau" action="action_partially_received_bordereau"
+        />
+
+        <menuitem name="Bordereaux reçus" id="menu_receive_bordereau"
+                  sequence="30" parent="menu_oscar_bordereau" action="action_receive_bordereau"
+        />
+
+
+    </data>
+</odoo>

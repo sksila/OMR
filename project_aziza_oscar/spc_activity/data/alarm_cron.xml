@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- Planifier l'envoie des rappels par email-->
+        <record forcecreate="True" id="ir_cron_scheduler_alarm_for_activity" model="ir.cron">
+            <field name="name">Planification: Rappel par email pour une activité</field>
+            <field name="model_id" ref="model_activity_alarm_manager"/>
+            <field name="state">code</field>
+            <field name="code">model.get_next_mail_activity()</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">30</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record>
+    </data>
+</odoo>

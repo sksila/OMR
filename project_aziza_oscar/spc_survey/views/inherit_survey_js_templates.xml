@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- inherit survey.js -->
+        <template id="survey_assets_inherit" inherit_id="survey.survey_assets">
+            <xpath expr="//script[@src='/survey/static/src/js/survey.js']" position="replace">
+                 <script type="text/javascript" src="/spc_survey/static/src/js/survey_inherit.js" />
+            </xpath>
+        </template>
+
+        <template id="website_survey_assets_frontend_inherit" inherit_id="website_survey.assets_frontend">
+            <xpath expr="//script[@src='/survey/static/src/js/survey.js']" position="replace">
+                 <script type="text/javascript" src="/spc_survey/static/src/js/survey_inherit.js" />
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

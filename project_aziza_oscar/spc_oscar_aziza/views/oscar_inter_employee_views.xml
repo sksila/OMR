@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- view filter Employee-->
+    <record id="view_inter_employee_filter" model="ir.ui.view">
+        <field name="name">inter.employee.search.view</field>
+        <field name="model">oscar.inter.employee</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des sites">
+                <field name="matricule"/>
+                <field name="cin"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Employee form view  -->
+    <record model="ir.ui.view" id="oscar_inter_employee_view_form">
+        <field name="name">oscar.inter.employee.view.form</field>
+        <field name="model">oscar.inter.employee</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="matricule_caisse"/>
+                        <field name="matricule"/>
+                        <field name="nom"/>
+                        <field name="prenom"/>
+                    </group>
+                    <group>
+                        <field name="email"/>
+                        <field name="cin"/>
+                        <field name="date_naissance"/>
+                        <field name="unite"/>
+                        <field name="service"/>
+                        <field name="fonction"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="date_embauche"/>
+                        <field name="solde_conge"/>
+                        <field name="actif"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Employee tree view  -->
+    <record model="ir.ui.view" id="oscar_inter_employee_view_tree">
+        <field name="name">oscar.inter.employee.view.tree</field>
+        <field name="model">oscar.inter.employee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="matricule_caisse"/>
+                <field name="nom"/>
+                <field name="prenom"/>
+                <field name="email"/>
+                <field name="unite"/>
+                <field name="service"/>
+                <field name="fonction"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="date_embauche"/>
+                <field name="solde_conge"/>
+                <field name="actif"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de Employee -->
+    <record model="ir.actions.act_window" id="action_oscar_inter_employee">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Liste des Employés</field>
+        <field name="res_model">oscar.inter.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'create': True,
+            }
+        </field>
+    </record>
+
+    <!-- menu Employee (Interface) -->
+    <menuitem id="menu_oscar_inter_employee"
+              name="Employés"
+              action="action_oscar_inter_employee"
+              parent="menu_gold_view"
+              sequence="10"/>
+</odoo>

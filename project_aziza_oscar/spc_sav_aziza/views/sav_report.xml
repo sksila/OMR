@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+       
+	    
+        <!-- QWeb Reports -->
+        
+        <report 
+            id="oscar_sav_bordereaux"
+            model="oscar.sav.bordereau"
+            string="Bordereaux"
+            report_type="qweb-pdf"
+            name="spc_sav_aziza.report_bordereau_document"
+            file="spc_sav_aziza.report_bordereau_document"
+           	print_report_name="'Bordereau Information - %s' % (object.name)"
+        />
+        
+        
+         <report 
+            id="oscar_sav_claims"
+            model="oscar.sav.claim"
+            string="Réclamation"
+            report_type="qweb-pdf"
+            name="spc_sav_aziza.report_claim_document"
+            file="spc_sav_aziza.report_claim_document"
+            print_report_name="'Reclamation Information - %s' % (object.name)"
+            menu='False'
+        />
+          
+        <report 
+            id="oscar_sav_bon_sortie"
+            model="oscar.sav.bon.sortie.wizard"
+            string="Bon de Sortie"
+            report_type="qweb-pdf"
+            name="spc_sav_aziza.report_bon_sortie_document"
+            file="spc_sav_aziza.report_bon_sortie_document"
+            print_report_name="'Bon Sortie Information - %s' % (object.name)"
+            menu='False'
+        />
+        
+	</data>
+</odoo>

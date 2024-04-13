@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- views -->
+    <record id="spc_survey_config_settings_view_form" model="ir.ui.view">
+        <field name="name">spc.survey.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+			<xpath expr="//div[hasclass('settings')]" position="inside">
+				<div class="app_settings_block" data-string="SPECTRUM Survey"
+					 string="SPECTRUM Survey" data-key="spc_survey" groups="spc_survey.group_audit_manager">
+					<h2>Survey Session</h2>
+					<div class="row mt16 o_settings_container">
+						<div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="enable_survey_session" />
+                            </div>
+							<div class="o_setting_right_pane" name="spc_survey_session_right_pane">
+                                <label for="enable_survey_session" />
+                                <div class="text-muted">
+                                    Enable survey session feature
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</xpath>
+        </field>
+    </record>
+
+    <!-- actions -->
+    <record model="ir.actions.act_window" id="spc_survey_config_act_window">
+        <field name="name">SPC Survey config window action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'spc_survey'}</field> <!-- module name -->
+    </record>
+
+    <!-- menu -->
+    <menuitem name="Settings" id="spc_survey_res_configuration" parent="survey.menu_surveys_configuration"
+              action="spc_survey.spc_survey_config_act_window" sequence="99" groups="spc_oscar_aziza.group_admin_oscar"/>
+</odoo>

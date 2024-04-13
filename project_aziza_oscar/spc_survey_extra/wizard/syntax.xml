@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+	<record id="survey_question_scoring_syntax_display" model="ir.ui.view">
+		<field name="name">survey.question.scoring_syntax.form</field>
+		<field name="model">survey.question</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<div class="oe_title" style="width: 100%;">
+						<label for="question" string="Question name"/>
+						<h1><field name="question" colspan="4" placeholder="Question Name"/></h1>
+						<separator />
+					</div>
+					<separator />
+					<field name="labels_adv_matrix_cols_ids" string="Columns" context="{'default_col_question_id': active_id}">
+                    	<tree>
+							<field name="id" string="Column ID" />
+							<field name="value" string="Column"/>
+							<field name="col_type_resp" string="Type"/>
+							<field name="model_id" attrs="{'invisible': [('col_type_resp', '!=', 'model')]}" options="{'no_create': True, 'no_open': True}" />
+                    		<field name="equivalent_field_id" string="Equivalent" attrs="{'invisible': [('col_type_resp', '!=', 'field_model')]}"/>
+							<field name="options" attrs="{'invisible': [('col_type_resp', '!=', 'dropdown')]}"/>
+							<field name="min" attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_mumber'])]}"/>
+							<field name="max" attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_mumber'])]}"/>
+							<field name="min_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+							<field name="max_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+							<field name="today" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+						</tree>
+                	</field>
+					<separator />
+					<field name="labels_adv_matrix_rows_ids" string="Rows">
+						<tree editable="bottom">
+							<field name="id" string="Row ID"/>
+							<field name="value" string="Row"/>
+							<field name="row_dropdown_options" />
+							<field name="note_options" />
+							<field name="label" />
+						</tree>
+                	</field>
+
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="scoring_syntax_wizard_form" model="ir.ui.view">
+		<field name="name">scoring.syntax.form</field>
+		<field name="model">scoring.syntax</field>
+		<field name="arch" type="xml">
+			<form string="Syntax preparation">
+				<group string="Criteria">
+					<group><field name="scoring_criteria_id" readonly="1" /></group>
+					<group><field name="criteria_id_int" /></group>
+				</group>
+				<notebook>
+					<page string="Scoring">
+						<group>
+							<group string="Survey">
+								<field name="survey_id" />
+								<field name="survey_id_int" />
+							</group>
+							<group string="Page">
+								<field name="page_id" />
+								<field name="page_id_int" />
+							</group>
+						</group>
+						<group string="Questions">
+							<field name="question_ids" string="Questions" nolabel="1" readonly="1" context="{'form_view_ref':'spc_survey_extra.survey_question_scoring_syntax_display'}">
+								<tree editable="bottom" create="false">
+									<field name="question" string="Question"/>
+									<field name="id" string="Question ID" />
+								</tree>
+							</field>
+						</group>
+						<group string="Syntax">
+							<field name="code" placeholder="while(True):" nolabel="1" required="1" widget="ace" options="{'mode': 'python'}"/> <!-- for _ in [0]: -->
+						</group>
+					</page>
+					<page string="Help">
+						<div class="alert alert-success">
+							<h2 class="">It's Python Syntax:</h2>
+							<h4 class=""><li>Write your code inside</li></h4>
+							<code><pre>while (True):<br/>    result = ''</pre></code>
+							<h4 class=""><li>Always put the final result in variable named <mark>'result'</mark> </li></h4>
+							<h4 class=""><li>Indentation are very important</li></h4>
+							<h4 class=""><li>Use <mark>'break'</mark> to escape , Do not use return</li></h4>
+							<h4 class=""><li>Functions to know : </li></h4>
+								<ul> VALUE : get field value
+										<li>if rows exists : VALUE(page_id,question_id,column_id,row_id)</li>
+										<li>if only columns exists : VALUE(page_id,question_id,column_id) <br/>
+										will sum column inputs</li>
+								</ul>
+								<ul> VALABS : get field value
+										<li>if rows exists : VALABS(page_id,question_id,column_id,row_id)</li>
+										<li>if only columns exists : VALABS(page_id,question_id,column_id) <br/>
+										will sum column inputs ( abs(value)) sum of absolute value of values)</li>
+								</ul>
+								<ul> NB :
+										<li>(page_id,question_id,column_id) : count if all column inputs are filled</li>
+									    <li>(page_id,question_id,column_id,row_id) : check if case is not empty</li>
+								</ul>
+							    <ul> REACTIVITY_EXPLOITATION
+									<li>REACTIVITY_EXPLOITATION(criteria_id,page_id,direction_column_name,direction_value,note_column_name,note_values)</li>
+									<li>direction_column_name : column name of direction</li>
+									<li>direction_value : value of coloumn direction</li>
+								    <li>note_values : separate numbers by comma </li>
+									<li>example : REACTIVITY(1,6,'direction','Exploitation','note','0,-5') </li>
+								</ul>
+								<ul> REACTIVITY_DAT
+									<li>REACTIVITY_EXPLOITATION(criteria_id,page_id,note_column_name,note_values)</li>
+								    <li>Do not forget to add concerned rows </li>
+									<li>example : REACTIVITY(1,6,'note','0,-5') </li>
+								</ul>
+							<div class="">
+								<ul>
+									<li> == : equal </li>
+									<li> != : different </li>
+									<li> &lt; : less than</li>
+									<li> &lt;= : less than or equal to</li>
+									<li> &gt; : greater than</li>
+									<li> &gt;= : greater than or equal to</li>
+									<li> in : value in list of values</li>
+									<li> use ":" instead of parentheses </li>
+									<li> variable : exist </li>
+									<li> not variable : not exist </li>
+									<li> and : and </li>
+									<li> or : or </li>
+									<li> - : Subtraction</li>
+									<li> + : Addition</li>
+									<li> * : Multiplication</li>
+									<li> / : Division</li>
+									<li> = : variable affectation</li>
+								</ul>
+							</div>
+						</div>
+					</page>
+				</notebook>
+
+				<footer>
+					<button name="add_scoring" string="Save" type="object" class="btn btn-sm" />
+					<button string="OK" class="btn btn-sm btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="scoring_syntax_wizard_action" model="ir.actions.act_window">
+		<field name="name">Syntax preparation</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">scoring.syntax</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="scoring_syntax_wizard_form" />
+		<field name="target">new</field>
+	</record>
+    
+</odoo>

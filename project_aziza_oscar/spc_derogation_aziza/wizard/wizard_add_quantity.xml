@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <record id="wizard_add_quantity_view" model="ir.ui.view">
+   <field name="name">wizard.add_quantity.form</field>
+   <field name="model">derogation.derogation</field>
+   <field name="arch" type="xml">
+   <form string="Wizard Demo">
+    <group col="4">
+     <field name="magasin_id"/>
+     <field name="responsable_magasin_id"/>
+     <field name="quantity"/>
+     <field name="bon_retour"/>
+    </group>
+
+    <footer>
+     <button name="add_quantity" string="Ajouter" type="object" class="oe_highlight"
+             confirm="Êtes-vous sûr que la quantité est égale à zéro?"
+            attrs="{'invisible': [('quantity', '!=', 0)]}"/>
+        <button name="add_quantity" string="Ajouter" type="object" class="oe_highlight"
+                attrs="{'invisible': [('quantity', '=', 0)]}"/>
+     or
+     <button string="Cancel" class="oe_link" special="cancel"/>
+    </footer>
+   </form>
+   </field>
+  </record>
+
+     <record id="open_wizard_action_id" model="ir.actions.act_window">
+   <field name="name">Wizard Demo</field>
+   <field name="type">ir.actions.act_window</field>
+   <field name="res_model">derogation.derogation</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">form</field>
+   <field name="view_id" ref="wizard_add_quantity_view"/>
+   <field name="target">new</field>
+  </record>
+
+</odoo>

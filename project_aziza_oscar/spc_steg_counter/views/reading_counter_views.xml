@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+         <!-- view filter Relevés compteur STEG -->
+        <record id="view_reading_counter_steg_filter" model="ir.ui.view">
+            <field name="name">oscar.reading.counter.steg.search.view</field>
+            <field name="model">oscar.reading.counter.steg</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher des Relevés">
+                    <field name="name" />
+                    <field name="magasin_id" groups="spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_DE" />
+                    <separator/>
+                    <filter string="Nouveaux relevés" name="new_avoir" domain="[('state', '=', 'new')]"/>
+                    <filter string="Relevés validés" name="validated_reading" domain="[('state', '=', 'validate')]"/>
+                    <separator/>
+                    <filter string="Tous" name="all_reading_counter" domain="['|',('active', '=', True),('active', '=', False)]"/>
+                    <separator/>
+                    <filter name="group_reading_by_state" string="Statut" context="{'group_by':'state'}" />
+                    <filter name="group_reading_by_magasin" string="Magasin" context="{'group_by':'magasin_id'}" groups="spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_DE"/>
+                    <filter name="group_reading_by_date" string="Date création" context="{'group_by':'date_reading'}" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="spc_reading_counter_steg_form_view">
+            <field name="name">spc.reading.counter.steg.form</field>
+            <field name="model">oscar.reading.counter.steg</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="to_validate" string="Valider" states="new" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,validate"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="spc_oscar_aziza.group_admin_oscar"
+                                class="oe_stat_button" icon="fa-check-square-o">
+                                <field name="active" widget="boolean_button"
+                                    options="{&quot;terminology&quot;: &quot;Désactiver&quot;}" />
+                            </button>
+                        </div>
+                        <div class="oe_title">
+							<label for="name" class="oe_edit_only" string="N° Relevé" />
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+                        <group>
+                            <group>
+                                <field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="user_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="date_reading"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="comment"/>
+                        </group>
+                        <notebook>
+                            <page name="page_counters" string="Compteurs">
+                                <field name="counter_ids" options="{'no_create': True}" domain="[('magasin_id','=', magasin_id)]">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="index"/>
+                                        <field name="magasin_id" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"
+							groups="base.group_user" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+                </form>
+            </field>
+        </record>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="spc_reading_counter_steg_list_view">
+            <field name="name">spc.reading.counter.steg.list</field>
+            <field name="model">oscar.reading.counter.steg</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_reading"/>
+                    <field name="magasin_id"/>
+                    <field name="user_id"/>
+                    <field name="state" widget="colored_state" options="{'new': { 'class': 'badge-info', 'name': 'Nouveau' },
+          													'validate': { 'class': 'badge-success', 'name': 'Validé' }}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="spc_reading_counter_steg_action">
+            <field name="name">Relevé compteur STEG</field>
+            <field name="res_model">oscar.reading.counter.steg</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer un nouveau relevé de compteur STEG.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Relevés de compteur STEG.
+                </p>
+            </field>
+        </record>
+
+        <!-- menu categories -->
+        <menuitem id="spc_reading_counter_root"
+            name="Relevé Compteur"
+            parent="spc_steg_counter.spc_counter_steg_menu_root"
+            action="spc_steg_counter.spc_reading_counter_steg_action"
+            sequence="100"/>
+
+    </data>
+</odoo>

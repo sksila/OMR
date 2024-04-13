@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+
+	<record id="view_document_filter" model="ir.ui.view">
+      <field name="name">document.search.view</field>
+      <field name="model">ir.attachment</field>
+		<field name="inherit_id" ref="base.view_attachment_search"/>
+      <field name="arch" type="xml">
+		  <xpath expr="//search/field[@name='name']" position="after">
+			            <filter string="Document envoyé vers la GED" name="is_uploaded" domain="[('is_uploaded', '=', True)]"/>
+			            <filter string="Document de magasin vers siège" name="magasin vers siège" domain="[('type_transfert', '=', 'magasin_siege')]"/>
+			            <filter string="Document de siège vers magasin" name="siège vers magasin" domain="[('type_transfert', '=', 'siege_magasin')]"/>
+
+		  </xpath>
+      </field>
+    </record>
+
+	<record id="spc_view_attachment_kanban_inherit" model="ir.ui.view">
+        <field name="name">ir.attachment.form.inherit</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="mail.view_document_file_kanban"/>
+        <field name="arch" type="xml">
+			 <xpath expr="//kanban/field[@name='id']" position="after">
+					 <field name="name"/>
+				  <field name="document_type_id" required="1"/>
+			 </xpath>
+			<xpath expr="//kanban/templates//div[@class='o_kanban_record_body']" position="inside">
+				<div>
+					<t>
+						<t t-if="record.name.raw_value">
+							<span t-att-title="record.name.raw_value">
+								<field name="name"/>
+							</span>
+						</t>
+					</t>
+				</div>
+				<div>
+					<t>
+						<span>
+							<field name="document_type_id"/>
+						</span>
+					</t>
+				</div>
+				<div>
+					<t>
+						<span>
+							<field name="site_id"/>
+						</span>
+					</t>
+				</div>
+			</xpath>
+
+		</field>
+	</record>
+
+		<!-- actions liste de enveloppes de documents (responsable magasin) -->
+		<record model="ir.actions.act_window" id="action_envelope_by_doc">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Enveloppes</field>
+			<field name="res_model">oscar.envelope</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('document_ids', 'in', [active_id])]</field>
+			<field name="context">{
+			'create': False,
+			'edit': False,
+			'delete': False,
+			}</field>
+		</record>
+
+	<record id="spc_view_attachment_form_inherit" model="ir.ui.view">
+        <field name="name">ir.attachment.form.inherit</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_form"/>
+        <field name="arch" type="xml">
+			<xpath expr="//form/sheet//field[@name='type']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//form/sheet//field[@name='datas']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+            <xpath expr="//form/sheet" position="before">
+                <header>
+                	<button name="send_document" string="Envoyer vers la GED" attrs="{'invisible': ['|',('type_flux','=', 'physique'),('is_uploaded','!=', False)]}" type="object" class="btn-primary oe_read_only"/>
+                	<field name="state" widget="statusbar"
+		        			statusbar_visible="new"/>
+                </header>
+            </xpath>
+			<xpath expr="//form/sheet//label[@for='name']" position="before">
+				<div class="oe_button_box" name="button_box">
+					<button class="oe_stat_button" type="action"
+						name="%(action_envelope_by_doc)d"
+						icon="fa-envelope" attrs="{'invisible': [('envelope_count', '=', 0)]}" help="Enveloppes">
+						<field string="Enveloppe(s)" name="envelope_count" widget="statinfo"/>
+					</button>
+				</div>
+			</xpath>
+			<xpath expr="//form//group/group[1]" position="inside">
+					<field name="document_type_id" required="1" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+					<field name="user_id" readonly="1" options="{'no_open': True}" />
+					<field name="destinataire_doc_id" invisible="1"/>
+			</xpath>
+			<xpath expr="//form//group/group[1]" position="after">
+				<field name="is_uploaded" invisible="1"/>
+				<div class="badge-pill badge-success float-right" attrs="{'invisible': [('is_uploaded', '=', False)]}">Envoyé vers la GED
+				</div>
+				<group>
+					<field name="date_insertion" readonly="1" />
+					<field name="show_document" invisible="1"/>
+					<field name="code" invisible="1"/>
+					<field name="type_flux" invisible="1"/>
+					<field name="site_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" required="1" attrs="{'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+					<field name="type_transfert"/>
+				</group>
+			</xpath>
+
+			<xpath expr="//form//group/group[2]" position="after">
+				<group string="Métadonnées" attrs="{'invisible': [('type_flux','=', 'physique')],'required': [('type_flux','!=', 'physique')], 'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}">
+					<field name="type_doc" invisible="1"/>
+					<field name="numero_piece" attrs="{'invisible': ['|',('type_flux','=', 'physique'),('type_doc','=', 'rh')],'required': [('type_doc','!=', 'rh'),('type_flux','!=', 'physique')], 'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+					<field name="fournisseur" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'invisible': [('type_doc','not in', ['facture','avoir','bl'])],'required': [('type_doc','in', ['facture','avoir','bl'])], 'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+					<field name="date_piece" attrs="{'invisible': [('type_flux','=', 'physique')],'required': [('type_flux','!=', 'physique')], 'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+					<field name="total_ht" attrs="{'invisible': [('type_doc','not in', ['facture','avoir'])],'required': [('type_doc','in', ['facture','avoir'])], 'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+					<field name="total_ttc" attrs="{'invisible': [('type_doc','not in', ['facture','avoir'])],'required': [('type_doc','in', ['facture','avoir'])], 'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+               	</group>
+					<field name="comment" attrs="{'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}"/>
+				<group colspan="12">
+				 	<notebook>
+						<page name="liste_document" string="Document" attrs="{'invisible': [(('type_flux','=', 'physique'))]}">
+							<group>
+							<label for="datas" string="Contenu de document"/>
+							<div name="datas_div">
+							<field name="datas_fname" invisible="1"/>
+                     		<field name="datas" filename="datas_fname" widget="binary" attrs="{'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}" />
+							</div>
+							</group>
+                     	</page>
+                     	<page name="cmd" string="Commandes" attrs="{'invisible': [('show_document','=', False)]}" >
+                     		<field name="commande_ids" options="{'no_create': True}" attrs="{'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}" domain="[('fournisseur_id','=', fournisseur),('magasin_id','=', site_id)]" >
+                     		<tree>
+                     				<field name="name"/>
+		                     		<field name="date_commande"/>
+		                     		<field name="code_site"/>
+		                     		<field name="lib_site"/>
+		                     		<field name="code_fr"/>
+		                     		<field name="lib_fr"/>
+		                     		<field name="magasin_id" invisible="1" />
+		                     		<field name="fournisseur_id" invisible="1" />
+		                    </tree>
+                     		</field>
+                     	</page>
+                     	<page name="criteres" string="Critères" attrs="{'invisible': [('type_flux','not in', ['physique','binaire'])]}" >
+                     		<field name="criteres_ids" widget="many2many_checkboxes" attrs="{'readonly':['|',('state','not in', ['new']),('is_uploaded','=', True)]}" />
+                     	</page>
+					</notebook>
+				</group>
+			</xpath>
+			<xpath expr="//form/sheet" position="after">
+			<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+			</xpath>
+        </field>
+         </record>
+
+	<record id="spc_view_attachment_tree_inherit" model="ir.ui.view">
+        <field name="name">ir.attachment.tree.inherit</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_tree"/>
+        <field name="arch" type="xml">
+			<xpath expr="//tree//field[@name='mimetype']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//tree//field[@name='res_model']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//tree//field[@name='res_field']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//tree//field[@name='res_id']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//tree//field[@name='create_date']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//tree//field[@name='type']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//tree//field[@name='res_id']" position="after">
+				<field name="document_type_id"/>
+			</xpath>
+			<xpath expr="//tree//field[@name='res_field']" position="after">
+				<field name="site_id"/>
+			</xpath>
+			<xpath expr="//tree//field[@name='create_date']" position="after">
+				<field name="state"/>
+			</xpath>
+			<xpath expr="//tree//field[@name='create_uid']" position="after">
+				<field name="date_insertion"/>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="action_attachment_magasin" model="ir.actions.act_window">
+		<field name="name">Documents magasin</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">ir.attachment</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="view_id" eval="False"/>
+		<field name="search_view_id" ref="view_document_filter"/>
+		<field name="domain">[('type_transfert', '=', 'magasin_siege'),('document_type_id', '!=', False)]</field>
+		<field name="context">{'default_type_transfert':'magasin_siege','delete':False}</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_neutral_face">
+				Aucun document trouvé.
+			</p>
+			<p>
+				Oscar vous aide à gérer facilement vos Documents.
+			</p>
+		</field>
+	</record>
+
+	<record id="action_attachment_siege" model="ir.actions.act_window">
+		<field name="name">Documents siège</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">ir.attachment</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="view_id" eval="False"/>
+		<field name="search_view_id" ref="view_document_filter"/>
+		<field name="domain">[('type_transfert', '=', 'siege_magasin'),('document_type_id', '!=', False)]</field>
+		<field name="context">{'default_type_transfert':'siege_magasin','delete':False}</field>
+		<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucun document trouvé.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Documents.
+				</p>
+		</field>
+	</record>
+
+	<record id="action_attachment_all" model="ir.actions.act_window">
+		<field name="name">Documents</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">ir.attachment</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">kanban,tree,form</field>
+		<field name="view_id" eval="False"/>
+		<field name="search_view_id" ref="view_document_filter"/>
+		<field name="domain">[('document_type_id', '!=', False)]</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_neutral_face">
+				Aucun document trouvé.
+			</p>
+			<p>
+				Oscar vous aide à gérer facilement vos Documents.
+			</p>
+		</field>
+	</record>
+
+
+	<menuitem id="spc_menu_ir_attrachment" name="Documents"
+              parent="spc_flux_documents.spc_menu_flux_document_root" sequence="3"/>
+
+	<menuitem id="spc_menu_ir_attrachment_all" name="Documents"
+              parent="spc_flux_documents.spc_menu_ir_attrachment"
+			  groups="spc_oscar_aziza.group_admin_oscar"
+              action="action_attachment_all" sequence="1"/>
+
+
+	<menuitem id="spc_menu_ir_attrachment_magasin" name="Documents magasin"
+              parent="spc_flux_documents.spc_menu_ir_attrachment"
+              action="action_attachment_magasin" sequence="4"/>
+
+	<menuitem id="spc_menu_ir_attrachment_siege" name="Documents siège"
+              parent="spc_flux_documents.spc_menu_ir_attrachment"
+              action="action_attachment_siege" sequence="5"/>
+</odoo>

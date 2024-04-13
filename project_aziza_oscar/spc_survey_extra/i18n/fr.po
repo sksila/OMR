@@ -1,0 +1,1349 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* spc_survey_extra
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200417\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-10 16:13+0000\n"
+"PO-Revision-Date: 2021-02-12 11:11+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: spc_survey_extra
+#: code:addons/spc_survey_extra/models/column_dependency.py:35
+#: code:addons/spc_survey_extra/models/column_dependency.py:61
+#, python-format
+msgid "  => condition is not valid!"
+msgstr "=> la condition n'est pas valide!"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "!= : different"
+msgstr "! =: différent"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "!col : not exist"
+msgstr "!col: vide"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "&amp;&amp; : and"
+msgstr "&amp;&amp; : et"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "&gt; : greater than"
+msgstr "&gt; : est supérieur à "
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "&gt;= : greater than or equal to"
+msgstr "&gt;= : est supérieur ou égal à"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "&lt; : less than"
+msgstr "&lt; : est inférieur à"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "&lt;= : less than or equal to"
+msgstr "&lt;= : est inférieur ou égal à"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "() : parentheses"
+msgstr "parenthèses"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "(col == 1 &amp;&amp; !(col2))"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "(col == 1 &amp;&amp; col2)"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "(page_id,question_id,column_id) : count if all column inputs are filled"
+msgstr "(page_id, question_id, column_id): compter si tout les inputs de colonnes sont remplies"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "(page_id,question_id,column_id,row_id) : check if case is not empty"
+msgstr "(page_id, question_id, column_id, row_id): vérifier si la casse n'est pas vide"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "* : Multiplication"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "+ : Addition"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "- : Subtraction"
+msgstr "- : Soustraction"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "/ : Division"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "= : variable affectation"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "== : equal"
+msgstr "== : égal"
+
+#. module: spc_survey_extra
+#: model_terms:ir.actions.act_window,help:spc_survey_extra.spc_survey_extra_criteria_type_action
+msgid "Add criteria type."
+msgstr "Ajouter le type de critére."
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__add_line_feature
+msgid "Add line feature"
+msgstr "Ajouter une ligne"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_user_input_line__value_adv_mat_field_model
+msgid "Advanced Matrix field_model answer"
+msgstr "Réponse de la matrice avancée [Modéle]"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_user_input_line__value_adv_mat_model
+msgid "Advanced Matrix model answer"
+msgstr "Réponse de la matrice avancée"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Always put the final result in variable named <mark>'result'</mark>"
+msgstr "Mettez toujours le résultat final dans la variable nommée <mark> 'result' </mark>"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,help:spc_survey_extra.field_column_dependency__condition
+#: model:ir.model.fields,help:spc_survey_extra.field_row_column_dependency__condition
+msgid "Applied this rule for calculation .You can specify condition like AN = 1."
+msgstr "Appliquez cette règle pour le calcul. Vous pouvez spécifier une condition comme AN = 1."
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Attachement"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_spc_survey_extra_control_m_m1
+msgid "Audit Control M & M-1"
+msgstr "Contrôle d'audit M & M-1"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_control_m_m1_concerned
+msgid "Audit Control M & M-1 Concerned Questions"
+msgstr "Contrôle d'audit M & M-1 Questions concernées"
+
+#. module: spc_survey_extra
+#: model:ir.actions.act_window,name:spc_survey_extra.action_control_m_m1
+msgid "Audit Control M M-1"
+msgstr "Contrôle d'audit M & M-1"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__is_auto_fill
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__fill_auto
+msgid "Automatic filling"
+msgstr "Remplissage automatique"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_form_inherit_extra
+msgid "Automating lines filling"
+msgstr "Remplissage automatique des lignes"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.correction
+msgid "Calculate scores"
+msgstr "Calculer les scores"
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Camera"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.row_columns_display_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Champs Model"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.row_columns_display_wizard_form
+msgid "Choose columns to display for this row"
+msgstr "Choisissez les colonnes à afficher pour cette ligne"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.add_line_column_type_dropdown_template
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.details_table_column_type_dropdown_template
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.extend_column_type_dropdown_template
+msgid "Choose..."
+msgstr "Sélectionner..."
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__code
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_scoring_criteria__code
+msgid "Code"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__col_calculation_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__col_calculation_id
+msgid "Col Calculation"
+msgstr "Calcul de colonne"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__column_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__column_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__column_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__column_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__column_id
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.control_m_m1_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Column"
+msgstr "Colonne"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Column ID"
+msgstr "Colonne ID"
+
+#. module: spc_survey_extra
+#: model:ir.actions.act_window,name:spc_survey_extra.action_column_calculation
+msgid "Column calculation"
+msgstr "Calcul de colonne"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__columns_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__columns_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__columns_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__columns_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__display_cols
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__display_cols_text
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_calculation_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Columns"
+msgstr "Colonnes"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+msgid "Columns Dependencies"
+msgstr "Dépendances des colonnes"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_calculation_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Columns dependencies"
+msgstr "Dépendances des colonnes"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.row_columns_display_wizard_form
+msgid "Columns to display"
+msgstr "Colonnes à afficher"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__columns_ids
+msgid "Columns to display per row"
+msgstr "Colonnes à afficher par ligne"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__concerned_rows
+msgid "Concerned Rows"
+msgstr "Lignes concernées"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__concerned_questions_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.control_m_m1_form
+msgid "Concerned questions"
+msgstr "Questions concernéed"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__condition
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__condition
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__condition
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__condition
+msgid "Condition"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_survey_form_inherit_extra
+msgid "Control M M-1"
+msgstr "Contrôle d'audit M & M-1"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.correction
+msgid "Correct"
+msgstr "Corriger"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_page__is_correction
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Correction"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__anomaly_col_id
+msgid "Correction Column"
+msgstr "Colonne de correction"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_user_input__is_correction_done
+msgid "Correction done?"
+msgstr "Correction faite?"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__anomaly_columns_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Correction lines"
+msgstr "Lignes de correction"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency_help__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_type_model_rpc__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type__create_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency_help__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_type_model_rpc__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type__create_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Criteria"
+msgstr "Critéres"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__criteria_id_int
+msgid "Criteria ID"
+msgstr "Critére ID"
+
+#. module: spc_survey_extra
+#: model:ir.actions.act_window,name:spc_survey_extra.spc_survey_extra_criteria_type_action
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_scoring_criteria__criteria_type_id
+#: model:ir.ui.menu,name:spc_survey_extra.spc_survey_extra_criteria_type_menu
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.spc_survey_extra_criteria_type_form_view
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.spc_survey_extra_criteria_type_tree_view
+msgid "Criteria type"
+msgstr "Type de critére"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__data_correction
+msgid "Data Correction"
+msgstr "Correction"
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Date "
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__dependency_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__row_dependency_ids
+msgid "Dependencies"
+msgstr "Dépendances"
+
+#. module: spc_survey_extra
+#: selection:control_m_m1.concerned,question_or_detail:0
+#: selection:spc_survey_extra.control_m_m1,question_or_detail:0
+msgid "Detail"
+msgstr "Détail"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+msgid "Detail columns"
+msgstr "Colonnes de détail"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__detail
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+msgid "Details"
+msgstr "Détails"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__detail_labels_adv_matrix_cols_ids
+msgid "Details Columns"
+msgstr "Colonnes de détail"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__details_nb_lines
+msgid "Details lines number"
+msgstr "Nombre des lignes de détails"
+
+#. module: spc_survey_extra
+#: selection:display.show_hide_cond,type:0
+msgid "Different line"
+msgstr "Ligne différente"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+msgid "Display"
+msgstr "Afficher"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency_help__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_type_model_rpc__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type__display_name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Do not forget to add concerned rows"
+msgstr "N'oubliez pas d'ajouter les lignes concernées"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_scoring_criteria__domain_rows_ids
+msgid "Domain Rows"
+msgstr "Domaine de lignes"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__row_dropdown_options
+msgid "Dropdown options"
+msgstr "Options de la liste déroulante"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.session_scores
+msgid "End Survey session"
+msgstr "Terminer la session d'audit"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__equivalent_field_id
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_label_tree_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_form_inherit_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Equivalent"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Example: AN in -5,0"
+msgstr "Exemple: AN in -5,0"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "Examples:"
+msgstr "Exemples:"
+
+#. module: spc_survey_extra
+#: code:addons/spc_survey_extra/models/survey_label_inherit.py:13
+#: code:addons/spc_survey_extra/models/survey_user_input_line_inherit.py:18
+#, python-format
+msgid "Field model"
+msgstr "Champs Model"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__model_fields_ids
+msgid "Fields"
+msgstr "Champs"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__filter_domain
+msgid "Filter"
+msgstr "Filtrer"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__model_filter_field_id
+msgid "Filter field"
+msgstr "Champ de filtrage"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "First, choose the column"
+msgstr "Tout d'abord, choisissez la colonne"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__formula
+msgid "Formula"
+msgstr "Formule"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Functions to know :"
+msgstr "Fonctions à connaître:"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_calculation_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Help"
+msgstr "Aide"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency_help__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_type_model_rpc__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type__id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__id
+msgid "ID"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Indentation are very important"
+msgstr "L'indentation est très importante"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "It's Python Syntax:"
+msgstr "C'est la syntaxe Python:"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency_help____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_type_model_rpc____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type____last_update
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency_help__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_type_model_rpc__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type__write_uid
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency_help__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_type_model_rpc__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type__write_date
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_columns_display__line
+msgid "Line"
+msgstr "Ligne"
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Liste déroulante"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__max
+msgid "Max"
+msgstr "Maximum"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__min
+msgid "Min"
+msgstr "Minimum"
+
+#. module: spc_survey_extra
+#: code:addons/spc_survey_extra/models/survey_label_inherit.py:13
+#: code:addons/spc_survey_extra/models/survey_user_input_line_inherit.py:18
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__model_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__model_id
+#, python-format
+msgid "Model"
+msgstr "Modèle"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__model_filter_list_ids
+msgid "Model Filter List"
+msgstr "Liste de filtres de modèle"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__model_name
+msgid "Model Name"
+msgstr "Nom de Modèle"
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Modèle"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "NB :"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__name
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_criteria_type__name
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_calculation_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Name"
+msgstr "Nom"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+msgid "Nom"
+msgstr ""
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Nombre entier"
+msgstr ""
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Nombre flottant"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__note_options
+msgid "Note options"
+msgstr "Options de note"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "OK"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_scoring_criteria__operation
+msgid "Operation"
+msgstr "Opération"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "Operators:"
+msgstr "Opérateurs:"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__page_id
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Page"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__page_id_int
+msgid "Page ID"
+msgstr ""
+
+#. module: spc_survey_extra
+#: selection:control_m_m1.concerned,question_or_detail:0
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__question_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__question_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__question_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__question_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__question_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__question_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+#: selection:spc_survey_extra.control_m_m1,question_or_detail:0
+msgid "Question"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__question_display_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__question_display_id
+msgid "Question Display"
+msgstr "Affichage du question"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Question ID"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Question Name"
+msgstr "Nom de la question"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__detail_col_question_id
+msgid "Question column"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.actions.act_window,name:spc_survey_extra.action_question_display
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_tree
+msgid "Question display"
+msgstr "Affichage des questions"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Question name"
+msgstr "Nom de la question"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+msgid "Question/Detail Relation"
+msgstr "Relation Question/Detail"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__question_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Questions"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "REACTIVITY_DAT"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "REACTIVITY_EXPLOITATION"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "REACTIVITY_EXPLOITATION(criteria_id,page_id,direction_column_name,direction_value,note_column_name,note_values)"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "REACTIVITY_EXPLOITATION(criteria_id,page_id,note_column_name,note_values)"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__question_detail_relation_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+msgid "Relation Question/Detail"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_user_input_line__type_resp
+msgid "Response type"
+msgstr "Type de réponse"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__result
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__result
+msgid "Result"
+msgstr "Résultat"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_dependency__reverse_result
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__reverse_result
+msgid "Reverse result"
+msgstr "Résultat inverse"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__row_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_relation_question_detail__row_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_row_column_dependency__row_id
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Row"
+msgstr "Ligne"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Row ID"
+msgstr "Ligne ID"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__rows_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__rows2_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__rows_ids
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_scoring_criteria__row_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_calculation_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_survey_label_rows_tree
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Rows"
+msgstr "Rangée"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_calculation_form
+msgid "Rows/Columns dependencies"
+msgstr "Dépendances lignes / colonnes"
+
+#. module: spc_survey_extra
+#: selection:display.show_hide_cond,type:0
+msgid "Same line"
+msgstr "Même ligne"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Save"
+msgstr "Sauvegarder"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_scoring__scale_ids
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_form_extra_inherit
+msgid "Scale"
+msgstr "Baréme"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.session_scores
+msgid "Score"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__score
+msgid "Score %"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__scoring_id
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Scoring"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__scoring_criteria_id
+msgid "Scoring Criteria"
+msgstr "Critéres scoring"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Second, choose possible values"
+msgstr "Deuxièmement, choisissez les valeurs possibles"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Show/Hide"
+msgstr "Afficher / masquer"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_question_display__show_hide_cond_ids
+msgid "Show/Hide by condition"
+msgstr "Afficher / masquer par condition"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "Show/Hide with conditions"
+msgstr "Afficher / Masquer avec conditions"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.row_columns_display_wizard_form
+msgid "Submit"
+msgstr "Soumettre"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__survey_id
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__survey_id
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.correction
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.session_scores
+msgid "Survey"
+msgstr "Maquette"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_scoring_syntax__survey_id_int
+msgid "Survey ID"
+msgstr "Maquette ID"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_survey_label
+msgid "Survey Label"
+msgstr "Label du maquette"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_survey_page
+msgid "Survey Page"
+msgstr "Page de maquette"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_survey_question
+msgid "Survey Question"
+msgstr "Question du maquette"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_survey_user_input
+msgid "Survey User Input"
+msgstr "Saisie utilisateur du maquette"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr "Ligne de saisie pour l'utilisateur du maquette"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_scale__symbol
+msgid "Symbol"
+msgstr "Symbole"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_form_extra_inherit
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Syntax"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.actions.act_window,name:spc_survey_extra.scoring_syntax_wizard_action
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Syntax preparation"
+msgstr "Préparation du syntaxe"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "Syntax:"
+msgstr "Syntaxe:"
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Texte"
+msgstr ""
+
+#. module: spc_survey_extra
+#: selection:survey.label,col_type_resp:0
+#: selection:survey.user_input_line,type_resp:0
+msgid "Texte libre"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_control_m_m1_concerned__question_or_detail
+#: model:ir.model.fields,field_description:spc_survey_extra.field_display_show_hide_cond__type
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_extra_control_m_m1__question_or_detail
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.smart_survey_question_form_inherit_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.survey_question_scoring_syntax_display
+msgid "Type"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Use <mark>'break'</mark> to escape , Do not use return"
+msgstr "Utilisez <mark> 'break' </mark> pour échapper, n'utilisez pas return"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "VALABS : get field value"
+msgstr "VALABS: obtenir la valeur du champ"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "VALUE : get field value"
+msgstr "VALUE: obtenir la valeur du champ"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_anomaly_columns__anomaly_values
+msgid "Values"
+msgstr "Valeurs"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_row_columns_display
+msgid "Wizard to choose columns to display per row"
+msgstr "Wizard pour choisir les colonnes à afficher par ligne"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "Write your code inside"
+msgstr "Écrivez votre code à l'intérieur"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.print_template_page_spc_survey_inherit_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.print_template_pages_session_spc_survey_inherit_extra
+msgid "[Voir]"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "and : and"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_anomaly_columns
+msgid "anomaly.columns"
+msgstr ""
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "average"
+msgstr "moyenne"
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "average (max of denominator)"
+msgstr "moyenne (max du dénominateur)"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.print_template_page_spc_survey_inherit_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.print_template_pages_session_spc_survey_inherit_extra
+msgid "capture"
+msgstr "Capturer"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "col : exist"
+msgstr "col: non vide"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "col == 1"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "col2 -col1"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_column_calculation
+msgid "column.calculation"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_column_dependency
+msgid "column.dependency"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_column_dependency_help
+msgid "column.dependency.help"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.actions.act_window,name:spc_survey_extra.column_dependency_help_wizard_action
+msgid "columns dependency help"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.actions.act_window,name:spc_survey_extra.row_columns_display_wizard_action
+msgid "columns to display for this row :"
+msgstr "colonnes à afficher pour cette ligne:"
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "count"
+msgstr "compter"
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "count percentage"
+msgstr "compter (pourcentage)"
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "count total percentage with same condition"
+msgstr "compter  (pourcentage total avec la même condition appliqué au dénominateur)"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "direction_column_name : column name of direction"
+msgstr "direction_column_name: nom de colonne de direction"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "direction_value : value of coloumn direction"
+msgstr "direction_value: valeur de la direction de la colonne"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_display_show_hide_cond
+msgid "display.show_hide_cond"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "example : REACTIVITY(1,6,'direction','Exploitation','note','0,-5')"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "example : REACTIVITY(1,6,'note','0,-5')"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid ""
+"if only columns exists : VALABS(page_id,question_id,column_id) <br/>\n"
+"\t\t\t\t\t\t\t\t\t\twill sum column inputs ( abs(value)) sum of absolute value of values)"
+msgstr ""
+"existence des colonnes uniquement: VALABS (page_id, question_id, column_id) <br/>\n"
+"additionnera les valeurs de la colonne (abs (valeur)) somme de la valeur absolue des valeurs)"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid ""
+"if only columns exists : VALUE(page_id,question_id,column_id) <br/>\n"
+"\t\t\t\t\t\t\t\t\t\twill sum column inputs"
+msgstr ""
+"existence des colonnes uniquement: VALUE (page_id, question_id, column_id) <br/>\n"
+"additionnera les entrées de colonne"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "if rows exists : VALABS(page_id,question_id,column_id,row_id)"
+msgstr "existence des lignes uniquement: VALABS (page_id, question id, column id, rowid)"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "if rows exists : VALUE(page_id,question_id,column_id,row_id)"
+msgstr "existence des lignes uniquement : VALUE(page_id,question_id,column_id,row_id)"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "in : value in list of values"
+msgstr "in: valeur dans une liste des valeurs"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__label
+msgid "label"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_question__limit
+msgid "limit"
+msgstr "limite"
+
+#. module: spc_survey_extra
+#: code:addons/spc_survey_extra/models/survey_question_inherit.py:31
+#, python-format
+msgid "limit should be an integer >= 0 ,  is a bad choice !"
+msgstr "la limite doit être un entier> = 0, c'est un mauvais choix!"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_column_calculation__name
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_calculation_form
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "name"
+msgstr "nom"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "not variable : not exist"
+msgstr "not variable : n'existe pas"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "note_values : separate numbers by comma"
+msgstr "note_values: séparez les nombres par une virgule"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "or : or"
+msgstr "or : ou"
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "percentage"
+msgstr "pourcentage"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_question_display
+msgid "question.display"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_relation_question_detail
+msgid "relation.question_detail"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_row_column_dependency
+msgid "row_column.dependency"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_spc_survey_scoring_criteria__is_scale
+msgid "scale"
+msgstr "baréme"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_scoring_syntax
+msgid "scoring.syntax"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_spc_survey_scoring
+msgid "spc_survey.scoring"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_spc_survey_scoring_criteria
+msgid "spc_survey.scoring.criteria"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_spc_survey_extra_criteria_type
+msgid "spc_survey_extra.criteria_type"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_spc_survey_extra_scale
+msgid "spc_survey_extra.scale"
+msgstr ""
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "sum"
+msgstr "Somme"
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "syntax"
+msgstr "Syntaxe"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_syntax_help
+msgid "syntax.help"
+msgstr ""
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "total average"
+msgstr "moyenne totale"
+
+#. module: spc_survey_extra
+#: selection:spc_survey.scoring.criteria,operation:0
+msgid "total average with condition"
+msgstr "moyenne totale avec condition"
+
+#. module: spc_survey_extra
+#: model:ir.model.fields,field_description:spc_survey_extra.field_survey_label__col_type_resp
+msgid "type"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "use \":\" instead of parentheses"
+msgstr "utilisez \":\" au lieu de parenthèses"
+
+#. module: spc_survey_extra
+#: model:ir.model,name:spc_survey_extra.model_column_type_model_rpc
+msgid "used for column type [model] linked with the rpc method"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "variable : exist"
+msgstr "variable : existe"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "while (True):<br/>    result = ''"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.scoring_syntax_wizard_form
+msgid "while(True):"
+msgstr ""
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.column_dependency_help_wizard_form
+msgid "|| : or"
+msgstr "|| : ou"
+
+#. module: spc_survey_extra
+#: model_terms:ir.ui.view,arch_db:spc_survey_extra.question_display_form
+msgid "ِQuestion display"
+msgstr "Affichage des questions"

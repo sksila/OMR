@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		
+		<!-- Evaluation criteria data -->
+		
+		<record id="data_contract_evaluation_criteria_1" model="oscar.contract.evaluation.criteria">
+            <field name="name">Adéquation des compétences aux exigences du poste</field>
+            <field name="description"></field>
+        </record>
+        
+        <record id="data_contract_evaluation_criteria_2" model="oscar.contract.evaluation.criteria">
+            <field name="name">Qualité et quantité de travail</field>
+            <field name="description">Le collaborateur est capable d'accomplir ses tâches avec précision, de manière soignée et dans les délais prévus</field>
+        </record>
+        
+        <record id="data_contract_evaluation_criteria_3" model="oscar.contract.evaluation.criteria">
+            <field name="name">Relations interpersonnelles et intégration</field>
+            <field name="description">Le collaborateur entre facilement en contact avec ses collègues, maintient de bonnes relations et collabore avec les membres de l'équipe et son manager</field>
+        </record>
+        
+        <record id="data_contract_evaluation_criteria_4" model="oscar.contract.evaluation.criteria">
+            <field name="name">Engagement</field>
+            <field name="description">Le collaborateur manifeste de l'intérêt vis-à-vis de son travail, des objectifs de son équipe et de l'entreprise</field>
+        </record>
+        
+        <record id="data_contract_evaluation_criteria_5" model="oscar.contract.evaluation.criteria">
+            <field name="name">Autonomie et initiative</field>
+            <field name="description">Le collaborateur exécute les tâches qui lui sont confiées avec un minimum de supervision soumet des idées nouvelles, réagit rapidement et adéquatement lorsque les circonstances l'exigent</field>
+        </record>
+        
+        <!-- Evaluation recommendation data -->
+        
+        <record id="data_contract_evaluation_recommendation_1" model="oscar.contract.evaluation.recommendation">
+            <field name="name">Confirmer le collaborateur : Essai concluant</field>
+            <field name="description"></field>
+        </record>
+        
+        <record id="data_contract_evaluation_recommendation_2" model="oscar.contract.evaluation.recommendation">
+            <field name="name">Reconduction de la période d'essai</field>
+            <field name="description"></field>
+        </record>
+        
+        <record id="data_contract_evaluation_recommendation_3" model="oscar.contract.evaluation.recommendation">
+            <field name="name">Mettre fin à la relation contractuelle</field>
+            <field name="description"></field>
+        </record>
+        
+    <!--      statut-related subtypes for messaging / Chatter-->
+        <record id="md_statut_valide" model="mail.message.subtype">
+            <field name="name">Status Change</field>
+            <field name="res_model">contract.renewal</field>
+            <field name="default" eval="False"/>
+            <field name="description">Status changed</field>
+        </record> 
+        
+       	 <record  id="ir_cron_set_expired_contract_scheduler_action" model="ir.cron">
+            <field name="name">Send Fin Contrats Notification</field>
+            <field name="model_id" ref="model_oscar_contract_renewal"/>
+            <field name="state">code</field>
+            <field name="code">model.set_expired_contract()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall" />
+        </record>  
+        
+	</data>
+</odoo>

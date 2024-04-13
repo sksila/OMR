@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="mail_activity_view_form_popup_spc_survey_inherit" model="ir.ui.view">
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_close_dialog']" position="attributes">
+                    <attribute name="string">Launch</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="spc_mail_activity_view_form_spc_survey_inherit" model="ir.ui.view">
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="spc_activity.spc_mail_activity_view_form"/>
+            <field name="arch" type="xml">
+                <field name="resource_ref" position="after">
+                    <field name="is_survey_session" invisible="1"/>
+                    <field name="survey_type_id" attrs="{'invisible' : [('is_survey_session','=',False)]}"/>
+                </field>
+                <field name="user_id" position="before">
+                    <field name="is_only_auditor" invisible="1" />
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="attrs">{'readonly' : [('is_only_auditor','=',True)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="mail_activity_view_search_spc_survey_inherit" model="ir.ui.view">
+            <field name="model">mail.activity</field>
+		    <field name="inherit_id" ref="mail.mail_activity_view_search" />
+		    <field name="arch" type="xml">
+
+                <field name="activity_type_id" position="after">
+                    <field name="user_id" />
+                    <field name="site_id" />
+                </field>
+
+                <xpath expr="//group" position="before">
+
+                </xpath>
+
+
+<!--			<xpath expr="//group" position="replace">-->
+<!--				<group expand="0" string="Group By">-->
+<!--					<filter name="group_by_survey" string="Maquette" domain="[]" context="{'group_by': 'survey_id'}"/>-->
+<!--                    <filter name="Magasin" string="Magasin" domain="[]" context="{'group_by':'magasin_id'}"/>-->
+<!--                    <filter name="Auditeur" string="Auditeur" domain="[]" context="{'group_by':'auditeur_id'}"/>-->
+<!--					<filter name="survey_session_filter_id" string="Session d'audit" domain="[]" context="{'group_by':'survey_session_id'}"/>-->
+<!--                </group>-->
+<!--			</xpath>-->
+
+
+
+
+		    </field>
+	    </record>
+
+
+
+    </data>
+</odoo>
+
+

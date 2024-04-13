@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+        <record  id="planned_supplier_integration_cron" model="ir.cron">
+            <field name="name">Planned Integration Supplier</field>
+            <field name="model_id" ref="model_oscar_fournisseur_inter"/>
+            <field name="state">code</field>
+            <field name="code">model.planned_supplier_integration()</field>
+            <field eval="True" name="is_oscar"/>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record  id="planned_product_integration_cron" model="ir.cron">
+            <field name="name">Planned Integration Product</field>
+            <field name="model_id" ref="model_inter_product"/>
+            <field name="state">code</field>
+            <field name="code">model.planned_product_integration()</field>
+            <field eval="True" name="is_oscar"/>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        
+        <record  id="planned_product_types_integration_cron" model="ir.cron">
+            <field name="name">Planned Integration Product with type</field>
+            <field name="model_id" ref="model_inter_product"/>
+            <field name="state">code</field>
+            <field name="code">model.planned_product_types_integration()</field>
+            <field eval="True" name="is_oscar"/>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+
+	</data>
+</odoo>

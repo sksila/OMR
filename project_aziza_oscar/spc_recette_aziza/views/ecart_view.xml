@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_ecart_filter" model="ir.ui.view">
+            <field name="name">ecart.search.view</field>
+            <field name="model">oscar.ecart</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher des ecarts">
+                    <field name="journee_id"/>
+                    <field name="magasin_id"/>
+                    <separator/>
+                    <filter string="Écart" name="type_ecart" domain="[('type', '=', 'ecart')]"/>
+                    <filter string="Litige" name="type_litige" domain="[('type', '=', 'litige')]"/>
+                    <separator/>
+                    <filter string="Écart justifié" name="justify_ecart" domain="[('state', '=', 'justify')]"/>
+                    <filter string="Écart clôturé" name="justify_siege_ecart"
+                            domain="[('state', 'in', ['justify1','done'])]"/>
+                    <filter string="Litige justifié" name="justify_litige" domain="[('state', '=', 'justify')]"/>
+                    <filter string="Corrigé" name="correct_litige" domain="[('state', '=', 'justify1')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_oscar_ecart_form" model="ir.ui.view">
+            <field name="name">oscar.ecart.form</field>
+            <field name="model">oscar.ecart</field>
+            <field name="arch" type="xml">
+                <form string="Ecarts de journee" create="false" edit="false">
+                    <header>
+                        <button name="confirm_ecart" string="Confirmer les ecarts" type="object" class="btn-primary"
+                                attrs="{'invisible': ['|',('type', '=', 'litige'),('state', '!=', 'invalidate')]}"/>
+                        <button name="confirm_litige" string="Confirmer les litiges" type="object" class="btn-primary"
+                                attrs="{'invisible': ['|',('type', '=', 'ecart'),('state', 'not in', ['invalidate','justify'])]}"
+                                groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_agent_validation_ticket_resto_oscar"/>
+                        <button name="justify_ecart" string="Justifier" type="object" class="btn-primary"
+                                states="confirmed"/>
+                        <button name="valider_ecart" string="Valider" type="object" class="btn-primary"
+                                attrs="{'invisible': ['|',('type', '=', 'litige'),('state', '!=', 'justify')]}"
+                                groups="spc_recette_aziza.group_agent_validation_oscar"/>
+
+                        <button name="ecart_print" string="Imprimer"
+                                attrs="{'invisible': ['|',('type', '=', 'litige'),('state', '!=', 'justify')]}"
+                                type="object" groups="spc_oscar_aziza.group_reponsable_magasin" class="oe_highlight"/>
+                        <button name="valider_litiges" string="Valider" confirm="Vous désirez valider les litiges!"
+                                type="object"
+                                attrs="{'invisible': ['|',('type', '=', 'ecart'),('state', 'not in', ['justify','justify1'])]}"
+                                groups="spc_recette_aziza.group_responsable_financier_oscar,spc_oscar_aziza.group_bo_oscar"
+                                class="btn-primary"/>
+                        <button name="cloturer_litiges" string="Clôturer" type="object"
+                                attrs="{'invisible': ['|',('type', '=', 'ecart'),('state', '!=', 'justify2')]}"
+                                groups="spc_recette_aziza.group_responsable_financier_oscar" class="btn-primary"/>
+                        <field name="state" widget="statusbar" statusbar_visible="invalidate,confirmed,justify"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" nolabel="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="type" groups="base.group_system" readonly="1"/>
+                                <field name="journee_id" attrs="{'invisible': [('type', '=', 'litige')]}"/>
+                                <field name="journee_recue_id" attrs="{'invisible': [('type', '=', 'ecart')]}"/>
+                                <field name="magasin_id"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="caissier_id"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                       attrs="{'invisible': [('caissier_id', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="ecart_line_ids" attrs="{'invisible': [('type', '=', 'litige')]}"
+                                       nolabel="1">
+                                    <tree create="false" edit="false" delete="false" decoration-success="ecart&gt;0.0"
+                                          decoration-danger="ecart&lt;0.0">
+                                        <field name="state" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="ecart_unit"/>
+                                        <field name="ecart"/>
+                                        <field name="ecart_js" invisible="1"/>
+                                        <field name="ecart_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        <field name="litige_count" invisible="1"/>
+                        <group string="Litiges" attrs="{'invisible': [('litige_count', '=', 0)]}"
+                               groups="spc_recette_aziza.group_responsable_financier_oscar,spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_agent_validation_ticket_resto_oscar,spc_oscar_aziza.group_bo_oscar">
+                            <field name="litige_line_ids" nolabel="1">
+                                <tree create="false" delete="false" decoration-success="litige&gt;0.0"
+                                      decoration-danger="est_ecart or litige&lt;0.0" decoration-bf="est_ecart"
+                                      editable="bottom">
+                                    <field name="name" readonly="1"/>
+                                    <field name="ecart_id" invisible="1"/>
+                                    <field name="litige" readonly="1"/>
+                                    <field name="corrected_amount" readonly="1"
+                                           attrs="{'invisible': [('corrected_amount','=', 0)]}"/>
+                                    <field name="motif"/>
+                                    <field name="motif_id" readonly="1"/>
+                                    <field name="comment" readonly="1"/>
+                                    <field name="user_id" readonly="1"/>
+                                    <field name="state" widget="colored_state" options="{'invalidate': { 'class': 'badge-secondary', 'name': 'Brouillon' },
+																					'dismissed': { 'class': 'badge-danger', 'name': 'Ecarté' },
+																					'corrected': { 'class': 'badge-primary', 'name': 'Corrigé' },
+																					'accepted': { 'class': 'badge-info', 'name': 'Accepté' },
+																					'refused': { 'class': 'badge-warning', 'name': 'Refusé' },
+																					'done': { 'class': 'badge-success', 'name': 'Clôturé' }}"/>
+                                    <button name="%(refuse_litige_wizard_action)d" string="Magasin"
+                                            icon="fa-times-circle text-warning" type="action"
+                                            context="{'act_type':'mg'}"
+                                            attrs="{'invisible': [('state','!=', 'invalidate')]}"
+                                            groups="spc_recette_aziza.group_responsable_financier_oscar"/>
+                                    <button name="corriger_litige" string="Corriger"
+                                            icon="fa-check-circle-o text-success"
+                                            type="object" attrs="{'invisible': [('state','!=', 'invalidate')]}"
+                                            groups="spc_recette_aziza.group_responsable_financier_oscar"/>
+                                    <button name="accept_litige" string="Accepter" icon="fa-check-circle-o text-success"
+                                            type="object"
+                                            attrs="{'invisible': ['|',('state','!=', 'dismissed'),('state_ecart','!=', 'justify1')]}"
+                                            groups="spc_oscar_aziza.group_bo_oscar"/>
+                                    <button name="%(refuse_litige_wizard_action)d" string="Refuser" type="action"
+                                            icon="fa-times-circle text-danger" context="{'act_type':'refuse'}"
+                                            attrs="{'invisible': ['|',('state','!=', 'dismissed'),('state_ecart','!=', 'justify1')]}"
+                                            groups="spc_oscar_aziza.group_bo_oscar"/>
+                                    <button name="clo_litige" string="Clôturer" type="object"
+                                            icon="fa-check-circle-o text-success"
+                                            attrs="{'invisible': ['|',('state','!=', 'refused'),('state_ecart','!=', 'justify2')]}"
+                                            groups="spc_recette_aziza.group_responsable_financier_oscar"/>
+                                    <button name="not_accept_litige" string="Non accepter"
+                                            icon="fa-times-circle text-danger" type="object"
+                                            attrs="{'invisible': ['|',('state','!=', 'refused'),('state_ecart','!=', 'justify2')]}"
+                                            groups="spc_recette_aziza.group_responsable_financier_oscar"/>
+                                    <field name="state_ecart" invisible="1"/>
+                                    <field name="est_ecart" invisible="1"/>
+                                    <field name="currency_id" invisible="1" force_save="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <notebook colspan="4"
+                                  attrs="{'invisible': ['|',('type', '=', 'litige'),('state', 'not in', ['confirmed', 'justify', 'validated'])]}">
+                            <page string="Écarts à justifier">
+                                <field name="ecart_justify_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="ecart"/>
+                                        <field name="motif"/>
+                                        <field name="comment"
+                                               attrs="{'required': [('name', '=', %(spc_recette_aziza.data_oscar_mode_action_flyers)d )]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer invisible="1">
+                        <button string="Annuler" class="btn-default" special="cancel"/>
+                    </footer>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Ecarts tree view  -->
+        <record model="ir.ui.view" id="view_oscar_ecart_tree">
+            <field name="name">ecart.view.tree</field>
+            <field name="model">oscar.ecart</field>
+            <field name="arch" type="xml">
+                <tree create="false" decoration-bf="message_needaction == True">
+                    <field name="magasin_id"/>
+                    <field name="caissier_id" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+                    <field name="journee_id"/>
+                    <field name="type" groups="spc_recette_aziza.group_responsable_financier_oscar"/>
+                    <button name="check_mg_ecart" string="Magasin"
+                            attrs="{'invisible': ['|','|',('state_journee','!=', 'waiting1'),('type','!=', 'ecart'),('state','!=', 'justify')]}"
+                            type="object" groups="spc_recette_aziza.group_responsable_financier_oscar"
+                            class="oe_highlight"/>
+                    <button name="check_ecart" string="Vérificateur"
+                            attrs="{'invisible': ['|','|',('state_journee','!=', 'waiting1'),('type','!=', 'ecart'),('state','!=', 'justify')]}"
+                            type="object" groups="spc_recette_aziza.group_responsable_financier_oscar"
+                            class="oe_highlight"/>
+                    <field name="state"/>
+                    <field name="state_journee" invisible="1"/>
+                    <field name="message_needaction" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions liste de ecarts justifiés par mg-->
+        <record model="ir.actions.act_window" id="action_ecart_mg">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Liste des écarts justifiés</field>
+            <field name="res_model">oscar.ecart</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', '=', 'ecart')]</field>
+            <field name="context">{
+                'search_default_justify_ecart': 1,
+                'search_default_type_ecart': 1,
+                }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun écart trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Ecarts.
+                </p>
+            </field>
+        </record>
+
+        <!-- actions liste de ecarts justifiés par mg-->
+        <record model="ir.actions.act_window" id="action_ecart_sg">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Liste des écarts justifiés par siège</field>
+            <field name="res_model">oscar.ecart</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', '=', 'ecart')]</field>
+            <field name="context">{
+                'search_default_justify_siege_ecart': 1,
+                'search_default_type_ecart': 1,
+                }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun écart trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Ecarts.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_correct_litige">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Litiges à corriger</field>
+            <field name="res_model">oscar.ecart</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', '=', 'litige')]</field>
+            <field name="context">{
+                'search_default_type_litige': 1,
+                'search_default_justify_litige': 1,
+                }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun litige trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Litiges.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_corrected_litige">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Liste des litiges corrigés</field>
+            <field name="res_model">oscar.ecart</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{
+                'search_default_type_litige': 1,
+                'search_default_type_ecart': 1,
+                'search_default_correct_litige': 1,
+                }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun litige trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Litiges.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_litige_justify1">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Litiges vérifiés par responsable financier</field>
+            <field name="res_model">oscar.ecart</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','justify1'),('type', '=', 'litige')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun litige trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Litiges.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_litige_justify2">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Litiges vérifiés par RE</field>
+            <field name="res_model">oscar.ecart</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','justify2'),('type', '=', 'litige')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun litige trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Litiges.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_litige_done">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Litiges cloturés</field>
+            <field name="res_model">oscar.ecart</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','done'),('type', '=', 'litige')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_neutral_face">
+                    Aucun litige trouvé.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos Litiges.
+                </p>
+            </field>
+        </record>
+
+
+        <!-- menu action Écarts justifiés par magasin -->
+        <menuitem name="Écarts justifiés par magasin" id="menu_justify_ecart_mg"
+                  sequence="100" parent="menu_ecart_magasin" action="spc_recette_aziza.action_ecart_mg"/>
+
+        <!-- menu action Écarts justifiés par siège -->
+        <menuitem name="Écarts justifiés par siège" id="menu_justify_ecart_sg"
+                  sequence="100" parent="menu_ecart_magasin" action="spc_recette_aziza.action_ecart_sg"/>
+
+        <!-- menu action litige a corriger -->
+        <menuitem name="Litiges à corriger" id="menu_correct_litige"
+                  sequence="100" parent="menu_litige" action="spc_recette_aziza.action_correct_litige"/>
+
+        <!-- menu action litige justifié par responsable financier -->
+        <menuitem name="Litiges vérifiés par responsable financier" id="menu_litige_justify1"
+                  sequence="200" parent="menu_litige" action="spc_recette_aziza.action_litige_justify1"/>
+
+        <!-- menu action litige justifié par RE -->
+        <menuitem name="Litiges vérifiés par RE" id="menu_litige_justify2"
+                  sequence="300" parent="menu_litige" action="spc_recette_aziza.action_litige_justify2"/>
+
+        <!-- menu action litige justifié par DE -->
+        <menuitem name="Litiges cloturés" id="menu_litige_done"
+                  sequence="400" parent="menu_litige" action="spc_recette_aziza.action_litige_done"/>
+
+        <!-- Motif de litige View Form -->
+        <record id="view_oscar_litige_motif_form" model="ir.ui.view">
+            <field name="name">oscar.litige.motif.form</field>
+            <field name="model">oscar.litige.motif</field>
+            <field name="arch" type="xml">
+                <form string="Motif Litige form">
+                    <group colspan="4">
+                        <group colspan="2" col="2">
+                            <separator string="Motif" colspan="2"/>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Motif View Tree -->
+        <record id="view_oscar_litige_motif_tree" model="ir.ui.view">
+            <field name="name">oscar.litige.motif.tree</field>
+            <field name="model">oscar.litige.motif</field>
+            <field name="arch" type="xml">
+                <tree string="Motif Litige Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_oscar_litige_motif_act_window" model="ir.actions.act_window">
+            <field name="name">Motifs de litige</field>
+            <field name="res_model">oscar.litige.motif</field>
+            <field name="view_id" ref="spc_recette_aziza.view_oscar_litige_motif_tree"/>
+            <field name="view_type">form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer un nouveau motif.
+                </p>
+                <p>
+                    Oscar vous aide à gérer facilement vos motifs.
+                </p>
+            </field>
+        </record>
+
+        <!--Motif menu item -->
+        <menuitem id="menu_litige_motif"
+                  name="Motifs de litige"
+                  parent="spc_oscar_aziza.menu_oscar_configuration"
+                  action="view_oscar_litige_motif_act_window" sequence="300"/>
+
+    </data>
+</odoo>

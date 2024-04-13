@@ -1,0 +1,30 @@
+<odoo>
+    <record id="teacher1" model="res.partner.category">
+        <field name="name">Teacher / Level 1</field>
+    </record>
+    <record id="teacher2" model="res.partner.category">
+        <field name="name">Teacher / Level 2</field>
+    </record>
+
+    <record id="partner1" model="res.partner">
+        <field name="name">Openacademy partner 1</field>
+        <field name="instructor" eval="False"/>
+    </record>
+    <record id="partner2" model="res.partner">
+        <field name="name">Openacademy partner 2</field>
+        <field name="instructor" eval="False"/>
+    </record>
+    <record id="partner3" model="res.partner">
+        <field name="name">Openacademy partner 3</field>
+        <field name="instructor" eval="False"/>
+    </record>
+    <record id="partner4" model="res.partner">
+        <field name="name">Openacademy partner 4</field>
+        <field name="instructor" eval="False"/>
+        <field name="category_id" eval="[(6, 0, [ref('teacher1')])]"/>
+    </record>
+    <record id="partner5" model="res.partner">
+        <field name="name">Openacademy partner 5</field>
+        <field name="instructor" eval="True"/>
+    </record>
+</odoo>

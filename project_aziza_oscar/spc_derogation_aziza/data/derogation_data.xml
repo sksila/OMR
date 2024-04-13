@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="seq_code_derogation" model="ir.sequence">
+			<field name="name">Derogation</field>
+			<field name="code">derogation.derogation</field>
+			<field name="padding">3</field>
+			<field name="prefix">DER/%(y)s/</field>
+			<field name="suffix"></field>
+		</record>
+
+	</data>
+</odoo>

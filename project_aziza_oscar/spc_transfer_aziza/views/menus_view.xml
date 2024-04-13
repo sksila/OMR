@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<!-- Top menu item -->
+	<menuitem id="menu_oscar_transfer" name="Transfert"
+		sequence="80"
+		web_icon="spc_transfer_aziza,static/description/icon.png"
+	/>
+
+	<menuitem id="menu_transfer_config" name="Configuration"
+			  parent="menu_oscar_transfer" groups="spc_oscar_aziza.group_reponsable_entrepot" sequence="60"/>
+
+
+</odoo>

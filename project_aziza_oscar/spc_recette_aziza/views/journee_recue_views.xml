@@ -1,0 +1,678 @@
+<odoo>
+	<data>
+
+		<!-- view filter mode paiement recue -->
+		<record id="view_mode_paiement_recue_filter" model="ir.ui.view">
+			<field name="name">mode.paiement.recue.search.view</field>
+			<field name="model">oscar.mode.paiement.recue</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher Modes paiement">
+					<field name="magasin_id" />
+					<field name="montant_vr" />
+					<field name="code_cheque" />
+					<separator/>
+					<filter string="Confirmé" name="confirmed_mode"
+						domain="[('state', '=', 'confirmed')]" />
+					<filter string="Vérifié" name="checked_mode" domain="[('state', '=', 'checked')]" />
+					<filter string="Versé" name="paid_mode" domain="[('state', '=', 'paid')]" />
+					<separator />
+					<filter name="group_mode_by_mg" string="Magasin"
+						context="{'group_by':'magasin_id'}" />
+					<filter name="group_mode_by_journee" string="Journée"
+						context="{'group_by':'journee_recue_id'}" />
+					<filter name="group_mode_by_state" string="Statut"
+						context="{'group_by':'state'}" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Mode paiement recue tree view -->
+		<record model="ir.ui.view" id="mode_paiement_recue_view_tree">
+			<field name="name">mode.paiement.recue.view.tree</field>
+			<field name="model">oscar.mode.paiement.recue</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" />
+					<field name="code_cheque" />
+					<field name="oscar_bank_id" />
+					<field name="cin" />
+					<field name="name_user" />
+					<field name="phone_user" />
+					<field name="montant_vr" sum="Montant Total"/>
+					<field name="user_id" invisible="1" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- Mode paiement recue form view -->
+		<record model="ir.ui.view" id="mode_paiement_recue_view_form">
+			<field name="name">mode.paiement.recue.view.form</field>
+			<field name="model">oscar.mode.paiement.recue</field>
+			<field name="arch" type="xml">
+				<form>
+					<group>
+						<group>
+							<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" />
+							<field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+							<field name="journee_recue_id" />
+						</group>
+						<group>
+							<field name="code_cheque" />
+							<field name="oscar_bank_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+							<field name="name_user" />
+							<field name="cin" />
+							<field name="phone_user" />
+							<field name="fournisseur_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+							<field name="valeur" />
+							<field name="nombre" />
+							<field name="nombre_vr" />
+							<field name="user_id" invisible="1" />
+						</group>
+					</group>
+					<group>
+						<group>
+							<field name="montant_vr" />
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!-- view filter journee recue -->
+		<record id="view_journee_recue_filter" model="ir.ui.view">
+			<field name="name">journee.recue.search.view</field>
+			<field name="model">oscar.journee.recue</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher des journées">
+					<field name="name" />
+					<field name="references" />
+					<filter string="Journée en route" name="road_journee"
+						groups="spc_recette_aziza.group_agent_reception_oscar,spc_oscar_aziza.group_admin_oscar"
+						domain="[('state', '=', 'road')]" />
+					<filter string="Journée reçue" name="done_journee"
+						domain="[('state', '=', 'done')]" />
+					<separator />
+					<filter string="Journée dispatchée" name="dispatchee_journee"
+						groups="spc_recette_aziza.group_agent_reception_oscar,spc_oscar_aziza.group_admin_oscar"
+						domain="[('state', 'in', ['done','waiting']),('controller_id', '!=', False)]" />
+					<filter string="Journée non dispatchée" name="no_dispatchee_journee"
+						groups="spc_recette_aziza.group_agent_reception_oscar,spc_oscar_aziza.group_admin_oscar"
+						domain="[('state', '=', 'done'),('controller_id', '=', False)]" />
+					<filter string="Journée en attente" name="waiting_journee"
+						groups="spc_recette_aziza.group_agent_reception_oscar,spc_recette_aziza.group_agent_validation_oscar,spc_oscar_aziza.group_admin_oscar,spc_recette_aziza.group_agent_validation_ticket_resto_oscar"
+						domain="[('state', 'in', ['waiting','waiting2'])]" />
+					<filter string="Journée acceptée" name="accepted_journee"
+						groups="spc_recette_aziza.group_agent_reception_oscar,spc_recette_aziza.group_agent_validation_oscar,spc_oscar_aziza.group_admin_oscar"
+						domain="[('state', 'in', ['accepted','accepted1'])]" />
+					<filter string="Journées en attente avec litige" name="waiting_journee_with_litige"
+						groups="spc_recette_aziza.group_agent_validation_oscar,spc_oscar_aziza.group_admin_oscar"
+						domain="[('state', '=', 'waiting1')]" />
+					<filter string="Journée vérifiée" name="checked_journee"
+						groups="spc_recette_aziza.group_agent_validation_oscar,spc_oscar_aziza.group_admin_oscar"
+						domain="[('state', '=', 'checked')]" />
+					<separator />
+					<filter name="group_journee_by_mg" string="Magasin"
+						context="{'group_by':'magasin_id'}" />
+					<filter name="group_journee_by_state" string="Statut"
+						context="{'group_by':'state'}" />
+					<filter name="group_journee_by_date" string="Date Journée" context="{'group_by':'date_journee:day'}" />
+				</search>
+			</field>
+		</record>
+
+		<!-- actions liste de ecarts de la journee -->
+		<record model="ir.actions.act_window" id="action_ecart_journee_sg">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des écarts</field>
+			<field name="res_model">oscar.ecart</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('journee_recue_id', '=', active_id),('type', '=','ecart'),('state','=', 'justify')]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				}
+			</field>
+		</record>
+
+		<!-- actions liste de ecarts valides de la journee -->
+		<record model="ir.actions.act_window" id="action_ecart_vl_journee_sg">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des écarts validés</field>
+			<field name="res_model">oscar.ecart</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('journee_recue_id', '=', active_id),('type', '=','ecart'),('state','=', 'validated')]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				}
+			</field>
+		</record>
+
+		<!-- actions liste de litiges de la journee -->
+		<record model="ir.actions.act_window" id="action_litige_journee_sg">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des litiges</field>
+			<field name="res_model">oscar.ecart</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('journee_recue_id', '=', active_id),('type', '=','litige'),('state','=', 'justify')]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				}
+			</field>
+		</record>
+
+		<!-- Journee Recue form view -->
+		<record model="ir.ui.view" id="journee_recue_view_form">
+			<field name="name">journee.recue.view.form</field>
+			<field name="model">oscar.journee.recue</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button string="Retour au statut Acceptée" type="object"
+							name="retour_accepte" states="waiting2,accepted1,waiting1,checked" groups="spc_oscar_aziza.group_admin_oscar" />
+						<button string="Retour au statut Acceptée TR" type="object"
+							name="retour_accepte_tr" states="waiting1,checked" groups="spc_oscar_aziza.group_admin_oscar" />
+						<button name="verifier_journee" string="Vérifier" type="object"
+							states="accepted" groups="spc_recette_aziza.group_agent_validation_oscar"
+							class="btn-primary oe_read_only" />
+						<button string="Accepter TR" type="object" name="accept_tr_journees"
+							states="waiting2" groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar" />
+						<button name="verifier_tr" string="Vérifier TR &amp; CC"
+							type="object" states="accepted1"
+							groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar"
+							class="btn-primary oe_read_only" />
+						<button name="valider_journee" string="Valider" type="object"
+							states="waiting1" groups="spc_recette_aziza.group_responsable_financier_oscar"
+							class="btn-primary" />
+						<field name="state" widget="statusbar"
+							statusbar_visible="prepared,road,done,accepted,accepted1,checked" />
+					</header>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button class="oe_stat_button" type="action"
+								name="%(action_ecart_journee_sg)d"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar"
+								icon="fa-exclamation-circle" context="{'default_journee_recue_id': active_id}"
+								attrs="{'invisible': [('ecart_count', '=', 0)]}" help="Écarts">
+								<field string="Écart(s)" name="ecart_count" widget="statinfo" />
+							</button>
+							<button class="oe_stat_button" type="action"
+								name="%(action_ecart_vl_journee_sg)d"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar"
+								icon="fa-check-circle" context="{'default_journee_recue_id': active_id}"
+								attrs="{'invisible': [('ecart_vl_count', '=', 0)]}" help="Écarts validés">
+								<field string="Écart(s) validé(s)" name="ecart_vl_count"
+									widget="statinfo" />
+							</button>
+							<button class="oe_stat_button" type="action"
+								name="%(action_litige_journee_sg)d" groups="spc_recette_aziza.group_responsable_financier_oscar,spc_oscar_aziza.group_bo_oscar"
+								icon="fa-legal" context="{'default_journee_recue_id': active_id}"
+								attrs="{'invisible': [('litige_count', '=', 0)]}" help="Litiges">
+								<field string="Litige(s)" name="litige_count" widget="statinfo" />
+							</button>
+						</div>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="user_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="controller_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="controller_tr_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<!-- <field name="bordereau_id" /> -->
+							</group>
+						</group>
+						<notebook colspan="4">
+							<page string="Espéce"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<group
+									groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+									<field name="montant_espece" />
+									<field name="montant_espece_vr" />
+								</group>
+							</page>
+							<page string="TR"
+								groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<field name="mode_tr_ids" context="{'default_code': '6'}">
+									<tree editable="true">
+										<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="fournisseur_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'readonly':[('user_id','!=', 'uid')]}" required="True" />
+										<field name="valeur" attrs="{'readonly':[('user_id','!=', 'uid')]}" required="True" />
+										<field name="nombre" readonly="True" />
+										<field name="nombre_vr" required="True" />
+										<field name="montant_compute" sum="Total TR" />
+										<button name="verifier_paiement" string="Vérifier"
+											type="object" attrs="{'invisible': ['|',('state','in', ['checked','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar" />
+										<button name="annuler_paiement" string="Annuler"
+											type="object" attrs="{'invisible': ['|',('state','in', ['confirmed','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar" />
+										<field name="montant_compute_vr" sum="Total TR" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="state" />
+										<field name="state_journee" invisible="1"/>
+									</tree>
+								</field>
+							</page>
+							<page string="CC"
+								groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<field name="mode_cc_ids" context="{'default_code': '5'}">
+									<tree editable="true">
+										<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="fournisseur_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'readonly':[('user_id','!=', 'uid')]}" required="True" />
+										<field name="valeur" attrs="{'readonly':[('user_id','!=', 'uid')]}" required="True" />
+										<field name="nombre" readonly="True" />
+										<field name="nombre_vr" required="True" />
+										<field name="montant_compute" sum="Total CC" />
+										<button name="verifier_paiement" string="Vérifier"
+											type="object" attrs="{'invisible': ['|',('state','in', ['checked','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar" />
+										<button name="annuler_paiement" string="Annuler"
+											type="object" attrs="{'invisible': ['|',('state','in', ['confirmed','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_ticket_resto_oscar" />
+										<field name="montant_compute_vr" sum="Total CC" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="state" />
+										<field name="state_journee" invisible="1"/>
+									</tree>
+								</field>
+							</page>
+							<page string="CB"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<group>
+									<field name="bank_tpe_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								</group>
+								<field name="mode_cb_ids" context="{'default_code': '3'}">
+									<tree editable="true">
+										<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="bank_tpe_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+										<field name="montant" readonly="True" sum="Total CB" />
+										<field name="montant_vr" required="True" attrs="{'readonly':[('user_id','!=', 'uid')]}" sum="Total CB" />
+										<button name="verifier_paiement" string="Vérifier"
+											type="object" attrs="{'invisible': ['|',('state','in', ['checked','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_oscar" />
+										<button name="annuler_paiement" string="Annuler"
+											type="object" attrs="{'invisible': ['|',('state','in', ['confirmed','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_oscar" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="state" />
+										<field name="state_journee" invisible="1"/>
+									</tree>
+								</field>
+							</page>
+							<page string="CS"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<field name="mode_cs_ids" context="{'default_code': '8'}">
+									<tree editable="true">
+										<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="montant" readonly="True" sum="CS" />
+										<field name="montant_vr" required="True" sum="CS" />
+										<button name="verifier_paiement" string="Vérifier"
+											type="object" attrs="{'invisible': ['|',('state','in', ['checked','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_oscar" />
+										<button name="annuler_paiement" string="Annuler"
+											type="object" attrs="{'invisible': ['|',('state','in', ['confirmed','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_oscar" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+										<field name="state" />
+										<field name="state_journee" invisible="1"/>
+									</tree>
+								</field>
+							</page>
+							<page string="Chèque"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<field name="mode_cheque_ids" context="{'default_code': '2'}">
+									<tree editable="true">
+										<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" attrs="{'readonly':[('state','=', 'paid')]}" />
+										<field name="code_cheque" attrs="{'readonly':['|',('user_id','!=', 'uid'),('state','=', 'paid')]}" />
+										<field name="oscar_bank_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'readonly':['|',('user_id','!=', 'uid'),('state','=', 'paid')]}" />
+										<field name="cin" attrs="{'readonly':['|',('user_id','!=', 'uid'),('state','=', 'paid')]}" />
+										<field name="name_user" attrs="{'readonly':['|',('user_id','!=', 'uid'),('state','=', 'paid')]}" />
+										<field name="phone_user" attrs="{'readonly':['|',('user_id','!=', 'uid'),('state','=', 'paid')]}" />
+										<field name="montant" readonly="True" sum="Total Chèque" />
+										<field name="montant_vr" required="True" sum="Total Chèque" attrs="{'readonly':[('state','=', 'paid')]}" />
+										<button name="verifier_paiement" string="Vérifier"
+											type="object" attrs="{'invisible': ['|',('state','in', ['checked','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_oscar" />
+										<button name="annuler_paiement" string="Annuler"
+											type="object" attrs="{'invisible': ['|',('state','in', ['confirmed','paid']),('state_journee','=','checked')]}"
+											groups="spc_recette_aziza.group_agent_validation_oscar" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" attrs="{'readonly':[('state','=', 'paid')]}" />
+										<field name="state" />
+										<field name="state_journee" invisible="1"/>
+									</tree>
+								</field>
+							</page>
+							<!-- SUPPRESSION LE CHAMP BON AZIZA - SUPAZ-41 -->
+							<page string="Bon AZIZA" invisible="1">
+								<field name="mode_ba_ids" context="{'default_code': '12'}">
+									<tree editable="true">
+										<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar"
+											required="True" />
+										<field name="montant" readonly="True" sum="Total Bon AZIZA" />
+										<field name="montant_vr" required="True" sum="Total Bon AZIZA" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+									</tree>
+								</field>
+							</page>
+							<page string="VC"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<field name="mode_vc_ids" context="{'default_code': 7}">
+									<tree editable="true">
+										<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True" />
+										<field name="montant" readonly="True" sum="Total Vente à crédit" />
+										<field name="montant_vr" required="True" sum="Total Vente à crédit" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+									</tree>
+								</field>
+							</page>
+							<page string="Autres Paiement"
+								groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<field name="mode_other_ids">
+									<tree editable="true">
+										<field name="moyen_paiement_id" context="{'default_is_other': True}" domain="[('is_other', '=', True)]" required="True" />
+										<field name="montant" readonly="True" sum="Total" />
+										<field name="montant_vr" required="True" sum="Total" />
+										<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+									</tree>
+								</field>
+							</page>
+							<page string="Action Flyers" groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar">
+								<field name="flyer_ids" context="{'default_code': '99'}">
+									<tree editable="true" colors="red:nombre_ecart&lt;0;green:nombre_ecart&gt;0">
+										<field name="moyen_paiement_id" required="True" groups="oscar_aziza.group_admin_oscar"/>
+										<field name="nombre" readonly="True" />
+										<field name="nombre_vr" required="True" />
+										<button name="verifier_paiement" string="Vérifier"
+											type="object" attrs="{'invisible': ['|',('state','in', ['checked','paid']),('state_journee','=','checked')]}"
+											groups="oscar_aziza.group_agent_validation_oscar" />
+										<button name="annuler_paiement" string="Annuler"
+											type="object" attrs="{'invisible': ['|',('state','in', ['confirmed','paid']),('state_journee','=','checked')]}"
+											groups="oscar_aziza.group_agent_validation_oscar" />
+										<field name="nombre_ecart" />
+										<field name="note" attrs="{'required': [('nombre_ecart', '!=', 0)]}" />
+										<field name="user_id" groups="oscar_aziza.group_admin_oscar"/>
+										<field name="state" />
+										<field name="state_journee" invisible="1"/>
+									</tree>
+								</field>
+				            </page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"
+							groups="base.group_user" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Journee graph view -->
+		<record model="ir.ui.view" id="journee_recue_view_graph">
+			<field name="name">journee.recue.view.graph</field>
+			<field name="model">oscar.journee.recue</field>
+			<field name="arch" type="xml">
+				<graph string="Journée">
+					<field name="date_journee" />
+				</graph>
+			</field>
+		</record>
+
+		<!-- Journee Recue tree view -->
+		<record model="ir.ui.view" id="journee_recue_view_tree">
+			<field name="name">journee.recue.view.tree</field>
+			<field name="model">oscar.journee.recue</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="magasin_id" />
+					<field name="date_journee" />
+					<field name="references" />
+					<field name="controller_id" />
+					<field name="controller_tr_id" />
+					<field name="state" widget="colored_state" options="{'done': { 'class': 'badge-primary', 'name': 'Reçue au siège' },
+          													'waiting': { 'class': 'badge-warning', 'name': 'En attente' },
+          													'accepted': { 'class': 'badge-secondary', 'name': 'Acceptée' },
+          													'waiting2': { 'class': 'badge-warning', 'name': 'En attente la deuxième vérification' },
+          													'accepted1': { 'class': 'badge-secondary', 'name': 'Acceptée TR' },
+															'waiting1': { 'class': 'badge-danger', 'name': 'En attente avec litige' },
+															'checked': { 'class': 'badge-success', 'name': 'Vérifiée' }}"/>
+				</tree>
+			</field>
+		</record>
+
+		
+		
+		<record id="oscar_journees_accepter_action_server" model="ir.actions.server">
+	    	<field name="name">Accepter</field>
+	        <field name="type">ir.actions.server</field>
+	        <field name="model_id" ref="model_oscar_journee_recue" />
+	        <field name="binding_model_id" ref="model_oscar_journee_recue" />
+	        <field name="state">code</field>
+	        <field name="code">
+				for rec in records:
+					rec.accept_journees()
+	        </field>
+	    </record>
+    
+	    <record id="oscar_journees_accepter_tr_action_server" model="ir.actions.server">
+	    	<field name="name">Accepter TR</field>
+	        <field name="type">ir.actions.server</field>
+	        <field name="model_id" ref="model_oscar_journee_recue" />
+	        <field name="binding_model_id" ref="model_oscar_journee_recue" />
+	        <field name="state">code</field>
+	        <field name="code">
+				for rec in records:
+					rec.accept_tr_journees()
+	        </field>
+	    </record>
+
+		<!-- RECEPTION DE JOURNEES -->
+		<!-- actions liste de journees dispatchees (agent de reception) -->
+		<record model="ir.actions.act_window" id="action_dispatchee_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des journées dispatchées</field>
+			<field name="res_model">oscar.journee.recue</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				'delete': False,
+				'search_default_dispatchee_journee': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune journée trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Journées.
+				</p>
+       		</field>
+		</record>
+
+		<!-- actions liste de journees non dispatchees -->
+		<record model="ir.actions.act_window" id="action_no_dispatchee_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des journées non dispatchées</field>
+			<field name="res_model">oscar.journee.recue</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				'delete': False,
+				'search_default_no_dispatchee_journee': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune journée trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Journées.
+				</p>
+       		</field>
+		</record>
+
+		<!-- VERIFICATION DE JOURNEES -->
+		<!-- actions liste de journees a accepter (agent de verification) -->
+		<record model="ir.actions.act_window" id="action_accept_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des journées à accepter</field>
+			<field name="res_model">oscar.journee.recue</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				'delete': False,
+				'search_default_waiting_journee': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune journée trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Journées.
+				</p>
+       		</field>
+		</record>
+
+		<!-- actions liste de journees a verifier -->
+		<record model="ir.actions.act_window" id="action_check_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des journées à vérifier</field>
+			<field name="res_model">oscar.journee.recue</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_my_journee': 1,
+				'search_default_accepted_journee': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune journée trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Journées.
+				</p>
+       		</field>
+		</record>
+
+		<!-- actions liste de journees en attentes avec litiges -->
+		<record model="ir.actions.act_window" id="action_waiting_journee_with_litige">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des journées en attentes avec litiges</field>
+			<field name="res_model">oscar.journee.recue</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_my_journee': 1,
+				'search_default_waiting_journee_with_litige': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune journée trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Journées.
+				</p>
+       		</field>
+		</record>
+
+		<!-- actions liste de journees verifiees -->
+		<record model="ir.actions.act_window" id="action_checked_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des journées vérifiées</field>
+			<field name="res_model">oscar.journee.recue</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'edit': False,
+				'delete': False,
+				'search_default_checked_journee': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune journée trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Journées.
+				</p>
+       		</field>
+		</record>
+
+		<!-- action admin oscar -->
+		<!-- actions liste des journées au siège -->
+		<record model="ir.actions.act_window" id="action_siege_journee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des journées au siège</field>
+			<field name="res_model">oscar.journee.recue</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'search_default_group_journee_by_state': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune journée trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Journées.
+				</p>
+       		</field>
+		</record>
+		
+		<!--  menu journee dispatchee -->
+		<menuitem name="Journées dispatchées" id="menu_dispatchee_journee"
+			sequence="610" parent="menu_reception_journee" action="spc_recette_aziza.action_dispatchee_journee" />
+		
+		<!-- menu journee non dispatchee -->
+		<menuitem name="Journées non dispatchées" id="menu_no_dispatchee_journee"
+			sequence="620" parent="menu_reception_journee" action="spc_recette_aziza.action_no_dispatchee_journee" />
+			
+		<!-- menu agent de verification -->
+		<!-- menu journee a accepter -->
+		<menuitem name="Journées à accepter" id="menu_accept_journee"
+			sequence="700" parent="menu_verification_journee" action="spc_recette_aziza.action_accept_journee"
+			groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_agent_validation_ticket_resto_oscar,spc_recette_aziza.group_consulting_oscar,spc_oscar_aziza.group_DE" />
+
+		<!-- menu journee a verifier -->
+		<menuitem name="Journées à vérifier" id="menu_check_journee"
+			sequence="710" parent="menu_verification_journee" action="spc_recette_aziza.action_check_journee"
+			groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar,spc_recette_aziza.group_agent_validation_ticket_resto_oscar,spc_recette_aziza.group_consulting_oscar,spc_oscar_aziza.group_DE" />
+
+		<!-- menu journee en attentes avec litiges -->
+		<menuitem name="Journées en attentes avec litiges" id="menu_waiting_journee_with_litige"
+			sequence="715" parent="menu_verification_journee"
+			action="spc_recette_aziza.action_waiting_journee_with_litige"
+			groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar,spc_recette_aziza.group_agent_validation_ticket_resto_oscar,spc_recette_aziza.group_consulting_oscar,spc_oscar_aziza.group_DE" />
+
+		<!-- menu journee verifiees -->
+		<menuitem name="Journées vérifiées" id="menu_checked_journee"
+			sequence="720" parent="menu_verification_journee" action="spc_recette_aziza.action_checked_journee"
+			groups="spc_recette_aziza.group_agent_validation_oscar,spc_recette_aziza.group_responsable_financier_oscar,spc_recette_aziza.group_agent_validation_ticket_resto_oscar,spc_recette_aziza.group_consulting_oscar,spc_oscar_aziza.group_DE" />
+
+		<menuitem name="Journées" id="menu_siege_journee"
+			sequence="10" parent="menu_verification_journee" action="spc_recette_aziza.action_siege_journee" groups="spc_recette_aziza.group_responsable_financier_oscar,spc_recette_aziza.group_consulting_oscar,spc_oscar_aziza.group_DE"/>
+
+	</data>
+</odoo>

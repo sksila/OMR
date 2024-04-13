@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+	<!-- Filter journee report -->
+	<record id="view_journee_report_search" model="ir.ui.view">
+		<field name="name">journee.report.search</field>
+		<field name="model">oscar.journee.report</field>
+		<field name="arch" type="xml">
+			<search string="journees Analysis">
+				<field name="date_journee" />
+				<filter string="Journées de cette année" name="year"
+					domain="[('date_journee','&lt;=', time.strftime('%%Y-12-31')),('date_journee','&gt;=',time.strftime('%%Y-01-01'))]" />
+				<separator />
+				<filter string="Nouvelle journée" name="new_journee"
+					domain="[('state', '=', 'new')]" />
+				<filter string="Journée préparée" name="prepared_journee"
+					domain="[('state', '=', 'prepared')]" />
+				<filter string="Journée en route" name="road_journee"
+					domain="[('state', '=', 'road')]" />
+				<filter string="Journée reçue au l'entrepôt" name="done1_journee"
+					domain="[('state', '=', 'done1')]" />
+				<filter string="Journée reçue au siège" name="done_journee"
+					domain="[('state', '=', 'done')]" />
+				<separator />
+				<filter string="Journée vérifiée" name="checked_journee"
+					domain="[('state', '=', 'checked')]" />
+				<separator />
+				<filter string="Journée versée" name="paid_journee"
+					domain="[('is_paid', '=', True)]" />
+				<separator />
+				<field name="magasin_id" />
+				<field name="user_id" />
+				<group expand="1" string="Group By">
+					<filter string="Magasin" name="group_by_mg" context="{'group_by':'magasin_id'}" />
+					<filter string="Utilisateur" name="user" context="{'group_by':'user_id'}" />
+					<filter string="Responsable Magasin" name="resp_mg"
+						context="{'group_by':'resp_mg_id'}" />
+					<filter string="Responsable Zone" name="resp_zone"
+						context="{'group_by':'resp_zone_id'}" />
+					<separator />
+					<filter string="Statut" name="group_by_state" context="{'group_by':'state'}" />
+					<separator />
+					<filter name="group_journee_by_date" string="Date Journée" context="{'group_by':'date_journee:day'}" />
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<record id="view_oscar_journee_pivot" model="ir.ui.view">
+		<field name="name">oscar.journee.report.pivot</field>
+		<field name="model">oscar.journee.report</field>
+		<field name="arch" type="xml">
+			<pivot string="Analyse des Journées">
+				<field name="state" type="col" />
+				<field name="magasin_id" type="row" />
+			</pivot>
+		</field>
+	</record>
+
+	<record id="view_oscar_journee_graph" model="ir.ui.view">
+		<field name="name">oscar.journee.report.graph</field>
+		<field name="model">oscar.journee.report</field>
+		<field name="arch" type="xml">
+			<graph string="Analyse des Journées">
+				<field name="magasin_id" type="row" />
+			</graph>
+		</field>
+	</record>
+
+	<!-- Filter journee report recue -->
+	 <record id="view_journee_recue_report_search" model="ir.ui.view">
+		<field name="name">journee.recue.report.search</field>
+		<field name="model">oscar.journee.recue.report</field>
+		<field name="arch" type="xml">
+			<search string="journees Recue Analysis">
+				<field name="date_journee" />
+				<filter string="Journées de cette année" name="year"
+					domain="[('date_journee','&lt;=', time.strftime('%%Y-12-31')),('date_journee','&gt;=',time.strftime('%%Y-01-01'))]" />
+				<separator />
+				<filter string="Journée dispatchée" name="dispatchee_journee"
+					domain="[('state', 'in', ['done','waiting']),('controller_id', '!=', False)]" />
+				<filter string="Journée non dispatchée" name="no_dispatchee_journee"
+					domain="[('state', '=', 'done'),('controller_id', '=', False)]" />
+				<filter string="Journée en attente" name="waiting_journee"
+					domain="[('state', 'in', ['waiting','waiting2'])]" />
+				<filter string="Journée acceptée" name="accepted_journee"
+					domain="[('state', 'in', ['accepted','accepted1'])]" />
+				<filter string="Journées en attente avec litige" name="waiting_journee_with_litige"
+					domain="[('state', '=', 'waiting1')]" />
+				<filter string="Journée vérifiée" name="checked_journee"
+					domain="[('state', '=', 'checked')]" />
+				<separator /> 
+				<field name="magasin_id" />
+				<field name="user_id" />
+				<group expand="1" string="Group By">
+					<filter string="Magasin" name="group_by_mg" context="{'group_by':'magasin_id'}" />
+					<filter string="Responsable Magasin" name="resp_mg"
+						context="{'group_by':'resp_mg_id'}" />
+					<filter string="Responsable Zone" name="resp_zone"
+						context="{'group_by':'resp_zone_id'}" />
+					<separator />
+					<filter string="Statut" name="group_by_state" context="{'group_by':'state'}" />
+					<separator />
+					<filter name="group_journee_by_date" string="Date Journée" context="{'group_by':'date_journee:day'}" />
+				</group> 
+			</search>
+		</field>
+	</record> 
+
+	<record id="view_oscar_journee_recue_pivot" model="ir.ui.view">
+		<field name="name">oscar.journee.recue.report.pivot</field>
+		<field name="model">oscar.journee.recue.report</field>
+		<field name="arch" type="xml">
+			<pivot string="Analyse des Journées">
+				<field name="state" type="col" />
+				<field name="magasin_id" type="row" />
+			</pivot>
+		</field>
+	</record>
+
+	<record id="view_oscar_journee_recue_graph" model="ir.ui.view">
+		<field name="name">oscar.journee.recue.report.graph</field>
+		<field name="model">oscar.journee.recue.report</field>
+		<field name="arch" type="xml">
+			<graph string="Analyse des Journées">
+				<field name="state" type="row" />
+			</graph>
+		</field>
+	</record>
+
+
+	<!-- actions Rapports des journee aux magasins -->
+	<record model="ir.actions.act_window" id="action_report_oscar_journee_mg">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Journées aux Magasins</field>
+		<field name="res_model">oscar.journee.report</field>
+		<field name="view_mode">graph,pivot</field>
+		<field name="domain">[]</field>
+		<field name="context">{
+			'search_default_group_by_mg': 1,
+			'search_default_group_by_state': 1,
+			}
+		</field>
+	</record>
+
+	<!-- actions Rapports des journees au siege -->
+	<record model="ir.actions.act_window" id="action_report_oscar_journee_siege">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Journées au Siège</field>
+		<field name="res_model">oscar.journee.recue.report</field>
+		<field name="view_mode">graph,pivot</field>
+		<field name="domain">[]</field>
+		<field name="context">{
+			'search_default_group_by_mg': 1,
+			'search_default_group_by_state': 1,
+			}
+		</field>
+	</record>
+
+	<!-- menu report -->
+	
+
+	<menuitem name="Journées aux Magasins" id="menu_report_journee_mg"
+		parent="menu_oscar_report" action="spc_recette_aziza.action_report_oscar_journee_mg"
+		sequence="10" />
+	<menuitem name="Journées au Siège" id="menu_report_journee_siege"
+		parent="menu_oscar_report" action="spc_recette_aziza.action_report_oscar_journee_siege"
+		sequence="20" />
+
+</odoo>

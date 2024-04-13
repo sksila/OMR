@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="action_report_enveloppe"
+            string="Bon d'envoi"
+            model="oscar.envelope"
+            report_type="qweb-pdf"
+            file="spc_transfer_aziza.report_enveloppe"
+            name="spc_transfer_aziza.report_enveloppe"
+			print_report_name="'%s' % (object.name)"
+    />
+
+	<template id="report_enveloppe_document">
+		<t t-call="web.external_layout">
+			<div class="page">
+
+
+				<br></br>
+				<br></br>
+
+				<h2 style="text-align:center;">
+					<span>Bon d'enveloppe</span>
+					<span t-field="o.name"/>
+				</h2>
+				<br></br>
+				<br></br>
+
+				<div class="row">
+					<div class="col-6">
+						<strong>Site Expédition : </strong><span t-if="o.source_id.name" t-field="o.source_id.name"/>
+					</div>
+					<div class="col-6">
+						<strong>Date création : </strong><span t-if="o.date_creation" t-field="o.date_creation"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<strong>Site Destination : </strong><span t-if="o.destinataire_id.name" t-field="o.destinataire_id.name"/>
+					</div>
+					<div class="col-6" t-if="o.date_reception" >
+						<strong>Date réception : </strong><span t-field="o.date_creation"/>
+					</div>
+				</div>
+
+				<br></br>
+				<br></br>
+
+				<t t-foreach="o.content_envelope_ids" t-as="content">
+					<div id="document_information">
+
+					</div>
+
+				</t>
+
+					<br></br>
+					<br></br>
+					<br></br>
+
+					<div class="row">
+						<div class="col-4">
+							<strong><span>Expédition</span></strong>
+							<p t-if="o.user_id"><span t-field="o.user_id.name"/></p>
+							<p>Signature</p>
+						</div>
+						<div class="col-4 offset-4">
+							<strong><span>Réceptionnaire</span></strong>
+							<p t-if="o.destinataire_id"><span t-field="o.destinataire_id.name"/></p>
+							<p>Signature</p>
+						</div>
+					</div>
+
+				</div>
+			</t>
+		</template>
+
+<template id="report_enveloppe">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="spc_transfer_aziza.report_enveloppe_document"/>
+        </t>
+    </t>
+</template>
+</odoo>

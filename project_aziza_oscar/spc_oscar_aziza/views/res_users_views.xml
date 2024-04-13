@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <!-- actions liste de sites -->
+        <record model="ir.actions.act_window" id="action_site_by_user">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Sites</field>
+            <field name="res_model">oscar.site</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('user_ids', 'in', [active_id])]</field>
+            <field name="context">{
+                'create': False,
+                'edit': False,
+                'delete': False,
+                }
+            </field>
+        </record>
+
+        <record id="oscar_view_res_users_inherit_form" model="ir.ui.view">
+            <field name="name">oscar.view.res.users.inherit.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="action"
+                            name="%(action_site_by_user)d"
+                            icon="fa-building" attrs="{'invisible': [('magasin_count', '=', 0)]}" help="Sites">
+                        <field string="Site(s)" name="magasin_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <xpath expr="//div[@class='oe_title']" position="replace">
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                        <label for="login" class="oe_edit_only" string="Identifiant"/>
+                        <h2>
+                            <field name="login"/>
+                        </h2>
+                        <group>
+                            <field name="email" string="Email" required="1"/>
+                            <field name="profil"/>
+                            <field name="partner_id" readonly="1" required="0" groups="base.group_no_one"
+                                   attrs="{'invisible': [('id', '=', False)]}"/>
+                        </group>
+                    </div>
+                </xpath>
+                <xpath expr="//notebook/page[2]" position="after">
+                    <page name="sites" string="Sites">
+                        <field name="magasin_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="oscar_view_users_simple_inherit_form"
+                model="ir.ui.view">
+            <field name="name">oscar.res.users.simplified.inherit.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="before">
+                    <field name="profil"/>
+                </field>
+            </field>
+        </record>
+
+        <!--Customer menu users -->
+        <menuitem id="menu_oscar_users" name="Utilisateurs"
+                  parent="spc_oscar_aziza.menu_users_groups"
+                  action="base.action_res_users" sequence="10"/>
+
+
+        <!--Customer menu groups -->
+        <menuitem id="menu_oscar_groups" name="Groupes"
+                  parent="spc_oscar_aziza.menu_users_groups"
+                  action="base.action_res_groups"
+                  groups="spc_oscar_aziza.group_admin_oscar" sequence="10"/>
+
+    </data>
+</odoo>

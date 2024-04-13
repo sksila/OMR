@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="modif_article_wizard_form" model="ir.ui.view">
+		<field name="name">sav.modif.article.wizard.form</field>
+		<field name="model">oscar.sav.modif.article.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Modifier l'article">
+				<group>
+					<field name="product_id"/>
+					<field name="reclamation_id" invisible ="1"/>
+				</group>
+				<footer>
+					<button string="Confirmer" name="set_name_article"
+						type="object" class="btn-primary" />
+					<button string="Annuler" class="btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+	
+	
+	
+	
+	
+	
+	
+	<record id="modif_article_wizard_action" model="ir.actions.act_window">
+		<field name="name">Modifier l'article</field>
+		<field name="res_model">oscar.sav.modif.article.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="modif_article_wizard_form" />
+		<field name="target">new</field>
+	</record>
+	</odoo>

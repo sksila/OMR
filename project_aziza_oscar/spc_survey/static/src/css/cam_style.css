@@ -1,0 +1,65 @@
+/*
+============
+controls :
+capture
+============
+*/
+
+.controls {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+}
+
+/*.controls > button {
+  border-radius: 100%;
+}*/
+
+.controls > button:hover svg {
+  color: white !important;
+}
+
+.controls button {
+  margin: 5px 0 !important;
+}
+
+/*
+========
+video
+========
+*/
+
+video {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.video-options {
+  position: absolute;
+  left: 20px;
+  top: 30px;
+}
+
+/*
+=========
+modal
+=========
+*/
+
+.close-modal {
+  display:none;
+}
+
+.modal-wrapper{
+  border:1px solid red;
+}
+
+.snapModal{
+  background-color: rgba(0, 0, 0, 0.7);
+  width:490px;
+  height:420px;
+  /*width:33.5%;*/
+  /*height:39%;*/
+  margin:auto;
+}

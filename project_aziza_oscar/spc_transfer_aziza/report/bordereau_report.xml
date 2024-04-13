@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="paperformat_euro" model="report.paperformat">
+	      <field name="name">European A4</field>
+	      <field name="default" eval="True" />
+	      <field name="format">A4</field>
+	      <field name="page_height">0</field>
+	      <field name="page_width">0</field>
+	      <field name="orientation">Portrait</field>
+	      <field name="margin_top">45</field>
+	      <field name="margin_bottom">30</field>
+	      <field name="margin_left">7</field>
+	      <field name="margin_right">7</field>
+	      <field name="header_line" eval="False" />
+	      <field name="header_spacing">40</field>
+	      <field name="dpi">90</field>
+	    </record>
+
+        <report
+                id="oscar_bordereaux"
+                model="oscar.bordereau"
+                string="Bon d'envoi de bordereau"
+                report_type="qweb-pdf"
+                name="spc_transfer_aziza.report_bordereau"
+                file="spc_transfer_aziza.report_bordereau"
+				print_report_name="'%s' % (object.name)"
+				menu="False"
+        />
+
+		<template id="report_bordereau_document">
+			<t t-call="web.external_layout">
+				<div class="page">
+
+					<br></br>
+					<br></br>
+
+					<h2 style="text-align:center;">
+						<span>Bordereau d'envoi </span>
+						<span t-field="o.name" />
+					</h2>
+
+					<br></br>
+					<br></br>
+
+					<div class="container">
+
+						<div class="row">
+						  <div class="col-6">
+							  <strong>Date création : </strong><span t-if="o.date_bordereau" t-field="o.date_bordereau"/>
+						  </div>
+						  <div class="col-6">
+							  <strong>Date d'envoi : </strong><span t-if="o.sending_date" t-field="o.sending_date"/>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="col-6">
+							  <strong>Site Expédition : </strong><span t-if="o.source_id.name" t-field="o.source_id.name"/>
+						  </div>
+						  <div class="col-6">
+							  <strong>Chauffeur : </strong><span t-if="o.chauffeur_id.name" t-field="o.chauffeur_id.name"/>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="col-6">
+							  <strong>Site Destination : </strong><span t-if="o.destinataire_id.name" t-field="o.destinataire_id.name"/>
+						  </div>
+						  <div class="col-6">
+							  <strong>Véhicule : </strong><span t-if="o.fleet_id.name" t-field="o.fleet_id.name"/>
+						  </div>
+						</div>
+
+
+
+					<br></br>
+					<br></br>
+					<br></br>
+					<table class="table table-condensed">
+						<thead
+							style="border:solid rgba(215, 242, 254, 0.72);background-color:rgba(215, 242, 254, 0.72);border-radius:10px 0px 10px 0px;">
+							<tr>
+								<th>N°</th>
+								<th>Date création</th>
+								<th>Source</th>
+								<th>Destinataire final</th>
+								<th>Réferences</th>
+								<th>Statut</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr t-foreach="o.envelope_ids" t-as="env">
+								<td>
+									<span t-if="env.name" t-field="env.name" />
+								</td>
+								<td>
+									<span t-if="env.date_creation" t-field="env.date_creation" />
+								</td>
+								<td>
+									<span t-if="env.source_id" t-field="env.source_id.name" />
+								</td>
+								<td>
+									<span t-if="env.destinataire_id" t-field="env.destinataire_id.name" />
+								</td>
+								<td>
+									<p t-foreach="env.reference_ids" t-as="ref" >
+										<span t-field="ref.content_envelope_id.name"/>: <span t-field="ref.name"/>
+									</p>
+								</td>
+								<td>
+									<span t-if="env.state" t-field="env.state" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<br></br>
+					<br></br>
+					<br></br>
+
+						<div class="row">
+							<div class="col-4">
+							  	<strong><span>Expédition</span></strong>
+								<p t-if="o.user_id"><span t-field="o.user_id.name"/></p>
+								<p>Signature</p>
+							</div>
+							<div class="col-4">
+							  	<strong><span>Chauffeur</span></strong>
+								<p t-if="o.chauffeur_id"><span t-field="o.chauffeur_id.name"/></p>
+								<p>Signature</p>
+							</div>
+							<div class="col-4">
+							  	<strong><span>Réceptionnaire</span></strong>
+								<p t-if="o.destinataire_id"><span t-field="o.destinataire_id.name"/></p>
+								<p>Signature</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</t>
+		</template>
+
+		<template id="report_bordereau">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="spc_transfer_aziza.report_bordereau_document" />
+				</t>
+			</t>
+		</template>
+
+	</data>
+</odoo>

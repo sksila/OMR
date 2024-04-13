@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Visibilité pour le groupe Magasin-->
+    <record id="derogation_view_form_inherited_magasin" model="ir.ui.view">
+        <field name="inherit_id" ref="derogation_view_form"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('spc_oscar_aziza.group_reponsable_magasin'),ref('spc_oscar_aziza.group_admin_oscar')])]"/>
+        <field name="model">derogation.derogation</field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='prix_revient']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['magasin','draft'])],
+                    'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='cout_stockage']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['magasin','draft'])],
+                    'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='cout_logistique']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['magasin','draft'])],
+                    'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='montant_recu']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['magasin','draft'])],
+                    'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='requested_by']" position="attributes">
+                <attribute name="attrs">{ 'invisible':[('type','in', ['retrait_produit'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="attrs">{'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="attrs">{'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='fournisseur']" position="attributes">
+                <attribute name="attrs">{'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='option_envoie_fournisseur']" position="attributes">
+                <attribute name="attrs">{'invisible':[('state','in', ['magasin'])]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//group/field[@name='confomity']" position="attributes">
+                <attribute name="attrs">{'invisible':[('state','in',['magasin'])], 'readonly':[('state','not in',['approve_quality'])], 'required':[('state','in',['approve_quality'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//group[@name='paln_action']" position="attributes">
+                <attribute name="attrs">{'invisible':['|',('state','in',['magasin']),('type','in',
+                    ['retrait_produit'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//group[@name='commentaires']" position="attributes">
+                <attribute name="attrs">{'invisible':['|',('state','in',['magasin']),('type','in',
+                    ['retrait_produit'])]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='facturation']" position="attributes">
+                <attribute name="attrs">{'invisible':1}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

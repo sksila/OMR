@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--        Visibilité pour le groupe Qualité-->
+    <record id="derogation_view_form_inherited_quality" model="ir.ui.view">
+        <field name="inherit_id" ref="derogation_view_form"/>
+        <field name="groups_id"
+               eval="[(6, 0, [ref('spc_oscar_aziza.group_quality_product_aziza'),ref('spc_oscar_aziza.group_admin_oscar')])]"/>
+        <field name="model">derogation.derogation</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code_produit']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='produit']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='fournisseur']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft'])]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='confomity']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['approve_quality'])],
+                    'required':[('state','in',['approve_quality'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_dlv_actuel']" position="attributes">
+                <attribute name="attrs">{'required':[('type','not in',['retrait_produit']),('state','in',['draft','to_approve'])], 'readonly':[('state','not in',['draft'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='operation_speciale']" position="attributes">
+                <attribute name="attrs">{'required':[('type','not in',['retrait_produit']),('state','in',['draft', 'to_approve'])], 'readonly':[('state','not in',['draft'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='image']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['approve_quality'])]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='taux_couverture']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft', 'approve_quality'])],
+                    'required':[('state','in',['draft','approve_quality']),('type','!=', 'retrait_produit')]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_dlv_new']" position="attributes">
+                <attribute name="attrs">{'required':[('state','in',['approve_quality'])]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//header/button[@name='%(action_comment_wizard_magasin)d']" position="attributes">
+                <attribute name="attrs">{'invisible':['|','|',('type', '=', 'produit'),('state','not in',['draft', 'approve_quality', 'approve_dg']),('state','in',['magasin'])]}
+                </attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='facturation']" position="attributes">
+                <attribute name="attrs">{'invisible':1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_dlc']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft'])],'required':[('state','in',['to_approve','draft','approve_quality'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='qty_derogation']" position="attributes">
+                <attribute name="attrs">{'readonly':[('state','not in',['draft','to_approve'])],'required':[('state','in',['to_approve','draft','approve_quality'])]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

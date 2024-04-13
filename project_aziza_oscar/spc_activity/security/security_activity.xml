@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+           <!--Access Rights of Groups-->
+        <record model="ir.module.category" id="module_planification_aziza">
+            <field name="name">Planification</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record model="res.groups" id="group_user_planification">
+            <field name="name">Utilisateur</field>
+            <field name="category_id" ref="spc_activity.module_planification_aziza"/>
+        </record>
+
+        <record model="res.groups" id="group_responsable_planification">
+            <field name="name">Responsable</field>
+            <field name="implied_ids"
+                   eval="[(4, ref('spc_activity.group_user_planification'))]"/>
+            <field name="category_id" ref="spc_activity.module_planification_aziza"/>
+        </record>
+
+    </data>
+</odoo>

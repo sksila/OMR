@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="control_m_m1_form" model="ir.ui.view">
+            <field name="name">Audit Control M M-1 form</field>
+            <field name="model">spc_survey_extra.control_m_m1</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="question_id"/>
+                            <h1>
+                                <field name="question_id" domain="[('id','in',question_ids)]" options="{'no_create': True, 'no_create_edit':True}" nolabel="1" context="{'tree_view_ref':'spc_survey_extra.question_display_tree'}"/>
+                            </h1>
+                        </div>
+                        <group string="Column">
+                            <group>
+                                <field name="question_or_detail" />
+                            </group>
+                            <group>
+                                <field name="column_id" domain="[('id','in',columns_ids)]" options="{'no_create': True, 'no_create_edit':True}" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                            </group>
+                        </group>
+                        <group string="Concerned questions">
+                            <field name="concerned_questions_ids" widget='one2many' nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="question_id" domain="[('id','in',parent.question_ids)]" options="{'no_create': True, 'no_create_edit':True}" context="{'tree_view_ref':'spc_survey_extra.question_display_tree'}"/>
+                                    <field name="question_or_detail" />
+                                    <field name="column_id" domain="[('id','in',columns_ids)]" options="{'no_create': True, 'no_create_edit':True}" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                                    <field name="columns_ids" invisible="1" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="question_id" />
+                                        <field name="question_or_detail" />
+                                        <field name="column_id" />
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <field name="survey_id" invisible="1" />
+                        <field name="question_ids" invisible="1" />
+                        <field name="columns_ids" invisible="1" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="control_m_m1_tree" model="ir.ui.view">
+            <field name="name">Audit Control M M-1 tree</field>
+            <field name="model">spc_survey_extra.control_m_m1</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="question_id" />
+                    <field name="question_or_detail"/>
+                    <field name="column_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_control_m_m1">
+			<field name="name">Audit Control M M-1</field>
+			<field name="res_model">spc_survey_extra.control_m_m1</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{}</field>
+            <field name="domain">[('survey_id', '=', active_id)]</field>
+		</record>
+    </data>
+</odoo>

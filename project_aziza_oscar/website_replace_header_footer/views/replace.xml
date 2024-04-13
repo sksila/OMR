@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Header -->
+        <template id="clean_header" inherit_id="website.layout" name="Clean header">
+            <xpath expr="//header" position="replace">
+                <style>
+                    .header-bg{
+                        background: #FFDD3A;
+                    }
+                </style>
+                <header class="header-bg">
+<!--                    <img t-att-src="./logo.jpeg" />-->
+<!--                    <p>44</p> <p>44</p> v <p>44</p> <p>44</p>-->
+                </header>
+            </xpath>
+        </template>
+
+        <!-- Footer -->
+        <template id="clean_footer" inherit_id="website.layout" name="Clean Footer">
+            <xpath expr="//div[@id='footer']" position="replace">
+            </xpath>
+        </template>
+
+
+
+
+
+    </data>
+</odoo>

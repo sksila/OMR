@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+
+		<record id="survey_page_form_inherit" model="ir.ui.view">
+			<field name="model">survey.page</field>
+			<field name="inherit_id" ref="survey.survey_page_form" />
+			<field name="arch" type="xml">
+			
+				<!-- Add description field -->
+				<xpath expr="//div[@class='oe_title']" position="after">
+					<group> 
+						<field name="description" />
+					</group>
+				</xpath>
+
+				
+			</field>
+		</record>
+
+
+		<!-- PAGE smart -->
+        <record model="ir.ui.view" id="smart_survey_page_form">
+            <field name="name">Form view for survey page smart</field>
+            <field name="model">survey.page</field>
+			<field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <form string="Survey Page">
+                    <sheet>
+						<div class="oe_button_box" name="button_box">
+							<!-- smart button question -->
+							<button class="oe_stat_button"
+									type="action"
+									name="%(spc_survey.action_questions_from_page)d"
+									icon="fa-list"
+									context="{'default_page_id': id}">
+								<field string="Questions" name="total_questions" widget="statinfo" />
+								<field name="id" invisible="1" />
+							</button>
+							<!-- scoring -->
+							<button class="oe_stat_button"
+									type="action"
+									name="%(spc_survey.action_scoring)d"
+									string="Scoring"
+									icon="fa-tachometer"
+									context="{'default_page_id': id}">
+								<field name="id" invisible="1" />
+							</button>
+						</div>
+                        <div class="oe_title" style="width: 100%;">
+                            <label for="title" class="oe_edit_only"/>
+                            <h1><field name="title" placeholder="Page Title"/></h1>
+                        </div>
+						<field name="question_ids" nolabel="1" mode="tree" context="{'default_page_id': active_id}">
+							<form>
+								<group>
+									<field name="question" />
+                                	<field name="type" />
+								</group>
+							</form>
+                            <tree create="false" edit="false" delete="false" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="question" readonly="1"/>
+                                <field name="type" readonly="1"/>
+                                <field name="constr_mandatory"/>
+                            </tree>
+                        </field>
+						<field name="page_scoring_ids" invisible="1"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="smart_survey_page_tree">
+            <field name="name">Tree view for survey page smart</field>
+            <field name="model">survey.page</field>
+			<field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <tree string="Survey Page">
+                    <field name="sequence" widget="handle"/>
+                    <field name="title"/>
+                    <field name="survey_id"/>
+                    <field name="question_ids" string="#Questions"/>
+                </tree>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_pages_from_survey">
+			<field name="name">Pages</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">survey.page</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+   				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_survey.smart_survey_page_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_survey.smart_survey_page_form')})]"
+   				/>
+			<field name="domain">[('survey_id', '=', active_id)]</field>
+			<field name="context">{}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Create survey pages.
+				</p>
+			</field>
+		</record>
+		
+		
+		
+		
+		
+	</odoo>

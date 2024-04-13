@@ -1,0 +1,653 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* spc_flux_documents
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-27 12:47+0000\n"
+"PO-Revision-Date: 2020-04-27 12:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__active
+msgid "Actif"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:document.type,type:0
+msgid "Autre"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:document.type,type:0
+msgid "Avoir"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:document.type,type:0
+msgid "BL"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_oscar_bordereau
+msgid "Bordereau"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_commande_form
+msgid "Click to add a new commandes."
+msgstr "Cliquez pour ajouter une nouvelle commande."
+
+#. module: spc_flux_documents
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_commande_gold_form
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_fournisseur_view
+msgid "Click to add a new fournisseur."
+msgstr "Cliquez pour ajouter un nouveau fournisseur."
+
+#. module: spc_flux_documents
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_ha_view_document_criteres_form
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_view_document_type_form
+msgid "Click to add a new kind of Document."
+msgstr "
+Cliquez pour ajouter un nouveau type de document."
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__code
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__code
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__code
+msgid "Code"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__code_fr
+msgid "Code Fournisseur"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__code_fr
+msgid "Code Fr"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__code_site
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__code_site
+msgid "Code Site"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.ui.menu,name:spc_flux_documents.menu_commande_inter
+msgid "Commades Gold"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.spc_view_commande_gold_form
+msgid "Commande"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_commande_gold
+msgid "Commande Gold"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_commande_inter_tree
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.spc_view_commande_gold_tree
+msgid "Commande Gold List"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_commande_gold_filter
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_commande_inter_filter
+msgid "Commande Gold Search"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.actions.act_window,name:spc_flux_documents.action_commande_gold_form
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_commande_gold
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.spc_view_attachment_form_inherit
+msgid "Commandes"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.actions.act_window,name:spc_flux_documents.action_commande_form
+msgid "Commandes GOLD"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__comment
+msgid "Commentaire"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__create_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__create_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__create_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type__create_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__create_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__create_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__create_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__create_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type__create_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__create_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_document_criteres_form
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_document_criteres_tree
+msgid "Criteres"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_document_criteres
+msgid "Criteres Document"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.actions.act_window,name:spc_flux_documents.action_ha_view_document_criteres_form
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__criteres_ids
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_document_criteres_aziza
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.spc_view_attachment_form_inherit
+msgid "Critères"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__date_insertion
+msgid "Date"
+msgstr "Date "
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__date_commande
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__date_cmd
+msgid "Date Commande"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__date_piece
+msgid "Date pièce"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__user_dest_id
+msgid "Destination"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__display_name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__display_name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__display_name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type__display_name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__display_name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: spc_flux_documents
+#: model:ir.actions.act_window,name:spc_flux_documents.action_view_document_type_form
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__type
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_document_type_form
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_document_type_tree
+msgid "Document"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_document_filter
+msgid "Document de magasin vers siège"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_document_filter
+msgid "Document de siège vers magasin"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_document_filter
+msgid "Document envoyé vers la GED"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_ir_attachment
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__document_ids
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_bordereau__document_ids
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_envelope__document_ids
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_ir_attrachment
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_sav_envelope_form
+msgid "Documents"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_flux_document
+msgid "Documents - Magasin"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_flux_document_siege
+msgid "Documents - Siège"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_envelope__domain_content
+msgid "Domain Content"
+msgstr "Contenu du domaine"
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,state:0
+msgid "En route"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_oscar_envelope
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__enveloppe_id
+msgid "Enveloppe"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.spc_view_attachment_form_inherit
+msgid "Envoyer vers la GED"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,state:0
+msgid "Envoyé"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.spc_view_attachment_form_inherit
+msgid "Envoyé vers la GED"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__is_uploaded
+msgid "Est envoyé vers la GED"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__is_document
+msgid "Est un document GOLD"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:document.type,type:0
+msgid "Facture"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,type:0
+msgid "File"
+msgstr "Fichier"
+
+#. module: spc_flux_documents
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_flux_document_config_menu
+msgid "Flux documentaire"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_flux_document_root
+msgid "Flux documentaires"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__fournisseur_id
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__lib_fr
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__fournisseur
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__lib_fr
+msgid "Fournisseur"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_commande_gold_filter
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_commande_inter_filter
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__id
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__id
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__id
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type__id
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__id
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__id
+msgid "ID"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__name
+msgid "Index"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold____last_update
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres____last_update
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type____last_update
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type____last_update
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter____last_update
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__write_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__write_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__write_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type__write_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__write_uid
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__write_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__write_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__write_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type__write_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__write_date
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: spc_flux_documents
+#: sql_constraint:document.type:0
+msgid "Le Type Document doit être unique!"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__is_fournisseur
+msgid "Le fournisseur est obligatoire pour ce type"
+msgstr ""
+
+#. module: spc_flux_documents
+#: sql_constraint:commande.gold:0
+msgid "Le numéro de commande doit être unique!"
+msgstr ""
+
+#. module: spc_flux_documents
+#: code:addons/spc_flux_documents/models/ir_attachment.py:139
+#, python-format
+msgid "Les totals HT et TTC ne doivent pas être égal à zéro!"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__libelle_fournisseur
+msgid "Libellé"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__magasin_id
+msgid "Magasin"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,type_transfert:0
+msgid "Magasin vers siege"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.spc_view_attachment_form_inherit
+msgid "Métadonnées"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_criteres__name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_wf_type__name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_fournisseur_inter__name
+msgid "Nom"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__wf_ged_id
+msgid "Nom de WF"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,state:0
+msgid "Nouveau"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__name
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__num_cmd
+msgid "Num Commande"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:document.type,type_flux:0
+msgid "Numérique"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__commande_ids
+msgid "Numéro BRV"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__numero_piece
+msgid "Numéro pièce"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_ha_view_document_criteres_form
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_view_document_type_form
+msgid "Oscar helps you easily to manage your Documents"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_commande_form
+msgid "Oscar helps you easily to manage your commandes"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_commande_gold_form
+#: model_terms:ir.actions.act_window,help:spc_flux_documents.action_fournisseur_view
+msgid "Oscar helps you easily to manage your fournisseur"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_commande_gold_filter
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_commande_inter_filter
+msgid "Par fournisseur"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.view_commande_gold_filter
+msgid "Par site"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:document.type,type_flux:0
+msgid "Physique"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:document.type,type_flux:0
+msgid "Physique & Numérique"
+msgstr ""
+
+#. module: spc_flux_documents
+#: code:addons/spc_flux_documents/models/ir_attachment.py:102
+#, python-format
+msgid "Problème de configuration du Web Service (%s), veuillez contacter l'Administrateur!"
+msgstr ""
+
+#. module: spc_flux_documents
+#: code:addons/spc_flux_documents/models/ir_attachment.py:59
+#: code:addons/spc_flux_documents/models/ir_attachment.py:68
+#, python-format
+msgid "Problème de configuration du Web Service, veuillez contacter l'Administrateur!"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,state:0
+msgid "Reçue au Magasin"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,state:0
+msgid "Reçue au Siège"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,state:0
+msgid "Reçue à l'Entrepôt"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__show_document
+msgid "Show document"
+msgstr ""
+
+#. module: spc_flux_documents
+#: selection:ir.attachment,type_transfert:0
+msgid "Siege vers magasin"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_commande_gold__lib_site
+#: model:ir.model.fields,field_description:spc_flux_documents.field_oscar_commande_inter__lib_site
+msgid "Site"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__site_id
+msgid "Source"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__state
+msgid "Statut"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_oscar_commande_inter
+msgid "Table Commande Gold"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_oscar_fournisseur_inter
+msgid "Table Fournisseur Gold"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__total_ht
+msgid "Total HT"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__total_ttc
+msgid "Total TTC"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__type
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__type_doc
+msgid "Type"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_document_type
+msgid "Type Document"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__type_transfert
+msgid "Type Transfert"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model,name:spc_flux_documents.model_document_wf_type
+msgid "Type WF"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_doc_wf_type_form
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_doc_wf_type_tree
+msgid "Type de WF"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.actions.act_window,name:spc_flux_documents.action_view_doc_wf_type_form
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_doc_wf_type
+msgid "Type de Workflow"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.ui.menu,name:spc_flux_documents.spc_menu_document_type_aziza
+msgid "Type de document"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__type_flux
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__type_flux
+msgid "Type de flux"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__document_type_id
+msgid "Type du document"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__user_id
+msgid "Utilisateur"
+msgstr ""
+
+#. module: spc_flux_documents
+#: code:addons/spc_flux_documents/models/ir_attachment.py:137
+#, python-format
+msgid "Veuillez choisir les commandes concernées!"
+msgstr ""
+
+#. module: spc_flux_documents
+#: code:addons/spc_flux_documents/models/ir_attachment.py:66
+#, python-format
+msgid "Vous devez joindre le document!"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_document_type__ws_config_id
+msgid "Web Service"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,help:spc_flux_documents.field_ir_attachment__type
+msgid "You can either upload a file from your computer or copy/paste an internet link to your file."
+msgstr "Vous pouvez envoyer un fichier depuis votre ordinateur ou copier/coller une adresse internet qui y renvoie"
+
+#. module: spc_flux_documents
+#: model:ir.model.fields,field_description:spc_flux_documents.field_ir_attachment__code
+msgid "code"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model:ir.actions.act_window,name:spc_flux_documents.action_fournisseur_view
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_commande_inter_form
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_fournisseur_inter_form
+msgid "fournisseur"
+msgstr ""
+
+#. module: spc_flux_documents
+#: model_terms:ir.ui.view,arch_db:spc_flux_documents.ha_view_fournisseur_inter_tree
+msgid "fournisseur"
+msgstr ""
+
+#. module: base
+#: model:ir.actions.act_window,name:base.action_attachment
+#: model:ir.ui.menu,name:base.menu_action_attachment
+#: model_terms:ir.ui.view,arch_db:base.view_attachment_form
+#: model_terms:ir.ui.view,arch_db:base.view_attachment_search
+#: model_terms:ir.ui.view,arch_db:base.view_attachment_tree
+msgid "Attachments"
+msgstr "Documents"

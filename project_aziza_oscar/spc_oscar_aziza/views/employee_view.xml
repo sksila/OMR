@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- hide the top menu item Employees-->
+    <record model="ir.ui.menu" id="hr.menu_hr_root">
+        <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    </record>
+
+	<!-- employee -->
+	<record id="view_hr_job_form_inherit" model="ir.ui.view">
+		<field name="model">hr.job</field>
+		<field name="inherit_id" ref="hr.view_hr_job_form" />
+		<field name="arch" type="xml">
+			<xpath expr="//div[@class='oe_title']">
+				<div class="oe_title">
+                 	<label for="est_caissier"/>
+                    <h1>
+                    	<field name="est_caissier"/>
+                    </h1>
+                </div>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="oscar_hr_employee_view_form" model="ir.ui.view">
+            <field name="name">oscar.hr.employee.view.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='category_ids']" position="before">
+           				<field name="code_rh" string="Matricule RH" placeholder="Matricule RH" required="1"  style="width:20%%" />
+           				<br></br>
+           				<field name="code" string="Code Caisse" placeholder="Code Caisse"  style="width:20%%" />
+           				<br></br>
+                   	</xpath> 
+                   	
+              	 	<xpath expr="//div[@class='oe_title']" position="replace">
+               	 		<div class="oe_title">
+                            <label for="last_name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="last_name" placeholder="Nom" required="1" />
+                            </h1>
+                            <label for="first_name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="first_name" placeholder="Prénom" required="1" />
+                            </h1>
+                        </div>
+               	 	</xpath>
+                    
+                </data>
+            </field>
+        </record>
+	
+	<record id="view_employee_filter_inherit" model="ir.ui.view">
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_filter" />
+		<field name="arch" type="xml">
+			<field name="department_id" position="after">
+				<field name="magasin_id" />
+				<field name="est_caissier" />
+			</field>
+			<xpath expr="//group//filter[@name='group_department']" position="after">
+				<filter name="est_caissier" string="Caissier" domain="[]" context="{'group_by':'est_caissier'}"/>
+				<filter name="magasin_id" string="Magasin" domain="[]" context="{'group_by':'magasin_id'}"/>
+			</xpath>
+		</field>
+	</record>
+	
+	<!-- Submenu item Employees under Administration/Configuration-->
+    <menuitem
+            id="menu_open_view_employee_list_my_inherit"
+            action="hr.open_view_employee_list_my"
+            name="Employées"
+            parent="spc_oscar_aziza.menu_oscar_configuration"
+            sequence="20"/>
+
+</odoo>

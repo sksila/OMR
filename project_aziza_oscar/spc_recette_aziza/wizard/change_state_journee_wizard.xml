@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="change_state_journee_wizard_form" model="ir.ui.view">
+        <field name="name">change.state.journee.wizard.form</field>
+        <field name="model">change.state.journee.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Modifier Statut">
+                <div class="oe_title">
+                    <label for="journee_id"/>
+                    <h1>
+                        <field name="journee_id" readonly="1"
+                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                    </h1>
+                </div>
+                <group>
+                    <field name="state" widget="radio" required="1"/>
+                </group>
+                <footer>
+                    <button string="Modifier" name="set_state_journee"
+                            type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="change_state_journee_wizard_action" model="ir.actions.act_window">
+        <field name="name">Vous souhaitez changer le statut de la journée ?</field>
+        <field name="res_model">change.state.journee.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="change_state_journee_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

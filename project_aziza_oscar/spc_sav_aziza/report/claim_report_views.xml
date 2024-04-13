@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+
+
+	<record id="view_sav_claim_pivot" model="ir.ui.view">
+		<field name="name">sav.claim.report.pivot</field>
+		<field name="model">sav.claim.report</field>
+		<field name="arch" type="xml">
+			<pivot string="Analyse des réclamations">
+				<field name="state" type="col" />
+				<field name="magasin_id" type="row" />
+				<field name="duration_road_sav" type="measure"/>
+				<field name="duration_sav_to_mag" type="measure"/>
+				<field name="duration_received_in_siege" type="measure"/>
+				<field name="duration_received_in_mag_sav" type="measure"/>
+				<field name="duration_fixed_claim" type="measure"/>
+				<field name="duration_total_claim" type="measure"/>
+				<field name="product_id" />
+			</pivot>
+		</field>
+	</record>
+
+	<record id="view_sav_claim_graph" model="ir.ui.view">
+		<field name="name">sav.claim.report.graph</field>
+		<field name="model">sav.claim.report</field>
+		<field name="arch" type="xml">
+			<graph string="Analyse des réclamations">
+				<field name="magasin_id" type="row" />
+			</graph>
+		</field>
+	</record>
+
+
+
+	<!-- actions Rapports des Reclamations -->
+	<record model="ir.actions.act_window" id="action_report_sav_claim">
+		<field name="type">ir.actions.act_window</field>
+		<field name="name">Réclamations</field>
+		<field name="res_model">sav.claim.report</field>
+		<field name="view_mode">pivot,graph</field>
+		<field name="domain">[]</field>
+	</record>
+
+	<!-- menu report -->
+	<menuitem name="Rapports" id="menu_sav_report" parent="menu_sav"
+		sequence="90" groups="spc_sav_aziza.group_responsable_sav"/>
+
+	<menuitem name="Réclamations" id="menu_report_claim_all"
+		parent="menu_sav_report" action="action_report_sav_claim" sequence="10" />
+
+</odoo>

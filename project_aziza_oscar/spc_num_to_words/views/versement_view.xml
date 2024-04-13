@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="add_montant_lettre_to_versement_form" model="ir.ui.view">
+        <field name="name">add.montant.lettre.to.versement.form</field>
+        <field name="model">oscar.versement</field>
+        <field name="inherit_id" ref="spc_recette_aziza.versement_view_form"/>
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group>
+                    <field name="montant_lettre"/>
+                </group>
+            </notebook>
+        </field>
+    </record>
+</odoo>

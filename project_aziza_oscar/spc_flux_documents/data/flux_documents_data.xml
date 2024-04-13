@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		
+		<record  id="ir_cron_oscar_commande_action" model="ir.cron">
+            <field name="name">Planned Integration Orders</field>
+            <field name="model_id" ref="model_oscar_commande_inter"/>
+            <field name="state">code</field>
+            <field name="code">model.planned_oscar_commande()</field>
+            <field eval="True" name="is_oscar"/>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+		
+	</data>
+</odoo>

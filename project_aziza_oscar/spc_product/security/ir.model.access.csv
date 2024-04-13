@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+spc_product_template,product.template,model_product_template,,1,1,1,1
+spc_product_product_category,spc_product.category,model_product_category,,1,1,1,1
+spc_product_type,spc_product.type,model_spc_product_type,,1,1,1,1
+spc_product_detail,spc_product.detail,model_spc_product_detail,,1,1,1,1
+inter_product_interface,inter.product,model_inter_product,,1,1,1,1
+inter_plano_facing_interface,inter.plano_facing,model_inter_plano_facing,,1,1,1,1
+inter_top_articles_interface,inter.top_articles,model_inter_top_articles,,1,1,1,1
+inter_articles_aleatoires_interface,inter.articles_aleatoires,model_inter_articles_aleatoires,,1,1,1,1
+inter_article_promo_interface,inter.article_promo,model_inter_article_promo,,1,1,1,1
+access_product_product_manager,product.product.manager,product.model_product_product,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_oscar_product_spot_manager,oscar.product.spot,model_oscar_product_spot,,1,1,1,1
+access_oscar_product_tag_manager,oscar.product.tag,model_oscar_product_tag,,1,1,1,1
+
+access_fournisseur_inter_admin,fournisseur.inter.admin,model_oscar_fournisseur_inter,spc_oscar_aziza.group_admin_oscar,1,1,1,1

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_confirmation_view" model="ir.ui.view">
+   <field name="name">wizard.add_quantity.form</field>
+   <field name="model">derogation.derogation</field>
+   <field name="arch" type="xml">
+        <form string="Wizard Demo">
+            <p>Êtes-vous sûr que les données dans le volet facturation peuvent être égales à zéro?</p>
+             <footer>
+     <button  name="button_done" string="Oui" type="object" class="oe_highlight" />
+
+     or
+     <button string="Non" class="oe_link" special="cancel"/>
+    </footer>
+        </form>
+   </field>
+
+    </record>
+<!--      confirm="Êtes-vous sûr que la quantité est égale à zéro?"-->
+</odoo>

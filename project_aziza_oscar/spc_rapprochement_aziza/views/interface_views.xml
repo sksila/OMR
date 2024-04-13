@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- view filter BRV-->
+    <record id="view_inter_brv_filter" model="ir.ui.view">
+        <field name="name">inter.brv.search.view</field>
+        <field name="model">inter.brv</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des BRV">
+                <field name="num_brv"/>
+                <field name="num_cmd"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- BRV form view  -->
+    <record model="ir.ui.view" id="inter_brv_view_form">
+        <field name="name">inter.brv.view.form</field>
+        <field name="model">inter.brv</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="num_brv"/>
+                            <field name="num_cmd"/>
+                            <field name="date_brv"/>
+                        </group>
+                        <group>
+                            <field name="code_site"/>
+                            <field name="code_fournisseur"/>
+                            <field name="lib_fournisseur"/>
+                            <field name="code_article"/>
+                            <field name="lib_article"/>
+                            <field name="qte_recue"/>
+                            <field name="unite_recue"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- BRV tree view  -->
+    <record model="ir.ui.view" id="inter_brv_view_tree">
+        <field name="name">inter.brv.view.tree</field>
+        <field name="model">inter.brv</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="num_brv"/>
+                <field name="num_cmd"/>
+                <field name="date_brv"/>
+                <field name="code_site"/>
+                <field name="code_fournisseur"/>
+                <field name="code_article"/>
+                <field name="qte_recue"/>
+                <field name="unite_recue"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de BRV (Interface) -->
+    <record model="ir.actions.act_window" id="action_inter_brv">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">BRV</field>
+        <field name="res_model">inter.brv</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucun enregistrement trouvé.
+            </p>
+        </field>
+    </record>
+
+    <!-- view filter BRV-->
+    <record id="view_inter_bl_filter" model="ir.ui.view">
+        <field name="name">inter.bl.search.view</field>
+        <field name="model">inter.bl</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des BL">
+                <field name="num_bl"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- BL form view  -->
+    <record model="ir.ui.view" id="inter_bl_view_form">
+        <field name="name">inter.bl.view.form</field>
+        <field name="model">inter.bl</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="create_new_bl_action" string="Action" type="object" class="btn-primary oe_read_only"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="num_bl"/>
+                            <field name="date_bl"/>
+                        </group>
+                        <group>
+                            <field name="code_societe"/>
+                            <field name="lib_societe"/>
+                            <field name="code_client"/>
+                            <field name="lib_client"/>
+                            <field name="code_article"/>
+                            <field name="lib_article"/>
+                            <field name="qte_livree"/>
+                            <field name="unite_livree"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- BL tree view  -->
+    <record model="ir.ui.view" id="inter_bl_view_tree">
+        <field name="name">inter.bl.view.tree</field>
+        <field name="model">inter.bl</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="num_bl"/>
+                <field name="date_bl"/>
+                <field name="code_societe"/>
+                <field name="code_client"/>
+                <field name="code_article"/>
+                <field name="qte_livree"/>
+                <field name="unite_livree"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de BL (Interface) -->
+    <record model="ir.actions.act_window" id="action_inter_bl">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">BL</field>
+        <field name="res_model">inter.bl</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucun enregistrement trouvé.
+            </p>
+        </field>
+    </record>
+
+    <!-- menu BRV (Interface) -->
+    <menuitem id="menu_inter_brv"
+              name="BRV"
+              action="action_inter_brv"
+              parent="spc_oscar_aziza.menu_gold_view"
+              sequence="200"/>
+
+    <!-- menu BL (Interface) -->
+    <menuitem id="menu_inter_bl"
+              name="BL"
+              action="action_inter_bl"
+              parent="spc_oscar_aziza.menu_gold_view"
+              sequence="210"/>
+
+
+    <!-- ZINVOICE form view  -->
+    <record model="ir.ui.view" id="zinvoice_view_form">
+        <field name="name">zinvoice.view.form</field>
+        <field name="model">zinvoice</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ZINVOICE_CODE"/>
+                            <field name="BRANCH_CODE"/>
+                            <field name="PARTNER_CODE"/>
+                        </group>
+                        <group>
+                            <field name="THEDATE"/>
+                            <field name="DISCOUNT"/>
+                            <field name="AMOUNT"/>
+                            <field name="CANCELED"/>
+                            <field name="CLOSED"/>
+                            <field name="DESCRIPTION"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Lines">
+                            <field name="ZINVOICE_LINES" nolabel="1">
+                                <tree editable="true">
+                                    <field name="ZINVOICE_LINE_NUMBER"/>
+                                    <field name="PRODUCT_CODE"/>
+                                    <field name="NAME"/>
+                                    <field name="UNITPRICE"/>
+                                    <field name="QUANTITY"/>
+                                    <field name="DISCOUNT"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ZINVOICE tree view  -->
+    <record model="ir.ui.view" id="zinvoice_view_tree">
+        <field name="name">zinvoice.view.tree</field>
+        <field name="model">zinvoice</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ZINVOICE_CODE"/>
+                <field name="BRANCH_CODE"/>
+                <field name="PARTNER_CODE"/>
+                <field name="THEDATE"/>
+                <field name="AMOUNT"/>
+                <field name="DISCOUNT"/>
+                <field name="CLOSED"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de ZINVOICE (Interface) -->
+    <record model="ir.actions.act_window" id="action_zinvoice">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Invoices</field>
+        <field name="res_model">zinvoice</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucun enregistrement trouvé.
+            </p>
+        </field>
+    </record>
+
+    <!-- menu Invoices (Interface) -->
+    <menuitem id="menu_inter_zinvoice"
+              name="Factures"
+              action="action_zinvoice"
+              parent="spc_oscar_aziza.menu_gold_view"
+              sequence="220"/>
+</odoo>

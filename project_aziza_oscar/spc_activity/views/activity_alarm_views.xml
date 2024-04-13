@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+
+<!-- Activity Alarm : -->
+    <record id="spc_view_activity_alarm_tree" model="ir.ui.view">
+        <field name="name">activity.alarm.tree</field>
+        <field name="model">activity.alarm</field>
+        <field name="arch" type="xml">
+            <tree string="Activity Alarm" editable="bottom">
+                <field name="name"/>
+                <field name="type"/>
+                <field name="duration"/>
+                <field name="interval"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="spc_activity_alarm_view_form" model="ir.ui.view">
+            <field name="name">activity.alarm.form</field>
+            <field name="model">activity.alarm</field>
+            <field name="arch" type="xml">
+                <form string="Calendar Alarm">
+                 <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="type" groups="base.group_no_one"/>
+                    </group>
+                    <group>
+                        <label for="duration"/>
+                        <div>
+                            <field name="duration" class="oe_inline"/>
+                            <field name="interval" class="oe_inline ml8"/>
+                        </div>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="spc_action_activity_alarm" model="ir.actions.act_window">
+        <field name="name">Alarme d'activité</field>
+        <field name="res_model">activity.alarm</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="spc_view_activity_alarm_tree"/>
+    </record>
+
+     <menuitem
+        id="spc_menu_activity_alarm"
+        parent="spc_menu_activity_configuration"
+        action="spc_action_activity_alarm"/>
+</odoo>

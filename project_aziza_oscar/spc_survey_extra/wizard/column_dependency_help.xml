@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+	<record id="column_dependency_help_wizard_form" model="ir.ui.view">
+		<field name="name">column.dependency.help.form</field>
+		<field name="model">column.dependency.help</field>
+		<field name="arch" type="xml">
+			<form string="Help">
+					<div class="alert alert-success">
+						<h2 class="">Syntax:</h2>
+						<h3 class="">Operators:</h3>
+						<div class="">
+							<ul>
+								<li> == : equal </li>
+								<li> != : different </li>
+								<li> &lt; : less than</li>
+								<li> &lt;= : less than or equal to</li>
+								<li> &gt; : greater than</li>
+								<li> &gt;= : greater than or equal to</li>
+								<li> () : parentheses </li>
+								<li> col : exist </li>
+								<li> !col : not exist </li>
+								<li> &amp;&amp; : and </li>
+								<li> || : or </li>
+								<li> - : Subtraction</li>
+								<li> + : Addition</li>
+								<li> * : Multiplication</li>
+								<li> / : Division</li>
+							</ul>
+							<h3 class="">Examples:</h3>
+							<ul>
+								<li> col == 1 </li>
+								<li> (col == 1 &amp;&amp; !(col2)) </li>
+								<li> (col == 1 &amp;&amp; col2) </li>
+								<li> col2 -col1 </li>
+							</ul>
+						</div>
+					</div>
+				<footer>
+					<button string="OK" class="btn btn-sm btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="column_dependency_help_wizard_action" model="ir.actions.act_window">
+		<field name="name">columns dependency help</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">column.dependency.help</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="column_dependency_help_wizard_form" />
+		<field name="target">new</field>
+	</record>
+    
+</odoo>

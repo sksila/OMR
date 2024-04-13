@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ha_view_derogation_category_form" model="ir.ui.view">
+        <field name="name">derogation.category.form</field>
+        <field name="model">derogation.category</field>
+        <field name="arch" type="xml">
+            <form string="Categorie derogation">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ha_view_derogation_category_tree" model="ir.ui.view">
+        <field name="name">derogation.category.tree</field>
+        <field name="model">derogation.category</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Derogation Categorie">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_derogation_category_form" model="ir.actions.act_window">
+        <field name="name">Derogation Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Cliquez pour ajouter une catégorie de dérogation.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="spc_menu_root_derogation_config"
+              name="Configuration"
+              parent="spc_menu_derogation_root"
+              sequence="30"
+              groups="spc_oscar_aziza.group_admin_oscar"
+    />
+
+    <menuitem id="spc_menu_derogation_category"
+              name="Catégorie de derogation"
+              action="action_derogation_category_form"
+              parent="spc_menu_root_derogation_config"
+              sequence="31"/>
+
+</odoo>

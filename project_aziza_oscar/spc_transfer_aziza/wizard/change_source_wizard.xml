@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="change_source_wizard_form" model="ir.ui.view">
+        <field name="name">change.source.wizard.form</field>
+        <field name="model">change.source.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Modifier Source">
+                <field name="type" invisible="1"/>
+                <div class="oe_title" attrs="{'invisible': [('type', '!=', 'envelope')]}">
+                    <label for="envelope_id" string="N° Enveloppe"/>
+                    <h1>
+                        <field name="envelope_id" readonly="1"
+                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                    </h1>
+                </div>
+                <div class="oe_title" attrs="{'invisible': [('type', '!=', 'bordereau')]}">
+                    <label for="bordereau_id" string="N° Bordereau"/>
+                    <h1>
+                        <field name="bordereau_id" readonly="1"
+                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                    </h1>
+                </div>
+                <group>
+                    <field name="source_id" required="1"/>
+                    <field name="destinataire_id" required="1"/>
+                </group>
+                <footer>
+                    <button string="Modifier" name="set_source_envelope"
+                            type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="change_source_wizard_action" model="ir.actions.act_window">
+        <field name="name">Vous souhaitez changer la source et le destinataire?</field>
+        <field name="res_model">change.source.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="change_source_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+     <template id="assets_frontend" name="spc_survey Assets" inherit_id="website.assets_frontend">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/spc_survey_extra/static/src/js/column_type_model.js"></script>
+            <script type="text/javascript" src="/spc_survey_extra/static/src/js/anomaly_correction.js"></script>
+            <script type="text/javascript" src="/spc_survey_extra/static/src/js/columns_dependencies.js"></script>
+<!--            <script type="text/javascript" src="/spc_survey_extra/static/src/js/cam_correction.js"></script>-->
+            <script type="text/javascript" src="/spc_survey_extra/static/src/js/add_line.js"></script>
+            <script type="text/javascript" src="/spc_survey_extra/static/src/js/question_detail_relation.js"></script>
+            <script type="text/javascript" src="/spc_survey_extra/static/src/js/show_hide_cond.js"></script>
+            <link rel="stylesheet" href="/spc_survey_extra/static/src/css/style.css" />
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<!-- disable survey ruleZ -->
+	<record id="survey.survey_users_access" model="ir.rule">
+		<field name="name">Access to survey for regular users Disable</field>
+		<field name="active" eval="False"/>
+	</record>
+
+	<record id="survey.survey_manager_access" model="ir.rule">
+		<field name="name">Survey Manager access rights Disable</field>
+		<field name="active" eval="False"/>
+	</record>
+
+	<!-- disable survey_user_input ruleZ -->
+	<record id="survey.survey_input_manager_access" model="ir.rule">
+		<field name="name">survey_user_input : Survey Manager access rights disable</field>
+		<field name="active" eval="False"/>
+	</record>
+
+
+
+
+	<!--survey.survey métier-->
+	<record model="ir.rule" id="model_survey_survey_group_metier_rule">
+		<field name="name">Model survey_survey rule : group Métier</field>
+		<field name="model_id" ref="survey.model_survey_survey"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_metier'))]"/>
+	</record>
+
+	<!--survey.survey qesh-->
+	<record model="ir.rule" id="model_survey_survey_group_qesh_rule">
+		<field name="name">Model survey_survey rule : group Qesh</field>
+		<field name="model_id" ref="survey.model_survey_survey"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_qesh'))]"/>
+	</record>
+
+	<!--survey.survey RZ-->
+	<record model="ir.rule" id="model_survey_survey_group_rz_rule">
+		<field name="name">Model survey_survey rule : group RZ</field>
+		<field name="model_id" ref="survey.model_survey_survey"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_rz'))]"/>
+	</record>
+
+	<!--survey.survey Other-->
+	<record model="ir.rule" id="model_survey_survey_group_other_audit_rule">
+		<field name="name">Model survey_survey rule : group Audit Other</field>
+		<field name="model_id" ref="survey.model_survey_survey"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_other_audit'))]"/>
+	</record>
+
+	<!--survey.survey interne-->
+	<record model="ir.rule" id="model_survey_survey_group_interne_rule">
+		<field name="name">Model survey_survey rule : group Interne</field>
+		<field name="model_id" ref="survey.model_survey_survey"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_interne'))]"/>
+	</record>
+
+	<!--survey.survey quality-->
+	<record model="ir.rule" id="model_survey_survey_group_quality_rule">
+		<field name="name">Model survey_survey rule : group Quality</field>
+		<field name="model_id" ref="survey.model_survey_survey"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_quality'))]"/>
+	</record>
+
+	<!--survey.user_input métier-->
+	<record model="ir.rule" id="model_survey_user_input_group_metier_rule">
+		<field name="name">Model survey_user_input rule : group Métier</field>
+		<field name="model_id" ref="survey.model_survey_user_input"/>
+		<field name="domain_force">[('survey_id.survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_metier'))]"/>
+	</record>
+
+	<!--survey.user_input qesh-->
+	<record model="ir.rule" id="model_survey_user_input_group_qesh_rule">
+		<field name="name">Model survey_user_input rule : group Qesh</field>
+		<field name="model_id" ref="survey.model_survey_user_input"/>
+		<field name="domain_force">[('survey_id.survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_qesh'))]"/>
+	</record>
+
+	<!--survey.user_input other audit-->
+	<record model="ir.rule" id="model_survey_user_input_group_other_audit_rule">
+		<field name="name">Model survey_user_input rule : group Audit Other</field>
+		<field name="model_id" ref="survey.model_survey_user_input"/>
+		<field name="domain_force">[('survey_id.survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_other_audit'))]"/>
+	</record>
+
+	<!--survey.user_input rz-->
+	<record model="ir.rule" id="model_survey_user_input_group_rz_rule">
+		<field name="name">Model survey_user_input rule : group RZ</field>
+		<field name="model_id" ref="survey.model_survey_user_input"/>
+		<field name="domain_force">[('survey_id.survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_rz'))]"/>
+	</record>
+
+	<!--survey.user_input interne-->
+	<record model="ir.rule" id="model_survey_user_input_group_interne_rule">
+		<field name="name">Model survey_user_input rule : group Interne</field>
+		<field name="model_id" ref="survey.model_survey_user_input"/>
+		<field name="domain_force">[('survey_id.survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_interne'))]"/>
+	</record>
+
+	<!--survey.user_input quality-->
+	<record model="ir.rule" id="model_survey_user_input_group_quality_rule">
+		<field name="name">Model survey_user_input rule : group Quality</field>
+		<field name="model_id" ref="survey.model_survey_user_input"/>
+		<field name="domain_force">[('survey_id.survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_quality'))]"/>
+	</record>
+
+	<!-- survey session group_metier -->
+	<record model="ir.rule" id="model_spc_survey_session_group_metier_rule">
+		<field name="name">Model spc_survey_session rule : group Metier</field>
+		<field name="model_id" ref="spc_survey.model_spc_survey_session"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_metier'))]"/>
+	</record>
+
+	<!-- survey session group_qesh -->
+	<record model="ir.rule" id="model_spc_survey_session_group_qesh_rule">
+		<field name="name">Model spc_survey_session rule : group Qesh</field>
+		<field name="model_id" ref="spc_survey.model_spc_survey_session"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_qesh'))]"/>
+	</record>
+
+	<!-- survey session rz -->
+	<record model="ir.rule" id="model_spc_survey_session_group_rz_rule">
+		<field name="name">Model spc_survey_session rule : group RZ</field>
+		<field name="model_id" ref="spc_survey.model_spc_survey_session"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_rz'))]"/>
+	</record>
+
+	<!-- survey session other audit -->
+	<record model="ir.rule" id="model_spc_survey_session_group_other_audit_rule">
+		<field name="name">Model spc_survey_session rule : group Other Audit</field>
+		<field name="model_id" ref="spc_survey.model_spc_survey_session"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_other_audit'))]"/>
+	</record>
+
+	<!-- survey session group_interne -->
+	<record model="ir.rule" id="model_spc_survey_session_group_interne_rule">
+		<field name="name">Model spc_survey_session rule : group interne</field>
+		<field name="model_id" ref="spc_survey.model_spc_survey_session"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_interne'))]"/>
+	</record>
+
+	<!-- survey session group_quality -->
+	<record model="ir.rule" id="model_spc_survey_session_group_quality_rule">
+		<field name="name">Model spc_survey_session rule : group Quality</field>
+		<field name="model_id" ref="spc_survey.model_spc_survey_session"/>
+		<field name="domain_force">[('survey_type_id.group_ids', 'in', [g.id for g in user.groups_id])]</field>
+		<field name="groups" eval="[(4, ref('spc_survey.group_quality'))]"/>
+	</record>
+
+
+
+</odoo>

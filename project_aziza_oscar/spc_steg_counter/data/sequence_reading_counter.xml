@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_reading_counter" model="ir.sequence">
+            <field name="name">Relevé compteur</field>
+            <field name="code">spc.reading.counter.steg</field>
+            <field name="prefix">R.STEG/%(range_year)s/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

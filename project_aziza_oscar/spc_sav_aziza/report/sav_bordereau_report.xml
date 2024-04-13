@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="sav_report_bordereau_document" inherit_id="spc_transfer_aziza.report_bordereau_document">
+		    <xpath expr="//tr[@t-foreach='o.envelope_ids']//p[@t-foreach='env.reference_ids']" position="replace">
+
+					<t t-if="env.domain_content">
+						<p t-foreach="env.envelope_claim_ids" t-as="reclamation" >
+							<span t-field="reclamation.name"/> - <span t-field="reclamation.product_id.name"/>
+						</p>
+					</t>
+					<t t-else="">
+						<p t-foreach="env.reference_ids" t-as="ref" >
+							<span t-field="ref.content_envelope_id.name"/>: <span t-field="ref.name"/>
+						</p>
+					</t>
+
+		    </xpath>
+	    </template>
+
+	</data>
+</odoo>

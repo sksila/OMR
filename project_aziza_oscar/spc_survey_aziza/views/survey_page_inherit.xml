@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+	
+		<record model="ir.actions.act_window" id="survey.action_survey_page_form">
+            <field name="name"> Sections</field>
+            <field name="res_model">survey.page</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="survey.survey_page_search"/>
+            <field name="context">{'search_default_group_by_survey': True}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_empty_folder">
+                No sections found
+              </p>
+            </field>
+        </record>
+		
+<!--		<record id="survey_page_form_inherit" model="ir.ui.view">-->
+<!--			<field name="model">survey.page</field>-->
+<!--			<field name="inherit_id" ref="survey.survey_page_form" />-->
+<!--			<field name="arch" type="xml">-->
+<!--				-->
+<!--				&lt;!&ndash; Section title&ndash;&gt;-->
+<!--				<field name="title" position="attributes">-->
+<!--					<attribute name="placeholder">Section title</attribute>-->
+<!--				</field>-->
+<!--				<xpath expr="//div/label[1]" position="attributes">-->
+<!--					<attribute name="string">Section title</attribute>-->
+<!--				</xpath>-->
+<!--				-->
+<!--				-->
+<!--			</field>-->
+<!--		</record>-->
+		
+		
+		
+		
+		
+	</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_document_list" inherit_id="spc_transfer_aziza.report_enveloppe_document">
+            <xpath expr="//div[@id='document_information']" position="inside">
+                <t t-if="o.domain_content_document">
+						<table class="table table-condensed">
+							<thead
+									style="border:solid rgba(215, 242, 254, 0.72);background-color:rgba(215, 242, 254, 0.72);border-radius:10px 0px 10px 0px;">
+								<tr>
+									<th>Index</th>
+									<th>Type document</th>
+									<th>Fournisseur</th>
+									<th>Date</th>
+									<th>Statut</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr t-foreach="o.document_ids" t-as="d">
+									<td>
+										<span t-if="d.name" t-field="d.name"/>
+									</td>
+									<td>
+										<span t-if="d.document_type_id.name"  t-field="d.document_type_id.name"/>
+									</td>
+									<td>
+										<span t-if="d.fournisseur.name"  t-field="d.fournisseur.name"/>
+									</td>
+									<td>
+										<span t-if="d.date_insertion"  t-field="d.date_insertion"/>
+									</td>
+									<td>
+										<span t-field="d.state"/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

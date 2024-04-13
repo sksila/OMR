@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="paperformat_euro" model="report.paperformat">
+	      <field name="name">European A4</field>
+	      <field name="default" eval="True" />
+	      <field name="format">A4</field>
+	      <field name="page_height">0</field>
+	      <field name="page_width">0</field>
+	      <field name="orientation">Portrait</field>
+	      <field name="margin_top">45</field>
+	      <field name="margin_bottom">30</field>
+	      <field name="margin_left">7</field>
+	      <field name="margin_right">7</field>
+	      <field name="header_line" eval="False" />
+	      <field name="header_spacing">40</field>
+	      <field name="dpi">90</field>
+	    </record>
+	    
+        <!-- QWeb Reports -->
+
+        <report 
+            id="oscar_ecarts"
+            model="oscar.ecart"
+            string="Écarts"
+            report_type="qweb-pdf"
+            name="spc_recette_aziza.report_ecart"
+            file="spc_recette_aziza.report_ecart"
+			print_report_name="'%s' % (object.name)"
+            menu="False"
+        />
+        
+        <report 
+            id="oscar_versements"
+            model="oscar.versement"
+            string="Versements"
+            report_type="qweb-pdf"
+            name="spc_recette_aziza.report_versement"
+            file="spc_recette_aziza.report_versement"
+			print_report_name="'%s' % (object.name)"
+            menu="False"
+        />
+        
+        <report 
+            id="oscar_versements_cheques"
+            model="oscar.versement.cheque"
+            string="Versements"
+            report_type="qweb-pdf"
+            name="spc_recette_aziza.report_versement_cheque"
+            file="spc_recette_aziza.report_versement_cheque"
+			print_report_name="'%s' % (object.name)"
+            menu="False"
+        />
+        
+	</data>
+</odoo>

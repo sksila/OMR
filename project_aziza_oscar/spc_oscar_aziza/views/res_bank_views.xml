@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<menuitem id="menu_oscar_bank" name="Banques &amp; TPE" parent="menu_oscar_configuration" sequence="50" />
+	
+	<menuitem id="menu_oscar_bank_bank" name="Banques"
+		action="base.action_res_bank_form" parent="menu_oscar_bank"
+		sequence="50" />
+		
+	<menuitem id="menu_oscar_bank_tpe" name="TPE"
+		action="base.action_res_partner_bank_account_form" parent="menu_oscar_bank"
+		sequence="51" />
+
+</odoo>

@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+
+		<!-- Top menu SAV -->
+		<menuitem name="SAV" id="menu_sav" sequence="50"
+				  web_icon="spc_sav_aziza,static/description/icon.png"
+				groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DE,spc_oscar_aziza.group_DRE,spc_sav_aziza.group_responsable_sav,spc_sav_aziza.group_reglement_financier,spc_sav_aziza.group_responsable_hi_tech"
+		/>
+
+		<!-- menu sous SAV -->
+		<menuitem name="Réclamations" id="menu_sav_sav" parent="menu_sav"
+			sequence="10"
+			groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_zone,spc_sav_aziza.group_responsable_sav,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_reponsable_entrepot,spc_oscar_aziza.group_DE,spc_sav_aziza.group_responsable_hi_tech"/>
+		
+		<!-- menu sous SAV -->
+		<menuitem name="Échanges" id="menu_sav_exchange" parent="menu_sav"
+			sequence="20"
+			groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_zone,spc_sav_aziza.group_responsable_sav,spc_oscar_aziza.group_DRE,spc_sav_aziza.group_responsable_hi_tech"/>
+		
+		<!-- menu sous SAV -->
+		<menuitem name="Avoirs" id="menu_sav_avoir" parent="menu_sav"
+			sequence="30"
+			groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_zone,spc_sav_aziza.group_responsable_sav,spc_oscar_aziza.group_DRE,spc_sav_aziza.group_reglement_financier,spc_sav_aziza.group_responsable_hi_tech"/>
+
+		<!-- menu Configuration -->
+		<menuitem name="Configuration" id="menu_sav_configuration"
+			parent="menu_sav" sequence="100" groups="spc_sav_aziza.group_responsable_sav" />
+
+
+		        <!-- view filter -->
+		        
+		<record id="view_oscar_sav_claim_search" model="ir.ui.view">
+			<field name="name">oscar_sav_claim_search</field>
+			<field name="model">oscar.sav.claim</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher des Réclamations">
+					<field name="name" />
+					<field name="magasin_id" />
+					<field name="product_id" />
+					<field name="user_id" />
+					<field name="customer_id" />
+					<field name="supplier_id" />
+					<field name="state" />
+					<separator />
+					<filter string="Nouvelle Réclamation" name="new_claim"
+						domain="[('state', '=', 'new')]" />
+					<filter string="Réclamation en route" name="road_claim"
+						domain="['|',('state', '=', 'road'),('state', '=', 'road1')]" />
+					<filter string="Réclamation reçue" name="done_claim"
+						domain="['|','|',('state', '=', 'done1'),('state', '=', 'done2'),('state', '=', 'done3')]" />
+					<separator />
+					<filter string="Réclamation en réparation" name="repair_claim"
+						domain="[('state', '=', 'repair')]" />
+					<separator />	
+					<filter string="Réclamation en attente la validation RM" name="waiting_claim"
+						domain="[('state', '=', 'waiting')]" />
+					<filter string="Réclamation validée par Magasin" name="validated_claim"
+						domain="[('state', '=', 'validated')]" />
+					<separator />
+					<filter string="Réclamation réparée" name="fixed_claim"
+						domain="[('is_fixed', '=', True)]" />
+					<filter string="Réclamation refusée" name="refuse_claim"
+						domain="[('is_refused', '=', True)]" />
+					<filter string="Réclamation clôturée" name="clo_claim"
+						domain="[('state', '=', 'done4')]" />
+					<separator />
+					<filter string="Echange validé par SAV" name="exchange_claim"
+						domain="[('is_exchanged', '=', True),('state', '=', 'exchanged')]" />
+					<filter string="Echange clôturés" name="exchange_clo_claim"
+						domain="[('is_exchanged', '=', True),('state', '=', 'done4')]" />
+					<separator />
+					<filter string="Avoir validé par SAV" name="back_claim"
+						domain="[('is_back', '=', True),('is_receive', '=', False),('state', '=', 'back')]" />
+					<filter string="Avoir clôturés" name="back_clo_claim"
+						domain="[('is_back', '=', True),('state', '=', 'done4')]" />
+					<separator />
+					<filter string="Réclamation interne" name="reclamation_interne"
+							domain="[('type', '=', 'reclamation_interne')]" />
+					<filter string="Réclamation Client" name="reclamation_client"
+							domain="[('type', '=', 'reclamation_client')]" />
+					<group expand="1" string="Group By">
+					<filter string="Magasin" name ="magasin" context="{'group_by':'magasin_id'}" />
+					<filter string="Utilisateur" name="user" context="{'group_by':'user_id'}" />
+					<filter string="Article" name="product" context="{'group_by':'product_id'}" />
+						<separator />
+					<filter string="Client" name="customer" context="{'group_by':'customer_id'}" />
+						<separator />
+					<filter string="Fournisseur" name="supplier"
+							context="{'group_by':'supplier_id'}" />
+						<separator />
+					<filter name="Statut" string="Statut" context="{'group_by':'state'}" />
+						<separator />
+					
+					
+					</group>	
+					
+				</search>
+			</field>
+		</record>
+
+		<!-- actions liste de enveloppes de reclamation (responsable magasin) -->
+		<record model="ir.actions.act_window" id="action_envelope_by_claim">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Enveloppes</field>
+			<field name="res_model">oscar.envelope</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('envelope_claim_ids', 'in', [active_id])]</field>
+			<field name="context">{
+			'create': False,
+			'edit': False,
+			'delete': False,
+			}</field>
+		</record>
+
+
+		<!-- Reclamation form view -->
+		<record model="ir.ui.view" id="sav_claim_view_form">
+			<field name="name">oscar.sav.claim.view.form</field>
+			<field name="model">oscar.sav.claim</field>
+			<field name="arch" type="xml">
+				<form string="Réclamation">
+					<header>
+						<button name="sent_to_supplier" string="Envoyer vers Fournisseur"
+							type="object" states="done2" class="btn-primary" />
+						<button name="to_repair" string="Réparer" type="object"
+							attrs="{'invisible': ['|',('repair_mode', '=', 'not_guarantee'),('state', '!=', 'repair')]}" class="btn-primary" groups="spc_sav_aziza.group_responsable_sav" />
+						<button name="to_repair" string="Réparer" type="object"
+							states="validated" class="btn-primary" groups="spc_sav_aziza.group_responsable_sav" />
+						<button name="to_print" string="Imprimer" type="object"
+							states="new,back,exchanged" class="btn-primary" />
+						
+						<button name="action_confirm" string="Confirmer" type="object"
+							attrs="{'invisible': ['|',('repair_mode', '!=', 'not_guarantee'),('state', '!=', 'repair')]}" class="btn-primary oe_read_only" groups="spc_sav_aziza.group_responsable_sav" />
+						<button name="action_validate" string="Valider" type="object" states="waiting" />
+						<button name="action_refuse" string="Refuser" type="object" states="waiting" />
+						<button name="back_money" string="Avoir" type="object" attrs="{'invisible': ['|','|',('repair_mode', '=', 'not_guarantee'),('state', '!=', 'repair'),('type','=','reclamation_interne')]}" class="btn-primary oe_read_only" groups="spc_sav_aziza.group_responsable_sav"/>
+						<button name="exchange_product" string="Echange" type="object" attrs="{'invisible': ['|','|',('repair_mode', '=', 'not_guarantee'),('state', '!=', 'repair'),('type','=','reclamation_interne')]}" class="btn-primary oe_read_only" groups="spc_sav_aziza.group_responsable_sav"/>
+						<button name="close_cycle" string="Clôturer" type="object" attrs="{'invisible': ['&amp;','|',('state', '=', 'done4'),('is_receive', '=', False),'|',('is_back', '=', False),('is_exchanged', '=', False)]}" class="btn-primary oe_read_only" groups="spc_sav_aziza.group_responsable_sav,spc_sav_aziza.group_reglement_financier"/>
+						<button name="back_stock_sav" string="Retour stock SAV" type="object" attrs="{'invisible': ['|','|',('repair_mode', '=', 'not_guarantee'),('state', '!=', 'repair'),('type','!=','reclamation_interne')]}" class="btn-primary oe_read_only" groups="spc_sav_aziza.group_responsable_sav" />
+						<button name="%(spc_sav_aziza.modif_article_wizard_action)d" string="Modifier l'article" type="action" states="road,done2,repair,done3,done4,back,exchanged" class="oe_read_only" groups="spc_sav_aziza.group_responsable_sav"/>
+ 						<button name="action_receive" string="Réceptionner" type="object" class="btn-primary" attrs="{'invisible': ['|',('is_receive', '=', True),('state', 'not in', ['back','exchanged','done3'])]} " groups="spc_oscar_aziza.group_reponsable_magasin"/>
+						<field name="state" widget="statusbar" statusbar_visible="new,done2,repair,done3" />
+					</header>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button class="oe_stat_button" type="action"
+								name="%(action_envelope_by_claim)d"
+								icon="fa-envelope" attrs="{'invisible': [('envelope_count', '=', 0)]}" help="Enveloppes">
+								<field string="Enveloppe(s)" name="envelope_count" widget="statinfo"/>
+							</button>
+						</div>
+						<field name="is_fixed" invisible="1" />
+						<field name="is_refused" invisible="1" />
+						<field name="is_exchanged" invisible="1" />
+						<field name="is_back" invisible="1" />
+						<field name="is_receive" invisible="1" />
+						<field name="check_date" invisible="1"/>
+						<field name="is_back_stock_sav" invisible="1" />
+
+						<div class="badge-pill badge-info float-right" attrs="{'invisible': [('is_receive', '!=', True)]} "> Réceptionné par le client</div>
+						<div class="badge-pill badge-dark float-right" attrs="{'invisible': [('is_back', '=', False)]}">Avoir
+						</div>
+						<div class="badge-pill badge-warning float-right" attrs="{'invisible': [('is_exchanged', '=', False)]}">Echange
+						</div>
+						<div class="badge-pill badge-success float-right" attrs="{'invisible': [('is_fixed', '=', False)]}">Réparée
+						</div>
+						<div class="badge-pill badge-danger float-right" attrs="{'invisible': [('is_refused', '=', False)]}">Refusée
+						</div>
+						<div class="badge-pill badge-info float-right" attrs="{'invisible': [('is_back_stock_sav', '=', False)]}">Retour Stock SAV
+						</div>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" string="N° Réclamation" />
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="type" attrs="{'required':[('type','!=',True)]}"/>
+								<field name="customer_id" attrs="{'invisible':[('type', '!=', 'reclamation_client')],'required':[('type', '=', 'reclamation_client')]}" context="{'default_customer': True}"/>
+								<field name="phone" attrs="{'invisible':[('type', '!=', 'reclamation_client')],'required':[('type', '=', 'reclamation_client')],'readonly':[('state', '!=', 'new')]}" />
+								<field name="number_gold" attrs="{'invisible':[('type', '!=', 'reclamation_interne')],'required':[('type', '=', 'reclamation_interne')]}"/>
+								<field name="number_avoir" attrs="{'invisible':['|',('state','not in',['done3','back','done4']),('is_exchanged', '=', True)],'required':[('state', '=', 'back')],'readonly':[('is_receive', '=', True)]}"/>
+							</group>
+							<group>
+								<field name="date_claim" />
+								<field name="magasin_id" readonly="1" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="origin_site_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="date_purchase" attrs="{'invisible':[('type', '!=', 'reclamation_client')],'required':[('type', '=', 'reclamation_client')]}"/>
+								<field name="product_id" attrs="{'required':[('state', '!=', 'done4')]}" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="product_supplier_ids" invisible="1"/>
+								<field name="supplier_id" attrs="{'readonly':[('state', '=', 'done4')]}" domain="[('id','in',product_supplier_ids)]" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+								<field name="code" />
+							 	<field name="barcode" />
+								<field name="categ_id" invisible="1"/>
+							</group>
+							<group>
+								<field name="has_guarantee" attrs="{'invisible':[('type', '!=', 'reclamation_client')]}"/>
+								<field name="has_accessories" attrs="{'invisible':[('type', '!=', 'reclamation_client')]}"/>
+								<field name="has_receipt" attrs="{'invisible':[('type', '!=', 'reclamation_client')]}"/>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="domain_problem_ids" invisible="1"/>
+								<field name="problem_id" attrs="{'invisible': [('other', '!=', False)], 'required': [('other', '=', False)]}"
+								domain="[('id','in',domain_problem_ids)]"/>
+								<field name="other" />
+								<field name="panne"
+									attrs="{'invisible': [('other', '=', False)]}" />
+								<field name="user_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" groups="spc_sav_aziza.group_responsable_sav" />
+							</group>
+							<group attrs="{'invisible': [('is_back', '=', False)]}" string="Finance" >
+								<field name="currency_id" invisible="1" />
+								<field name="montant" attrs="{'required': [('is_receive', '=', True),('is_back', '=', True)]}"/>
+								<field name="code_remboursement" attrs="{'required': [('is_receive', '=', True),('is_back', '=', True)]}"/>
+							</group>
+						</group>
+						<notebook colspan="4">
+							<page string="Panne &amp; Réparation" name="reparation" autofocus="True"
+								attrs="{'invisible': [('state', 'in', ['new','road','done1','done2'])]}">
+								<group>
+									<group string="Commentaire du Réparateur">
+										<field name="repair_note" nolabel="1" />
+									</group>
+									<group>
+										<field name="repair_mode" widget="radio" />
+									</group>
+								</group>
+							</page>
+							<page string="Notes internes">
+								<field name="comment" placeholder="Notes complémentaires..." />
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"
+							groups="base.group_user" />
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Reclamation tree view -->
+		<record model="ir.ui.view" id="sav_claim_view_tree">
+			<field name="name">oscar.sav.claim.view.tree</field>
+			<field name="model">oscar.sav.claim</field>
+			<field name="arch" type="xml">
+				<tree  decoration-info="state == 'new'" decoration-bf="message_needaction == True" decoration-danger="check_date!=False">
+					<field name="name" />
+					<field name="date_claim" />
+					<field name="product_id" />
+					<field name="customer_id" />
+					<field name="magasin_id" />
+					<field name="user_id" />
+					<field name="type"/>
+					<field name="state" widget="colored_state" options="{'new': { 'class': 'badge-info', 'name': 'Nouvelle' },
+          													'road': { 'class': 'badge-light', 'name': 'En route vers SAV' },
+          													'done1': { 'class': 'badge-primary', 'name': 'Reçue à l\'entrepôt' },
+          													'done2': { 'class': 'badge-primary', 'name': 'Reçue au Siège (SAV)' },
+          													'repair': { 'class': 'badge-info', 'name': 'En réparation' },
+          													'waiting': { 'class': 'badge-warning', 'name': 'En attente la validation RM' },
+          													'validated': { 'class': 'badge-info', 'name': 'Validée par Magasin' },
+          													'fixed': { 'class': 'badge-success', 'name': 'Réparée' },
+															'refuse': { 'class': 'badge-danger', 'name': 'Refusée' },
+															'road1': { 'class': 'badge-light', 'name': 'En route vers magasin' },
+															'done01': { 'class': 'badge-primary', 'name': 'Reçue à l\'Entrepôt' },
+															'back': { 'class': 'badge-dark', 'name': 'Avoir' },
+															'exchanged': { 'class': 'badge-warning', 'name': 'Echange' },
+															'done3': { 'class': 'badge-primary', 'name': 'Reçue au Magasin' },
+															'done4': { 'class': 'badge-success', 'name': 'Clôturée' }}"/>
+					<field name="message_needaction" invisible="1" />
+					<field name="check_date"  invisible="1"/>
+				</tree>
+			</field>
+		</record>
+<!--  
+		<record id="sav_claim_sent_to_supplier_action_server" model="ir.actions.server">
+			<field name="name">Envoyer vers Fournisseur</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="model_oscar_sav_claim" />
+			<field name="state">code</field>
+			<field name="code">
+				if records:
+				action = records.sent_to_supplier()
+			</field>
+		</record>
+
+		<record id="action_sav_claim_sent_to_supplier" model="ir.values">
+			<field name="name">Envoyer vers Fournisseur</field>
+			<field name="model_id" ref="model_oscar_sav_claim" />
+			<field name="model">oscar.sav.claim</field>
+			<field name="key2">client_action_multi</field>
+			<field
+				eval="'ir.actions.server,%d'%sav_claim_sent_to_supplier_action_server"
+				name="value" />
+		</record>
+-->
+
+		<!-- actions liste des tous Reclamations -->
+		<record model="ir.actions.act_window" id="action_all_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'search_default_new_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Créer une nouvelle Réclamation.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+
+		<!-- actions Reclamations en route -->
+		<record model="ir.actions.act_window" id="action_road_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations en route</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_road_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+
+		<!-- actions Reclamations recues au siege -->
+		<record model="ir.actions.act_window" id="action_done_claims_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations reçues au Siège</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state', '=', 'done2')]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+
+		<!-- actions Reclamations recue -->
+		<record model="ir.actions.act_window" id="action_done_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations reçues</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_done_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions Reclamations en réparation -->
+		<record model="ir.actions.act_window" id="action_repair_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations en réparation</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_repair_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions Reclamations en attente la validation RM -->
+		<record model="ir.actions.act_window" id="action_waiting_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations en attente la validation RM</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_waiting_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions Reclamations validée par Magasin -->
+		<record model="ir.actions.act_window" id="action_validated_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations validées par Magasin</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_validated_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions Avoirs -->
+		<record model="ir.actions.act_window" id="action_avoir_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Avoirs</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_back_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+
+		<!-- action : Avoirs validés par RM -->
+		<record model="ir.actions.act_window" id="action_avoir_rm_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Avoirs validés par RM</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('is_receive','=',True),('is_back','=',True),('state','=','back')]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Avoirs validés par RM.
+				</p>
+			</field>
+		</record>
+
+		<!-- actions Echange -->
+		<record model="ir.actions.act_window" id="action_echange_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Échanges</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_exchange_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions Avoirs clotures -->
+		<record model="ir.actions.act_window" id="action_avoir_clo_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Avoirs clôturés</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'edit': False,
+				'search_default_back_clo_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions Echange clotures -->
+		<record model="ir.actions.act_window" id="action_echange_clo_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Échanges Clôturés</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'edit': False,
+				'search_default_exchange_clo_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+
+		<!-- actions Reclamations réparées -->
+		<record model="ir.actions.act_window" id="action_fixed_claims">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Réclamations réparées</field>
+			<field name="res_model">oscar.sav.claim</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{
+				'create': False,
+				'delete': False,
+				'search_default_fixed_claim': 1,
+				}
+			</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune réclamation trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Réclamations.
+				</p>
+			</field>
+		</record>
+
+		
+		<!-- menu New Claim -->
+		<menuitem name="Réclamations" id="menu_sav_claim" parent="menu_sav_sav"
+			action="action_all_claims" sequence="10" />
+
+		<!-- menu Claim in road -->
+		<menuitem name="Réclamations en route" id="menu_sav_claim_inroad"
+			parent="menu_sav_sav" action="action_road_claims" sequence="20" />
+
+		<!-- menu Claim received in the siege -->
+		<menuitem name="Réclamations reçues au Siège" id="menu_sav_claim_done_siege"
+			parent="menu_sav_sav" action="action_done_claims_siege" groups="spc_sav_aziza.group_responsable_sav"
+			sequence="25" />
+
+		<!-- menu Claim received -->
+		<menuitem name="Réclamations reçues" id="menu_sav_claim_done"
+			parent="menu_sav_sav" action="action_done_claims" sequence="30" />
+
+		<!-- menu Claim repair -->
+		<menuitem name="Réclamations en réparation" id="menu_sav_claim_repair"
+			parent="menu_sav_sav" action="action_repair_claims" sequence="40" />
+		
+		<!-- menu Claim waiting -->
+		<menuitem name="Réclamations en attente la validation RM" id="menu_sav_claim_waiting"
+			parent="menu_sav_sav" action="action_waiting_claims" sequence="43" />
+		
+		<!-- menu Claim waiting -->
+		<menuitem name="Réclamations validées par Magasin" id="menu_sav_claim_validated"
+			parent="menu_sav_sav" action="action_validated_claims" sequence="46" />
+		
+		<!-- menu Claim fixed -->
+		<menuitem name="Réclamations réparées" id="menu_sav_claim_fixed"
+			parent="menu_sav_sav" action="action_fixed_claims" sequence="50" />
+		
+		<!-- menu Echanges -->
+		<menuitem name="Échanges validés par SAV" id="menu_sav_claim_echange"
+			parent="menu_sav_exchange" action="action_echange_claims" sequence="10" />
+		
+		<!-- menu Echanges cloturé-->
+		<menuitem name="Échanges clôturés" id="menu_sav_claim_echange_clo"
+			parent="menu_sav_exchange" action="action_echange_clo_claims" sequence="20" />
+		
+		<!-- menu Avoirs -->
+		<menuitem name="Avoirs validés par SAV" id="menu_sav_claim_avoir"
+			parent="menu_sav_avoir" action="action_avoir_claims" sequence="10" />
+		
+		<!-- menu Avoirs -->
+		<menuitem name="Avoirs clôturés" id="menu_sav_claim_avoir_clo"
+			parent="menu_sav_avoir" action="action_avoir_clo_claims" sequence="20" />
+
+		<!-- menu Avoirs validés par RM -->
+		<menuitem name="Avoirs validés par RM" id="menu_rm_claim_avoir"
+			parent="menu_sav_avoir" action="action_avoir_rm_claims" sequence="15" />
+
+	</data>
+</odoo>

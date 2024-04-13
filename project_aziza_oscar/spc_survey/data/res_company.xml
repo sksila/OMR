@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="base.main_company" model="res.company">
+            <field name="name">AZIZA • عزيزة</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="currency_id" ref="base.TND"/>
+        </record>
+
+        <record id="base.main_partner" model="res.partner">
+            <field name="name">AZIZA • عزيزة</field>
+            <field name="country_id" ref="base.tn"/>
+            <field name="street">Municipalité de Ben Arous, Avenue de la République, Tunis 2013</field>
+<!--            <field name="image" type="base64" file="module_name/static/src/img/logo.png"/>-->
+			<field name="phone">71 381 503</field>
+			<field name="website">https://www.aziza.tn/</field>
+        </record>
+
+    </data>
+</odoo>

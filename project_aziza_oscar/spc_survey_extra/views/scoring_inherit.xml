@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+
+    <record id="scoring_survey_label_rows_tree" model="ir.ui.view">
+        <field name="name">survey.label.scoring.rows.tree</field>
+        <field name="model">survey.label</field>
+        <field name="arch" type="xml">
+            <tree string="Rows">
+                <field name="value"/>
+                <field name="label" />
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="scoring_form_extra_inherit" model="ir.ui.view">
+        <field name="model">spc_survey.scoring</field>
+        <field name="inherit_id" ref="spc_survey.scoring_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="before">
+                <group string="Scale">
+                    <field name="scale_ids" nolabel="1">
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="min" />
+                                    <field name="max" />
+                                </group>
+                                <group>
+                                    <field name="score" />
+                                    <field name="formula" />
+                                    <field name="symbol" />
+                                </group>
+                            </group>
+                        </form>
+                        <tree editable="bottom">
+                            <field name="min" />
+                            <field name="max" />
+                            <field name="score" />
+                            <field name="formula" />
+                            <field name="symbol" />
+                            <field name="scoring_id" invisible="1" />
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+
+            <field name="criteria_name" position="before">
+                <field name="criteria_type_id" options="{'no_create': True, 'no_create_edit':True}" required="1"/>
+            </field>
+
+            <field name="operation" position="after">
+                <field name="is_scale" />
+                <field name="survey_id" invisible="1"/>
+                <field name="page_id" invisible="1"/>
+                <field name="code" invisible="1" />
+                <button type="action" name="%(spc_survey_extra.scoring_syntax_wizard_action)d"
+                                            string="Syntax" class="oe_edit_only" attrs="{'invisible': [('operation','!=','syntax')]}"
+                                            context="{'questions':question_ids, 'columns':column_ids,'default_scoring_criteria_id': id,
+                                            'scoring':scoring_id,'default_survey_id':survey_id, 'default_page_id':page_id, 'default_code':code}"
+									         />
+
+            </field>
+
+            <field name="column_ids" position="after">
+                <field name="row_ids" widget="many2many_tags" domain="[('id','in',domain_rows_ids)]" options="{'no_create': True, 'no_create_edit':True}" context="{'tree_view_ref':'spc_survey_extra.scoring_survey_label_rows_tree'}" />
+                <field name="domain_rows_ids" invisible="1" />
+            </field>
+
+            <xpath expr="//field[@name='scoring_criteria_ids']//form//group//group//field[@name='column_ids']" position="after">
+                <field name="row_ids" widget="many2many_tags" />
+            </xpath>
+
+
+
+        </field>
+    </record>
+
+</odoo>

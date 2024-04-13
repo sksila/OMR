@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<!--categories view-->
+    <record id="ha_view_dispatching_category_form" model="ir.ui.view">
+        <field name="name">product.category.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet//group[@name='first']" position="after">
+                  <group>
+                      <field name="dlv_dlc_required"/>
+                  </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ha_view_dispatch_category_tree" model="ir.ui.view">
+        <field name="name">product.category.tree</field>
+        <field name="model">product.category</field>
+        <field eval="8" name="priority"/>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='display_name']" position="after">
+                <field name="name"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="action_dispatch_category_form"
+            model="ir.actions.act_window">
+        <field name="name">Dispatch Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('parent_id','!=',False)]</field>
+
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a dispatch.
+            </p>
+            <p>
+                Odoo helps you easily to manage your dispatch Category
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="ha_menu_root_dispatch_category"
+              name="Configuration" parent="ha_menu_dispatch_root" sequence="10"
+              groups="spc_oscar_aziza.group_admin_oscar"/>
+
+    <menuitem id="ha_menu_dispatch_category"
+              name="Catégorie" action="action_dispatch_category_form"
+              parent="ha_menu_root_dispatch_category" sequence="5"/>
+
+<!--	sous categories view-->
+	<record id="action_dispatch_sub_category_form" model="ir.actions.act_window">
+        <field name="name">Dispatch Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('parent_id','=',False)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a dispatch.
+            </p>
+            <p>
+                Odoo helps you easily to manage your dispatch Category
+            </p>
+        </field>
+    </record>
+
+	<menuitem id="ha_menu_dispatch_sub_category"
+              name="Famille"
+              action="action_dispatch_sub_category_form"
+              parent="ha_menu_root_dispatch_category" sequence="10"/>
+
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_confirmation_qty_dispached_exploitation_view" model="ir.ui.view">
+        <field name="name">wizard.qty_dispached.exploitation.form</field>
+        <field name="model">oscar.dispatch</field>
+        <field name="arch" type="xml">
+            <form string="Wizard Demo">
+                <p>Êtes-vous sûr que la quantité dispatchée de produit est égale à zéro?</p>
+<!--                <field name="text" readonly="True"/>-->
+
+                <footer>
+                    <button name="button_verification_2" string="Oui" type="object" class="oe_highlight"/>
+
+                    ou
+                    <button string="Non" class="oe_link" special="cancel"/>
+                    ou
+                    <button string="Fermer" class="oe_link" special="cancel"/>
+
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_confirmation_qty_relle_livre_appro_view" model="ir.ui.view">
+        <field name="name">wizard.qty_relle_livre_appro.form</field>
+        <field name="model">oscar.dispatch</field>
+        <field name="arch" type="xml">
+            <form string="Wizard Demo">
+                <p>Êtes-vous sûr que la quantité réellement livrée de produit est égale à zéro?</p>
+
+                <footer>
+                    <button name="button_done" string="Oui" type="object" class="oe_highlight"/>
+
+                    ou
+                    <button string="Non" class="oe_link" special="cancel"/>
+                    <button string="Fermer" class="oe_link" special="cancel"/>
+
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

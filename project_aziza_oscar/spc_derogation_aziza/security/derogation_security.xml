@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<odoo>
+	<!--   access rules-->
+	<record id="derogation_line_rule_resp_mg" model="ir.rule">
+			<field name="name">Le magasin et la quantité de produit pour le Responsable Magasin</field>
+			<field name="model_id" ref="model_derogation_derogation_line" />
+			<field name="domain_force">[('responsable_magasin_id','=',user.id)]</field>
+			<field name="groups"
+				eval="[(4,ref('spc_oscar_aziza.group_reponsable_magasin'))]" />
+	</record>
+		<record id="derogation_line_rule_resp_admin" model="ir.rule">
+			<field name="name">Le magasin et la quantité de produit pour le Responsable Magasin</field>
+			<field name="model_id" ref="model_derogation_derogation_line" />
+			<field name="domain_force">[(1,'=',1)]</field>
+			<field name="groups"
+				eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]" />
+	</record>
+	<record id="derogation_rule_admin" model="ir.rule">
+		<field name="name">l'admin peut voir toutes les demandes de dérogation</field>
+		<field name="model_id" ref="model_derogation_derogation" />
+		<field name="domain_force">[(1,'=',1)]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]"/>
+	</record>
+
+	<record id="derogation_rule_approvisionneur" model="ir.rule">
+			<field name="name">Seulement l'Approvisionneur peut voir ses demandes</field>
+			<field name="model_id" ref="model_derogation_derogation" />
+			<field name="domain_force">[('requested_by','=',user.id)]</field>
+			<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_approvisioneur_aziza'))]"/>
+	</record>
+
+<!--	<record id="derogation_rule_quality" model="ir.rule">-->
+<!--			<field name="name">Demandes de dérogation Qualité</field>-->
+<!--			<field name="model_id" ref="model_derogation_derogation" />-->
+<!--			<field name="domain_force">[('requested_by','=',user.id)]</field>-->
+<!--			<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_quality_product_aziza'))]"/>-->
+<!--	</record>-->
+
+
+	<record id="spc_article_admin_oscar_derog" model="ir.rule">
+			<field name="name">Admin Oscar peut voir tous les articles</field>
+			<field name="model_id" ref="product.model_product_template" />
+			<field name="domain_force">[(1,'=',1)]</field>
+			<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]" />
+	</record>
+
+	<record id="spc_article_appro_rule_derog" model="ir.rule">
+			<field name="name">Les articles pour l'approvisonneur dérogation</field>
+			<field name="model_id" ref="product.model_product_template" />
+			<field name="domain_force">[('approvisionneur_ids','in',[user.id])]</field>
+			<field name="groups"
+				eval="[(4,ref('spc_oscar_aziza.group_approvisioneur_aziza')),
+						(4,ref('spc_oscar_aziza.group_direction_approvisionnement'))]" />
+	</record>
+</odoo>

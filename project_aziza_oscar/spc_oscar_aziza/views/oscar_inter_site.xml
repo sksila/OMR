@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- view filter site-->
+    <record id="view_inter_site_filter" model="ir.ui.view">
+        <field name="name">inter.site.search.view</field>
+        <field name="model">oscar.inter.site</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des sites">
+                <field name="code_site"/>
+                <field name="site_lib"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Site form view  -->
+    <record model="ir.ui.view" id="oscar_gold_site_view_form">
+        <field name="name">oscar.inter.site.view.form</field>
+        <field name="model">oscar.inter.site</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="planned_gold_integration_sites" string="Exécuter Manuellement" type="object"
+                            class="btn-primary"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="code_site"/>
+                        <field name="site_lib"/>
+                        <field name="site_type"/>
+                    </group>
+                    <group>
+                        <field name="date_ouverture"/>
+                        <field name="adresse"/>
+                        <field name="region"/>
+                        <field name="zone"/>
+                        <field name="actif"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Site tree view  -->
+    <record model="ir.ui.view" id="oscar_gold_site_view_tree">
+        <field name="name">oscar.inter.site.view.tree</field>
+        <field name="model">oscar.inter.site</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code_site"/>
+                <field name="site_lib"/>
+                <field name="site_type"/>
+                <field name="date_ouverture"/>
+                <field name="adresse"/>
+                <field name="region"/>
+                <field name="zone"/>
+                <field name="actif"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de sites (GOLD) -->
+    <record model="ir.actions.act_window" id="action_oscar_site_gold">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Liste des sites</field>
+        <field name="res_model">oscar.inter.site</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'create': True,
+            }
+        </field>
+    </record>
+
+    <!-- menu Sites (Gold) -->
+    <menuitem id="menu_oscar_site_gold"
+              name="Sites"
+              action="action_oscar_site_gold"
+              parent="menu_gold_view"
+              sequence="20"/>
+</odoo>

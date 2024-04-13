@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="refuse_litige_wizard_form" model="ir.ui.view">
+        <field name="name">refuse.litige.wizard.form</field>
+        <field name="model">refuse.litige.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Refuser litige">
+                <div class="oe_title">
+                    <label for="name"/>
+                    <h1>
+                        <field name="name" readonly="1"
+                               options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="litige_line_id" invisible="1"/>
+                        <field name="state" invisible="1"/>
+                        <field name="other" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="litige" widget="monetary"/>
+                        <field name="motif_id" attrs="{'invisible': [('details', '!=', False)],'required': [('details', '=', False)]}"/>
+                        <field name="comment"
+                               attrs="{'invisible': ['|',('other', '=', False),('details', '!=', False)],'required': [('other', '!=', False)]}"/>
+                        <field name="details" attrs="{'invisible':[('state','not in',['invalidate'])]}"/>
+                    </group>
+                    <group string="Écart à corriger" class="text-danger"
+                           attrs="{'invisible':[('state','not in',['dismissed'])]}">
+                        <field name="est_ecart"/>
+                        <field name="corrected_amount" widget="monetary"
+                               attrs="{'invisible':[('est_ecart','=',False)]}"/>
+                    </group>
+                </group>
+                <group attrs="{'invisible':[('details','=', False)]}">
+                    <field name="litige_wizard_line_ids" nolabel="1" context="{'moyen_paiement_id': name}">
+                        <tree editable="bottom">
+                            <field name="name" domain="[('id', '=', context.get('moyen_paiement_id'))]"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="montant"/>
+                            <field name="motif_id" required="1"/>
+                            <field name="other" invisible="1"/>
+                            <field name="comment"
+                                   attrs="{'invisible': [('other', '=', False)],'required': [('other', '!=', False)]}"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button string="Valider" name="validate_litige"
+                            type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="refuse_litige_wizard_action" model="ir.actions.act_window">
+        <field name="name">Veuillez saisir le motif de litige !</field>
+        <field name="res_model">refuse.litige.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="refuse_litige_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

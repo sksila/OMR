@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+
+		<record id="sav_cmis_claim_view_form" model="ir.ui.view">
+			<field name="name">sav.cmis.claim.view.form</field>
+			<field name="model">oscar.sav.claim</field>
+			<field name="inherit_id" ref="spc_sav_aziza.sav_claim_view_form" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+	                <page string="Pièces jointes" groups="base.group_user">
+						<field name="cmis_folder" />
+					</page>
+	            </notebook>
+			</field>
+		</record>
+
+	</data>
+</odoo>

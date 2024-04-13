@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<odoo>
+        <!--contenu d'enveloppe form -->
+		<record model="ir.ui.view" id="envelope_content_view_form">
+			<field name="name">oscar.envelope.content.view.form</field>
+			<field name="model">oscar.envelope.content</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button name="toggle_active" type="object"
+								class="oe_stat_button" icon="fa-check-square-o">
+								<field name="active" widget="boolean_button"
+									options="{&quot;terminology&quot;: &quot;Désactiver&quot;}" />
+							</button>
+						</div>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only"/>
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code" />
+								<field name="parent_id" options="{'no_create': True, 'no_create_edit': True}" />
+							</group>
+							<group>
+								<field name="has_reference" />
+								<field name="isolated" />
+								<field name="two_way_flow" />
+							</group>
+						</group>
+						<group>
+							<group string="Aller">
+								<field name="type_go_site" widget="radio" />
+								<field name="site_id" options="{'no_create': True, 'no_create_edit': True}" />
+							</group>
+							<group string="Retour" attrs="{'invisible': [('two_way_flow', '=', False)]}" >
+								<field name="type_return_site" widget="radio" />
+								<field name="return_site_id" options="{'no_create': True, 'no_create_edit': True}" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--contenu d'enveloppe List -->
+		<record model="ir.ui.view" id="envelope_content_view_tree">
+			<field name="name">oscar.envelope.content.view.tree</field>
+			<field name="model">oscar.envelope.content</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="complete_name" />
+					<field name="site_id" />
+					<field name="has_reference" />
+				</tree>
+			</field>
+		</record>
+
+		<!--contenu d'enveloppe Action menu -->
+		<record model="ir.actions.act_window"
+			id="action_envelope_content_menu">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Liste des sites</field>
+			<field name="res_model">oscar.envelope.content</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!--contenu d'enveloppe Menu -->
+
+		<menuitem id="menu_content_menu" name="Contenu d'enveloppe"
+				  action="action_envelope_content_menu"
+				  parent="spc_transfer_aziza.menu_transfer_config"
+				  groups="spc_oscar_aziza.group_admin_oscar"
+				  sequence="70" />
+</odoo>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="print_template_pages_only_anomalies_maq">
+            <t t-call="web.html_container">
+                <style>
+                        * { font-family:'Comic Sans MS', cursive, sans-serif; }
+                        table tbody tr th {position: sticky; left: 0; background-color:#F9F9F9;}
+                </style>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <t t-set="ordred_surveys_responses" t-value="env['survey.user_input'].search([('survey_session_info_id','=',o.id)], order='create_date')" />
+                            <t t-foreach="ordred_surveys_responses" t-as="surv">
+                                <div style="page-break-after: always;">
+                                    <p class="h2" style="text-align:center;color:#fff;background-color:#e2101a">
+                                        <span t-field="surv.survey_id.title" /> ~ <span t-field="surv.create_date" />
+                                    </p>
+                                    <div style="width: 100%; text-align: center;">
+                                        <div style="display: inline-block;">
+                                            <div style="float:left;">
+                                                <strong>Auditeur :  </strong>
+                                                <span t-if="surv.survey_session_info_id.auditor_id" t-field="surv.survey_session_info_id.auditor_id.name" />
+                                            </div>
+                                            <div style="float:left; margin-left:8px;">
+                                                <strong> | </strong>
+                                            </div>
+                                            <div style="float:left; margin-left:8px;">
+                                                <strong>Magasin  :  </strong>
+                                                <span t-if="surv.survey_session_info_id.site_id" t-field="surv.survey_session_info_id.site_id.name" />
+                                            </div>
+                                            <div style="clear:both; font-size:1px;"></div>
+                                        </div>
+                                    </div>
+                                    <hr style="height: 12px;border: 0;box-shadow: inset 0 12px 12px -12px rgba(226, 16, 26, 1);"/>
+                                    <br /> <br/>
+                                    <div t-foreach="surv.survey_id.page_ids" t-as="page">
+                                        <t t-set="page_counter" t-value="1" />
+                                        <p class="h3" style="text-align:center;color:#fff;background-color:#e2101a; font-family:'Comic Sans MS', cursive, sans-serif;" t-field='page.title' />
+                                        <br/>
+                                        <div t-foreach="page.question_ids" t-as="question">
+                                            <t t-set="check_anomaly_question" t-value="question.check_anomaly_question(surv,o,question)" />
+                                            <div t-att-style="check_anomaly_question">
+                                                <p class="h5 border border-dark" style="color:#000;background-color:#E3E7F1;padding:8px;" t-field='question.question' />
+                                                <div style="margin-top:12px;"> </div>
+                                                <t t-if="question.type == 'advanced_matrix'">
+                                                    <t t-set="nbre_cols" t-value="len(question.labels_adv_matrix_cols_ids)" />
+                                                    <t t-set="nbre_rows" t-value="len(question.labels_adv_matrix_rows_ids)" />
+                                                    <t t-set="prefix" t-value="'%s_%s_%s' % (surv.survey_id.id, page.id, question.id)" />
+                                                    <table class="table table-condensed" style="width: 100%; border: 1px solid #000;">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th> </th>
+                                                                <th t-foreach="question.labels_adv_matrix_cols_ids" t-as="col" class="align-middle" style="text-align:left">
+                                                                    <span><span t-field="col.value" /></span>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="tbody">
+                                                            <t t-foreach="question.labels_adv_matrix_rows_ids" t-as="row_label">
+                                                                <t t-set="check_anomaly_row" t-value="question.check_anomaly_row(surv,o,question,row_label)" />
+                                                                <tr t-att-style="'background-color:#F9F9F9;' + check_anomaly_row">
+                                                                    <th style="text-align:left"> <span t-field="row_label.value" style="text-align: justify;" /> </th>
+                                                                    <td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+                                                                        <t t-set="prefix" t-value="'%s_%s_%s' % (prefix, row_label.id, col_label.id)" />
+                                                                        <t t-set="content" t-value="question.get_value(surv.user_input_line_ids,prefix,surv.id)" />
+                                                                        <t t-if="content">
+                                                                            <t t-if="col_label.col_type_resp == 'cam'">
+                                                                                <img t-att-src="content" alt="capture" style="height:200px;width=200px" />
+                                                                            </t>
+                                                                            <t t-if="col_label.col_type_resp == 'attachment'">
+                                                                                <ul class="list-group" t-foreach="content" t-as="attach">
+                                                                                    <li class="list-group-item">
+                                                                                        <t t-esc="attach[0]"/> : <a t-att-href="'/web/content/' + attach[1] + '?download=true'">[Voir]</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <span t-esc="content"/>
+                                                                            </t>
+                                                                        </t>
+                                                                        <t t-set="prefix" t-value="'%s_%s_%s' % (surv.survey_id.id, page.id, question.id)" />
+                                                                        <t t-set="content" t-value="" />
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                </t>
+                                            </div>
+                                        </div>
+                                        <div t-if="len(surv.survey_id.page_ids) != page_counter" style="page-break-after: always;"/>
+                                        <t t-set="page_counter" t-value="page_counter+1" />
+                                    </div>
+                                    <br/>
+<!--                                    <table class="table table-condensed" style="width: 100%;font-weight:bold;border: 1px solid #000; ">-->
+<!--                                        <tr t-foreach="surv.criteria_ids" t-as="criteria" class="text-center">-->
+<!--                                            <t t-if="not criteria.score_text">-->
+<!--                                                <td style="background-color:#e2101a;color:#fff" class="align-middle" colspan="2"><span t-field="criteria.name"/></td>-->
+<!--                                            </t>-->
+<!--                                            <t t-else="">-->
+<!--                                                <td> <span t-field="criteria.name" />  </td>-->
+<!--                                                <td> <span t-field="criteria.score_text" /> </td>-->
+<!--                                            </t>-->
+<!--                                        </tr>-->
+<!--                                    </table>-->
+<!--                                    <p class="h2" style="padding:12px; text-align:center;color:black;background-color:rgba(254,217,6,0.8);border: 1px solid #000;">-->
+<!--                                        <span> Score : <span t-if="surv.final_score" t-esc="int(surv.final_score)"  />  % </span>-->
+<!--                                    </p>-->
+
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+	    </template>
+
+
+        <template id="print_template_pages_only_anomalies_session_spc_survey">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page">
+						<!--<link rel="stylesheet" href="/audit_k/static/src/css/circle.css" />-->
+						<style>
+							* {font-family:'Comic Sans MS', cursive, sans-serif;}
+						</style>
+                        <br/>
+						<div style="width: 95%%; padding:4px; font-size:18px;color:black;border:3px solid #e2101a;margin:auto" >
+							<div style="float:left;">
+								<div> <span style="font-weight:bold;">Date De Visite : </span>  <span t-esc="str(o.create_date.date().strftime('%d/%m/%Y'))" /> </div>
+								<div> <span style="font-weight:bold;">Heure Début Audit : </span> <span t-if="o.opening_date" t-esc="str(o.opening_date.time().strftime('%H:%M'))" /> </div>
+								<div> <span style="font-weight:bold;">Heure Fin Audit : </span> <span t-if="o.closing_date" t-esc="str(o.closing_date.time().strftime('%H:%M'))" /> </div>
+								<div> <span style="font-weight:bold;">Rang : </span> <span t-if="o.rank" t-esc="o.rank" /> </div>
+							</div>
+							<div style="float:right;">
+								<div> <span style="font-weight:bold;">Nom du magasin : </span> <span t-if="o.site_id.name" t-field="o.site_id.name" /> </div>
+								<div> <span style="font-weight:bold;">Code magasin : </span> <span t-if="o.site_id.code" t-field="o.site_id.code" /> </div>
+								<div> <span style="font-weight:bold;">Responsable Magasin : </span> <span t-if="o.site_id.user_id" t-field="o.site_id.user_id.name" /> </div>
+								<div> <span style="font-weight:bold;">Dir-Régional : </span> <span t-if="o.site_id.dre_id" t-field="o.site_id.dre_id.name" /> </div>
+								<div> <span style="font-weight:bold;">Responsable Zone : </span> <span t-if="o.site_id.resp_zone_id" t-field="o.site_id.resp_zone_id.name" />  </div>
+<!--								<div> <span style="font-weight:bold;">Responsable Adjoint Magasin : </span> &lt;!&ndash;<span t-field="o.magasin_id.resp_adjoint_magasin_id" />&ndash;&gt; </div>-->
+
+							</div>
+							<div style="clear:both"></div>
+						</div>
+
+
+
+						<br/>
+						<t t-set="report_structures" t-value="env['spc_survey.report_structure'].search([('survey_session_id','=',o.survey_session_id.id)])" />
+						<t t-if="report_structures">
+							<t t-foreach="report_structures" t-as="structure">
+								<p class="h2" style="text-align:center;color:#fff;background-color:#e2101a">
+									<t t-esc="structure.name" />
+								</p>
+								<table class="table table-condensed" style="width: 100%; border: 1px solid #000;">
+									<t t-set="count_columns" t-value="0" />
+									<thead class="thead-dark">
+										<tr>
+											<th t-if="structure.line_title" class="align-middle" style="text-align:left"><t t-esc="structure.line_title" /></th>
+											<th t-if="structure.column1" class="align-middle" style="text-align:left"><t t-set="count_columns" t-value="count_columns+1" /><span><t t-esc="structure.column1" /></span></th>
+											<th t-if="structure.column2" class="align-middle" style="text-align:left"><t t-set="count_columns" t-value="count_columns+1" /><span><t t-esc="structure.column2" /></span></th>
+											<th t-if="structure.column3" class="align-middle" style="text-align:left"><t t-set="count_columns" t-value="count_columns+1" /><span><t t-esc="structure.column3" /></span></th>
+											<th t-if="structure.column4" class="align-middle" style="text-align:left"><t t-set="count_columns" t-value="count_columns+1" /><span><t t-esc="structure.column4" /></span></th>
+											<th t-if="structure.column5" class="align-middle" style="text-align:left"><t t-set="count_columns" t-value="count_columns+1" /><span><t t-esc="structure.column5" /></span></th>
+											<th t-if="structure.column6" class="align-middle" style="text-align:left"><t t-set="count_columns" t-value="count_columns+1" /><span><t t-esc="structure.column6" /></span></th>
+										</tr>
+									</thead>
+									<tbody class="tbody">
+										<tr t-foreach="structure.detail_ids" t-as="detail" style="background-color:#F9F9F9;">
+											<th style="text-align:left"><span><t t-esc="detail.column_title" /></span></th>
+											<td t-foreach="range(count_columns)" t-as="col">
+												<t t-if="col == 0">
+													<t t-set="result" t-value="o.session_scoring_line_scoring(detail.column1_id)" />
+													<t t-esc="result" />
+												</t>
+												<t t-if="col == 1">
+													<t t-set="result" t-value="o.session_scoring_line_scoring(detail.column2_id)" />
+													<t t-esc="result" />
+												</t>
+												<t t-if="col == 2">
+													<t t-set="result" t-value="o.session_scoring_line_scoring(detail.column3_id)" />
+													<t t-esc="result" />
+												</t>
+												<t t-if="col == 3">
+													<t t-set="result" t-value="o.session_scoring_line_scoring(detail.column4_id)" />
+													<t t-esc="result" />
+												</t>
+												<t t-if="col == 4">
+													<t t-set="result" t-value="o.session_scoring_line_scoring(detail.column5_id)" />
+													<t t-esc="result" />
+												</t>
+												<t t-if="col == 5">
+													<t t-set="result" t-value="o.session_scoring_line_scoring(detail.column6_id)" />
+													<t t-esc="result" />
+												</t>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</t>
+							<br/>
+							<hr style="height: 12px;border: 0;box-shadow: inset 0 12px 12px -12px rgba(226, 16, 26, 1);"/>
+							<br />
+							<t t-if="o.survey_session_id.session_final_score_title and o.survey_session_id.session_final_score_criteria">
+								<table class="table table-condensed" style="width: 100%; border: 1px solid #000;">
+									<tr style="color:black;background-color:rgba(254,217,6,0.8);">
+										<th> <t t-esc="o.survey_session_id.session_final_score_title" /></th>
+										<td> <t t-if="o.session_final_score" t-esc="int(o.session_final_score)"/> %</td>
+									</tr>
+								</table>
+							</t>
+						</t>
+					</div>
+				</t>
+			</t>
+		</t>
+        <br/>
+    	<t t-call="spc_survey.print_template_pages_only_anomalies_maq" />
+
+    </template>
+
+
+        <report
+                id="only_final_anomalies"
+                model="spc_survey.session.info"
+                string="Anomalies Report"
+                name="spc_survey.print_template_pages_only_anomalies_session_spc_survey"
+                file="spc_survey.print_template_pages_only_anomalies_session_spc_survey"
+                report_type="qweb-pdf"
+                print_report_name="'Rapport d\'anomalies %s du %s' % (object.site_id.name,str(object.closing_date.date().strftime('%d-%m-%Y')))"
+        />
+
+<!--        attachment_use="True"-->
+<!--        attachment="'Rapport d\'anomalies ' + object.survey_session_id.name + ' du magasin ' + object.site_id.name + ' du ' + str(object.closing_date.date().strftime('%d-%m-%Y')) + '.pdf'"-->
+<!--                -->
+
+    </data>
+</odoo>

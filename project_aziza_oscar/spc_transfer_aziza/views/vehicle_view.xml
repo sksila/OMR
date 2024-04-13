@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record id='fleet_vehicle_view_tree_customized_oscar' model='ir.ui.view'>
+		<field name="name">fleet.vehicle.customized_oscar.tree</field>
+		<field name="model">fleet.vehicle</field>
+		<field name="arch" type="xml">
+			<tree string="Vehicle">
+				<field name="active" invisible="1" />
+				<field name="license_plate" />
+				<field name="model_id" />
+				<field name="driver_id" />
+				<field name="log_drivers" invisible="1" />
+				<field name="state_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id='fleet_vehicle_view_form_customized_oscar' model='ir.ui.view'>
+		<field name="name">fleet.vehicle.customized_oscar.form</field>
+		<field name="model">fleet.vehicle</field>
+		<field name="arch" type="xml">
+			<form string="Vehicle">
+				<header>
+					<field name="state_id" widget="statusbar" options="{'clickable': '1'}" />
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="open_assignation_logs"
+							string="Drivers History" type="object" class="oe_stat_button"
+							icon="fa-history" />
+						<button name="toggle_active" type="object"
+							class="oe_stat_button" icon="fa-archive">
+							<field name="active" widget="boolean_button"
+								options='{"terminology": "archive"}' />
+						</button>
+					</div>
+					<field name="image_medium" widget='image' class="oe_avatar" />
+					<div class="oe_title">
+						<label for="model_id" class="oe_edit_only" />
+						<h1>
+							<field name="model_id" placeholder="e.g. Model S" />
+						</h1>
+						<label for="license_plate" class="oe_edit_only" />
+						<h2>
+							<field name="license_plate" class="oe_inline"
+								placeholder="e.g. PAE 326" />
+						</h2>
+						<label for="tag_ids" class="oe_edit_only" />
+						<field name="tag_ids" widget="many2many_tags"
+							options="{'color_field': 'color', 'no_create_edit': True}" />
+					</div>
+					<group col="2">
+						<group string="General Properties">
+							<field name="driver_id" />
+							<field name="location" />
+							<field name="model_year" />
+							<field name="company_id" groups="base.group_multi_company" />
+						</group>
+						<group string="Additional Properties">
+							<field name="seats" />
+							<field name="doors" />
+							<field name="color" />
+						</group>
+					</group>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers" />
+					<field name="activity_ids" widget="mail_activity" />
+					<field name="message_ids" widget="mail_thread"
+						options='{"thread_level": 1}' />
+				</div>
+			</form>
+		</field>
+	</record>
+
+
+	<record id='fleet_vehicle_action_customized_oscar'
+		model='ir.actions.act_window'>
+		<field name="name">Vehicles</field>
+		<field name="res_model">fleet.vehicle</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_ids"
+			eval="[(5, 0, 0),
+        		(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_vehicle_view_tree_customized_oscar')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('fleet_vehicle_view_form_customized_oscar')})]" />
+		<field name="context">{}</field>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">
+				Cliquez ici pour ajouter un nouveau Véhicule.
+			</p>
+			<p>
+				Oscar vous aide à gérer facilement vos Véhicules
+			</p>
+		</field>
+	</record>
+
+	<menuitem id="menu_action_fleet_vehicle_inherit"
+		name="Véhicules" parent="spc_oscar_aziza.menu_oscar_configuration"
+		action="fleet_vehicle_action_customized_oscar"
+		sequence="100" />
+
+	<!-- hide the top menu item Fleet -->
+	<record model="ir.ui.menu" id="fleet.menu_root">
+		<field name="groups_id" eval="[(6,0,[ref('spc_oscar_aziza.make_invisible')])]" />
+	</record>
+
+	<record id='action_fleet_vehicle_transfer'
+		model='ir.actions.act_window'>
+		<field name="name">Vehicles</field>
+		<field name="res_model">fleet.vehicle</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_ids"
+			eval="[(5, 0, 0),
+        		(0, 0, {'view_mode': 'tree', 'view_id': ref('fleet_vehicle_view_tree_customized_oscar')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('fleet_vehicle_view_form_customized_oscar')})]" />
+		<field name="context">{'delete':False}</field>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">
+				Cliquez ici pour ajouter un nouveau Véhicule.
+			</p>
+			<p>
+				Oscar vous aide à gérer facilement vos Véhicules
+			</p>
+		</field>
+	</record>
+
+	<menuitem id="menu_action_fleet_vehicle_transfer"
+			  name="Véhicules" parent="spc_transfer_aziza.menu_transfer_config"
+			  action="action_fleet_vehicle_transfer"
+			  sequence="40" />
+
+
+	<record id="action_transfer_partner_driver_form"
+		model="ir.actions.act_window">
+		<field name="name">Chauffeurs</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">res.partner</field>
+		<field name="view_type">form</field>
+		<field name="domain">[('driver','=',True)]</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{
+			'search_default_driver': 1,
+			'default_customer':0,
+			'default_supplier': 0,
+			'default_driver': 1,
+			'default_is_company': True,
+			'delete': False}
+		</field>
+		<field name="filter" eval="True" />
+	</record>
+
+	<menuitem id="menu_transfer_driver" name="Chauffeurs"
+			  parent="spc_transfer_aziza.menu_transfer_config"
+			  action="spc_transfer_aziza.action_transfer_partner_driver_form"
+			  sequence="50" />
+
+</odoo>

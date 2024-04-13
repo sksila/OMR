@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <record id="derogation_line_view_form" model="ir.ui.view">
+        <field name="name">derogation.view.form</field>
+        <field name="model">derogation.derogation.line</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Derogation Line">
+                    <group>
+                        <group>
+                           <field name="state" invisible="1"/>
+                              <field name="magasin_id" attrs="{'readonly':[('state', '=', 'magasin')]}"/>
+                              <field name="responsable_magasin_id" attrs="{'readonly':[('state', '=', 'magasin')]}"/>
+
+                        </group>
+                        <group>
+                               <field name="quantity"/>
+                               <field name="bon_retour"/>
+                        </group>
+                    </group>
+            </form>
+        </field>
+      </record>
+
+    <record id="action_derogation_line_form" model="ir.actions.act_window">
+        <field name="name">Quantité de magasin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">derogation.derogation.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'edit': False, 'delete': False}</field>
+    </record>
+
+</odoo>

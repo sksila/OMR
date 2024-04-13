@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="survey_question_form_inherit" model="ir.ui.view">
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form"/>
+        <field name="arch" type="xml">
+            <!-- Advanced matrix (logo) -->
+            <xpath expr="//group//div//div[7]" position="after">
+                <div attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}">
+                    <div class="row o_matrix_head">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-3">col1</div>
+                        <div class="col-lg-3">col2</div>
+                        <div class="col-lg-3">col3</div>
+                    </div>
+                    <div class="row o_matrix_row">
+                        <div class="col-lg-3">row1</div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                    </div>
+                    <div class="row o_matrix_row">
+                        <div class="col-lg-3">row1</div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                    </div>
+                    <div class="row o_matrix_row">
+                        <div class="col-lg-3">row1</div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+
+            <field name="labels_ids" position="before">
+                <separator attrs="{'invisible':[('type','!=','advanced_matrix')]}"/>
+                <!-- add label colonne du matrice avancée -->
+                <label for="labels_adv_matrix_cols_ids" attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}"/>
+            </field>
+
+            <!-- add labels_adv_matrix_cols_ids , labels_adv_matrix_rows_ids -->
+            <field name="labels_ids" position="after">
+                <field name="labels_adv_matrix_cols_ids" string="Colonnes" context="{'default_col_question_id': active_id}"
+                       attrs="{'invisible': [('type', 'not in', ['advanced_matrix'])]}">
+                    <form>
+                        <group>
+                            <field name="value" string="Nom"/>
+                        </group>
+                    </form>
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="value" string="Nom"/>
+                        <field name="col_type_resp" string="Type"/>
+                        <field name="options" attrs="{'invisible': [('col_type_resp', '!=', 'dropdown')]}"/>
+                        <field name="min"
+                               attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_number'])]}"/>
+                        <field name="max"
+                               attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_number'])]}"/>
+                        <field name="min_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+                        <field name="max_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+                        <field name="today" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}"/>
+                    </tree>
+                </field>
+                <separator attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}"/>
+                <label for="labels_adv_matrix_rows_ids" attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}"/>
+                <field name="labels_adv_matrix_rows_ids" context="{'default_row_question_id': active_id}"
+                       attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}">
+                    <form>
+                        <group>
+                            <field name="value" />
+                        </group>
+                    </form>
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="value" string="Nom"/>
+                    </tree>
+                </field>
+            </field>
+
+            <xpath expr="//notebook//page[2]//group[3]" position="attributes">
+                <attribute name="attrs">{'invisible':[('type','not in',['simple_choice','multiple_choice', 'matrix','advanced_matrix'])]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+    <!-- QUESTION smart -->
+
+    <record model="ir.ui.view" id="smart_survey_question_form">
+            <field name="name">Form view for survey question smart</field>
+            <field name="model">survey.question</field>
+            <field name="arch" type="xml">
+                <form string="Survey Question" create="false">
+                    <sheet>
+                        <div class="oe_title" style="width: 100%;">
+                            <label for="question" string="Question name" class="oe_edit_only"/>
+                            <h1><field name="question" colspan="4" placeholder="Question Name"/></h1>
+                            <separator />
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type" widget="radio" />
+                            </group>
+                            <group>
+                                <div class="col-lg-6 offset-lg-3 o_preview_questions">
+                                    <!-- Multiple Lines Text Zone -->
+                                    <div attrs="{'invisible': [('type', '!=', 'free_text')]}">
+                                            <i class="fa fa-align-justify fa-4x" role="img" aria-label="Multiple lines" title="Multiple Lines"/>
+                                    </div>
+                                    <!-- Single Line Text Zone -->
+                                    <div attrs="{'invisible': [('type', '!=', 'textbox')]}">
+                                        <i class="fa fa-minus fa-4x" role="img" aria-label="Single Line" title="Single Line"/>
+                                    </div>
+                                    <!-- Numerical Value -->
+                                    <div attrs="{'invisible': [('type', '!=', 'numerical_box')]}">
+                                        <i class="fa fa-2x" role="img" aria-label="Numeric" title="Numeric">123..</i>
+                                    </div>
+                                    <!-- Date and Time -->
+                                    <div attrs="{'invisible': [('type', '!=', 'date')]}">
+                                        <p class="o_datetime">YYYY-MM-DD
+                                            <i class="fa fa-calendar fa-2x" role="img" aria-label="Calendar" title="Calendar"/>
+                                        </p>
+                                    </div>
+                                    <!-- Multiple choice: only one answer -->
+                                    <div attrs="{'invisible': [('type', '!=', 'simple_choice')]}" role="img" aria-label="Multiple choice with one answer" title="Multiple choice with one answer">
+                                        <div class="row"><i class="fa fa-circle-o  fa-lg"/> answer</div>
+                                        <div class="row"><i class="fa fa-dot-circle-o fa-lg"/> answer</div>
+                                        <div class="row"><i class="fa fa-circle-o  fa-lg"/> answer</div>
+                                    </div>
+                                    <!-- Multiple choice: multiple answers allowed -->
+                                    <div attrs="{'invisible': [('type', '!=', 'multiple_choice')]}" role="img" aria-label="Multiple choice with multiple answers" title="Multiple choice with multiple answers">
+                                        <div class="row"><i class="fa fa-square-o fa-lg"/> answer</div>
+                                        <div class="row"><i class="fa fa-check-square-o fa-lg"/> answer</div>
+                                        <div class="row"><i class="fa fa-square-o fa-lg"/> answer</div>
+                                    </div>
+                                    <!-- Matrix -->
+                                    <div attrs="{'invisible': [('type', '!=', 'matrix')]}">
+                                        <div class="row o_matrix_head">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-lg-3">ans</div>
+                                            <div class="col-lg-3">ans</div>
+                                            <div class="col-lg-3">ans</div>
+                                        </div>
+                                        <div class="row o_matrix_row">
+                                            <div class="col-lg-3">Row1</div>
+                                            <div class="col-lg-3"><i class="fa fa-circle-o fa-lg" role="img" aria-label="Not checked" title="Not checked"/></div>
+                                            <div class="col-lg-3"><i class="fa fa-dot-circle-o fa-lg" role="img" aria-label="Checked" title="Checked"/></div>
+                                            <div class="col-lg-3"><i class="fa fa-circle-o fa-lg" role="img" aria-label="Not checked" title="Not checked"/></div>
+                                        </div>
+                                        <div class="row o_matrix_row">
+                                            <div class="col-lg-3">Row2</div>
+                                            <div class="col-lg-3"><i class="fa fa-circle-o fa-lg" role="img" aria-label="Not checked" title="Not checked"/></div>
+                                            <div class="col-lg-3"><i class="fa fa-circle-o fa-lg" role="img" aria-label="Not checked" title="Not checked"/></div>
+                                            <div class="col-lg-3"><i class="fa fa-dot-circle-o fa-lg" role="img" aria-label="Checked" title="Checked"/></div>
+                                        </div>
+                                        <div class="row o_matrix_row">
+                                            <div class="col-lg-3">Row3</div>
+                                            <div class="col-lg-3"><i class="fa fa-dot-circle-o fa-lg" role="img" aria-label="Checked" title="Checked"/></div>
+                                            <div class="col-lg-3"><i class="fa fa-circle-o fa-lg" role="img" aria-label="Not checked" title="Not checked"/></div>
+                                            <div class="col-lg-3"><i class="fa fa-circle-o fa-lg" role="img" aria-label="Not checked" title="Not checked"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Answers">
+                                <field name="validation_email" attrs="{'invisible': [('type', '!=', 'textbox')]}"/>
+                                <label for="validation_email" attrs="{'invisible': [('type', '!=', 'textbox')]}"/>
+                                <separator />
+                                <field name="labels_ids" string="Type of answers" context="{'default_question_id': active_id}" attrs="{'invisible': [('type', 'not in', ['simple_choice', 'multiple_choice', 'matrix'])]}">
+                                    <form>
+                                        <group>
+                                            <field name="value" string="Nom"/>
+                                        </group>
+                                    </form>
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="value" string="Choices"/>
+                                        <field name="quizz_mark" groups="base.group_no_one"/>
+                                    </tree>
+                                </field>
+                                <separator />
+                                <label for="labels_ids_2" attrs="{'invisible': [('type', '!=', 'matrix')]}" />
+                                <field name="labels_ids_2" context="{'default_question_id_2': active_id}" attrs="{'invisible': [('type', '!=', 'matrix')]}">
+                                    <form>
+                                        <group>
+                                            <field name="value" />
+                                        </group>
+                                    </form>
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="value" string="Rows"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Options">
+                                <group string="Constraints">
+                                    <group colspan="2" col="4">
+                                        <field name="constr_mandatory" string="Mandatory Answer"/>
+                                        <field name="constr_error_msg" attrs="{'invisible': [('constr_mandatory', '=', False)]}"/>
+                                    </group>
+                                    <div colspan="2" attrs="{'invisible': [('type', 'not in', ['textbox', 'numerical_box', 'date'])]}">
+                                        <group>
+                                            <field name="validation_required" attrs="{'invisible': [('validation_email', '=', True), ('type', '=', 'textbox')]}"/>
+                                        </group>
+                                        <group col="4" attrs="{'invisible': [('validation_required', '=', False)]}">
+                                            <field name="validation_length_min" attrs="{'invisible': [('type', '!=', 'textbox')]}"/>
+                                            <field name="validation_length_max" attrs="{'invisible': [('type', '!=', 'textbox')]}"/>
+                                            <field name="validation_min_float_value" attrs="{'invisible': [('type', '!=', 'numerical_box')]}"/>
+                                            <field name="validation_max_float_value" attrs="{'invisible': [('type', '!=', 'numerical_box')]}"/>
+                                            <field name="validation_min_date" attrs="{'invisible': [('type', '!=', 'date')]}"/>
+                                            <field name="validation_max_date" attrs="{'invisible': [('type', '!=', 'date')]}"/>
+                                            <field name="validation_error_msg" colspan="4"/>
+                                        </group>
+                                    </div>
+                                    <group>
+                                        <field name="matrix_subtype" attrs="{'invisible':[('type','not in',['matrix'])]}"/>
+                                    </group>
+                                </group>
+                                <group string="Display mode" attrs="{'invisible':[('type','not in',['simple_choice', 'multiple_choice'])]}">
+                                    <field name="display_mode" string="Format" attrs="{'invisible':[('type','not in',['simple_choice'])],'required':[('type','=','simple_choice')]}"/>
+                                    <field name="column_nb" string="Number of columns" attrs="{'invisible':[('display_mode','=','dropdown'), ('type','=','simple_choice')]}"/>
+                                </group>
+                                <group string="Allow Comments" attrs="{'invisible':[('type','not in',['simple_choice','multiple_choice', 'matrix'])]}">
+                                    <field name='comments_allowed' />
+                                    <field name='comments_message' attrs="{'invisible': [('comments_allowed', '=', False)]}"/>
+                                    <field name='comment_count_as_answer' attrs="{'invisible': ['|', ('comments_allowed', '=', False), ('type', 'in', ['matrix'])]}" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+
+    <record id="inherit_smart_survey_question_form" model="ir.ui.view">
+        <field name="priority" eval="100"/>
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="spc_survey.smart_survey_question_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+
+            <xpath expr="//sheet//div" position="before">
+                <div class="oe_button_box" name="button_box">
+				    <!-- smart button cloumn -->
+                    <button class="oe_stat_button"
+                            type="action"
+                            name="%(spc_survey.action_columns_from_question)d"
+                            icon="fa-columns"
+                            string="Columns"
+                            context="{'default_col_question_id': id}">
+                        <field name="id" invisible="1" />
+                    </button>
+                    <!-- smart button row -->
+                    <button class="oe_stat_button"
+                            type="action"
+                            name="%(spc_survey.action_rows_from_question)d"
+                            icon="fa-list-ol"
+                            string="Rows"
+                            context="{'default_row_question_id': id }"
+                            attrs="{'invisible':[('cols_count','=', 0)]}">
+                        <field name="cols_count" invisible="1"/>
+                        <field name="id" invisible="1" />
+                    </button>
+                </div>
+            </xpath>
+
+            <!-- Advanced matrix (logo) -->
+            <xpath expr="//group//div//div[7]" position="after">
+                <div attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}">
+                    <div class="row o_matrix_head">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-3">col1</div>
+                        <div class="col-lg-3">col2</div>
+                        <div class="col-lg-3">col3</div>
+                    </div>
+                    <div class="row o_matrix_row">
+                        <div class="col-lg-3">row1</div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                    </div>
+                    <div class="row o_matrix_row">
+                        <div class="col-lg-3">row1</div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                    </div>
+                    <div class="row o_matrix_row">
+                        <div class="col-lg-3">row1</div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <i class="fa fa-minus fa-2x" role="img" aria-label="Champs" title="Champs à remplir"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+
+            <field name="labels_ids" position="before">
+                <separator attrs="{'invisible':[('type','!=','advanced_matrix')]}"/>
+                <!-- add label colonne du matrice avancée -->
+                <label for="labels_adv_matrix_cols_ids" attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}"/>
+            </field>
+
+            <!-- add labels_adv_matrix_cols_ids , labels_adv_matrix_rows_ids -->
+            <field name="labels_ids" position="after">
+                <field name="labels_adv_matrix_cols_ids" string="Colonnes" context="{'default_col_question_id': active_id}"
+                       attrs="{'invisible': [('type', 'not in', ['advanced_matrix'])]}">
+                    <form>
+                        <group>
+                            <field name="value" string="Nom"/>
+                        </group>
+                    </form>
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="value" string="Nom" required="1"/>
+                        <field name="col_type_resp" string="Type" required="1"/>
+                        <field name="options" attrs="{'invisible': [('col_type_resp', '!=', 'dropdown')], 'required':[('col_type_resp', '=', 'dropdown')]}"/>
+                        <field name="min"
+                               attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_number'])]}"/>
+                        <field name="max"
+                               attrs="{'invisible': [('col_type_resp', 'not in', ['number','float_number'])]}"/>
+                        <field name="min_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+                        <field name="max_date" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+                        <field name="today" attrs="{'invisible': [('col_type_resp', 'not in', ['date'])]}" />
+                    </tree>
+                </field>
+                <separator attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}"/>
+                <label for="labels_adv_matrix_rows_ids" attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}"/>
+                <field name="labels_adv_matrix_rows_ids" context="{'default_row_question_id': active_id}"
+                       attrs="{'invisible': [('type', '!=', 'advanced_matrix')]}">
+                    <form>
+                        <group>
+                            <field name="value" />
+                        </group>
+                    </form>
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="value" string="Nom"/>
+                    </tree>
+                </field>
+            </field>
+
+            <xpath expr="//page[2]//group[3]" position="attributes">
+                <attribute name="attrs">{'invisible':[('type','not in',['simple_choice','multiple_choice', 'matrix','advanced_matrix'])]}</attribute>
+            </xpath>
+
+            <field name='comment_count_as_answer' position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('comments_allowed', '=', False), ('type', 'in', ['matrix','advanced_matrix'])]}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="smart_survey_question_tree">
+        <field name="name">Tree view for survey question smart</field>
+        <field name="model">survey.question</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <tree string="Survey Question">
+                <field name="sequence" widget="handle"/>
+                <field name="question"/>
+                <field name="page_id"/>
+                <field name="survey_id"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_questions_from_page">
+			<field name="name">Questions</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">survey.question</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+   				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_survey.smart_survey_question_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_survey.smart_survey_question_form')})]"
+   				/>
+			<field name="domain">[('page_id', '=', active_id)]</field>
+			<field name="context">{}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Create Page questions.
+				</p>
+			</field>
+		</record>
+
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+		<!-- Top menu item -->
+        <menuitem
+            id="spc_menu_flux_document_root"
+            name="Flux documentaires"
+            web_icon="spc_flux_documents,static/description/icon.png"
+            sequence="40"
+            groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DE,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_drh"/>
+
+         <menuitem id="spc_menu_flux_document"
+            name="Documents - Magasin"
+            parent="spc_menu_flux_document_root"
+            sequence="41"/>
+<!--                groups="ha_spectrum_aziza.group_responsable_magasin_catalogue"-->
+
+            
+		<menuitem id="spc_menu_flux_document_siege"
+            name="Documents - Siège"
+            parent="spc_menu_flux_document_root"
+            sequence="42"/>
+<!--                groups="ha_flux_documents.group_drh_catalogue"-->
+
+        
+        <menuitem id="spc_menu_flux_document_config_menu"
+            name="Flux documentaire"
+            parent="spc_oscar_aziza.menu_oscar_administration"
+            sequence="100"/>
+        
+        
+</odoo>

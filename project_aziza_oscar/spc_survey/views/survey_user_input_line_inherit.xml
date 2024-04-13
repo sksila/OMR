@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="survey_user_input_line_form_inherit" model="ir.ui.view">
+            <field name="model">survey.user_input_line</field>
+            <field name="inherit_id" ref="survey.survey_user_input_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="after">
+                    <group string="Advanced Matrix Question type informations" attrs="{'invisible': [('answer_type','!=','adv_mat')]}">
+                        <group>
+                            <field name="row" />
+                            <field name="column" />
+                            <field name="value_adv_mat" />
+                            <field name="value_adv_mat_attachment" widget="many2many_binary"/>
+                            <field name="value_adv_mat_cam" />
+                        </group>
+                        <group>
+                            <field name="type_resp" />
+                            <field name="a_tag" />
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="survey_response_line_tree_inherit" model="ir.ui.view">
+            <field name="model">survey.user_input_line</field>
+            <field name="inherit_id" ref="survey.survey_response_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="answer_type" position="after">
+                    <field name="type_resp" />
+                </field>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record  id="ir_cron_oscar_gold_integration_sites_action" model="ir.cron">
+            <field name="name">Planned Integration Sites</field>
+            <field name="model_id" ref="model_oscar_inter_site"/>
+            <field name="state">code</field>
+            <field name="code">model.planned_gold_integration_sites()</field>
+            <field eval="True" name="is_oscar"/>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        
+        <record  id="ir_cron_oscar_gold_integration_employee_action" model="ir.cron">
+            <field name="name">Planned Integration Employee</field>
+            <field name="model_id" ref="model_oscar_inter_employee"/>
+            <field name="state">code</field>
+            <field name="code">model.planned_gold_integration_employee()</field>
+            <field eval="True" name="is_oscar"/>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+        
+        
+    </data>
+</odoo>

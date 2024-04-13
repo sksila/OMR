@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+
+		<!-- Actions liste des actions planifiees -->
+		<record model="ir.actions.act_window" id="action_oscar_action_planifiee">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Actions planifiées</field>
+			<field name="res_model">ir.cron</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('is_oscar', '=', True)]</field>
+			<field name="context">{
+				'create': False,
+				}
+			</field>
+		</record>
+
+		<!-- Menu Action Planifiee d'Oscar -->
+		<menuitem id="menu_oscar_action_planifiee"
+			name="Actions Planifiées" action="action_oscar_action_planifiee"
+			parent="menu_oscar_configuration" sequence="999" />
+
+	</data>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- change password wizard -->
+	<record id="mg_cron_wizard_view" model="ir.ui.view">
+		<field name="name">mg.cron.wizard.view</field>
+		<field name="model">mg.cron.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Action Planifiée">
+				<group>
+					<field name="cron_type" widget="radio"/>
+					<field name="date_journee" />
+					<field name="magasin_ids" attrs="{'invisible': [('cron_type','=','all')]}">
+						<tree>
+							<field name="code" />
+							<field name="name" string="Nom" />
+							<field name="user_id" />
+							<field name="region" />
+						</tree>
+					</field>
+				</group>
+				<footer>
+					<button string="Exécuter" name="charger_journee_button"
+						type="object" class="btn-primary" />
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="mg_cron_wizard_action" model="ir.actions.act_window">
+		<field name="name">Action Manuelle</field>
+		<field name="res_model">mg.cron.wizard</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+</odoo>

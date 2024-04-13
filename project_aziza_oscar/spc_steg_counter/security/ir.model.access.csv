@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_spc_counter_steg_admin,spc.counter.steg.admin,model_oscar_counter_steg,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_spc_counter_steg,spc.counter.steg,model_oscar_counter_steg,,1,0,0,0
+
+access_spc_reading_counter_steg,spc.reading.counter.steg,model_oscar_reading_counter_steg,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_spc_reading_counter_steg_resp_mg,spc.counter.steg.resp.mg,model_oscar_reading_counter_steg,spc_oscar_aziza.group_reponsable_magasin,1,1,1,0
+access_spc_reading_counter_steg_resp_zone,spc.counter.steg.resp.zone,model_oscar_reading_counter_steg,spc_oscar_aziza.group_reponsable_zone,1,0,0,0
+access_spc_reading_counter_steg_grp_dre,spc.counter.steg.grp.dre,model_oscar_reading_counter_steg,spc_oscar_aziza.group_DRE,1,0,0,0
+access_spc_reading_counter_steg_grp_de,spc.counter.steg.grp.de,model_oscar_reading_counter_steg,spc_oscar_aziza.group_DE,1,0,0,0

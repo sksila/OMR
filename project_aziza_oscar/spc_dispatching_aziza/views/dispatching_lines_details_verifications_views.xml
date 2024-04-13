@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="ha_view_dispatch_lines_form" model="ir.ui.view">
+        <field name="name">dispatch.lines.details.form</field>
+        <field name="model">oscar.dispatch.lines.details.verification</field>
+        <field name="arch" type="xml">
+            <form string="Details Dispatching">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="origin" class="oe_edit_only"/>
+                        <h1>
+                            <field name="origin" placeholder="Numéro"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="state" invisible="1" />
+                        <group attrs="{'readonly':[('state','in', ['to_approve','approved','done','rejected'])]}">
+                            <field name="requested_by"/>
+                            <field name="date_dispatch"/>
+                            <field name="category_id"/>
+                            <field name="sub_category_id"/>
+                        </group>
+                        <group attrs="{'readonly':[('state','not in', ['draft'])]}">
+<!--                            <field name="code_article"/>-->
+                            <field name="designation_article"/>
+                        </group>
+                        <group>
+                            <field name="entrepot_id"/>
+                            <field name="qty_estimated"/>
+                            <field name="qty_dispatched"/>
+                            <field name="qty_ecart"/>
+                            <field name="qty_reel_dispatched"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="ha_view_dispatch_lines_tree" model="ir.ui.view">
+        <field name="name">dispatch.lines.tree</field>
+        <field name="model">oscar.dispatch.lines.details.verification</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Dispatching">
+                <field name="origin"/>
+                <field name="requested_by"/>
+                <field name="date_dispatch"/>
+                <field name="category_id"/>
+                <field name="sub_category_id"/>
+<!--                <field name="code_article"/>-->
+                <field name="designation_article"/>
+                <field name="entrepot_id"/>
+                <field name="qty_estimated"/>
+                <field name="qty_dispatched"/>
+                <field name="qty_ecart"/>
+                <field name="qty_reel_dispatched"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_dispatch_line_form" model="ir.actions.act_window">
+        <field name="name">Dispatch Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oscar.dispatch.lines.details.verification</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('requested_by', '=', uid)]</field>
+        <field name="context">{ 'create': False, 'delete': False, 'edit': False }</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a dispatch.
+            </p>
+            <p>
+                Odoo helps you easily to manage your dispatch request
+            </p>
+        </field>
+    </record>
+
+</odoo>

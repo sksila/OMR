@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="spc_activity_tags_view_form" model="ir.ui.view">
+        <field name="name">spc.mail.activity.tags.form</field>
+        <field name="model">mail.activity.tags</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="spc_activity_tags_view_tree" model="ir.ui.view">
+        <field name="name">spc.mail.activity.tags.tree</field>
+        <field name="model">mail.activity.tags</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="spc_action_activity_tags" model="ir.actions.act_window">
+        <field name="name">Etiquettes d'activité</field>
+        <field name="res_model">mail.activity.tags</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Cliquez pour ajouter une nouvelle étiquette
+              </p>
+            </field>
+    </record>
+
+    <menuitem
+            id="spc_menu_activity_tags"
+            parent="spc_menu_activity_configuration"
+            action="spc_action_activity_tags"/>
+
+</odoo>

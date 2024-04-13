@@ -1,0 +1,21 @@
+<odoo>
+	<data>
+
+		<record id="oscar_view_ir_cron_form" model="ir.ui.view">
+			<field name="name">oscar.view.ir.cron.form</field>
+			<field name="model">ir.cron</field>
+			<field name="inherit_id" ref="base.ir_cron_view_form" />
+			<field name="arch" type="xml">
+				<button name="method_direct_trigger" position="after">
+					<button name="%(mg_cron_wizard_action)d" type="action"
+						string="Exécuter Manuellement" attrs="{'invisible': [('model_name','!=','oscar.gold.journee')]}" class="oe_highlight" />
+				</button>
+				<xpath expr="//button[@name='method_direct_trigger']"
+					position="attributes">
+					<attribute name="attrs">{'invisible': [('model_name','=','oscar.gold.journee')]}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

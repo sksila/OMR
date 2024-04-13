@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+    
+        <!-- sequence of versement -->
+    	<record id="sequence_versement_seq" model="ir.sequence">
+            <field name="name">Numéro versement</field>
+            <field name="code">oscar.versement</field>
+            <field name="prefix">VE/%(range_year)s/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">5</field>
+        </record>
+        
+        <!-- sequence of versement cheques -->
+    	<record id="sequence_versement_cheque_seq" model="ir.sequence">
+            <field name="name">Numéro versement</field>
+            <field name="code">oscar.versement.cheque</field>
+            <field name="prefix">VC/%(range_year)s/</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">5</field>
+        </record>
+    	
+        <!--
+        Mode de paiement
+        -->
+        <record id="data_oscar_mode_paiement_espece" model="moyen.paiement">
+            <field name="code" eval="1"/>
+            <field name="name">Espéce</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_ticket_restaurant" model="moyen.paiement">
+        	<field name="code" eval="6"/>
+            <field name="name">Ticket restaurant</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_cadeaux" model="moyen.paiement">
+        	<field name="code" eval="5"/>
+            <field name="name">Chéque cadeaux</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_ban" model="moyen.paiement">
+        	<field name="code" eval="3"/>
+            <field name="name">Carte bancaire</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_sodexo" model="moyen.paiement">
+        	<field name="code" eval="8"/>
+            <field name="name">Carte Sodexo</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_cheque" model="moyen.paiement">
+        	<field name="code" eval="2"/>
+            <field name="name">Chéque</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_vente_credit" model="moyen.paiement">
+        	<field name="code" eval="7"/>
+            <field name="name">Vente à crédit</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_bon_achat" model="moyen.paiement">
+        	<field name="code" eval="12"/>
+            <field name="name">Bon d'achat Aziza</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="False"/>
+        </record>
+        
+        <!-- Autres paiement -->
+        
+        <record id="data_oscar_mode_paiement_bon_cpg" model="moyen.paiement">
+        	<field name="code" eval="9"/>
+            <field name="name">Bon CPG Ghanouch</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_bon_kimia" model="moyen.paiement">
+        	<field name="code" eval="10"/>
+            <field name="name">Bon KIMIA Ghanouch</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_bon_baa" model="moyen.paiement">
+        	<field name="code" eval="77"/>
+            <field name="name">Bon Achat BAA</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_reprise_avoir" model="moyen.paiement">
+        	<field name="code" eval="4"/>
+            <field name="name">Reprise d'avoir</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_bon_vtl" model="moyen.paiement">
+        	<field name="code" eval="13"/>
+            <field name="name">Bon VTL</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_d17" model="moyen.paiement">
+        	<field name="code" eval="16"/>
+            <field name="name">D17</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <!-- Services -->
+        
+        <record id="data_oscar_mode_paiement_livraison_domicile" model="moyen.paiement">
+        	<field name="code" eval="14"/>
+            <field name="name">Livraison à domicile</field>
+            <field name="lb_court">Liv-Dom</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="is_process" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <record id="data_oscar_mode_paiement_click_collect" model="moyen.paiement">
+        	<field name="code" eval="15"/>
+            <field name="name">Click and Collect</field>
+            <field name="lb_court">Clk-Cllt</field>
+            <field name="unit_type">amount</field>
+            <field name="is_other" eval="True"/>
+            <field name="is_process" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+        
+        <!-- Action Flyers -->
+         <record id="data_oscar_mode_action_flyers" model="moyen.paiement">
+        	<field name="code" eval="99"/>
+            <field name="name">Action Flyers</field>
+            <field name="unit_type">quantity</field>
+            <field name="is_other" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Motif de litige -->
+
+        <record id="data_motif_false_declaration" model="oscar.litige.motif">
+            <field name="name">Fausse déclaration</field>
+            <field name="other" eval="False"/>
+        </record>
+
+        <record id="data_motif_incident_ibs" model="oscar.litige.motif">
+            <field name="name">Incident IBS</field>
+            <field name="other" eval="False"/>
+        </record>
+
+        <record id="data_motif_transaction_encaissee" model="oscar.litige.motif">
+            <field name="name">Transaction encaissée</field>
+            <field name="other" eval="False"/>
+        </record>
+
+        <record id="data_motif_corrected_cheque" model="oscar.litige.motif">
+            <field name="name">Chèque corrigé</field>
+            <field name="other" eval="False"/>
+        </record>
+
+
+        <record id="data_motif_other" model="oscar.litige.motif">
+            <field name="name">Autre</field>
+            <field name="other" eval="True"/>
+        </record>
+
+        <record id="data_motif_incident_ibs" model="oscar.litige.motif">
+            <field name="name">Incident IBS</field>
+            <field name="other" eval="False"/>
+        </record>
+
+        <record id="data_motif_transaction_encaissee" model="oscar.litige.motif">
+            <field name="name">Transaction encaissée</field>
+            <field name="other" eval="False"/>
+        </record>
+
+        <record id="data_motif_corrected_cheque" model="oscar.litige.motif">
+            <field name="name">Chèque corrigé</field>
+            <field name="other" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>

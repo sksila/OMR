@@ -1,0 +1,21 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oscar_site_user,oscar.site user,model_oscar_site,,1,0,0,0
+access_oscar_site_manager,oscar.site manager,model_oscar_site,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+
+access_oscar_zone_user,oscar.zone.user,model_oscar_zone,,1,0,0,0
+access_oscar_zone_admin,oscar.zone.admin,model_oscar_zone,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+
+access_oscar_region_user,oscar.region.user,model_oscar_region,,1,0,0,0
+access_oscar_region_admin,oscar.region.admin,model_oscar_region,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+
+access_oscar_inter_site_admin,oscar.inter.site.admin,model_oscar_inter_site,group_admin_oscar,1,1,1,1
+access_oscar_inter_employee_admin,oscar.inter.employee.admin,model_oscar_inter_employee,group_admin_oscar,1,1,1,1
+
+access_oscar_res_bank_user,oscar.res.bank.user,base.model_res_bank,,1,0,0,0
+access_oscar_res_bank_admin,oscar.res.bank.admin,base.model_res_bank,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_oscar_res_partner_bank_admin,oscar.res.partner.bank.admin,base.model_res_partner_bank,,1,1,1,1
+
+access_oscar_ir_cron_admin,oscar.ir.cron.admin,base.model_ir_cron,spc_oscar_aziza.group_admin_oscar,1,1,0,0
+access_res_config_settings_admin,res.config.settings.admin,base.model_res_config_settings,spc_oscar_aziza.group_admin_oscar,1,1,0,0
+access_oscar_ir_ui_view_admin,oscar.ir.ui.view.admin,base.model_ir_ui_view,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_oscar_ir_ui_menu_admin,oscar.ir.ui.menu.admin,base.model_ir_ui_menu,spc_oscar_aziza.group_admin_oscar,1,1,1,1

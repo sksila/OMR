@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="advanced_matrix_template_extend_inherit_aziza" inherit_id="spc_survey_extra.advanced_matrix_template_extend">
+
+            <xpath expr="//tbody[@t-if='question.model_id']" position="replace">
+
+                <tbody t-if="question.model_id">
+                    <t t-set="products_by_article_site" t-value="[]" />
+                    <t t-if="question.model_id.id == env['ir.model'].search([('model','=','product.template')]).id">
+                        <t t-set="article_types" t-value="question.product_type_ids" />
+<!--                        <t t-set="site" t-value="question.site" />-->
+                        <t t-if="question.apply_per == 'site'">
+                            <t t-set="site" t-value="True" />
+                        </t>
+                        <t t-else="">
+                            <t t-set="site" t-value="False" />
+                        </t>
+                        <t t-set="products_by_article_site" t-value="question.get_products_by_article_site(article_types,site,token)" />
+                    </t>
+                    <t t-else="">
+                        <t t-if="question.model_id.id == env['ir.model'].search([('model','=','inter.plano_facing')]).id">
+                            <t t-set="products_by_article_site" t-value="question.get_records_by_categ_element_level(question.model_id,token)" />
+                        </t>
+                        <t t-else="">
+<!--                            <t t-set="site" t-value="question.site" />-->
+                            <t t-if="question.apply_per == 'user'">
+                                <!-- we keep same name cuz this is improvement -->
+                                <t t-set="products_by_article_site" t-value="question.get_records_by_user(question.model_id,question.column_name,True,token)" />
+                            </t>
+                            <t t-else="">
+                                <t t-if="question.apply_per == 'site'">
+                                    <t t-set="site" t-value="True" />
+                                </t>
+                                <t t-else="">
+                                    <t t-set="site" t-value="False" />
+                                </t>
+                                <t t-set="products_by_article_site" t-value="question.get_records_by_site(question.model_id,question.column_name,site,token)" />
+                            </t>
+                        </t>
+                    </t>
+                    <t t-set="domain" t-value="question.filter_domain_refact(question.filter_domain)" />
+                    <t t-if="question.limit > 0">
+                        <t t-set="records" t-value="env[question.model_id.model].search(domain, limit=question.limit)" />
+                        <t t-if="products_by_article_site != []">
+                            <t t-if="domain != []">
+                                <t t-set="records" t-value="products_by_article_site.search(domain, limit=question.limit)" />
+                            </t>
+                            <t t-if="domain == []">
+                                <t t-set="records" t-value="products_by_article_site" />
+                            </t>
+                        </t>
+                        <t t-set="limit_counter" t-value="0" />
+                        <tr t-foreach="records" t-as="rec" t-if="limit_counter != question.limit">
+                            <t t-call="spc_survey_extra.auto_fill_template">
+                                <t t-set="row" t-value="limit_counter" />
+                            </t>
+                            <t t-set="limit_counter" t-value="limit_counter + 1" />
+                        </tr>
+                        <input type="hidden" t-att-name="'automatic_fill_%s' % (prefix)" t-att-value="limit_counter" />
+                    </t>
+                    <t t-else="">
+                        <t t-set="records" t-value="env[question.model_id.model].search(domain)" />
+                        <t t-if="products_by_article_site != []">
+                            <t t-if="domain != []">
+                                <t t-set="records" t-value="products_by_article_site.search(domain)" />
+                            </t>
+                            <t t-if="domain == []">
+                                <t t-set="records" t-value="products_by_article_site" />
+                            </t>
+                        </t>
+                        <t t-set="limit_counter" t-value="0" />
+                        <tr t-foreach="records" t-as="rec">
+                            <t t-call="spc_survey_extra.auto_fill_template">
+                                <t t-set="row" t-value="limit_counter" />
+                            </t>
+                            <t t-set="limit_counter" t-value="limit_counter + 1" />
+                        </tr>
+                        <input type="hidden" t-att-name="'automatic_fill_%s' % (prefix)" t-att-value="limit_counter" />
+                    </t>
+                </tbody>
+
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

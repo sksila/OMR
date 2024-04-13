@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		<!-- Import Activity Wizard View -->
+		<record id="import_activity_form_view" model="ir.ui.view">
+			<field name="name">import.activity.wizard.view</field>
+			<field name="model">import.activity.wizard</field>
+			<field name="arch" type="xml">
+			<form string="Import Activity">
+				<group>
+					<group>
+						<field name="file_type" widget="radio" invisible="1"/>
+						<field name="file" placeholder="Téléchargez votre fichier"/>
+						<field name="by_pass" invisible="1"/>
+					</group>
+				</group>
+				<footer>
+					<button name="import_activity" string="Importer" type="object" icon="fa-download" class="btn btn-primary active" context="{'by_pass':True}"/>
+					<button string="Annuler" special="cancel" icon="fa-times" class="btn btn-danger"  />
+				</footer>
+			</form>
+			</field>
+		</record>
+
+		<!-- Import Activity Wizard Action -->
+		<record id="import_activity_wizard_action" model="ir.actions.act_window">
+            <field name="name">Import Activities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.activity.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+		<menuitem
+				id="spc_import_activities_menu"
+				name="Import Activités"
+				action="import_activity_wizard_action"
+				parent="spc_activity.spc_activity_menu"
+				groups="spc_oscar_aziza.group_admin_oscar"
+		/>
+
+	</data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_journee_list" inherit_id="spc_transfer_aziza.report_enveloppe_document">
+            <xpath expr="//div[@id='document_information']" position="inside">
+                <t t-if="%(spc_transfer_aziza.content_journee_id)d in content.ids">
+                    <table class="table table-condensed">
+                        <thead
+                                style="border:solid rgba(215, 242, 254, 0.72);background-color:rgba(215, 242, 254, 0.72);border-radius:10px 0px 10px 0px;">
+                            <tr>
+                                <th>Magasin</th>
+                                <th>Date journée</th>
+                                <th>Réferences</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.journee_ids" t-as="j">
+                                <td>
+                                    <span t-field="j.magasin_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="j.date_journee"/>
+                                </td>
+                                <td>
+                                    <p t-foreach="o.reference_ids" t-as="ref" >
+										<span t-if="ref.content_envelope_id.code in ['SAC-JR','SAC-TR']" t-field="ref.content_envelope_id.name"/>: <span t-field="ref.name"/>
+									</p>
+                                </td>
+                                <td>
+                                    <span t-field="j.state"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

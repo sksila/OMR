@@ -1,0 +1,41 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+spc_survey_session_admin,spc_survey.session,model_spc_survey_session,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_session_default,spc_survey.session default,model_spc_survey_session,,1,0,0,0
+
+spc_survey_type_admin,spc_survey.type,model_spc_survey_type,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_type_default,spc_survey.type default,model_spc_survey_type,,1,0,0,0
+
+spc_survey_session_info_admin,spc_survey.session.info,model_spc_survey_session_info,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_session_info_default,spc_survey.session.info default,model_spc_survey_session_info,,1,0,0,0
+
+spc_survey_scoring,spc_survey.scoring,model_spc_survey_scoring,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_scoring_default,spc_survey.scoring default,model_spc_survey_scoring,,1,0,0,0
+
+spc_survey_scoring_criteria,spc_survey.scoring.criteria,model_spc_survey_scoring_criteria,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_scoring_criteria_default,spc_survey.scoring.criteria default,model_spc_survey_scoring_criteria,,1,1,1,1
+
+spc_survey_page_final_score,spc_survey.page_final_score,model_spc_survey_page_final_score,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_page_final_score_default,spc_survey.page_final_score default,model_spc_survey_page_final_score,,1,0,0,0
+
+spc_survey_user_input_criteria,spc_survey.user_input_criteria,model_spc_survey_user_input_criteria,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_user_input_criteria_default,spc_survey.user_input_criteria default,model_spc_survey_user_input_criteria,,1,0,0,0
+
+spc_survey_session_scoring,spc_survey.session_scoring,model_spc_survey_session_scoring,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_session_scoring_default,spc_survey.session_scoring default,model_spc_survey_session_scoring,,1,0,0,0
+
+spc_survey_session_final_score,spc_survey.session_final_score,model_spc_survey_session_final_score,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_session_final_score_default,spc_survey.session_final_score default,model_spc_survey_session_final_score,,1,0,0,0
+
+spc_survey_report_structure,spc_survey.report_structure,model_spc_survey_report_structure,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_report_structure_default,spc_survey.report_structure default,model_spc_survey_report_structure,,1,0,0,0
+
+spc_survey_report_structure_details,spc_survey.report_structure_details,model_spc_survey_report_structure_details,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_report_structure_details_default,spc_survey.report_structure_details default,model_spc_survey_report_structure_details,,1,0,0,0
+
+spc_survey_anomalies_report_default,spc_survey.anomalies.report.default,model_spc_survey_anomalies_report,,1,0,0,0
+spc_survey_anomalies_report,spc_survey.anomalies.report,model_spc_survey_anomalies_report,spc_survey.group_audit_manager,1,1,1,1
+
+
+
+

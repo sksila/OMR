@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="report_versement_document">
+		  		<t t-call="web.external_layout">
+		            <div class="page">
+
+					<div class="container">
+
+					<br></br>
+					<br></br>
+					<br></br>
+
+		            <h3 style="text-align:center;">
+		                <span>Bordereau de Versement Espèce N°</span>
+		                <span t-field="o.name"/>
+		            </h3>
+					<br></br>
+					<br></br>
+					<br></br>
+
+					<div class="row">
+					  <div class="col-6">
+						  <strong>Journée : </strong><span t-if="o.journee_id" t-field="o.journee_id.name"/>
+					  </div>
+					  <div class="col-6">
+						  <strong>Date de versement : </strong><span t-if="o.date_versement" t-field="o.date_versement"/>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-6 offset-6">
+						  <strong>Banque : </strong><span t-if="o.bank_id.name" t-field="o.bank_id.name"/>
+					  </div>
+					</div>
+					<div class="row" t-if="o.bank_id.street">
+					  <div class="col-6 offset-6">
+						  <strong>Adresse : </strong><span t-field="o.bank_id.street"/>
+					  </div>
+					</div>
+					<div class="row" t-if="o.bank_id.phone">
+					  <div class="col-6 offset-6">
+						  <strong>Tél : </strong><span t-field="o.bank_id.phone"/>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-6 offset-6">
+						  <strong>RIB : </strong><span t-field="o.bank_id.bic"/>
+					  </div>
+					</div>
+
+						<br></br>
+						<br></br>
+
+						<div class="row">
+							<div class="col-6 offset-6">
+								<table class="table table-condensed">
+									<tr class="border-black">
+										<td><strong>Montant</strong></td>
+										<td class="text-right">
+											<span t-field="o.montant_versement"/>
+										</td>
+									</tr>
+								 </table>
+							 </div>
+						</div>
+
+						<br></br>
+						<p t-if="o.comment">Commentaire: <span t-field="o.comment"/></p>
+						<br></br>
+
+						<div class="row">
+							<div class="col-4">
+								<strong><span>Aziza</span></strong>
+								<p t-if="o.user_id"><strong><span t-field="o.user_id.name"/></strong></p>
+								<p>Signature</p>
+							</div>
+							<div class="col-4 offset-4">
+								<strong><span>Banque</span></strong>
+								<p t-if="o.bank_id"><strong><span t-field="o.bank_id.name"/></strong></p>
+								<p>Signature</p>
+							</div>
+						</div>
+					</div>
+					</div>
+		    </t>
+		</template>
+
+		<template id="report_versement">
+		    <t t-call="web.html_container">
+		        <t t-foreach="docs" t-as="o">
+		            <t t-call="spc_recette_aziza.report_versement_document"/>
+		        </t>
+		    </t>
+	    </template>
+
+	</data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+        <record id="spc_survey_template_final_report" model="mail.template">
+            <field name="name">spc survey template</field>
+            <field name="model_id" ref="spc_survey.model_spc_survey_session_info"/>
+            <field name="subject">Audit ${(object.site_id.name)} </field>
+            <field name="email_from">${object.company_id and object.company_id.email or ''}</field>
+            <field name="email_to">${object.get_emails_list()}</field>
+            <field name="report_template" ref="spc_survey.print_report_session_spc_survey"/>
+            <field name="report_name">${(object.survey_session_id.name)} ${(object.site_id.name)}</field>
+            <field name="body_html" type="html">
+			<div>
+			    Bonjour ,<br/>
+			    ci-joint le rapport audit du magasin Aziza ${(object.site_id.name)} .
+			</div> <br />
+            <table class="table table-condensed" style="width: 100%; border: 1px solid #fff;">
+                <tr style="color:black;background-color:rgba(254,217,6,0.8);">
+                    <td>Score Final du Magasin</td>
+                    <td>${round(object.session_final_score)}</td>
+                </tr>
+            </table>
+			<br/>
+                <hr/>
+			
+			<div>
+				Cordialement. <br/>
+				Direction Audit et Veille Stratégique 
+			</div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="True"/> 
+        </record>
+        </data>
+ </odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_claim_list" inherit_id="spc_transfer_aziza.report_enveloppe_document">
+			<xpath expr="//div[@id='document_information']" position="inside">
+				<t t-if="%(spc_transfer_aziza.content_sav_id)d in content.ids">
+					<table class="table table-condensed">
+						<thead
+								style="border:solid rgba(215, 242, 254, 0.72);background-color:rgba(215, 242, 254, 0.72);border-radius:10px 0px 10px 0px;">
+							<tr>
+								<th>Numéro réclamation</th>
+								<th>Date réclamation</th>
+								<th>Article</th>
+								<th>Client</th>
+								<th>Statut</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr t-foreach="o.envelope_claim_ids" t-as="c">
+								<td>
+									<span t-field="c.name"/>
+								</td>
+								<td>
+									<span t-field="c.date_claim"/>
+								</td>
+								<td>
+									<span t-field="c.product_id"/>
+								</td>
+								<td>
+									<span t-field="c.customer_id.name"/>
+								</td>
+								<td>
+									<span t-field="c.state"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</t>
+
+			</xpath>
+        </template>
+    </data>
+</odoo>

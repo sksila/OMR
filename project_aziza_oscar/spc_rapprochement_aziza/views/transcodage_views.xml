@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="menu_transcodage_view"
+              name="Tables Transcodage"
+              parent="spc_oscar_aziza.menu_oscar_administration"
+              sequence="995"/>
+
+    <!-- view filter site-->
+    <record id="view_transcodage_site_filter" model="ir.ui.view">
+        <field name="name">transcodage.site.search.view</field>
+        <field name="model">transcodage.site</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des sites">
+                <field name="code_interne"/>
+                <field name="code_externe"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Site form view  -->
+    <record model="ir.ui.view" id="transcodage_site_view_form">
+        <field name="name">transcodage.site.view.form</field>
+        <field name="model">transcodage.site</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code_interne"/>
+                            <field name="code_externe"/>
+                            <field name="code_fournisseur"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Site tree view  -->
+    <record model="ir.ui.view" id="transcodage_site_view_tree">
+        <field name="name">transcodage.site.view.tree</field>
+        <field name="model">transcodage.site</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code_interne"/>
+                <field name="code_externe"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de sites (Transcodage) -->
+    <record model="ir.actions.act_window" id="action_transcodage_site">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Transcodage sites</field>
+        <field name="res_model">transcodage.site</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucun enregistrement trouvé.
+            </p>
+        </field>
+    </record>
+
+    <!-- view filter Fournisseur -->
+    <record id="view_transcodage_fournisseur_filter" model="ir.ui.view">
+        <field name="name">transcodage.fournisseur.search.view</field>
+        <field name="model">transcodage.fournisseur</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des fournisseurs">
+                <field name="code_interne"/>
+                <field name="code_externe"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Fournisseur form view  -->
+    <record model="ir.ui.view" id="transcodage_fournisseur_view_form">
+        <field name="name">transcodage.fournisseur.view.form</field>
+        <field name="model">transcodage.fournisseur</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code_interne"/>
+                            <field name="code_externe"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Fournisseur tree view  -->
+    <record model="ir.ui.view" id="transcodage_fournisseur_view_tree">
+        <field name="name">transcodage.fournisseur.view.tree</field>
+        <field name="model">transcodage.fournisseur</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code_interne"/>
+                <field name="code_externe"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de fournisseurs (Transcodage) -->
+    <record model="ir.actions.act_window" id="action_transcodage_fournisseur">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Transcodage fournisseurs</field>
+        <field name="res_model">transcodage.fournisseur</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucun enregistrement trouvé.
+            </p>
+        </field>
+    </record>
+
+    <!-- view filter Article -->
+    <record id="view_transcodage_article_filter" model="ir.ui.view">
+        <field name="name">transcodage.article.search.view</field>
+        <field name="model">transcodage.article</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des articles">
+                <field name="code_interne"/>
+                <field name="code_externe"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Article form view  -->
+    <record model="ir.ui.view" id="transcodage_article_view_form">
+        <field name="name">transcodage.article.view.form</field>
+        <field name="model">transcodage.article</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code_interne"/>
+                            <field name="code_externe"/>
+                            <field name="code_fournisseur"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Article tree view  -->
+    <record model="ir.ui.view" id="transcodage_article_view_tree">
+        <field name="name">transcodage.article.view.tree</field>
+        <field name="model">transcodage.article</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code_interne"/>
+                <field name="code_externe"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- actions liste de articles (Transcodage) -->
+    <record model="ir.actions.act_window" id="action_transcodage_article">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Transcodage articles</field>
+        <field name="res_model">transcodage.article</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucun enregistrement trouvé.
+            </p>
+        </field>
+    </record>
+
+    <!-- menu sites (Transcodage) -->
+    <menuitem id="menu_transcodage_site"
+              name="Sites"
+              action="action_transcodage_site"
+              parent="menu_transcodage_view"
+              sequence="10"/>
+
+    <!-- menu fournisseurs (Transcodage) -->
+    <menuitem id="menu_transcodage_fournisseur"
+              name="Fournisseurs"
+              action="action_transcodage_fournisseur"
+              parent="menu_transcodage_view"
+              sequence="20"/>
+
+    <!-- menu articles (Transcodage) -->
+    <menuitem id="menu_transcodage_article"
+              name="Articles"
+              action="action_transcodage_article"
+              parent="menu_transcodage_view"
+              sequence="20"/>
+</odoo>

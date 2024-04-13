@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<template id="print_template_page_spc_survey">
+		<t t-call="web.html_container">
+			<style>
+					* { font-family:'Comic Sans MS', cursive, sans-serif; }
+					table tbody tr th {position: sticky; left: 0; background-color:#F9F9F9;}
+			</style>
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page">
+						<h2 style="text-align:center;color:#fff;background-color:#e2101a">
+							<span t-field="o.survey_id.title" /> ~ <span t-field="o.create_date" />
+						</h2>
+						<div style="width: 100%; text-align: center;">
+							<div style="display: inline-block;">
+								<div style="float:left;">
+									<strong>Auditeur :  </strong>
+									<span t-if="o.survey_session_info_id.auditor_id" t-field="o.survey_session_info_id.auditor_id.name" />
+								</div>
+								<div style="float:left; margin-left:8px;">
+									<strong> | </strong>
+								</div>
+								<div style="float:left; margin-left:8px;">
+									<strong>Magasin  :  </strong>
+									<span t-if="o.survey_session_info_id.site_id" t-field="o.survey_session_info_id.site_id.name" />
+								</div>
+								<div style="clear:both; font-size:1px;"></div>
+							</div>
+						</div>
+						<hr style="height: 12px;border: 0;box-shadow: inset 0 12px 12px -12px rgba(226, 16, 26, 1);"/>
+						<br />
+						<div t-foreach="o.survey_id.page_ids" t-as="page">
+							<t t-set="page_counter" t-value="1" />
+							<h3 style="text-align:center;color:#fff;background-color:#e2101a;" t-field='page.title' />
+							<br/> <br/>
+							<div t-foreach="page.question_ids" t-as="question">
+								<h5 class="border border-dark" style="color:#000;background-color:#E3E7F1;padding:8px;" t-field='question.question' />
+								<div style="margin-top:12px;"></div>
+								<t t-if="question.type == 'advanced_matrix'">
+									<t t-set="nbre_cols" t-value="len(question.labels_adv_matrix_cols_ids)" />
+									<t t-set="nbre_rows" t-value="len(question.labels_adv_matrix_rows_ids)" />
+									<t t-set="prefix" t-value="'%s_%s_%s' % (o.survey_id.id, page.id, question.id)" />
+									<table class="table table-condensed" style="width: 100%; border: 1px solid #000;">
+										<thead class="thead-dark">
+											<tr>
+												<th> </th>
+												<th t-foreach="question.labels_adv_matrix_cols_ids" t-as="col" class="align-middle" style="text-align:left">
+													<span><span t-field="col.value" /></span>
+												</th>
+											</tr>
+										</thead>
+										<tbody class="tbody">
+												<tr t-foreach="question.labels_adv_matrix_rows_ids" t-as="row_label" style="background-color:#F9F9F9;" class="text-center">
+													<th style="text-align:left"> <span t-field="row_label.value" /> <t t-esc="gg" /> pp </th>
+													<td t-foreach="question.labels_adv_matrix_cols_ids" t-as="col_label">
+														<t t-set="prefix" t-value="'%s_%s_%s' % (prefix, row_label.id, col_label.id)" />
+														<t t-set="content" t-value="question.get_value(o.user_input_line_ids,prefix,o.id)" />
+														<t t-if="content">
+															<t t-if="col_label.col_type_resp == 'cam'">
+																<img t-att-src="content" alt="capture" style="height:200px;width=200px" />
+															</t>
+															<t t-if="col_label.col_type_resp == 'attachment'">
+																<ul class="list-group" t-foreach="content" t-as="attach">
+  																	<li class="list-group-item">
+																		<t t-esc="attach[0]"/> : <a t-att-href="'/web/content/' + attach[1] + '?download=true'">[Voir]</a>
+																	</li>
+																</ul>
+															</t>
+															<t t-else="">
+																<span t-esc="content"/>
+															</t>
+														</t>
+														<t t-set="prefix" t-value="'%s_%s_%s' % (o.survey_id.id, page.id, question.id)" />
+														<t t-set="content" t-value="" />
+													</td>
+												</tr>
+										</tbody>
+									</table>
+								</t>
+							</div>
+							<div t-if="len(o.survey_id.page_ids) != page_counter" style="page-break-after: always;"/>
+							<t t-set="page_counter" t-value="page_counter+1" />
+						</div>
+							<br/>
+							<table class="table table-condensed" style="width: 100%;font-weight:bold;border: 1px solid #000; ">
+								<tr t-foreach="o.criteria_ids" t-as="criteria" class="text-center">
+									<t t-if="not criteria.score_text">
+										<td style="background-color:#e2101a;color:#fff" class="align-middle" colspan="2"><span t-field="criteria.name" /></td>
+									</t>
+									<t t-else="">
+										<td> <span t-field="criteria.name" />  </td>
+										<td> <span t-field="criteria.score_text" /> </td>
+									</t>
+								</tr>
+							</table>
+							<h2 style="padding:12px; text-align:center;color:black;background-color:rgba(254,217,6,0.8);border: 1px solid #000;">
+								<span> Score : <span t-esc="int(o.final_score)"  />  % </span>
+							</h2>
+
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+
+	<report
+        id="print_report_page_spc_survey"
+        string="Report current page response"
+        model="survey.user_input"
+        report_type="qweb-pdf"
+        name="spc_survey.print_template_page_spc_survey"
+        file="spc_survey.print_template_page_spc_survey"
+        print_report_name="'%s_%s_%s' % (str(object.survey_id.title),str(object.date_create.date()),str(object.partner_id.name))"
+
+    />
+	
+    
+    
+
+
+</odoo>

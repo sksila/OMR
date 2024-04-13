@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="survey_label_tree_for_display">
+            <field name="name">survey_label_tree for display</field>
+            <field name="model">survey.label</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="question_display_form" model="ir.ui.view">
+            <field name="name">question.display.form</field>
+            <field name="model">question.display</field>
+            <field name="arch" type="xml">
+                <form string="ِQuestion display" create="false">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <notebook>
+					        <page string="Show/Hide">
+
+                                <group string="Rows" attrs="{'invisible' : [('is_auto_fill','=',True)]}">
+                                    <field name="rows_ids" string="Rows" nolabel="1">
+                                        <form>
+                                            <h2>
+                                                <field name="value" />
+                                            </h2>
+                                        </form>
+                                        <tree create="false" edit="false" delete="false" editable="bottom">
+                                            <field name="value" string="Name" readonly="1"/>
+                                            <button type="action" name="%(spc_survey_extra.row_columns_display_wizard_action)d"
+                                                    string="Columns" class="oe_highlight oe_edit_only"
+                                                    context="{'columns': parent.columns_ids, 'default_line':value}" />
+                                            <field name="display_cols" invisible="1" />
+                                            <field name="display_cols_text" readonly="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+
+                            </page>
+
+                            <page string="Show/Hide with conditions">
+
+                                <group string="Rows">
+                                    <field name="rows2_ids" string="Rows" nolabel="1">
+                                        <form>
+                                            <h2>
+                                                <field name="value" />
+                                            </h2>
+                                        </form>
+                                        <tree create="false" edit="false" delete="false">
+                                            <field name="value" string="Name" readonly="1"/>
+                                            <field name="id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Columns dependencies">
+                                    <field name="show_hide_cond_ids" nolabel="1">
+                                        <form>
+                                            <h2>
+                                                <field name="row_id" />
+                                            </h2>
+                                        </form>
+                                        <tree editable="bottom">
+                                            <field name="type" />
+                                            <field name="row_id" required="0" domain="[('id','in',parent.rows_ids)]" options="{'no_create': True, 'no_create_edit':True}" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                                            <field name="column_id" required="1" domain="[('id','in',parent.columns_ids)]" options="{'no_create': True, 'no_create_edit':True}" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                                            <field name="concerned_rows" widget="many2many_tags" domain="[('id','in',parent.rows_ids)]" options="{'no_create': True, 'no_create_edit':True}" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}" attrs="{'invisible': [('type','==','same_line')], 'required': [('type', '==', 'different_line')]}"/>
+                                            <field name="condition" required="1"/>
+                                            <field name="question_display_id" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+
+                            </page>
+
+                            <page string="Correction">
+
+                                <group string="Columns">
+                                    <field name="columns_ids" string="Columns" nolabel="1">
+                                        <form>
+                                            <h2>
+                                                <field name="value" />
+                                            </h2>
+                                        </form>
+                                        <tree create="false" edit="false" delete="false" editable="bottom">
+                                            <field name="value" string="Name" readonly="1"/>
+                                            <field name="data_correction" />
+                                        </tree>
+                                    </field>
+                                </group>
+
+                                <notebook>
+                                    <page string="Correction lines">
+                                        <group>
+                                            <field name="anomaly_columns_ids" nolabel="1">
+                                                <form>
+                                                    <h2>
+                                                        <field name="anomaly_col_id" />
+                                                    </h2>
+                                                    <h2>
+                                                        <field name="anomaly_values" />
+                                                    </h2>
+                                                </form>
+                                                <tree editable="bottom">
+                                                    <field name="anomaly_col_id" domain="[('id','in',parent.columns_ids)]" options="{'no_create': True, 'no_create_edit':True}" nolabel="1" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                                                    <field name="anomaly_values" />
+                                                    <field name="question_display_id" invisible="1" />
+                                                </tree>
+                                            </field>
+                                        </group>
+                                        <div class="alert alert-dark">
+                                            <blockquote class="blockquote alert alert-warning">First, choose the column</blockquote>
+                                            <blockquote class="blockquote alert alert-warning">Second, choose possible values</blockquote>
+                                            <blockquote class="blockquote alert alert-warning">
+                                                <p class="mb-0">Example: AN in -5,0</p>
+                                            </blockquote>
+                                        </div>
+                                    </page>
+                                </notebook>
+
+                            </page>
+                        </notebook>
+
+
+
+                        <field name="question_id" invisible="1" />
+                        <field name="is_auto_fill" invisible="1" /> <!-- autofill case -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="question_display_tree" model="ir.ui.view">
+            <field name="name">question.display.tree</field>
+            <field name="model">question.display</field>
+            <field name="arch" type="xml">
+                <tree string="Question display" create="false">
+                    <field name="name"/>
+                    <field name="question_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_question_display">
+			<field name="name">Question display</field>
+			<field name="res_model">question.display</field>
+			<field name="view_mode">tree,form</field>
+            <field name="domain">[('question_id', '=', active_id)]</field>
+			<field name="context">{}</field>
+		</record>
+
+
+
+    </data>
+</odoo>

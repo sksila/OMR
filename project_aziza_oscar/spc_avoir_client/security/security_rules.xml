@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.rule" id="spc_avoir_client_all_rule">
+	        <field name="name">Avoir Client: Admin et DE </field>
+	        <field name="model_id" ref="spc_avoir_client.model_oscar_avoir_client"/>
+	        <field name="domain_force">[(1, '=', 1)]</field>
+			<field name="groups" eval="[(4, ref('spc_oscar_aziza.group_admin_oscar')),
+			                            (4, ref('spc_oscar_aziza.group_DE'))]"/>
+   		</record>
+
+        <record model="ir.rule" id="spc_avoir_client_mg_rule">
+	        <field name="name">Avoir Client: RM/ARM ,RZ et DRE </field>
+	        <field name="model_id" ref="spc_avoir_client.model_oscar_avoir_client"/>
+	        <field name="domain_force">[('magasin_id.user_ids', 'child_of', [user.id])]</field>
+			<field name="groups" eval="[(4, ref('spc_oscar_aziza.group_reponsable_magasin')),
+										(4, ref('spc_oscar_aziza.group_reponsable_zone')),
+										(4, ref('spc_oscar_aziza.group_DRE'))]"/>
+   		</record>
+
+    </data>
+</odoo>

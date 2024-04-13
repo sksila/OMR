@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="ha_view_dispatch_contrat_form" model="ir.ui.view">
+            <field name="name">dispatch.contrat.form</field>
+            <field name="model">oscar.dispatch.contrat</field>
+            <field name="arch" type="xml">
+                <form string="Dispatching Sub Category">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ha_view_dispatch_contrat_tree" model="ir.ui.view">
+            <field name="name">dispatch.contrat.tree</field>
+            <field name="model">oscar.dispatch.contrat</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Spot">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_dispatch_contrat_form"
+                model="ir.actions.act_window">
+            <field name="name">Spot</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">oscar.dispatch.contrat</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a spot.
+                </p>
+                <p>
+                    Odoo helps you easily to manage your spot
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="ha_menu_dispatch_spot" name="Spot"
+                  action="action_dispatch_contrat_form"
+                  parent="ha_menu_root_dispatch_category" sequence="20"/>
+    </data>
+</odoo>

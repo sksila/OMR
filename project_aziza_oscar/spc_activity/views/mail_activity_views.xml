@@ -1,0 +1,522 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record id="spc_mail_activity_view_form" model="ir.ui.view">
+        <field name="name">spc.mail.activity.view.form</field>
+        <field name="model">mail.activity</field>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <form string="Log an Activity">
+                <xpath expr="//form" position="after">
+                    <header>
+                        <button name="to_validate" string="Valider" type="object"
+                                attrs="{'invisible': [('workflow_activity', '!=', 'new')]}" class="oe_highlight" />
+                        <button string="Lancer" name="action_close_dialog" type="object" attrs="{'invisible': [('workflow_activity', '!=', 'validated')]}"
+                    		class="btn-primary" groups="spc_activity.group_responsable_planification,spc_activity.group_user_planification"/>
+                        <button name="to_do" string="Terminer" type="object"
+                                attrs="{'invisible': [('workflow_activity', '!=', 'validated')]}" class="oe_highlight"
+                                groups="spc_activity.group_user_planification"/>
+                        <button name="%(action_reset_activity_wizard)d" string="Retouner à nouveau" type="action"
+                            attrs="{'invisible': [('workflow_activity', '=', 'new')]}"
+                            groups="spc_activity.group_user_planification"/>
+                        <button name="to_cancel" string="Annuler" type="object" attrs="{'invisible': [('workflow_activity', '!=', 'new')]}"
+                                groups="spc_activity.group_responsable_planification"/>
+                        <field name="workflow_activity" widget="statusbar"
+                               statusbar_visible="new,validated,done"/>
+                    </header>
+                </xpath>
+                <sheet string="Activity">
+                    <field name="state" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="activity_type_id" required="1" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                            <field name="summary" placeholder="e.g. Discuss proposal" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                            <field name="by_pass" string="By pass" invisible="1"/>
+
+                        </group>
+                        <group>
+                            <field name="date_limite" invisible="1"/>
+                            <field name="by_mass" widget="radio" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}" options="{'horizontal': true}"/>
+                            <field name="user_id" string="Utilisateur" options="{'no_create': True, 'no_open': True}" invisible="1" />
+                            <field name="user_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('by_mass', '!=', 'individual')], 'required': [('by_mass', '=', 'individual')]}"/>
+                            <field name="group_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('by_mass', '!=', 'by_group')], 'required': [('by_mass', '=', 'by_group')]}"/>
+                        </group>
+                    </group>
+                    <group invisible="0">
+                        <field name="activity_category" invisible="1" />
+                        <field name="res_model" invisible="1"/>
+                        <field name="res_model_id" invisible="1"/>
+                        <field name="res_id" invisible="1"/>
+                        <field name="force_next" invisible="1"/>
+                        <field name="previous_activity_type_id" invisible="1"/>
+                        <field name="has_recommended_activities" invisible="1"/>
+                        <field name="resource_ref" required="1" options="{'no_create': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                    </group>
+                    <group attrs="{'invisible': [('has_recommended_activities','=',False)]}">
+                        <div class="o_row">
+                            <strong>Recommended Activities</strong>
+                            <field name="recommended_activity_type_id" widget="selection_badge"
+                                domain="[('previous_type_ids', '=', previous_activity_type_id)]"
+                                nolabel="1"/>
+                        </div>
+                    </group>
+
+                    <notebook>
+                        <page name="page_details" string="Details de l'activité">
+                            <group attrs="{'invisible': [('reccurrent','==',False)]}" class="oe_edit_only ">
+                                <p class='alert alert-warning' role="status"> This event is linked to a recurrence...<br/>
+                                    <button type="object" name="action_detach_recurring_event"  string="Update only this instance"  help="Click here to update only this instance and not all recurrences. " class="oe_link"/>
+                                </p>
+                            </group>
+                            <group>
+                                <group attrs="{'invisible': [('activity_type_id', '!=', %(mail.mail_activity_data_meeting)s)]}">
+                                    <label for="partner_ids" string="Attendees"/>
+                                    <h2>
+                                        <field name="partner_ids" widget="many2manyparticipant"
+                                               placeholder="Select attendees..."
+                                               context="{'force_email':True}"
+                                               class="oe_inline" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                                    </h2>
+                                </group>
+                                <group>
+                                    <field name="start" attrs="{'invisible': True}"/>
+                                    <field name="stop" attrs="{'invisible': True}"/>
+                                    <field name="start_date" string="Heure de début"
+                                           attrs="{'required': [('allday','=',True)], 'invisible': [('allday','=',False)], 'readonly': [('id', '!=', False)]}"
+                                           force_save="1"/>
+                                    <field name="stop_date" string="Ending at"
+                                           attrs="{'required': [('allday','=',True)],'invisible': [('allday','=',False)], 'readonly': [('id', '!=', False)]}"
+                                           force_save="1"/>
+                                    <field name="start_datetime" string="Heure de début"  force_save="1"
+                                           attrs="{'required': [('allday','=',False)], 'invisible': [('allday','=',True)], 'readonly': ['|',('workflow_activity', '!=', 'new'), ('reccurrent','=',True)]}"/>
+                                    <field name="stop_datetime" invisible="1"/>
+                                    <label for="duration" attrs="{'invisible': [('allday','=',True)]}"/>
+                                    <div attrs="{'invisible': [('allday','=',True)]}">
+                                        <field name="duration" widget="float_time" string="Durée" attrs="{'readonly': ['|',('workflow_activity', '!=', 'new'),('reccurrent','=',True)]}" class="oe_inline"/>
+                                        <span>heures</span>
+                                    </div>
+                                    <field name="allday" attrs="{'readonly': [('id', '!=', False), ('reccurrent','=',True)]}" force_save="1"/>
+                                </group>
+                                <group>
+                                    <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                                    <field name="alarm_ids" widget="many2many_tags" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                                    <field name="privacy" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                                    <field name="show_as" invisible="1"/>
+<!--                                    <field name="group_ids" widget="many2many_tags" attrs="{'invisible': [('privacy', '!=', 'by_group')], 'readonly': [('check_user', '=', True)]}"/>-->
+                                    <field name="group_ids" widget="many2many_tags" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="page_options" string="Options">
+                             <group>
+                                 <div>
+                                     <group>
+                                         <field name="reccurrent" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                                     </group>
+                                     <div attrs="{'invisible': [('reccurrent', '=', False)]}">
+                                         <group attrs="{'readonly': [('workflow_activity', '!=', 'new')]}">
+                                             <label for="interval"/>
+                                             <div class="o_row">
+                                                 <field name="interval"
+                                                        attrs="{'required': [('reccurrent', '=', True)]}"/>
+                                                 <field name="rrule_type"
+                                                        attrs="{'required': [('reccurrent', '=', True)]}"/>
+                                             </div>
+                                             <label string="Until" for="end_type"/>
+                                             <div class="o_row">
+                                                 <field name="end_type"
+                                                        attrs="{'required': [('reccurrent', '=', True)]}"/>
+                                                 <field name="count"
+                                                        attrs="{'invisible': [('end_type', '!=', 'count')], 'required': [('reccurrent', '=', True)]}"/>
+                                                 <field name="final_date"
+                                                        attrs="{'invisible': [('end_type', '!=', 'end_date')], 'required': [('end_type', '=', 'end_date'), ('reccurrent', '=', True)]}"/>
+                                             </div>
+                                         </group>
+                                         <group attrs="{'invisible': [('rrule_type', '!=', 'weekly')]}" name="weekdays">
+                                             <field name="mo"/>
+                                             <field name="tu"/>
+                                             <field name="we"/>
+                                             <field name="th"/>
+                                             <field name="fr"/>
+                                             <field name="sa"/>
+                                             <field name="su"/>
+                                         </group>
+                                         <group attrs="{'invisible': [('rrule_type', '!=', 'monthly')]}">
+                                             <label string="Day of Month" for="month_by"/>
+                                             <div class="o_row">
+                                                 <field name="month_by"/>
+                                                 <field name="day"
+                                                        attrs="{'required': [('month_by', '=', 'date'), ('rrule_type', '=', 'monthly')],
+                                                            'invisible': [('month_by', '!=', 'date')]}"/>
+                                                 <field name="byday" string="The"
+                                                        attrs="{'required': [('reccurrent', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                                            'invisible': [('month_by', '!=', 'day')]}"/>
+                                                 <field name="week_list" nolabel="1"
+                                                        attrs="{'required': [('reccurrent', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                                            'invisible': [('month_by', '!=', 'day')]}"/>
+                                             </div>
+                                         </group>
+                                     </div>
+                                 </div>
+                                 <group>
+                                 </group>
+                             </group>
+
+                             <group>
+                                 <field name="activity_parent_id" invisible="1"/>
+                                 <field name="activity_child_ids" invisible="1">
+                                     <tree create="0" edit="1">
+                                         <field name="summary"/>
+                                         <field name="user_id"/>
+                                         <field name="date_limite" invisible="1"/>
+                                         <field name="start" string="Date de début"/>
+                                         <field name="stop" string="Date de fin"/>
+                                     </tree>
+                                 </field>
+                             </group>
+                             <group>
+                                 <div style="float:right;">
+
+                                     <field name="activity_has_sisters" invisible="1"/>
+
+                                 </div>
+                             </group>
+                    </page>
+
+
+                        <page name="page_invitations" string="Invitations"
+                              attrs="{'invisible': [('activity_type_id', '!=', %(mail.mail_activity_data_meeting)s)], 'readonly': [('workflow_activity', '!=', 'new')]}">
+                            <button name="action_sendmail" type="object" string="Send mail" icon="fa-envelope" class="oe_link"/>
+                            <field name="attendee_ids" widget="one2many" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}">
+                                <tree string="Invitation details" editable="top" create="false" delete="false">
+                                    <field name="partner_id" />
+                                    <field name="state" />
+                                    <field name="email" widget="email"/>
+                                    <field name="workflow_activity" invisible="1"/>
+                                    <button name="do_tentative" states="needsAction,declined,accepted" string="Uncertain" type="object" icon="fa-asterisk" />
+                                    <button name="do_accept" string="Accept" states="needsAction,tentative,declined" type="object" icon="fa-check text-success"/>
+                                    <button name="do_decline" string="Decline" states="needsAction,tentative,accepted" type="object" icon="fa-times-circle text-danger"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="page_managers" string="Managers" invisible="1">
+                            <field name="manager_ids" widget="one2many" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}">
+                                <tree string="Manager details" editable="top" create="false" delete="false">
+                                    <field name="user_id" />
+                                    <field name="email" widget="email"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="page_note" string="Notes">
+                            <field name="note" placeholder="Log a note..."
+                                   attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>
+                            <field name="count_reset" invisible="1"/>
+                            <field name="reset_ids" attrs="{'invisible': [('count_reset', '=', 0)]}">
+                                <tree>
+                                    <field name="name" />
+                                    <field name="date_reset" />
+                                    <field name="user_id" />
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="spc_mail_activity_view_tree" model="ir.ui.view">
+        <field name="name">spc.mail.activity.view.tree</field>
+        <field name="model">mail.activity</field>
+        <field name="arch" type="xml">
+            <tree string="Next Activities"
+                    decoration-danger="date_limite &lt; current_date"
+                    decoration-success="date_limite == current_date"
+                    default_order="date_limite">
+                <field name="summary"/>
+                <field name="activity_type_id"/>
+                <field name="date_limite" invisible="1"/>
+                <field name="start" string="Start Date"/>
+                <field name="stop" string="End Date"/>
+                <field name="duration" widget="float_time"/>
+                <field name="user_id"/>
+                <field name="workflow_activity" widget="colored_state" options="{'new': { 'class': 'badge-light', 'name': 'Nouvelle' },
+					 													'validated': { 'class': 'badge-info', 'name': 'Validée' },
+					  													'canceled': { 'class': 'badge-danger', 'name': 'Annulée' },
+					   													'done': { 'class': 'badge-success', 'name': 'Terminée' },
+					   													'untreated': { 'class': 'badge-warning', 'name': 'Non traité' }}" />
+            </tree>
+        </field>
+    </record>
+    
+    <record id="spc_mail_activity_view_calendar_inherit" model="ir.ui.view">
+		<field name="model">mail.activity</field>
+		<field name="inherit_id" ref="mail.mail_activity_view_calendar" />
+		<field name="arch" type="xml">
+			
+			<xpath expr="//calendar" position="attributes">
+				<attribute name="quick_add">False</attribute>
+				<attribute name="event_open_popup">True</attribute>
+				<attribute name="date_start">start</attribute>
+				<attribute name="date_stop">stop</attribute>
+				<attribute name="date_delay">duration</attribute>
+				<attribute name="all_day">allday</attribute>
+<!--				<attribute name="color">user_id</attribute>-->
+			</xpath>
+              <xpath expr="//calendar/field[@name='user_id']" position="replace">
+                <field name="user_id" write_model="res.users.calendar" write_field="user_calendar_id"/>
+                <!--pour afficher l'avatar à la place du display_name: avatar_field="user_id"-->
+            </xpath>
+		</field>
+	</record>
+
+    <record id="spc_mail_activity_view_search_inherit" model="ir.ui.view">
+            <field name="name">mail.activity.view.search.inherit</field>
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="mail.mail_activity_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/field[@name='activity_type_id']" position="after">
+                    <field name="workflow_activity"/>
+                </xpath>
+                <xpath expr="//search/group/filter[@name='activittype']" position="after">
+                    <filter string="Confidentialité" name="privacy" domain="[]" context="{'group_by': 'privacy'}"/>
+                </xpath>
+            </field>
+        </record>
+    
+    <record id="spc_mail_activity_action" model="ir.actions.act_window">
+		<field name="name">Activités</field>
+		<field name="res_model">mail.activity</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">calendar,tree,form</field>
+        <field name="context">{'by_pass':True}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+           		(0, 0, {'view_mode': 'calendar', 'view_id': ref('spc_mail_activity_view_calendar_inherit')}),
+   				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_mail_activity_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_mail_activity_view_form')})]"
+			/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Planifiez vos tâches et vos activités
+          </p>
+        </field>
+	</record>
+
+<!--    <record id="spc_mail_activity_view_form_popup_inherit" model="ir.ui.view">-->
+<!--        <field name="name">mail.activity.form.inherit</field>-->
+<!--        <field name="model">mail.activity</field>-->
+<!--        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//footer" position="replace" />-->
+<!--            <xpath expr="//form/sheet//group/field[@name='date_limite']" position="replace"/>-->
+
+<!--            <xpath expr="//form/sheet//group[last()]" position="after">-->
+<!--                <group>-->
+<!--                    <group>-->
+<!--                        <field name="resource_ref" required="1"/>-->
+<!--                    </group>-->
+
+<!--                    <group>-->
+<!-- 						&lt;!&ndash; <field name="by_mass" widget="radio" options="{'horizontal': true}"/>-->
+<!--						<field name="user_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('by_mass', '=', 'individual')], 'required': [('by_mass', '=', 'by_group')]}"/> &ndash;&gt;-->
+<!--			</group>-->
+
+<!--                </group>-->
+<!--                <notebook>-->
+<!--                    <page name="page_details" string="Details de l'activité">-->
+<!--                        <group>-->
+<!--                            <group attrs="{'invisible': [('activity_type_id', '!=', %(mail.mail_activity_data_meeting)s)]}">-->
+<!--                                <label for="partner_ids" string="Attendees"/>-->
+<!--                                <h2>-->
+<!--                                    <field name="partner_ids" widget="many2manyparticipant"-->
+<!--                                           placeholder="Select attendees..."-->
+<!--                                           context="{'force_email':True}"-->
+<!--                                           class="oe_inline"/>-->
+<!--                                </h2>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="start_datetime" required="1"/>-->
+<!--                                <field name="duration" required="1"/>-->
+<!--                                <field name="privacy"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="tag_ids" widget="many2many_tags"/>-->
+<!--                                <field name="alarm_ids" widget="many2many_tags"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+<!--                    </page>-->
+<!--                    <page name="page_options" string="Options">-->
+<!--                             <group>-->
+<!--                                 <div>-->
+<!--                                     <group>-->
+<!--                                         <field name="reccurrent" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>-->
+<!--                                     </group>-->
+<!--                                     <div attrs="{'invisible': [('reccurrent', '=', False)]}">-->
+<!--                                         <group attrs="{'readonly': [('workflow_activity', '!=', 'new')]}">-->
+<!--                                             <label for="interval"/>-->
+<!--                                             <div class="o_row">-->
+<!--                                                 <field name="interval"-->
+<!--                                                        attrs="{'required': [('reccurrent', '=', True)]}"/>-->
+<!--                                                 <field name="rrule_type"-->
+<!--                                                        attrs="{'required': [('reccurrent', '=', True)]}"/>-->
+<!--                                             </div>-->
+<!--                                             <label string="Until" for="end_type"/>-->
+<!--                                             <div class="o_row">-->
+<!--                                                 <field name="end_type"-->
+<!--                                                        attrs="{'required': [('reccurrent', '=', True)]}"/>-->
+<!--                                                 <field name="count"-->
+<!--                                                        attrs="{'invisible': [('end_type', '!=', 'count')], 'required': [('reccurrent', '=', True)]}"/>-->
+<!--                                                 <field name="final_date"-->
+<!--                                                        attrs="{'invisible': [('end_type', '!=', 'end_date')], 'required': [('end_type', '=', 'end_date'), ('reccurrent', '=', True)]}"/>-->
+<!--                                             </div>-->
+<!--                                         </group>-->
+<!--                                         <group attrs="{'invisible': [('rrule_type', '!=', 'weekly')]}" name="weekdays">-->
+<!--                                             <field name="mo"/>-->
+<!--                                             <field name="tu"/>-->
+<!--                                             <field name="we"/>-->
+<!--                                             <field name="th"/>-->
+<!--                                             <field name="fr"/>-->
+<!--                                             <field name="sa"/>-->
+<!--                                             <field name="su"/>-->
+<!--                                         </group>-->
+<!--                                         <group attrs="{'invisible': [('rrule_type', '!=', 'monthly')]}">-->
+<!--                                             <label string="Day of Month" for="month_by"/>-->
+<!--                                             <div class="o_row">-->
+<!--                                                 <field name="month_by"/>-->
+<!--                                                 <field name="day"-->
+<!--                                                        attrs="{'required': [('month_by', '=', 'date'), ('rrule_type', '=', 'monthly')],-->
+<!--                                                            'invisible': [('month_by', '!=', 'date')]}"/>-->
+<!--                                                 <field name="byday" string="The"-->
+<!--                                                        attrs="{'required': [('reccurrent', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],-->
+<!--                                                            'invisible': [('month_by', '!=', 'day')]}"/>-->
+<!--                                                 <field name="week_list" nolabel="1"-->
+<!--                                                        attrs="{'required': [('reccurrent', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],-->
+<!--                                                            'invisible': [('month_by', '!=', 'day')]}"/>-->
+<!--                                             </div>-->
+<!--                                         </group>-->
+<!--                                     </div>-->
+<!--                                 </div>-->
+<!--                                 <group>-->
+<!--                                 </group>-->
+<!--                             </group>-->
+
+<!--                             <group>-->
+<!--                                 <field name="activity_parent_id" invisible="1"/>-->
+<!--                                 <field name="activity_child_ids" invisible="1">-->
+<!--                                     <tree create="0" edit="1">-->
+<!--                                         <field name="summary"/>-->
+<!--                                         <field name="user_id"/>-->
+<!--                                         <field name="date_limite" invisible="1"/>-->
+<!--                                         <field name="allday" invisible="1"/>-->
+<!--                                         <field name="start" string="Date de début"/>-->
+<!--                                         <field name="stop" string="Date de fin"/>-->
+<!--                                     </tree>-->
+<!--                                 </field>-->
+<!--                             </group>-->
+<!--                             <group>-->
+<!--                                 <div style="float:right;">-->
+
+<!--                                     <field name="activity_has_sisters" invisible="1"/>-->
+
+<!--                                 </div>-->
+<!--                             </group>-->
+<!--                    </page>-->
+<!--                    <page name="page_invitations" string="Invitations"-->
+<!--                              attrs="{'invisible': [('activity_type_id', '!=', %(mail.mail_activity_data_meeting)s)], 'readonly': [('workflow_activity', '!=', 'new')]}">-->
+<!--                            <button name="action_sendmail" type="object" string="Send mail" icon="fa-envelope" class="oe_link"/>-->
+<!--                            <field name="attendee_ids" widget="one2many" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}">-->
+<!--                                <tree string="Invitation details" editable="top" create="false" delete="false">-->
+<!--                                    <field name="partner_id" />-->
+<!--                                    <field name="state" />-->
+<!--                                    <field name="email" widget="email"/>-->
+<!--                                    <field name="workflow_activity" invisible="1"/>-->
+<!--                                    <button name="do_tentative" states="needsAction,declined,accepted" string="Uncertain" type="object" icon="fa-asterisk" />-->
+<!--                                    <button name="do_accept" string="Accept" states="needsAction,tentative,declined" type="object" icon="fa-check text-success"/>-->
+<!--                                    <button name="do_decline" string="Decline" states="needsAction,tentative,accepted" type="object" icon="fa-times-circle text-danger"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </page>-->
+
+<!--                  <page name="page_note" string="Notes">-->
+<!--                        <field name="note" placeholder="Log a note..."-->
+<!--                               attrs="{'readonly': [('workflow_activity', '!=', 'new')]}"/>-->
+<!--                    </page>-->
+<!--                </notebook>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//form/sheet//group/field[@name='user_id']" position="attributes">-->
+<!--               <attribute name="attrs">{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': 1, 'required':[('by_mass', '=', 'individual')]}</attribute>-->
+<!--				<attribute name="options">{'no_create': True, 'no_open': True}</attribute>-->
+<!--           </xpath>-->
+
+<!--           <field name="user_id" position="before">-->
+<!--               <field name="by_mass" widget="radio" options="{'horizontal': true}"/>-->
+<!--               <field name="user_id" string="Utilisateur" options="{'no_create': True, 'no_open': True}" invisible="1"/>-->
+<!--               <field name="user_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('by_mass', '!=', 'individual')], 'required': [('by_mass', '=', 'individual')]}"/>-->
+<!--               <field name="group_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('by_mass', '!=', 'by_group')], 'required': [('by_mass', '=', 'by_group')]}"/>-->
+<!--&lt;!&ndash;               <field name="user_ids" widget="many2many_tags" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('by_mass', '=', 'individual')], 'required': [('by_mass', '=', 'by_group')]}"/>&ndash;&gt;-->
+<!--           </field>-->
+
+<!--            <xpath expr="//sheet" position="before">-->
+<!--                <header>-->
+<!--                    <button name="to_validate" string="Valider" type="object"-->
+<!--                            attrs="{'invisible': [('workflow_activity', '!=', 'new')]}" class="oe_highlight" />-->
+<!--                    <button string="Lancer" name="action_close_dialog" type="object" attrs="{'invisible': [('workflow_activity', '!=', 'validated')]}"-->
+<!--                    		class="btn-primary" groups="spc_activity.group_responsable_planification,spc_activity.group_user_planification"/>-->
+<!--                    <button name="to_do" string="Terminer" type="object"-->
+<!--                            attrs="{'invisible': [('workflow_activity', '!=', 'validated')]}" class="oe_highlight"-->
+<!--                            groups="spc_activity.group_user_planification"/>-->
+<!--                    <button name="%(action_reset_activity_wizard)d" string="Retouner à nouveau" type="action"-->
+<!--                            attrs="{'invisible': [('workflow_activity', '=', 'new')]}"-->
+<!--                            groups="spc_activity.group_user_planification"/>-->
+<!--                    <button name="to_cancel" string="Annuler" type="object"-->
+<!--                            attrs="{'invisible': [('workflow_activity', '!=', 'new')]}"-->
+<!--                            groups="spc_activity.group_responsable_planification"/>-->
+<!--                    <field name="workflow_activity" widget="statusbar"-->
+<!--                           statusbar_visible="new,validated,done"/>-->
+<!--                </header>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="spc_activity_motif_view_form" model="ir.ui.view">
+        <field name="name">spc.activity.motif.form</field>
+        <field name="model">spc.activity.motif</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="spc_activity_motif_view_tree" model="ir.ui.view">
+        <field name="name">spc.activity.motif.tree</field>
+        <field name="model">spc.activity.motif</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="spc_action_activity_motif" model="ir.actions.act_window">
+        <field name="name">Motif d'activité</field>
+        <field name="res_model">spc.activity.motif</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Ajouter un nouveau motif.
+              </p>
+            </field>
+    </record>
+
+</odoo>

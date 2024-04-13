@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+	
+	<menuitem id="menu_ws" name="Web Service" parent="base.menu_administration" sequence="100" />
+	
+	<record id="view_ws_config_form" model="ir.ui.view">
+		<field name="name">ws.config.form</field>
+		<field name="model">ws.config</field>
+		<field name="arch" type="xml">
+			<form string="WS Configuration">
+				<header>
+						<button name="get_vals" string="Tester" type="object" class="btn-primary" />
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button"
+							icon="fa-check-square-o">
+							<field name="active" widget="boolean_button"
+								options="{&quot;terminology&quot;: &quot;Désactiver&quot;}" />
+						</button>
+					</div>
+					<div class="oe_title">
+						<label for="name" class="oe_edit_only" />
+						<h1>
+							<field name="name" placeholder="Nom" />
+						</h1>
+					</div>
+					<group>
+						<label for="ws_url" class="oe_edit_only" />
+						<field name="ws_url" />
+						<group>
+							<field name="ws_login" />
+							<field name="ws_password" password="True" />
+						</group>
+					</group>
+					<notebook>
+            			<page string="Params">
+            				<field name="params_ids" >
+            					<tree  editable="bottom">
+            						<field name="name" />
+									<field name="type" />
+									<field name="model_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+									<field name="field_id" domain="[('model_id', '=', model_id)]" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+            					</tree>
+            				</field>
+	            		</page>
+		           	</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_ws_config_tree" model="ir.ui.view">
+		<field name="name">ws.config.tree</field>
+		<field name="model">ws.config</field>
+		<field name="arch" type="xml">
+			<tree string="WS Configuration" decoration-muted="(not active)">
+				<field name="name" />
+				<field name="ws_url" />
+				<field name="active" invisible="1"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_ws_config" model="ir.actions.act_window">
+		<field name="name">Configuration</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">ws.config</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+		<field name="help" type="html">
+			<p class="oe_view_nocontent_create">
+				Cliquez pour ajouter une nouvelle configuration.
+			</p>
+		</field>
+	</record>
+
+	<menuitem id="menu_ws_config" name="Configuration"
+		action="action_ws_config" parent="menu_ws"
+		sequence="10" />
+
+	</data>
+</odoo>

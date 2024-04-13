@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="inter_product_tree_view" model="ir.ui.view">
+            <field name="name">inter.product.tree</field>
+            <field name="model">inter.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="category"/>
+                    <field name="family"/>
+                    <field name="subfamily"/>
+                    <field name="spot"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="inter_product_form_view" model="ir.ui.view">
+            <field name="name">inter.product.form</field>
+            <field name="model">inter.product</field>
+            <field name="arch" type="xml">
+                <form>
+                	<sheet>
+                		<group>
+                			<field name="code"/>
+	                    	<field name="name"/>
+	                    	<field name="barcode"/>
+	                    	<field name="code_category"/>
+                    		<field name="category"/>
+                    		<field name="code_family"/>
+		                    <field name="family"/>
+		                    <field name="code_subfamily"/>
+		                    <field name="subfamily"/>
+		                    <field name="appro"/>
+		                    <field name="spot"/>
+                		</group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="inter_product_act_window" model="ir.actions.act_window">
+            <field name="name">Articles</field>
+            <field name="res_model">inter.product</field>
+           <field name="view_id" ref="spc_product.inter_product_tree_view"/>
+			<field name="view_type">form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Articles" id="inter_product_menu" parent="spc_oscar_aziza.menu_gold_view" action="spc_product.inter_product_act_window"/>
+
+        <!-- plano -->
+        <record id="inter_plano_facing_tree_view" model="ir.ui.view">
+            <field name="name">inter.plano_facing.tree</field>
+            <field name="model">inter.plano_facing</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code_article"/>
+                    <field name="sous_famille"/>
+                    <field name="name"/>
+                    <field name="category_name" />
+                    <field name="element_level"/>
+                    <field name="facing"/>
+                    <field name="marque"/>
+                    <field name="niveau"/>
+                    <field name="classement" />
+<!--                    <field name="code_site"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="inter_plano_facing_act_window" model="ir.actions.act_window">
+            <field name="name">PlanoFacing</field>
+            <field name="res_model">inter.plano_facing</field>
+            <field name="view_id" ref="spc_product.inter_plano_facing_tree_view"/>
+			<field name="view_type">form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Plano Facing" id="plano_facing_menu" parent="spc_oscar_aziza.menu_gold_view" action="spc_product.inter_plano_facing_act_window"/>
+
+        <!-- top_articles -->
+        <record id="inter_top_articles_tree_view" model="ir.ui.view">
+            <field name="name">inter.top_articles.tree</field>
+            <field name="model">inter.top_articles</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code_article"/>
+                    <field name="name"/>
+                    <field name="stock_min"/>
+                    <field name="code_site"/>
+                    <field name="lib_site"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="inter_top_articles_act_window" model="ir.actions.act_window">
+            <field name="name">Top articles</field>
+            <field name="res_model">inter.top_articles</field>
+           <field name="view_id" ref="spc_product.inter_top_articles_tree_view"/>
+			<field name="view_type">form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Top Articles" id="top_articles_menu" parent="spc_oscar_aziza.menu_gold_view" action="spc_product.inter_top_articles_act_window"/>
+
+        <!-- articles_aleatoires -->
+        <record id="inter_articles_aleatoires_tree_view" model="ir.ui.view">
+            <field name="name">inter.articles_aleatoires.tree</field>
+            <field name="model">inter.articles_aleatoires</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code_article"/>
+                    <field name="name"/>
+                    <field name="code_site"/>
+                    <field name="lib_site"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="inter_articles_aleatoires_act_window" model="ir.actions.act_window">
+            <field name="name">Articles aléatoires</field>
+            <field name="res_model">inter.articles_aleatoires</field>
+           <field name="view_id" ref="spc_product.inter_articles_aleatoires_tree_view"/>
+			<field name="view_type">form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Articles aléatoires" id="articles_aleatoires_menu" parent="spc_oscar_aziza.menu_gold_view" action="spc_product.inter_articles_aleatoires_act_window"/>
+
+        <!-- articles_promo -->
+        <record id="inter_article_promo_tree_view" model="ir.ui.view">
+            <field name="name">inter.article_promo.tree</field>
+            <field name="model">inter.article_promo</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" >
+                    <field name="code_article"/>
+                    <field name="nature" />
+                    <field name="name"/>
+                    <field name="type_article" />
+                    <field name="prix_promo" />
+                    <field name="code_site"/>
+                    <field name="lib_site"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="inter_article_promo_act_window" model="ir.actions.act_window">
+            <field name="name">Articles Promo</field>
+            <field name="res_model">inter.article_promo</field>
+           <field name="view_id" ref="spc_product.inter_article_promo_tree_view"/>
+			<field name="view_type">form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem name="Articles en promo" id="article_promo_menu" parent="spc_oscar_aziza.menu_gold_view" action="spc_product.inter_article_promo_act_window"/>
+
+		<record id="ha_view_fournisseur_inter_form" model="ir.ui.view">
+        <field name="name">oscar.fournisseur.inter.form</field>
+        <field name="model">oscar.fournisseur.inter</field>
+        <field name="arch" type="xml">
+            <form string="fournisseur">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+							<field name="code_article"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ha_view_fournisseur_inter_tree" model="ir.ui.view">
+        <field name="name">oscar.fournisseur.inter.tree</field>
+        <field name="model">oscar.fournisseur.inter</field>
+        <field name="arch" type="xml">
+            <tree string="fournisseur">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="code_article"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_fournisseur_inter_view" model="ir.actions.act_window">
+        <field name="name">Fournisseur</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oscar.fournisseur.inter</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+     <menuitem id="menu_fournisseur_inter" name="Fournisseurs"
+              parent="spc_oscar_aziza.menu_gold_view"
+              action="action_fournisseur_inter_view"/>
+
+    </data>
+</odoo>

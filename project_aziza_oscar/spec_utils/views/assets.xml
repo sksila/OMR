@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="asset_backend" inherit_id="web.assets_backend" name="Spec utils Backend">
+        <xpath expr="//script[last()]" position="after">
+            <script src="/spec_utils/static/src/js/views/kanban.js"/>
+            <script src="/spec_utils/static/src/js/fields/colored_state_field.js"/>
+        </xpath>
+    </template>
+</odoo>

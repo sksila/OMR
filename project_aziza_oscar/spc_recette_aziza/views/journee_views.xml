@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <data>
+
+	<!-- view filter journee-->
+    <record id="view_journee_filter" model="ir.ui.view">
+      <field name="name">journee.search.view</field>
+      <field name="model">oscar.journee</field>
+      <field name="arch" type="xml">
+        <search string="Rechercher des journées">
+        	<field name="name" />
+        	<filter string="Mes journées" name="my_journee" domain="[('magasin_id.user_ids', 'child_of', [uid])]"/>
+        	<separator/>
+          <filter string="Nouvelle journée" name="new_journee" domain="[('state', '=', 'new')]" groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_admin_oscar"/>
+          <filter string="Journée préparée" name="prepared_journee" domain="[('state', '=', 'prepared')]" groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_admin_oscar"/>
+          <filter string="Journée en route" name="road_journee" domain="[('state', '=', 'road')]"/>
+          <filter string="Journée reçue au siège" name="done_journee" domain="[('state', '=', 'done')]"/>
+          <filter string="Journée reçue au l'entrepôt" name="done1_journee" domain="[('state', '=', 'done1')]"/>
+          <separator/>
+          	<filter string="Journée en attente" name="waiting_journee" groups="spc_recette_aziza.group_agent_reception_oscar,spc_recette_aziza.group_agent_validation_oscar,spc_oscar_aziza.group_admin_oscar" domain="[('state', '=', 'waiting')]"/>
+          	<filter string="Journée acceptée" name="accepted_journee" groups="spc_recette_aziza.group_agent_reception_oscar,spc_recette_aziza.group_agent_validation_oscar,spc_oscar_aziza.group_admin_oscar" domain="[('state', '=', 'accepted')]"/> 
+	        <filter string="Journée vérifiée" name="checked_journee" groups="spc_recette_aziza.group_agent_validation_oscar,spc_oscar_aziza.group_admin_oscar" domain="[('state', '=', 'checked')]"/>
+        	<separator/>
+          	<filter name="group_journee_by_state" string="Statut" context="{'group_by':'state'}" groups="spc_oscar_aziza.group_admin_oscar"/>
+          	<filter name="group_journee_by_magasin" string="Magasin" context="{'group_by':'magasin_id'}" groups="spc_oscar_aziza.group_admin_oscar"/>
+          	<filter name="group_journee_by_date" string="Date Journée" context="{'group_by':'date_journee:day'}" />
+        </search>
+      </field>
+    </record>
+    
+    
+    <!-- Mode de paiement tree view  -->
+    <record model="ir.ui.view" id="oscar_mode_paiement_view_tree">
+      <field name="name">oscar.mode.paiement.view.tree</field>
+      <field name="model">oscar.mode.paiement</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="moyen_paiement_id"/>
+          <field name="montant"/>
+          <field name="montant_gold"/>
+          <field name="user_id"/>
+          <field name="is_refund"/>
+          <field name="origine_id"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+    
+    <!-- Mode de paiement form view  -->
+    <record model="ir.ui.view" id="oscar_mode_paiement_view_form">
+      <field name="name">oscar.mode.paiement.view.form</field>
+      <field name="model">oscar.mode.paiement</field>
+      <field name="arch" type="xml">
+        <form>
+        	<header>
+        		<field name="state" widget="statusbar" statusbar_visible="new,confirmed"/>
+        	</header>
+        	<sheet>
+        		<group>
+		        	<group>
+						<field name="moyen_paiement_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+						<field name="montant"/>
+						<field name="montant_gold"/>
+						<field name="is_refund"/>
+						<field name="num_avoir" attrs="{'invisible': [('is_refund', '=', False)]}" />
+		          	</group>
+		          	<group>
+		          		<field name="date_journee"/>
+		          		<field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+		          		<field name="user_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" />
+		          		<field name="origine_id"/>
+		          	</group>
+	          	</group>
+          	</sheet>
+        </form>
+      </field>
+    </record>
+   
+    
+    <!-- actions liste de journees par caissier (responsable magasin) -->
+    <record model="ir.actions.act_window" id="action_journee_by_caissier">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des journées par Caissier</field>
+      <field name="res_model">oscar.journee.line</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('journee_id', '=', active_id)]</field>
+      <field name="context">{
+        'create': True,
+        }</field>
+    </record>
+    
+    <!-- actions liste de ecarts de la journee (responsable magasin) -->
+    <record model="ir.actions.act_window" id="action_ecart_journee_mg">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des écarts</field>
+      <field name="res_model">oscar.ecart</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('journee_id', '=', active_id),('type', '=', 'ecart'),('state','in', ['justify', 'validated', 'justify1'])]</field>
+      <field name="context">{
+        'create': False,
+        'edit': False,
+        }</field>
+    </record>
+    
+    <!-- actions liste de versements de journée (responsable magasin) -->
+    <record model="ir.actions.act_window" id="action_versement_by_journee">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Versements</field>
+      <field name="res_model">oscar.versement</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('journee_id', '=', active_id)]</field>
+      <field name="context">{
+        'default_journee_id': active_id,
+        }</field>
+    </record>
+
+    <!-- actions liste de enveloppes de journée (responsable magasin) -->
+    <record model="ir.actions.act_window" id="action_envelope_by_journee">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Enveloppes</field>
+        <field name="res_model">oscar.envelope</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('journee_ids', 'in', [active_id])]</field>
+        <field name="context">{
+        'create': False,
+        'edit': False,
+        'delete': False,
+        }</field>
+    </record>
+    
+    
+    <!-- Journee form view  -->
+    <record model="ir.ui.view" id="journee_view_form">
+      <field name="name">journee.view.form</field>
+      <field name="model">oscar.journee</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+			<button name="preparer_journee" string="Clôturer" type="object" states="new" groups="spc_oscar_aziza.group_reponsable_magasin" class="btn-primary oe_read_only" />
+            <button name="%(change_state_journee_wizard_action)d" string="Modifier le statut"
+                                type="action" groups="base.group_no_one"/>
+            <field name="state" widget="statusbar" statusbar_visible="new,prepared,road,done"/>
+          </header>
+          <sheet>
+	          <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" type="action"
+                    name="%(action_versement_by_journee)d"
+                    icon="fa-money"
+                    context="{'default_journee_id': active_id}" help="Montant versé">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value"><field name="montant_versement" widget='monetary' options="{'currency_field': 'currency_id'}"/></span>
+                            <span class="o_stat_text">Versement(s)</span>
+                        </div>
+                    </button>
+                    <button class="oe_stat_button" type="action"
+                        name="%(action_journee_by_caissier)d"
+                        icon="fa-desktop"
+                        context="{'default_journee_id': active_id}" help="Journées de caissier">
+                        <field string=" Caissier(s)" name="caissier_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="action"
+                    name="%(action_ecart_journee_mg)d"
+                    icon="fa-exclamation-circle"
+                    context="{'default_journee_id': active_id}" attrs="{'invisible': [('ecart_count', '=', 0)]}" help="Écarts de la journée">
+                    <field string="Écart(s)" name="ecart_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_stat_button" type="action"
+                    name="%(action_envelope_by_journee)d"
+                    icon="fa-envelope" attrs="{'invisible': [('envelope_id', '=', False)]}" help="Enveloppe">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_text">Enveloppe</span>
+                        </div>
+                    </button>
+			    </div>
+          <div class="oe_title">
+           	<label for="name" class="oe_edit_only"/>
+              <h1>
+          		<field name="name"/>
+              </h1>
+          </div>
+          <group colspan="2">
+            <group>
+                <field name="date_journee" attrs="{'readonly':['|',('state','!=', 'new'),('user_id','!=', 'uid')]}"/>
+                <field name="magasin_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'readonly':['|',('state','!=', 'new'),('user_id','!=', 'uid')]}" />
+                <field name="user_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'readonly':[('state','!=', 'new')]}" groups="spc_oscar_aziza.group_admin_oscar" string="Utilisateur"/>
+                <field name="envelope_id" readonly="1" groups="base.group_no_one" />
+                <field name="currency_id" groups="base.group_no_one" />
+            </group>
+          </group>
+          <notebook colspan="4"	>
+            <page string="Journées des caissiers">
+              <field name="journee_line_ids" readonly="True" >
+              	<tree decoration-success="state=='prepared'" decoration-info="state=='new'" >
+	              	<field name="caissier_id" />
+	              	<field name="user_id" />
+	              	<field name="state" widget="colored_state" options="{'new': { 'class': 'badge-info', 'name': 'En préparation' },
+					  													'prepared': { 'class': 'badge-success', 'name': 'Clôturée' }}"/>
+	              	<field name="montant_global" invisible="1"/>
+              	</tree>
+              </field>
+              <group class="oe_subtotal_footer oe_right" colspan="2" attrs="{'invisible': [('montant_global','=', 0)]}">
+                	<field name="montant_global" class="oe_subtotal_footer_separator"/>
+                	<field name="montant_espece" />
+                	<field name="reste_a_verser" />
+              </group>
+            </page>
+            <page string="Notes internes">
+              <field name="comment" />
+            </page>
+          </notebook>
+          </sheet>
+			<div class="oe_chatter">
+               <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+               <field name="message_ids" widget="mail_thread"/>
+			</div>
+        </form>
+      </field>
+    </record>
+    
+    
+    
+    <!-- Journee Line form view  -->
+    <record model="ir.ui.view" id="journee_line_view_form">
+      <field name="name">journee.line.view.form</field>
+      <field name="model">oscar.journee.line</field>
+      <field name="arch" type="xml">
+        <form>
+        <header>
+        	<button string="Vérifier les paiements" groups="spc_oscar_aziza.group_reponsable_magasin" type="action" attrs="{'invisible': [('check', '=', False)]}" name="%(verifier_paiement_wizard_action)d" class="oe_read_only" help="Vérifier les types de paiements de chaque service (Livraison à domicile et Click and Collect...)."/>
+         	<button name="preparer_journee" string="Clôturer" groups="spc_oscar_aziza.group_reponsable_magasin" type="object" states="new" class="btn-primary oe_read_only" />
+          	<field name="state" widget="statusbar" statusbar_visible="new,prepared"/>
+          </header>
+          <sheet>
+          <field name="check" invisible="1" />
+          <div class="alert alert-danger oe_text_center" style="margin-bottom: 10px" attrs="{'invisible': [('check', '=', False)]}">
+              Veuillez définir les types de paiements de chaque service (Livraison à domicile et Click and Collect) avant la clôture de la journée!
+          </div>
+	      <group>
+	      	<group>
+		      	<field name="caissier_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'readonly':['|',('user_id','!=', 'uid'),('state','!=', 'new')]}" required="True"/>
+		      	<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar" />
+	      	</group>
+	      </group>
+          <notebook>
+            <page string="Espéce">
+              <group>
+                <field name="espece_gold" readonly="True"/>
+                <field name="montant_espece" />
+              </group>
+            </page>
+            <page string="TR">
+              <field name="mode_tr_ids" context="{'default_code': '6'}">
+                <tree editable="true">
+                	 <field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True"/>
+	               	 <field name="fournisseur_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" required="True" context="{'default_type': 'other','default_supplier': True,'default_type_tr': 'TR'}"
+                            domain="[('type', '=', 'other'),('supplier', '=', True),('type_tr', '=', 'TR')]"/>
+	                 <field name="valeur" attrs="{'readonly':[('user_id','!=', 'uid')]}" required="True"/>
+	                 <field name="nombre" required="True"/>
+	                 <field name="nombre_gold" />
+	                 <button name="valider_paiement" string="Valider" type="object" attrs="{'invisible': ['|',('state','=', 'confirmed'),('state_journee','=', 'prepared')]}"  groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	               	 <button name="annuler_paiement" string="Annuler" type="object" attrs="{'invisible': ['|',('state','=', 'new'),('state_journee','=', 'prepared')]}" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                 <field name="montant_compute" sum="Total tickets restaurants"/>
+	                 <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+	                 <field name="state" />
+	                <field name="state_journee" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+            <page string="CC" >
+              <field name="mode_cc_ids" context="{'default_code': '5'}">
+                <tree editable="true">
+	                <field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True"/>
+	                <field name="fournisseur_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" required="True" context="{'default_type': 'other','default_supplier': True,'default_type_tr': 'CC'}"
+                            domain="[('type', '=', 'other'),('supplier', '=', True),('type_tr', '=', 'CC')]"/>
+	                <field name="valeur" attrs="{'readonly':[('user_id','!=', 'uid')]}" required="True"/>
+	                <field name="nombre" required="True"/>
+	                <field name="nombre_gold" />
+	                <button name="valider_paiement" string="Valider" type="object" attrs="{'invisible': ['|',('state','=', 'confirmed'),('state_journee','=', 'prepared')]}"  groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <button name="annuler_paiement" string="Annuler" type="object" attrs="{'invisible': ['|',('state','=', 'new'),('state_journee','=', 'prepared')]}" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <field name="montant_compute" sum="Total CC"/>
+	                <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+	                <field name="state" />
+	                <field name="state_journee" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+            <page string="CB">
+            	<group>
+            		<field name="bank_tpe_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+              	</group>
+              <field name="mode_cb_ids" context="{'default_code': '3'}">
+                <tree editable="true">
+	                <field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True"/>
+	                <field name="bank_tpe_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+	                <field name="montant" attrs="{'readonly':[('user_id','!=', 'uid')]}" required="True" sum="Total CB"/>
+	                <field name="montant_gold" sum="Total CB (Gold)"/>
+	                <button name="valider_paiement" string="Valider" type="object" attrs="{'invisible': ['|',('state','=', 'confirmed'),('state_journee','=', 'prepared')]}"  groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <button name="annuler_paiement" string="Annuler" type="object" attrs="{'invisible': ['|',('state','=', 'new'),('state_journee','=', 'prepared')]}" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+	                <field name="state" />
+	                <field name="state_journee" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+            <page string="CS">
+              <field name="mode_cs_ids" context="{'default_code': '8'}">
+                <tree editable="true">
+                  	<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True"/>
+	                <field name="montant" required="True" sum="Total CS"/>
+	                <field name="montant_gold" sum="Total CS (Gold)"/>
+	                <button name="valider_paiement" string="Valider" type="object" attrs="{'invisible': ['|',('state','=', 'confirmed'),('state_journee','=', 'prepared')]}"  groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <button name="annuler_paiement" string="Annuler" type="object" attrs="{'invisible': ['|',('state','=', 'new'),('state_journee','=', 'prepared')]}" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+	                <field name="state" />
+	                <field name="state_journee" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+            <page string="Chèque">
+              <field name="mode_cheque_ids" context="{'default_code': '2'}">
+                <tree editable="true">
+                	<field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True"/>
+	           		<field name="code_cheque" attrs="{'required': [('state','=', 'confirmed')]}" />
+	                <field name="oscar_bank_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" attrs="{'required': [('state','=', 'confirmed')]}" />
+	                <field name="cin" attrs="{'required': [('state','=', 'confirmed')]}" />
+	                <field name="name_user" />
+	                <field name="phone_user" />
+	                <field name="montant" required="True" sum="Total Chèque"/>
+	                <field name="montant_gold" sum="Total Chèque (Gold)"/>
+	                <button name="valider_paiement" string="Valider" type="object" attrs="{'invisible': ['|',('state','=', 'confirmed'),('state_journee','=', 'prepared')]}"  groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <button name="annuler_paiement" string="Annuler" type="object" attrs="{'invisible': ['|',('state','=', 'new'),('state_journee','=', 'prepared')]}" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+	                <field name="state" />
+	                <field name="state_journee" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+            <!-- SUPPRESSION DE CHAMP BON AZIZA - SUPAZ-41 -->
+<!--			<page string="Bon AZIZA" invisible="1">-->
+<!--              <field name="mode_ba_ids" context="{'default_code': '12'}">-->
+<!--                <tree editable="true">-->
+<!--                  <field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True"/>-->
+<!--                  <field name="montant" required="True" sum="Total Bon AZIZA"/>-->
+<!--                  <field name="montant_gold" sum="Total Bon AZIZA (Gold)"/>-->
+<!--                  <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>-->
+<!--                </tree>-->
+<!--              </field>-->
+<!--            </page>-->
+            <page string="VC" >
+              <field name="mode_vc_ids" context="{'default_moyen_paiement_id': 8}" >
+                <tree editable="true">
+                  <field name="moyen_paiement_id" groups="spc_oscar_aziza.group_admin_oscar" required="True"/>
+                  <field name="montant" required="True" sum="Total Vente à crédit"/>
+                  <field name="montant_gold" sum="Total Vente à crédit (Gold)"/>
+                  <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+                </tree>
+              </field>
+            </page>
+            <page string="Autres Paiement">
+              <field name="mode_other_ids">
+                <tree editable="true">
+                  <field name="moyen_paiement_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" required="True" context="{'default_is_other': True}" domain="[('is_other', '=', True)]" attrs="{'readonly':[('user_id','!=', 'uid')]}"/>
+                  <field name="montant" required="True"/>
+                  <field name="montant_gold"/>
+                  <field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+                </tree>
+              </field>
+            </page>
+            <page string="Action Flyers">
+              <field name="flyer_ids" context="{'default_code': '99'}">
+                <tree editable="true">
+					<field name="moyen_paiement_id" required="True" groups="spc_oscar_aziza.group_admin_oscar"/>
+					<field name="nombre" required="True"/>
+					<field name="nombre_gold" />
+					<button name="valider_paiement" string="Valider" type="object" attrs="{'invisible': ['|',('state','=', 'confirmed'),('state_journee','=', 'prepared')]}"  groups="spc_oscar_aziza.group_reponsable_magasin"/>
+	                <button name="annuler_paiement" string="Annuler" type="object" attrs="{'invisible': ['|',('state','=', 'new'),('state_journee','=', 'prepared')]}" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+					<field name="user_id" groups="spc_oscar_aziza.group_admin_oscar"/>
+					<field name="state" />
+					<field name="state_journee" invisible="1"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+    <!-- Journees de caissiers tree view  -->
+    <record model="ir.ui.view" id="journee_line_view_tree">
+      <field name="name">journee.line.view.tree</field>
+      <field name="model">oscar.journee.line</field>
+      <field name="arch" type="xml">
+        <tree decoration-success="state=='prepared'" decoration-info="state=='new'" >
+          <field name="date_journee"/>
+          <field name="caissier_id"/>
+          <field name="user_id"/>
+          <field name="state" widget="colored_state" options="{'new': { 'class': 'badge-info', 'name': 'En préparation' },
+					  													'prepared': { 'class': 'badge-success', 'name': 'Clôturée' }}"/>
+        </tree>
+      </field>
+    </record>
+    
+    <!-- Journee tree view  -->
+    <record model="ir.ui.view" id="journee_view_tree">
+      <field name="name">journee.view.tree</field>
+      <field name="model">oscar.journee</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="magasin_id"/>
+          <field name="date_journee"/>
+          <field name="state" widget="colored_state" options="{'new': { 'class': 'badge-info', 'name': 'En préparation' },
+          													'prepared': { 'class': 'badge-success', 'name': 'Clôturée' },
+          													'road': { 'class': 'badge-light', 'name': 'En route' },
+          													'done1': { 'class': 'badge-primary', 'name': 'Reçue à l\'entrepôt' },
+          													'done': { 'class': 'badge-primary', 'name': 'Reçue au siège' },
+          													'waiting': { 'class': 'badge-warning', 'name': 'En attente' },
+          													'accepted': { 'class': 'badge-secondary', 'name': 'Acceptée' },
+          													'waiting2': { 'class': 'badge-warning', 'name': 'En attente la deuxième vérification' },
+          													'accepted1': { 'class': 'badge-secondary', 'name': 'Acceptée TR' },
+															'waiting1': { 'class': 'badge-danger', 'name': 'En attente avec litige' },
+															'checked': { 'class': 'badge-success', 'name': 'Vérifiée' }}"/>
+        </tree>
+      </field>
+    </record>
+    
+    <!-- Journee graph view  -->
+    <record model="ir.ui.view" id="journee_view_graph">
+      <field name="name">journee.view.graph</field>
+      <field name="model">oscar.journee</field>
+      <field name="arch" type="xml">
+        <graph string="Journée">
+          <field name="date_journee"/>
+          <field name="montant_global" type="measure"/>
+        </graph>
+      </field>
+    </record>
+    
+<!--	<record id="oscar_journees_recevoir_action_server" model="ir.actions.server">-->
+<!--    	<field name="name">Recevoir</field>-->
+<!--        <field name="type">ir.actions.server</field>-->
+<!--        <field name="model_id" ref="model_oscar_journee" />-->
+<!--        <field name="binding_model_id" ref="model_oscar_journee" />-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">-->
+<!--            for rec in records:-->
+<!--                rec.recevoir_journees()-->
+<!--        </field>-->
+<!--    </record>-->
+    
+    <!-- Moyen de paiement form view  -->
+    <record model="ir.ui.view" id="moyen_paiement_view_form">
+      <field name="name">moyen.paiement.view.form</field>
+      <field name="model">moyen.paiement</field>
+      <field name="arch" type="xml">
+        <form string="Moyen de paiement">
+        	<sheet>
+        		<div class="oe_button_box" name="button_box">
+					<button name="toggle_active" type="object"
+						groups="spc_oscar_aziza.group_admin_oscar" class="oe_stat_button"
+						icon="fa-check-square-o">
+						<field name="active" widget="boolean_button"
+							options="{&quot;terminology&quot;: &quot;Désactiver&quot;}" />
+					</button>
+				</div>
+				<div class="oe_title">
+					<label for="name" class="oe_edit_only" />
+					<h1>
+						<field name="name" />
+					</h1>
+				</div>
+				<group>
+	       			<group>
+						<field name="code" required="1" />
+						<field name="lb_court"/>
+						<field name="is_process"/>
+						<field name="is_other"/>
+		          	</group>
+          		</group>
+        	</sheet>
+        </form>
+      </field>
+    </record>
+    
+    <!-- Moyen de paiement tree view  -->
+    <record model="ir.ui.view" id="moyen_paiement_view_tree">
+      <field name="name">moyen.paiement.view.tree</field>
+      <field name="model">moyen.paiement</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="code"/>
+          <field name="name"/>
+          <field name="lb_court"/>
+          <field name="is_other"/>
+        </tree>
+      </field>
+    </record>
+
+	<!-- PREPARATION DE JOURNEES -->
+    <!-- actions liste de journees   **** 'create': False, *** -->
+    <record model="ir.actions.act_window" id="action_journee">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des Journées</field>
+      <field name="res_model">oscar.journee</field>
+      <field name="view_mode">tree,form,graph</field>
+      <field name="domain">[]</field>
+      <field name="context">{
+      	'create': False,
+      	'delete': False,
+        'search_default_new_journee': 1,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucune journée trouvée.
+            </p>
+            <p>
+                Oscar vous aide à gérer facilement vos Journées.
+            </p>
+       	</field>
+    </record>
+    
+    <!-- actions liste de journees clôturées-->
+    <record model="ir.actions.act_window" id="action_prepared_journee">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des journées clôturées</field>
+      <field name="res_model">oscar.journee</field>
+      <field name="view_mode">tree,form,graph</field>
+      <field name="domain">[]</field>
+      <field name="context">{
+      	'create': False,
+      	'delete': False,
+        'search_default_prepared_journee': 1,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucune journée trouvée.
+            </p>
+            <p>
+                Oscar vous aide à gérer facilement vos Journées.
+            </p>
+       	</field>
+    </record>
+    
+    <!-- actions liste de journees en route-->
+    <record model="ir.actions.act_window" id="action_road_journee">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des journées en route</field>
+      <field name="res_model">oscar.journee</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{
+      	'create': False,
+      	'delete': False,
+        'search_default_road_journee': 1,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucune journée trouvée.
+            </p>
+            <p>
+                Oscar vous aide à gérer facilement vos Journées.
+            </p>
+       	</field>
+    </record>
+    
+    <!-- actions liste de journees recues-->
+    <record model="ir.actions.act_window" id="action_done_journee">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des journées reçues</field>
+      <field name="res_model">oscar.journee</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{
+      	'create': False,
+      	'delete': False,
+        'search_default_done_journee': 1,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucune journée trouvée.
+            </p>
+            <p>
+                Oscar vous aide à gérer facilement vos Journées.
+            </p>
+       	</field>
+    </record>
+    
+        	<!-- RECEPTION DE JOURNEES -->
+    <!-- actions liste de journees a recevoir (agent de reception)-->
+    <record model="ir.actions.act_window" id="action_recevoir_journee">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des journées à recevoir</field>
+      <field name="res_model">oscar.journee</field>
+      <field name="view_mode">tree</field>
+      <field name="domain">[('state','=','road')]</field>
+      <field name="context">{
+      	'create': False,
+      	'delete': False,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucune journée trouvée.
+            </p>
+            <p>
+                Oscar vous aide à gérer facilement vos Journées.
+            </p>
+        </field>
+    </record>
+    
+    <!--  action admin oscar -->
+    <!-- actions liste des journées aux magasins -->
+    <record model="ir.actions.act_window" id="action_mg_journee">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des journées aux magasins</field>
+      <field name="res_model">oscar.journee</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{
+        'search_default_group_journee_by_magasin': 1,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_neutral_face">
+                Aucune journée trouvée.
+            </p>
+            <p>
+                Oscar vous aide à gérer facilement vos Journées.
+            </p>
+       	</field>
+    </record>
+    
+    <!-- actions liste des moyens de paiement -->
+    <record model="ir.actions.act_window" id="action_oscar_moyen_paiement">
+      <field name="type">ir.actions.act_window</field>
+      <field name="name">Liste des moyens de paiement</field>
+      <field name="res_model">moyen.paiement</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+      <field name="context">{
+        'default_is_other': True,
+        }</field>
+    </record>
+    
+    <!-- menu action journee -->
+	<menuitem name="Clôturer une journée" id="menu_new_journee"
+			sequence="100" parent="menu_preparation_journee" action="spc_recette_aziza.action_journee" />
+			
+	<menuitem name="Journées clôturées" id="menu_prepared_journee"
+			sequence="200" parent="menu_preparation_journee" action="spc_recette_aziza.action_prepared_journee" />
+		
+	<menuitem name="Journées en route" id="menu_road_journee"
+			sequence="300" parent="menu_preparation_journee" action="spc_recette_aziza.action_road_journee" />
+		
+	<menuitem name="Journées reçues" id="menu_done_journee"
+			sequence="400" parent="menu_preparation_journee" action="spc_recette_aziza.action_done_journee" />
+			
+	<!-- menu admin / consultation oscar -->
+	<!-- menu journees aux magasins -->
+	<menuitem name="Journées" id="menu_mg_journee"
+			sequence="10" parent="menu_preparation_journee" action="spc_recette_aziza.action_mg_journee" groups="spc_recette_aziza.group_responsable_financier_oscar,spc_recette_aziza.group_consulting_oscar" />
+    
+    <menuitem name="Journées à recevoir" id="menu_recevoir_journee"
+			sequence="600" parent="menu_reception_journee" action="spc_recette_aziza.action_recevoir_journee" />
+    
+    <menuitem id="menu_oscar_moyen_paiement" name="Moyens de paiement"
+	action="action_oscar_moyen_paiement" parent="spc_oscar_aziza.menu_oscar_configuration"
+	sequence="50" /> 
+	
+  </data>
+</odoo>

@@ -1,0 +1,50 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+spc_survey_extra_column_type_model_rpc,column_type_model.rpc,model_column_type_model_rpc,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_column_type_model_rpc_default,column_type_model.rpc default,model_column_type_model_rpc,,1,0,0,0
+
+spc_survey_extra_question_display,question.display,model_question_display,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_question_display_auditor,question.display,model_question_display,spc_survey.group_auditor,1,0,0,0
+
+spc_survey_extra_anomaly_columns,anomaly.columns,model_anomaly_columns,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_anomaly_columns_auditor,anomaly.columns,model_anomaly_columns,spc_survey.group_auditor,1,0,0,0
+
+spc_survey_extra_row_columns_display,row.columns.display,model_row_columns_display,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_row_columns_display_default,row.columns.display default,model_row_columns_display,,1,0,0,0
+
+spc_survey_extra_column_dependency,column.dependency,model_column_dependency,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_column_dependency_default,column.dependency default,model_column_dependency,,1,0,0,0
+
+spc_survey_extra_column_calculation,column.calculation,model_column_calculation,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_column_calculation_auditor,column.calculation,model_column_calculation,spc_survey.group_auditor,1,0,0,0
+
+spc_survey_extra_column_dependency_help,column.dependency.help,model_column_dependency_help,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_column_dependency_help_default,column.dependency.help default,model_column_dependency_help,,1,0,0,0
+
+
+spc_survey_extra_scale,spc_survey_extra.scale,model_spc_survey_extra_scale,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_scale_default,spc_survey_extra.scale default,model_spc_survey_extra_scale,,1,0,0,0
+
+
+spc_survey_extra_criteria_type,spc_survey_extra.criteria_type,model_spc_survey_extra_criteria_type,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_criteria_type_default,spc_survey_extra.criteria_type default,model_spc_survey_extra_criteria_type,,1,0,0,0
+
+spc_survey_extra_row_column_dependency,row_column.dependency,model_row_column_dependency,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_row_column_dependency_default,row_column.dependency default,model_row_column_dependency,,1,0,0,0
+
+spc_survey_extra_scoring_syntax,scoring.syntax,model_scoring_syntax,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_scoring_syntax_auditor,scoring.syntax,model_scoring_syntax,spc_survey.group_auditor,1,0,0,0
+
+spc_survey_extra_spc_survey_extra.control_m_m1_audit_manager,spc_survey_extra.control_m_m1,model_spc_survey_extra_control_m_m1,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_spc_survey_extra.control_m_m1,spc_survey_extra.control_m_m1,model_spc_survey_extra_control_m_m1,,1,0,0,0
+
+spc_survey_extra_control_m_m1_concerned_audit_manager,spc_survey_extra.control_m_m1.concerned,model_control_m_m1_concerned,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_control_m_m1_concerned,spc_survey_extra.control_m_m1.concerned,model_control_m_m1_concerned,,1,0,0,0
+
+spc_survey_extra_question_detail_relation_manager,relation.question_detail manager,model_relation_question_detail,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_question_detail_relation,relation.question_detail,model_relation_question_detail,,1,0,0,0
+
+spc_survey_extra_display_show_hide_cond_manager,display.show_hide_cond manager,model_display_show_hide_cond,spc_survey.group_audit_manager,1,1,1,1
+spc_survey_extra_display_show_hide_cond,display.show_hide_cond,model_display_show_hide_cond,,1,0,0,0
+
+

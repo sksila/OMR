@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="report_ecart_document">
+
+		  		<t t-call="web.external_layout">
+		            <div class="page">
+		
+		            <h2 style="text-align:center;">
+		                <span>DECLARATION ECART CAISSE</span>
+		            </h2>
+					<br></br>
+
+					<div class="container">
+						<div class="row">
+							<div class="col-6">
+							  <strong>Date création : </strong><span t-if="o.date_ecart" t-field="o.date_ecart"/>
+							</div>
+							<div class="col-6">
+							  <strong>Caissier : </strong><span t-if="o.caissier_id" t-field="o.caissier_id.name"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+							  <strong>Journée : </strong><span t-if="o.journee_id" t-field="o.journee_id.name"/>
+							</div>
+							<div class="col-6">
+							  <strong>CIN : </strong><span t-if="o.caissier_id.identification_id" t-field="o.caissier_id.identification_id"/>
+							</div>
+						</div>
+						<div class="row" t-if="o.caissier_id.work_phone">
+							  <div class="col-6 offset-6">
+								  <strong>Tél : </strong><span t-field="o.caissier_id.work_phone"/>
+							  </div>
+						</div>
+
+						<br></br>
+						<br></br>
+						<table class="table table-condensed">
+							<thead style="border:solid rgba(215, 242, 254, 0.72);background-color:rgba(215, 242, 254, 0.72);border-radius:10px 0px 10px 0px;">
+								<tr>
+									<th>Mode paiement</th>
+									<th>Écart</th>
+									<th>Motif</th>
+									<th>Commentaire</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr t-foreach="o.ecart_justify_line_ids" t-as="e">
+									<td><span t-field="e.name"/></td>
+									<td><span t-field="e.ecart"/></td>
+									<td><span t-field="e.motif"/></td>
+									<td><span t-field="e.comment"/></td>
+								</tr>
+							</tbody>
+						</table>
+						<br></br>
+						<p>Je déclare la conformité des écarts susmentionnés, et je m'engage au remboursement de ces déduction du salaire.</p>
+						<br></br>
+						<br></br>
+
+						<div class="row">
+							<div class="col-4">
+								<strong><span>Signature Commercial Magasin</span></strong>
+							</div>
+							<div class="col-4 offset-4">
+								<strong><span>Signature Responsable Magasin</span></strong>
+							</div>
+						</div>
+					</div>
+		            
+		        </div>
+		    </t>
+		</template>
+		
+		<template id="report_ecart">
+		    <t t-call="web.html_container">
+		        <t t-foreach="docs" t-as="o">
+		            <t t-call="spc_recette_aziza.report_ecart_document"/>
+		        </t>
+		    </t>
+	    </template>
+
+	</data>
+</odoo>

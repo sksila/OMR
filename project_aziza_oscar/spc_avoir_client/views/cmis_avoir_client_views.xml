@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+
+		<record id="spc_cmis_avoir_client_form_view" model="ir.ui.view">
+			<field name="name">spc.cmis.avoir.client.form</field>
+			<field name="model">oscar.avoir.client</field>
+			<field name="inherit_id" ref="spc_avoir_client.spc_avoir_client_form_view" />
+			<field name="arch" type="xml">
+				<notebook position="inside">
+	                <page string="Pièces jointes" groups="base.group_user">
+						<field name="cmis_folder" />
+					</page>
+	            </notebook>
+			</field>
+		</record>
+
+	</data>
+</odoo>

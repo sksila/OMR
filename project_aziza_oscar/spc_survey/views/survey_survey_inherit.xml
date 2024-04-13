@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<odoo>
+	
+	
+	<!-- survey.survey form -->
+	<record id="survey_survey_form_inherit" model="ir.ui.view">
+		<field name="model">survey.survey</field>
+		<field name="inherit_id" ref="survey.survey_form" />
+		<field name="arch" type="xml">
+
+			<xpath expr="//button[@name='action_test_survey']" position="before">
+				<button name="action_do_survey" string="Do Survey" type="object" attrs="{'invisible': [('id', '=', False)]}"/>
+			</xpath>
+
+			<xpath expr="//button[@name='action_test_survey']" position="after">
+				<button name="action_validate_survey" string="Valider la maquette" type="object" attrs="{'invisible': [('stage_id', '!=', %(survey.stage_draft)d)]}"/>
+				<button name="action_back_to_draft_survey" string="Retourner au brouillon" type="object" attrs="{'invisible': [('stage_id', '=', %(survey.stage_draft)d)]}"/>
+			</xpath>
+
+			<xpath expr="//button[@name='action_survey_user_input']" position="before">
+				<!-- smart button page -->
+				<button class="oe_stat_button"
+						type="action"
+						name="%(spc_survey.action_pages_from_survey)d"
+						icon="fa-file-text-o"
+						context="{'default_survey_id': active_id}">
+					<field string="Pages" name="total_pages" widget="statinfo" />
+				</button>
+			</xpath>
+
+			<xpath expr="//div[@class='oe_title']" position="after">
+				<label for="description" class="oe_edit_only"/>
+				<field name="description" />
+			</xpath>
+		
+			<xpath expr="//notebook" position="before">
+				<group>
+					<group> 
+						<field name="survey_type_id" options="{'no_create': True, 'no_open': True}" />
+						<field name="copied_from_id" options="{'no_create': True, 'no_open': True}" attrs="{'invisible': [('copied_from_id', '=', False)]}" readonly="1" />
+					</group>
+				</group>
+			</xpath>
+
+		</field>
+	</record>
+	
+	<!-- survey.survey kanban -->
+	<record id="survey_survey_kanban_inherit" model="ir.ui.view">
+		<field name="model">survey.survey</field>
+		<field name="inherit_id" ref="survey.survey_kanban" />
+		<field name="arch" type="xml">
+		
+
+			<xpath expr="//div[@class='o_kanban_record_top']" position="after">
+				<div class="o_kanban_record_top">
+	            	 <h5 class="o_kanban_record_title mb4"> Type: <field name="survey_type_id"/></h5>
+	            </div>
+			</xpath>
+			
+		</field>
+	</record>
+	
+	<!-- survey.survey tree -->
+	<record id="survey_survey_tree_inherit" model="ir.ui.view">
+		
+		<field name="model">survey.survey</field>
+		<field name="inherit_id" ref="survey.survey_tree" />
+		<field name="arch" type="xml">
+		
+			<field name="title" position="after">
+				<field name="survey_type_id" />
+				<field name="create_date" widget="date" />
+			</field>
+			<field name="stage_id" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+			<field name="tot_sent_survey" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+			<field name="tot_start_survey" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+			<field name="tot_comp_survey" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</field>
+			
+		</field>
+	</record>
+	
+	<!-- survey.survey search -->
+	<record id="survey_survey_search_inherit" model="ir.ui.view">
+		<field name="model">survey.survey</field>
+		<field name="inherit_id" ref="survey.survey_survey_view_search" />
+		<field name="arch" type="xml">
+			<field name="title" position="after">
+				<filter name="survey_type_id" string="Survey type" icon="terp-check" context="{'group_by':'survey_type_id'}"/>
+			</field>
+		</field>
+	</record>
+
+
+
+
+		
+
+	
+</odoo>

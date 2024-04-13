@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    
+		<delete model="survey.stage" id="survey.stage_in_progress" />
+
+        <function name="_invoke_update_stages" model="survey.stage"/>
+
+        <!-- cron to _invoke_update_stages -->
+
+        <record  id="invoke_update_stages_cron" model="ir.cron">
+            <field name="name">Survey stages update</field>
+            <field name="model_id" ref="model_survey_stage"/>
+            <field name="state">code</field>
+            <field name="code">model._invoke_update_stages()</field>
+            <field eval="True" name="is_oscar"/>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">12</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+
+    </data>
+</odoo>

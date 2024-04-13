@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <menuitem id="spc_planification_menu" name="Planification"
+              web_icon="spc_activity,static/description/icon.png" groups="spc_activity.group_user_planification" sequence="1"/>
+
+    <menuitem id="spc_activity_menu" name="Planification"
+              parent="spc_planification_menu" action="spc_mail_activity_action" sequence="10"/>
+
+    <menuitem id="spc_menu_activity_configuration" name="Configuration" parent="spc_planification_menu" sequence="20"/>
+
+    <menuitem id="spc_activity_type_menu" name="Types d'activités"
+              parent="spc_menu_activity_configuration" action="mail.mail_activity_type_action"/>
+
+    <menuitem name="Motifs d'activité"
+            id="spc_menu_activity_motif"
+            parent="spc_menu_activity_configuration"
+            action="spc_action_activity_motif"/>
+
+</odoo>

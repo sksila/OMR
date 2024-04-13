@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+
+
+        <template id="back_inherit" inherit_id="survey.back">
+		    <xpath expr="//div" position="replace">
+		    </xpath>
+	    </template>
+
+    </data>
+</odoo>

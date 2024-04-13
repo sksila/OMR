@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<odoo>
+       <record id="spc_mail_activity_view_calendar_inherit_site" model="ir.ui.view">
+		<field name="model">mail.activity</field>
+		<field name="inherit_id" ref="spc_activity.spc_mail_activity_view_calendar_inherit" />
+		<field name="arch" type="xml">
+            <xpath expr="//calendar/field[@name='user_id']" position="after">
+                <field name="site_id" write_model="oscar.site.calendar" write_field="site_calendar_id"/>
+            </xpath>
+        </field>
+     </record>
+
+<record id="spc_mail_activity_view_form_inherit" model="ir.ui.view">
+        <field name="name">mail.activity.form.inherit</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="spc_activity.spc_mail_activity_view_form"/>
+        <field name="arch" type="xml">
+            <field name="by_mass" position="before">
+                <field name="type_site" widget="radio"
+                       options="{'horizontal': true}" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}" />
+                <field name="site_id" options="{'no_create': True, 'no_open': True}"
+                       attrs="{'readonly': ['|','|',('workflow_activity', '!=', 'new'),('type_site', '=', 'REGION'),('type_site', '=', 'ZONE')],  'required': [('type_site', '=', 'SITE')]}" />
+                <field name="region_id" options="{'no_create': True, 'no_open': True}"
+                       attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('type_site', '!=', 'REGION')], 'required': [('type_site', '=', 'REGION')]}" />
+                <field name="zone_id" options="{'no_create': True, 'no_open': True}"
+                       attrs="{'readonly': [('workflow_activity', '!=', 'new')], 'invisible': [('type_site', '!=', 'ZONE')], 'required': [('type_site', '=', 'ZONE')]}" />
+            </field>
+        </field>
+    </record>
+
+    <record id="spc_mail_activity_view_tree_inherit" model="ir.ui.view">
+        <field name="name">mail.activity.tree.inherit</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="spc_activity.spc_mail_activity_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='duration']" position="after">
+                <field name="site_id"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--    <record id="spc_mail_activity_view_form_popup_inherit_site" model="ir.ui.view">-->
+<!--        <field name="name">mail.activity.form.popup.inherit</field>-->
+<!--        <field name="model">mail.activity</field>-->
+<!--        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--          <xpath expr="//form/sheet//group/field[@name='user_id']" position="before">-->
+<!--                <field name="site_id" options="{'no_create': True, 'no_open': True}" attrs="{'readonly': [('workflow_activity', '!=', 'new')]}" />-->
+<!--          </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="spc_mail_activity_view_search_inherit" model="ir.ui.view">
+        <field name="name">mail.activity.view.search.inherit</field>
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/group/filter[@name='activittype']" position="after">
+                <filter string="Site" name="site_id" context="{'group_by': 'site_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem name="Configuration"  id="spc_activity.spc_menu_activity_configuration" parent="spc_activity.spc_planification_menu"
+        groups="spc_oscar_aziza.group_admin_oscar"/>
+
+</odoo>

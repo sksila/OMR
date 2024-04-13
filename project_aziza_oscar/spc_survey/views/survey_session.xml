@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Answers action -->
+
+    <record model="ir.actions.act_window" id="action_survey_user_input_spc_survey">
+        <field name="name">Answers</field>
+        <field name="res_model">survey.user_input</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="domain">[('survey_session_info_id', '=', active_id)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Nobody has replied to your surveys yet
+            </p>
+        </field>
+    </record>
+
+    <!-- spc_survey.session.info -->
+
+    <record id="form_spc_survey_session_information" model="ir.ui.view">
+        <field name="name">spc_survey.session.info.form</field>
+        <field name="model">spc_survey.session.info</field>
+        <field name="arch" type="xml">
+            <form string="Survey session informations" create="false" edit="false">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                type="action"
+                                name="%(action_survey_user_input_spc_survey)d"
+                                icon="fa-list-ol"
+                                string="Responses">
+                            <field name="id" invisible="1" />
+                        </button>
+                    </div>
+                    <group string="Session name">
+                        <group>
+                            <field name="name" />
+                            <field name="rank" />
+                        </group>
+                        <group>
+                            <field name="session_final_score" widget="gauge" style="width:160px;height:90px;cursor:pointer;"/>
+                        </group>
+                    </group>
+                    <group string="Details">
+                        <group>
+                            <field name="site_id"/>
+                            <field name="opening_date" />
+                        </group>
+                        <group>
+                            <field name="auditor_id"/>
+                            <field name="closing_date" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="o_attachment_preview" />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="tree_spc_survey_session_information" model="ir.ui.view">
+        <field name="name">spc_survey.session.info.tree</field>
+        <field name="model">spc_survey.session.info</field>
+        <field name="arch" type="xml">
+            <tree string="Survey session information" create="false" edit="false">
+                <field name="name" />
+                <field name="closing_date" widget="date" />
+			    <field name="auditor_id" />
+                <field name="session_final_score" />
+                <field name="survey_session_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="search_spc_survey_session_information" model="ir.ui.view">
+		<field name="name">spc_survey.session.info.search</field>
+		<field name="model">spc_survey.session.info</field>
+		<field name="arch" type="xml">
+			<search string="Survey session information">
+				<field name="auditor_id" />
+                <field name="site_id" />
+                <field name="closing_date" />
+				<group expand="0" string="Group by">
+                    <filter name="group_session_by_auditor" string="Group per auditor" domain="[]" context="{'group_by': 'auditor_id'}"/>
+                    <filter name="group_session_by_site" string="Group per site" domain="[]" context="{'group_by': 'site_id'}"/>
+                    <filter name="group_session_by_date_year" string="Group per closing date yearly" domain="[]" context="{'group_by':'closing_date:year'}" />
+                    <filter name="group_session_by_date_month" string="Group per closing date monthly" domain="[]" context="{'group_by':'closing_date:month'}" />
+				</group>
+			</search>
+		</field>
+	</record>
+
+    <record id="action_spc_survey_session_information" model="ir.actions.act_window">
+        <field name="name">Survey session Information</field>
+        <field name="res_model">spc_survey.session.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('survey_session_id', '=', active_id)]</field>
+        <field name="context">{'search_default_group_session_by_site': 1,'search_default_group_session_by_date_year': 1,'search_default_group_session_by_date_month': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create new survey session information
+            </p>
+        </field>
+    </record>
+
+    <record id="survey_search_for_survey_session" model="ir.ui.view">
+		<field name="name">survey.survey.search.for.session</field>
+		<field name="model">survey.survey</field>
+		<field name="arch" type="xml">
+			<search string="Survey list">
+				<field name="title" />
+                <field name="survey_type_id" />
+				<group expand="0" string="Group by">
+                <filter name="group_by_survey_type" string="Type" domain="[]" context="{'group_by': 'survey_type_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+    <record id="survey_tree_for_survey_session" model="ir.ui.view">
+        <field name="name">survey.survey.tree.for.session</field>
+        <field name="model">survey.survey</field>
+        <field name="arch" type="xml">
+            <tree string="Survey list">
+                <field name="title"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="tree_spc_survey_session" model="ir.ui.view">
+        <field name="name">spc_survey.session.tree</field>
+        <field name="model">spc_survey.session</field>
+        <field name="arch" type="xml">
+            <tree string="Survey session" decoration-muted="(not active)" decoration-success="active" decoration-bf="active">
+                <field name="name" />
+			    <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="form_spc_survey_session" model="ir.ui.view">
+        <field name="name">spc_survey.session.form</field>
+        <field name="model">spc_survey.session</field>
+        <field name="arch" type="xml">
+            <form string="Survey session">
+                <header>
+                    <button name="start_test_survey_session" string="Test session" type="object" class="oe_highlight" groups="spc_survey.group_audit_manager"/>
+                    <button name="validate_session" string="Valider la session" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'validated')]}" groups="spc_survey.group_audit_manager"/>
+                    <button name="back_draft_session" string="Retourner vers brouillon" type="object" class="oe_highlight" attrs="{'invisible': [('state', '=', 'draft')]}" groups="spc_survey.group_audit_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validated" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+						<button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check-square-o" aria-label="Activate/Desactivate" groups="spc_survey.group_audit_manager">
+							<field name="active" widget="boolean_button" options='{"terminology": "archive"}' />
+						</button>
+                        <button class="oe_stat_button"
+                            type="action"
+                            name="%(spc_survey.action_report_structure)d"
+                            icon="fa-th-list"
+                            string="Report structure"
+                            context="{'default_survey_session_id': id}">
+                        <field name="id" invisible="1" />
+                        </button>
+                        <button class="oe_stat_button"
+                            type="action"
+                            name="%(spc_survey.action_spc_survey_session_information)d"
+                            icon="fa-building-o"
+                            string="Survey session informations"
+                            context="{'default_survey_session_id': id}">
+                        <field name="id" invisible="1" />
+                        </button>
+                        <button class="oe_stat_button" type="object" name="get_task" icon="fa-tasks">
+                            <field string="Liste des tâches" name="task_count" widget="statinfo"/>
+                        </button>
+					</div>
+                    <group>
+                    	<field name="name" />
+                        <field name="survey_type_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                    </group>
+                    <separator string=" Select surveys" class="fa fa-arrow-down fa-2x" />
+                    <group>
+                        <field name="survey_ids" mode="tree" nolabel="1" context="{'tree_view_ref':'spc_survey.survey_tree_for_survey_session', 'search_view_ref': 'spc_survey.survey_search_for_survey_session'}" options="{'no_create': True, 'no_create_edit':True}">
+                            <tree>
+                                <field name="sequence" string="Sequence" widget="handle"/>
+                                <field name="title" />
+                            </tree>
+                            <form>
+                                <h1><field name="title" /></h1>
+                            </form>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="session_scoring_ids" mode="tree" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="sequence" string="Sequence" widget="handle"/>
+                                <field name="name" />
+                                <field name="survey_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}" domain="[('id','in',parent.survey_ids)]" />
+                                <field name="page_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}" domain="[('id','in',domain_pages_ids)]" />
+                                <field name="scoring_criteria_ids" context="{'tree_view_ref':'spc_survey.scoring_criteria_tree'}" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}" domain="[('id','in',domain_scoring_criteria_ids)]" />
+                                <field name="operation" />
+                                <field name="session_scoring_id" invisible="1"/>
+                                <field name="domain_scoring_criteria_ids" invisible="1" />
+                                <field name="domain_pages_ids" invisible="1" />
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="name" />
+                                    <field name="page_ids" widget="many2many_tags" />
+                                    <field name="scoring_criteria_ids" widget="many2many_tags" />
+                                    <field name="operation" />
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                    <group string="Session final score">
+                        <group>
+                            <button type="action" name="%(spc_survey.spc_survey_session_final_score_wizard_action)d"
+                                    string="Choose" class="oe_highlight oe_edit_only"
+                                    context="{'criteria': session_scoring_ids, 'default_session_id': id}" />
+                        </group>
+                        <group>
+                            <field name="session_final_score_title" />
+                            <field name="session_final_score_criteria" widget="many2many_tags" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                        	<group>
+								<field name="description" nolabel="1" widget="html"/>
+							</group>
+                        </page>
+                        <page string="Options">
+                        	<group>
+								<field name="send_to_users_ids" widget="many2many_tags"/>
+							</group>
+                            <group string="Anomalies report configuration">
+                                <field name="anomalies_report_ids" nolabel="1">
+                                     <!--widget="one2many" context="{'default_survey_session_id':id}" -->
+                                    <tree editable="bottom">
+                                        <field name="survey_id" domain="[('id','in',parent.survey_ids)]" options="{'no_create': True, 'no_create_edit':True}" />
+                                        <field name="page_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                                        <field name="question_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                                        <field name="row_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}" />
+                                        <field name="column_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                                        <field name="column_value" />
+                                        <field name="survey_session_id" invisible="1" />
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="survey_id"/>
+                                                <field name="page_id"/>
+                                                <field name="question_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="row_ids" widget="many2many_tags" />
+                                                <field name="column_id"/>
+                                                <field name="column_value"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                            <group>
+                                <div class="alert alert-info">
+                                    Empty rows in line : apply to all rows in question
+                                </div>
+                            </group>
+                            <group string="Session ancienne">
+                                <field name="old_session_id" options="{'no_create': True, 'no_create_edit':True}" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview" />
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id='kanban_spc_survey_session' model='ir.ui.view'>
+        <field name="name">spc_survey.session.kanban</field>
+        <field name="model">spc_survey.session</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name" />
+                <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="text-center">
+                                    <h3><field name="name"/></h3>
+                                </div>
+                            </div>
+                        </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <record id="search_spc_survey_session" model="ir.ui.view">
+		<field name="name">spc_survey.session.search</field>
+		<field name="model">spc_survey.session</field>
+		<field name="arch" type="xml">
+			<search string="Survey session">
+				<field name="name" />
+			    <field name="active" />
+ 			    <filter name="all" string="All" domain="['|',('active','=',True),('active','=',False)]" />
+				<group expand="0" string="Group by">
+					<filter name="active" string="Active" domain="[('active','=',True)]"  />
+					<filter name="not_active" string="Non active" domain="[('active','=',False)]"  />
+				</group>
+			</search>
+		</field>
+	</record>
+
+    <record id="action_spc_survey_session" model="ir.actions.act_window">
+        <field name="name">Survey session</field>
+        <field name="res_model">spc_survey.session</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create new survey session
+            </p>
+        </field>
+    </record>
+	
+	<menuitem id="menu_spc_survey_session" name="Survey session" parent="survey.menu_surveys"
+				  sequence="90" action="spc_survey.action_spc_survey_session" groups="spc_survey.make_invisible" />
+
+
+
+    <record id="clean_test_sessions" model="ir.actions.server">
+        <field name="name">Clean test sessions</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_spc_survey_session" />
+        <field name="binding_model_id" ref="model_spc_survey_session" />
+        <field name="state">code</field>
+        <field name="code">
+            if env.user.has_group('spc_survey.group_audit_manager'):
+			    if records:
+				    env['spc_survey.session.info'].search([('survey_session_id', 'in', records.ids), ('is_test_session', '=', 'True')]).unlink()
+        </field>
+    </record>
+
+    <!-- My Sessions -->
+    <record id="action_spc_survey_my_session_information" model="ir.actions.act_window">
+        <field name="name">My Survey session Information</field>
+        <field name="res_model">spc_survey.session.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('auditor_id', '=', uid)]</field>
+        <field name="context">{'search_default_group_session_by_site': 1,'search_default_group_session_by_date_year': 1,'search_default_group_session_by_date_month': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                My Sessions
+            </p>
+        </field>
+    </record>
+
+    <!--Related session RM-->
+    <record id="action_spc_survey_related_session_information_rm" model="ir.actions.act_window">
+        <field name="name">Related Survey session Information Responsable Magasin / Adjoint</field>
+        <field name="res_model">spc_survey.session.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('site_id.user_id', '=', uid)]</field>
+        <field name="context">{'search_default_group_session_by_site': 1,'search_default_group_session_by_date_year': 1,'search_default_group_session_by_date_month': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                My Related Sessions (RM)
+            </p>
+        </field>
+    </record>
+
+    <!--Related session RZ-->
+    <record id="action_spc_survey_related_session_information_rz" model="ir.actions.act_window">
+        <field name="name">Related Survey session Information Responsable Zone</field>
+        <field name="res_model">spc_survey.session.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('site_id.resp_zone_id', '=', uid)]</field>
+        <field name="context">{'search_default_group_session_by_site': 1,'search_default_group_session_by_date_year': 1,'search_default_group_session_by_date_month': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                My Related Sessions (RZ)
+            </p>
+        </field>
+    </record>
+
+    <!-- Related session DRE -->
+    <record id="action_spc_survey_related_session_information_dre" model="ir.actions.act_window">
+        <field name="name">Related Survey session Information Responsable DRE</field>
+        <field name="res_model">spc_survey.session.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('site_id.dre_id', '=', uid)]</field>
+        <field name="context">{'search_default_group_session_by_site': 1,'search_default_group_session_by_date_year': 1,'search_default_group_session_by_date_month': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                My Related Sessions (DRE)
+            </p>
+        </field>
+    </record>
+
+    <!--Related session Auditors-->
+    <record id="action_spc_survey_related_session_information_auditors" model="ir.actions.act_window">
+        <field name="name">Related Survey session Information Auditors</field>
+        <field name="res_model">spc_survey.session.info</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('group_ids', '=', 1)]</field>
+        <field name="context">{'search_default_group_session_by_site': 1,'search_default_group_session_by_date_year': 1,'search_default_group_session_by_date_month': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                My Related Sessions (Auditors)
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="my_audit_sessions_menu" name="Audit" parent="spc_activity.spc_planification_menu" sequence="20" />
+
+    <menuitem id="menu_spc_survey_my_sessions" name="My sessions" parent="my_audit_sessions_menu"
+				  sequence="120" action="spc_survey.action_spc_survey_my_session_information" />
+
+    <menuitem id="menu_spc_survey_my_related_sessions_rm" name="My related sessions (RM)" parent="my_audit_sessions_menu"
+				  sequence="140" action="spc_survey.action_spc_survey_related_session_information_rm" groups="spc_oscar_aziza.group_reponsable_magasin"/>
+
+    <menuitem id="menu_spc_survey_my_related_sessions_rz" name="My related sessions (RZ)" parent="my_audit_sessions_menu"
+				  sequence="160" action="spc_survey.action_spc_survey_related_session_information_rz" groups="spc_oscar_aziza.group_reponsable_zone"/>
+
+    <menuitem id="menu_spc_survey_my_related_sessions_dre" name="My related sessions (DRE)" parent="my_audit_sessions_menu"
+				  sequence="170" action="spc_survey.action_spc_survey_related_session_information_dre" groups="spc_oscar_aziza.group_DRE"/>
+
+    <menuitem id="menu_spc_survey_my_related_sessions_auditors" name="My related sessions (Auditeurs)" parent="my_audit_sessions_menu"
+				  sequence="180" action="spc_survey.action_spc_survey_related_session_information_auditors" groups="group_auditor"/>
+	
+	
+</odoo>

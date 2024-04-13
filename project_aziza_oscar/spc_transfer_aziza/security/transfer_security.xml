@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--	Responsable Magasin -->
+
+	<record id="bordereau_rule_resp_magasin" model="ir.rule">
+		<field name="name">Bordereaux de Responsable Magasin</field>
+		<field name="model_id" ref="model_oscar_bordereau" />
+		<field name="domain_force">[('state','in', ['new','sent','receive_store']),'|',('source_id.user_ids','child_of', [user.id]),('destinataire_id.user_ids','child_of', [user.id])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_reponsable_magasin'))]"/>
+	</record>
+
+	<record id="envelope_rule_resp_magasin" model="ir.rule">
+		<field name="name">Enveloppe de Responsable Magasin</field>
+		<field name="model_id" ref="model_oscar_envelope" />
+		<field name="domain_force">[('state','in', ['new','sent','receive_store']),'|',('source_id.user_ids','child_of', [user.id]),('destinataire_id.user_ids','child_of', [user.id])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_reponsable_magasin'))]"/>
+	</record>
+
+	<!--	Responsable Zone -->
+
+	<record id="bordereau_rule_resp_zone" model="ir.rule">
+		<field name="name">Bordereaux de Responsable Zone</field>
+		<field name="model_id" ref="model_oscar_bordereau" />
+		<field name="domain_force">['|',('source_id.user_ids','child_of', [user.id]),('destinataire_id.user_ids','child_of', [user.id])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_reponsable_zone'))]"/>
+	</record>
+
+	<record id="envelope_rule_resp_zone" model="ir.rule">
+		<field name="name">Enveloppe de Responsable Zone</field>
+		<field name="model_id" ref="model_oscar_envelope" />
+		<field name="domain_force">['|',('source_id.user_ids','child_of', [user.id]),('destinataire_id.user_ids','child_of', [user.id])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_reponsable_zone'))]"/>
+	</record>
+
+	<!--	DRE -->
+
+	<record id="bordereau_rule_dre" model="ir.rule">
+		<field name="name">Bordereaux de DRE</field>
+		<field name="model_id" ref="model_oscar_bordereau" />
+		<field name="domain_force">['|',('source_id.user_ids','child_of', [user.id]),('destinataire_id.user_ids','child_of', [user.id])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_DRE'))]"/>
+	</record>
+
+	<record id="envelope_rule_dre" model="ir.rule">
+		<field name="name">Enveloppe de DRE</field>
+		<field name="model_id" ref="model_oscar_envelope" />
+		<field name="domain_force">['|',('source_id.user_ids','child_of', [user.id]),('destinataire_id.user_ids','child_of', [user.id])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_DRE'))]"/>
+	</record>
+
+<!--	Responsable Entrepot -->
+
+    <record id="bordereau_rule_resp_entrepot" model="ir.rule">
+		<field name="name">Bordereaux de Responsable Entrepot</field>
+		<field name="model_id" ref="model_oscar_bordereau" />
+		<field name="domain_force">['|','&amp;',('source_id.user_ids','child_of', [user.id]),('state','in', ['new','sent','partially_received','receive_siege','receive_store']),'&amp;',('destinataire_id.user_ids','child_of', [user.id]),('state','in', ['sent','partially_received','receive_warehouse'])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_reponsable_entrepot'))]"/>
+	</record>
+	
+	<record id="envelope_rule_resp_entrepot" model="ir.rule">
+		<field name="name">Enveloppe de Responsable Entrepot</field>
+		<field name="model_id" ref="model_oscar_envelope" />
+		<field name="domain_force">[('destination_intermediaire_ids','in', [s.id for s in user.magasin_ids])]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_reponsable_entrepot'))]"/>
+	</record>
+
+<!--	Admin Oscar -->
+
+	<record id="bordereau_rule_admin_oscar" model="ir.rule">
+		<field name="name">Bordereaux de Admin OSCAR</field>
+		<field name="model_id" ref="model_oscar_bordereau" />
+		<field name="domain_force">[(1,'=',1)]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]"/>
+	</record>
+	
+	<record id="envelope_rule_admin_oscar" model="ir.rule">
+		<field name="name">Enveloppe de Admin OSCAR</field>
+		<field name="model_id" ref="model_oscar_envelope" />
+		<field name="domain_force">[(1,'=',1)]</field>
+		<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]"/>
+	</record>
+
+
+</odoo>

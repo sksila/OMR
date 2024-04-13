@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="smart_survey_label_tree_extra" model="ir.ui.view">
+        <field name="model">survey.label</field>
+        <field name="inherit_id" ref="spc_survey.smart_survey_label_tree"/>
+        <field name="arch" type="xml">
+            <field name="col_type_resp" position="after">
+                <field name="model_id" attrs="{'invisible': [('col_type_resp', '!=', 'model')]}" options="{'no_create': True, 'no_open': True}" />
+                <field name="model_filter_field_id"
+                       attrs="{'invisible': [('col_type_resp', '!=', 'model')]}"
+                       domain="[('id', 'in', model_filter_list_ids)]"
+                       options="{'no_create_edit': True}"
+                />
+                <field name="equivalent_field_id" string="Equivalent"
+                       attrs="{'invisible': [('col_type_resp', '!=', 'field_model')]}"
+                       domain="[('id', 'in', context.get('model_fields_ids', []))]"
+                />
+                <field name="model_filter_list_ids" widget="many2many_tags" invisible="1"/>
+            </field>
+
+
+
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="smart_survey_label_tree2_extra">
+        <field name="model">survey.label</field>
+        <field name="inherit_id" ref="spc_survey.smart_survey_label_tree2"/>
+        <field name="arch" type="xml">
+            <field name="value" position="after">
+                <field name="row_dropdown_options" />
+                <field name="note_options" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

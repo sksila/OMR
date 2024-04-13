@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_rejet_wizard" model="ir.ui.view">
+		<field name="name">rejet.wizard.form</field>
+		<field name="model">rejet.wizard</field>
+		<field name="arch" type="xml">
+			<form>
+				<field name="derogation_id" invisible="1"/>
+				<field name="type_rejet" invisible="1"/>
+				<group>
+					<group>
+						<field name="motif_rejet"/>
+					</group>
+					<group>
+						<field name="date_rejet" readonly="1"/>
+					</group>
+				</group>
+				<footer>
+					<button name="action_confirm" string="Confirmer"
+						type="object" class="btn-primary" />
+					<button string="Annuler" class="btn-secondary"
+						special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_rejet_wizard"
+		model="ir.actions.act_window">
+		<field name="name">Vous voulez rejeter la dérogation ?</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">rejet.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="view_rejet_wizard" />
+		<field name="target">new</field>
+	</record>
+
+</odoo>
+        

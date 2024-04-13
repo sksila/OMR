@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+
+		<!-- menu sous contract -->
+		<menuitem name="Evaluation" id="menu_contract_evaluation"
+			parent="menu_contract" sequence="20"
+			 />
+
+		<menuitem name="Magasin"
+			id="menu_contract_evaluation_magasin" parent="menu_contract_evaluation"
+			sequence="10"
+			 />
+
+		<!-- Evaluation form view magasin-->
+		<record model="ir.ui.view" id="contract_evaluation_view_form">
+			<field name="name">contract.evaluation.view.form</field>
+			<field name="model">oscar.contract.evaluation</field>
+			<field name="arch" type="xml">
+				<form string="Evaluation">
+					<header>
+						<button name="validate_evaluation" string="Valider"
+							type="object" states="new,validate_md,validate_dre,validate_dhrbp,validate_de"
+							class="btn-primary oe_read_only"
+							confirm="Vous désirez valider l'évaluation période d'essai?"
+							/>
+						<field name="state" widget="statusbar"
+							statusbar_visible="new,validate_md,validate_dre,validate_dhrbp,validate_de,validate_dg"
+							 />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+
+						<group>
+							<group>
+								<field name="type" invisible="1" />
+								<field name="employee_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="job_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="department_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="manager_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="magasin_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+							<group>
+							    <field name="type_current_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date"  attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_embauche" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_start" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="trial_date_end" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="remaining_leaves" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+						</group>
+
+						<notebook colspan="4">
+							<page string="Critères sommaires d'évaluation">
+								<field name="summary_criteria_ids">
+									<tree editable="true" create="false">
+										<field name="criteria_id" readonly="1"/>
+										<field name="evaluation" widget="priority" />
+										<field name="comment" />
+									</tree>
+								</field>
+								<field name="notes" />
+							</page>
+							<page string="Points forts du collaborateur">
+								<field name="strong_points" />
+							</page>
+							<page string="Aspects à améliorer">
+								<field name="aspects_to_improve" />
+							</page>
+							<page string="Recommandations">
+								<field name="recommendation_id" widget="radio" />
+							</page>
+							
+						</notebook>
+					</sheet>
+					
+					
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+
+		<!-- Evaluation form view : siege-->
+		<record model="ir.ui.view" id="contract_evaluation_view_form_siege">
+			<field name="name">contract.evaluation.view.siege.form</field>
+			<field name="model">oscar.contract.evaluation</field>
+			<field name="arch" type="xml">
+				<form string="Evaluation">
+					<header>
+						<button name="validate_evaluation" string="Valider"
+							type="object" states="new,validate_sub_dir_concernee,validate_dir_concernee,validate_drh,validate_dg"
+							class="btn-primary oe_read_only"
+							confirm="Vous désirez valider l'évaluation période d'essai?"
+							/>
+						<field name="state" widget="statusbar"
+							statusbar_visible="new,validate_sub_dir_concernee,validate_dir_concernee,validate_drh,validate_dg" />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+
+						<group>
+							<group>
+								<field name="type" invisible="1"/>
+								<field name="employee_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="job_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="department_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="manager_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="magasin_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+							<group>
+							    <field name="type_current_id" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date"  attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_embauche" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="date_start" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="trial_date_end" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+								<field name="remaining_leaves" attrs="{'readonly': [('state','=','validate_dg')]}"/>
+							</group>
+						</group>
+
+						<notebook colspan="4">
+							<page string="Critères sommaires d'évaluation">
+								<field name="summary_criteria_ids">
+									<tree editable="true" create="false">
+										<field name="criteria_id" readonly="1"/>
+										<field name="evaluation" widget="priority" />
+										<field name="comment" />
+									</tree>
+								</field>
+								<field name="notes" />
+							</page>
+							<page string="Points forts du collaborateur">
+								<field name="strong_points" />
+							</page>
+							<page string="Aspects à améliorer">
+								<field name="aspects_to_improve" />
+							</page>
+							<page string="Recommandations">
+								<field name="recommendation_id" widget="radio" />
+							</page>
+
+						</notebook>
+					</sheet>
+
+
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</form>
+			</field>
+		</record>
+		
+		<!-- view filter -->
+	 	<record id="view_evaluation_contrat_filter" model="ir.ui.view">
+			<field name="name">evaluation.contrat.search.view</field>
+			<field name="model">oscar.contract.evaluation</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher des contrats évalués">
+					<field name="name" />
+					<field name="type_current_id" />
+					<field name="employee_id"/>
+					<field name="department_id"/>
+					<field name="job_id"/>
+					<field name="state"/>
+					<separator />
+					<filter string="Nouveau Evaluation" name="new_evaluation"
+						domain="[('state', '=', 'new')]" />
+					<filter string="Contrat évalué par MD" name="evaluation_contrat_md"
+						domain="[('state', '=', 'validate_md')]" />
+					<filter string="Contrat évalué par DRE" name="evaluation_contrat_dre"
+						domain= "[('state', '=', 'validate_dre')]"/>
+					
+					<filter string="Contrat évalué par DHRBP" name="evaluation_contrat_dhrbp"
+						domain="[('state', '=', 'validate_dhrbp')]" />
+					
+					<filter string="Contrat évalué par DE" name="evaluation_contrat_de"
+						domain="[('state', '=', 'validate_de')]" />
+					<filter string="Contrat évalué par DG" name="evaluation_contrat_dg"
+						domain="[('state', '=', 'validate_dg')]" />
+					
+					<group expand="1" string="Group By">
+						<filter string="Type de contrat en cours" name="type" context="{'group_by':'type_current_id'}" />
+						<separator />
+						<filter string="Employé" name="employé" context="{'group_by':'employee_id'}" />
+						<separator />
+						<filter string="Direction" name="direction" context="{'group_by':'department_id'}" />
+						<separator />
+						<filter string="Poste" name="poste" context="{'group_by':'job_id'}" />
+						<separator />
+						<filter name="Statut" string="statut" context="{'group_by':'state'}" />
+						<separator />
+						
+					</group>
+				</search>
+			</field>
+		</record> 
+		
+		<!-- Evaluation tree view -->
+		<record model="ir.ui.view" id="contract_evaluation_view_tree">
+			<field name="name">contract.evaluation.view.tree</field>
+			<field name="model">oscar.contract.evaluation</field>
+			<field name="arch" type="xml">
+				<tree decoration-bf="message_needaction == True" decoration-danger="trial_end == True">
+					<field name="name" />
+					<field name="employee_id" />
+					<field name="job_id" />
+					<field name="department_id" />
+					<field name="date_start" />
+					<field name="trial_date_end" />
+					<field name="type_current_id" />
+					<field name="magasin_id" />
+					<field name="state" />
+					<field name="message_needaction" invisible="1"/>
+					<field name="trial_end" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- actions Nouvelle évaluation -->
+		 <record model="ir.actions.act_window"
+			id="action_new_evaluation">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Nouvelles évaluations</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form')})]"
+			/>
+			<field name="domain">[('state', '=', 'new'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Créer une nouvelle demande.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos évaluations
+				</p>
+			</field>
+		</record> 
+		
+		<!-- actions évaluation validée par MD -->
+		<record model="ir.actions.act_window"
+			id="action_evaluation_validated_md">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Evaluations validées par MD</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form')})]"
+			/>
+			<field name="domain">[('state', '=', 'validate_md'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos évaluations
+				</p>
+			</field>
+		</record>
+		
+		
+		<!-- actions évaluation validée par DRE -->
+		<record model="ir.actions.act_window"
+			id="action_evaluation_validated_dre">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Evaluations validées par DRE</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form')})]"
+			/>
+			<field name="domain">[('state', '=', 'validate_dre'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos évaluations
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions évaluation validée par D. RHBP -->
+		<record model="ir.actions.act_window"
+			id="action_evaluation_validated_drhbp">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Evaluations validées par D. HRBP</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form')})]"
+			/>
+			<field name="domain">[('state', '=', 'validate_dhrbp'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos évaluations
+				</p>
+			</field>
+		</record>
+		
+		
+		<!-- actions évaluation validée par DE -->
+		<record model="ir.actions.act_window"
+			id="action_evaluation_validated_de">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Evaluations validées par DE</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form')})]"
+			/>
+			<field name="domain">[('state', '=', 'validate_de'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos évaluations
+				</p>
+			</field>
+		</record>
+		
+		<!-- actions évaluation validée par DG -->
+		<record model="ir.actions.act_window"
+			id="action_evaluation_validated_dg">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Evaluations validées par DG</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form')})]"
+			/>
+			<field name="domain">[('state', '=', 'validate_dg'),('type','=','magasin')]</field>
+			<field name="context">{'default_type' : 'magasin'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos évaluations
+				</p>
+			</field>
+		</record>
+		
+		
+		<!-- menu nouvelle évaluation -->
+	 	<menuitem name="Nouvelles évaluations" id="menu_new_evaluation"
+			parent="menu_contract_evaluation_magasin" action="action_new_evaluation"
+			sequence="10"
+			 />
+		 
+		<!-- menu évaluation validée par MD -->
+		<menuitem name="Validées par MD" id="menu_evaluation_validated_md"
+			parent="menu_contract_evaluation_magasin" action="action_evaluation_validated_md"
+			sequence="20"
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_reponsable_zone,spc_oscar_aziza.group_DRE"
+			 />
+	
+		<!-- menu évaluation validée par DRE -->
+		<menuitem name="Validées par DRE" id="menu_evaluation_validated_dre"
+			parent="menu_contract_evaluation_magasin" action="action_evaluation_validated_dre"
+			sequence="30" 
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_DRE,spc_oscar_aziza.group_dhrbp"
+			/>
+		
+		<!-- menu évaluation validée par D. RHBP -->
+		<menuitem name="Validées par D. HRBP" id="menu_evaluation_validated_drhbp"
+			parent="menu_contract_evaluation_magasin" action="action_evaluation_validated_drhbp"
+			sequence="40" 
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dhrbp,spc_oscar_aziza.group_DE"
+			/>
+		
+		
+		<!-- menu évaluation validée par DE -->
+		<menuitem name="Validées par DE" id="menu_evaluation_validated_de"
+			parent="menu_contract_evaluation_magasin" action="action_evaluation_validated_de"
+			sequence="40" 
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_DE,spc_oscar_aziza.group_dg"
+			/>	
+				
+		<!-- menu évaluation validée par DG -->
+		<menuitem name="Validées par DG" id="menu_evaluation_validated_dg"
+			parent="menu_contract_evaluation_magasin" action="action_evaluation_validated_dg"
+			sequence="50" 
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dg"
+			/>
+			
+		<!-- Critères d'évaluation form view -->
+		<record model="ir.ui.view" id="contract_evaluation_criteria_view_form">
+			<field name="name">contract.evaluation.criteria.view.form</field>
+			<field name="model">oscar.contract.evaluation.criteria</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="description" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<!-- Critères d'évaluation tree view -->
+		<record model="ir.ui.view" id="contract_evaluation_criteria_view_tree">
+			<field name="name">contract.evaluation.criteria.view.tree</field>
+			<field name="model">oscar.contract.evaluation.criteria</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+		
+		<!-- actions critères d'évaluation -->
+		<record model="ir.actions.act_window"
+			id="action_contract_evaluation_criteria">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Critères d'évaluation</field>
+			<field name="res_model">oscar.contract.evaluation.criteria</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Créer un nouveau critère d'évaluation.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos Critères d'évaluation
+				</p>
+			</field>
+		</record>
+		
+		<!-- menu Critères d'évaluation -->
+		<menuitem name="Critères d'évaluation" id="menu_evaluation_criteria"
+			parent="menu_contract_configuration" action="action_contract_evaluation_criteria"
+			sequence="500"
+			
+			 />
+	
+		<!-- Recommendation tree view -->
+		<record model="ir.ui.view" id="contract_evaluation_recommendation_view_tree">
+			<field name="name">contract.evaluation.recommendation.view.tree</field>
+			<field name="model">oscar.contract.evaluation.recommendation</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+		
+		<!-- actions recommendation -->
+		<record model="ir.actions.act_window"
+			id="action_contract_evaluation_recommendation">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Recommandations</field>
+			<field name="res_model">oscar.contract.evaluation.recommendation</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Créer une nouvelle recommandation.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos recommandations
+				</p>
+			</field>
+		</record>
+		
+		<!-- menu recommendation -->
+		<menuitem name="Recommandations" id="menu_evaluation_recommendation"
+			parent="menu_contract_configuration" action="action_contract_evaluation_recommendation"
+			sequence="600"
+			 />
+		
+		<record id="action_import_evaluation_wizard" model="ir.actions.act_window">
+			<field name="name">Importation fichier excel (Evaluation)</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">import.excel.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_import_excel_wizard" />
+			<field name="target">new</field>
+			<field name="context">{'default_type_file':'evaluation'}</field>
+		</record>
+		
+		<!-- menu Importer -->
+		<menuitem name="Importer nouvelles demandes"
+			id="menu_import_evaluation_wizard"
+			parent="menu_contract_evaluation"
+			action="spc_contract_aziza.action_import_evaluation_wizard" sequence="100" 
+			groups="spc_oscar_aziza.group_drh"
+			/>
+
+
+		<!-- Siege -->
+
+		<menuitem name="Siége"
+			id="menu_contract_evaluation_siege" parent="menu_contract_evaluation"
+			sequence="20"
+			 />
+
+		<!-- action demande de renouvellement -->
+		<record model="ir.actions.act_window"
+			id="action_new_demande_evaluation_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Nouvelles demandes</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','new'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par sous D.concernée  -->
+		<record model="ir.actions.act_window"
+			id="action_validatate_concerned_sub_direction_evaluation_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par sous D.concernée</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_sub_dir_concernee'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par D.concernée  -->
+		<record model="ir.actions.act_window"
+			id="action_validatate_concerned_direction_evaluation_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par D.concernée</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_dir_concernee'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par DRH  -->
+		<record model="ir.actions.act_window"
+			id="action_validate_drh_evaluation_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par DRH</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_drh'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- action renouvellement validee par DG  -->
+		<record model="ir.actions.act_window"
+			id="action_validate_dg_evaluation_siege">
+			<field name="type">ir.actions.act_window</field>
+			<field name="name">Validées par DG</field>
+			<field name="res_model">oscar.contract.evaluation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_ids" eval="[(5, 0, 0),
+				(0, 0, {'view_mode': 'tree', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_tree')}),
+   				(0, 0, {'view_mode': 'form', 'view_id': ref('spc_contract_aziza.contract_evaluation_view_form_siege')})]"
+			/>
+			<field name="domain">[('state','=','validate_dg'),('type','=','siege')]</field>
+			<field name="context">{'default_type' : 'siege'}</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_neutral_face">
+					Aucune demande trouvée.
+				</p>
+				<p>
+					Oscar vous aide à gérer facilement vos contrats
+				</p>
+			</field>
+		</record>
+
+		<!-- menu demande de renouvellement -->
+		<menuitem name="Nouvelles demandes"
+			id="menu_new_demande_evaluation_siege"
+			parent="menu_contract_evaluation_siege"
+			action="action_new_demande_evaluation_siege" sequence="10"
+			/>
+
+		<!-- menu renouvellement validee par sous D.concernée -->
+		<menuitem name="Validées par sous D.concernée"
+			id="menu_validatate_concerned_sub_direction_evaluation_siege"
+			parent="menu_contract_evaluation_siege"
+			action="action_validatate_concerned_sub_direction_evaluation_siege" sequence="15"
+			/>
+
+		<!-- menu renouvellement validee par D.concernée -->
+		<menuitem name="Validées par D.concernée"
+			id="menu_validatate_concerned_direction_evaluation_siege"
+			parent="menu_contract_evaluation_siege"
+			action="action_validatate_concerned_direction_evaluation_siege" sequence="20"
+			groups="spc_oscar_aziza.group_drh,hr_contract.group_hr_contract_manager"
+			/>
+
+		<!-- menu renouvellement validee par DRH -->
+		<menuitem name="Validées par DRH"
+			id="menu_validate_drh_evaluation_siege"
+			parent="menu_contract_evaluation_siege"
+			action="action_validate_drh_evaluation_siege" sequence="30"
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dg"
+			 />
+
+		<!-- menu renouvellement validee par DG -->
+		<menuitem name="Validées par DG"
+			id="menu_validate_dg_evaluationt_siege"
+			parent="menu_contract_evaluation_siege"
+			action="action_validate_dg_evaluation_siege" sequence="60"
+			groups="spc_oscar_aziza.group_drh,spc_oscar_aziza.group_dg"
+			/>
+
+
+	</data>
+</odoo>

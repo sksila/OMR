@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="column_calculation_form" model="ir.ui.view">
+            <field name="name">column_calculation.form</field>
+            <field name="model">column.calculation</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <header>
+                        <button string="Help" name="%(spc_survey_extra.column_dependency_help_wizard_action)d" type="action" class="btn btn-danger btn-lg" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group string="Columns">
+                            <field name="columns_ids" string="Columns" nolabel="1">
+                                <form>
+                                    <h2>
+                                        <field name="value" />
+                                    </h2>
+                                </form>
+                                <tree create="false" edit="false" delete="false" editable="bottom">
+                                    <field name="value" string="Name" readonly="1"/>
+                                    <field name="col_type_resp" readonly="1"/>
+                                    <field name="options" readonly="1" />
+                                    <field name="min" readonly="1" />
+                                    <field name="max" readonly="1" />
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Columns dependencies">
+                            <field name="dependency_ids" nolabel="1">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="column_id" />
+                                            <field name="result" />
+                                        </group>
+                                        <group>
+                                            <field name="condition" />
+                                            <field name="reverse_result" />
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree editable="bottom">
+                                    <field name="column_id" required="1" domain="[('id','in',parent.columns_ids)]" options="{'no_create': True, 'no_create_edit':True}" nolabel="1" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                                    <field name="condition" required="1"/>
+                                    <field name="result" />
+                                    <field name="reverse_result" />
+                                    <field name="col_calculation_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Rows">
+                            <field name="rows_ids" string="Rows" nolabel="1">
+                                <form>
+                                    <field name="value" />
+                                </form>
+                                <tree create="false" edit="false" delete="false" editable="bottom">
+                                    <field name="value" string="Name" readonly="1"/>
+                                    <field name="note_options" readonly="1"/>
+                                    <field name="label" readonly="1" />
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Rows/Columns dependencies">
+                            <field name="row_dependency_ids" nolabel="1">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="row_id" />
+                                        </group>
+                                        <group>
+                                            <field name="column_id" />
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="condition" />
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="result" />
+                                        </group>
+                                        <group>
+                                            <field name="reverse_result" />
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree editable="bottom">
+                                    <field name="row_id" required="1" domain="[('id','in',parent.rows_ids)]" options="{'no_create': True, 'no_create_edit':True}" nolabel="1" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                                    <field name="column_id" required="1" domain="[('id','in',parent.columns_ids)]" options="{'no_create': True, 'no_create_edit':True}" nolabel="1" context="{'tree_view_ref':'spc_survey_extra.survey_label_tree_for_display'}"/>
+                                    <field name="condition" required="1"/>
+                                    <field name="result" />
+                                    <field name="reverse_result" />
+                                    <field name="col_calculation_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+
+
+
+                        <field name="question_id" invisible="1" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="column_calculation_tree" model="ir.ui.view">
+            <field name="name">column.calculation.tree</field>
+            <field name="model">column.calculation</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="name"/>
+                    <field name="question_id" invisible="1" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_column_calculation">
+			<field name="name">Column calculation</field>
+			<field name="res_model">column.calculation</field>
+			<field name="view_mode">tree,form</field>
+            <field name="domain">[('question_id', '=', active_id)]</field>
+			<field name="context">{}</field>
+		</record>
+
+
+
+    </data>
+</odoo>

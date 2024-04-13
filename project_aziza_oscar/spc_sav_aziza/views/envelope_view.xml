@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+        <record id="view_sav_envelope_form" model="ir.ui.view">
+            <field name="name">oscar.sav.envelope.form</field>
+            <field name="model">oscar.envelope</field>
+            <field name="inherit_id" ref="spc_transfer_aziza.envelope_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet//group[@name='pieces_jointes']/notebook" position="inside">
+                    <page string="Réclamations" attrs="{'invisible': [('domain_content', '!=', True)]}"
+                          groups="spc_oscar_aziza.group_reponsable_magasin,spc_oscar_aziza.group_reponsable_entrepot,spc_sav_aziza.group_responsable_sav">
+                        <field name="domain_content" invisible="1"/>
+                        <field name="envelope_claim_ids" options="{'no_create': True}"
+                               attrs="{'invisible': [('domain_content', '!=', True)]}"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

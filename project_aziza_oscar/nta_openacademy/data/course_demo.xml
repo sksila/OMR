@@ -1,0 +1,27 @@
+<odoo>
+    <record id="course1" model="openacademy.course">
+        <field name="name">Course 1</field>
+        <field name="description">Lorem 1</field>
+        <field name="responsible_id" ref="base.user_admin"/>
+    </record>
+    <record id="course2" model="openacademy.course">
+        <field name="name">Course 2</field>
+        <field name="description">Lorem 2</field>
+        <field name="responsible_id" ref="base.user_admin"/>
+    </record>
+    <record id="course3" model="openacademy.course">
+        <field name="name">Course 3</field>
+        <field name="description">Lorem 3</field>
+        <field name="responsible_id" ref="base.user_admin"/>
+    </record>
+    <record id="course4" model="openacademy.course">
+        <field name="name">Course 4</field>
+        <field name="description">Lorem 4</field>
+        <field name="responsible_id"/>
+    </record>
+    <record id="course5" model="openacademy.course">
+        <field name="name">Course 5</field>
+        <field name="description">Lorem 5</field>
+        <field name="responsible_id"/>
+    </record>
+</odoo>

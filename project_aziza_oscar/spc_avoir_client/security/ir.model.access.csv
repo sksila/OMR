@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_spc_avoir_client_admin,spc.avoir.client.admin,model_oscar_avoir_client,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_spc_avoir_client_resp_mg,spc.avoir.client.resp.mg,model_oscar_avoir_client,spc_oscar_aziza.group_reponsable_magasin,1,1,1,0
+access_spc_avoir_client_resp_zone,spc.avoir.client.resp.zone,model_oscar_avoir_client,spc_oscar_aziza.group_reponsable_zone,1,1,0,0
+access_spc_avoir_client_grp_dre,spc.avoir.client.grp.dre,model_oscar_avoir_client,spc_oscar_aziza.group_DRE,1,0,0,0
+access_spc_avoir_client_grp_de,spc.avoir.client.grp.de,model_oscar_avoir_client,spc_oscar_aziza.group_DE,1,0,0,0

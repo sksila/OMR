@@ -1,0 +1,37 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_document_aziza_admin,document.aziza admin,model_ir_attachment,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_document_type_admin,document.type admin,model_document_type,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_document_criteres_admin,document.criteres admin,model_document_criteres,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_doc_wf_type_admin,doc.wf.type admin,model_document_wf_type,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_commande_gold_admin,commande.gold admin,model_commande_gold,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_oscar_commande_inter_admin,oscar.commande.inter admin,model_oscar_commande_inter,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+
+access_flux_doc_resp_magasin,document.aziza resp_mg,model_ir_attachment,spc_oscar_aziza.group_reponsable_magasin,1,1,1,0
+access_document_type_user,document.type.user,model_document_type,,1,0,0,0
+access_document_criteres_resp_mg,document.criteres resp_mg,model_document_criteres,spc_oscar_aziza.group_reponsable_magasin,1,1,1,0
+access_doc_wf_type_resp_mg,doc.wf.type resp_mg,model_document_wf_type,spc_oscar_aziza.group_reponsable_magasin,1,0,0,0
+access_commande_gold_resp_magasin,commande.gold resp_mg,model_commande_gold,spc_oscar_aziza.group_reponsable_magasin,1,1,1,1
+
+access_flux_doc_resp_zone,document.aziza.resp.zone,model_ir_attachment,spc_oscar_aziza.group_reponsable_zone,1,0,0,0
+access_document_criteres_resp_zone,document.criteres.resp.zone,model_document_criteres,spc_oscar_aziza.group_reponsable_zone,1,0,0,0
+access_doc_wf_type_resp_zone,doc.wf.type.resp.zone,model_document_wf_type,spc_oscar_aziza.group_reponsable_zone,1,0,0,0
+access_commande_gold_resp_zone,commande.gold.resp.zone,model_commande_gold,spc_oscar_aziza.group_reponsable_zone,1,0,0,0
+
+access_flux_doc_dre,document.aziza.dre,model_ir_attachment,spc_oscar_aziza.group_DRE,1,0,0,0
+access_document_criteres_dre,document.criteres.dre,model_document_criteres,spc_oscar_aziza.group_DRE,1,0,0,0
+access_doc_wf_type_dre,doc.wf.type.dre,model_document_wf_type,spc_oscar_aziza.group_DRE,1,0,0,0
+access_commande_gold_dre,commande.gold.dre,model_commande_gold,spc_oscar_aziza.group_DRE,1,0,0,0
+
+access_flux_doc_group_de,document.aziza.group.de,model_ir_attachment,spc_oscar_aziza.group_DE,1,0,0,0
+access_document_criteres_group_de,document.criteres.group.de,model_document_criteres,spc_oscar_aziza.group_DE,1,0,0,0
+access_doc_wf_type_group_de,doc.wf.type.group.de,model_document_wf_type,spc_oscar_aziza.group_DE,1,0,0,0
+access_commande_gold_group_de,commande.gold.group.de,model_commande_gold,spc_oscar_aziza.group_DE,1,0,0,0
+
+access_flux_doc_entrepot,document.aziza resp_entrepot,model_ir_attachment,spc_oscar_aziza.group_reponsable_entrepot,1,0,0,0
+access_document_criteres_entrepot,document.criteres resp_entrepot,model_document_criteres,spc_oscar_aziza.group_reponsable_entrepot,1,0,0,0
+
+access_ir_attachment_siege,document.aziza.siege,model_ir_attachment,spc_oscar_aziza.group_drh,1,1,1,0
+access_document_criteres_siege,document.criteres.siege,model_document_criteres,spc_oscar_aziza.group_drh,1,1,1,0
+access_document_wf_type_siege,document.wf.type.siege,model_document_wf_type,spc_oscar_aziza.group_drh,1,0,0,0
+access_commande_gold_siege,commande.gold.siege,model_commande_gold,spc_oscar_aziza.group_drh,1,1,1,1

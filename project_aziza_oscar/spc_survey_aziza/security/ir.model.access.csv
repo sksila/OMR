@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+plano_facing_site_admin,plano_facing.site,model_plano_facing_site,spc_survey.group_audit_manager,1,1,1,1
+plano_facing_site_default,plano_facing.site default,model_plano_facing_site,,1,0,0,0
+audit_objectif_admin,audit.objectif,model_audit_objectif,spc_survey.group_audit_manager,1,1,1,1
+audit_objectif_default,audit.objectif default,model_audit_objectif,,1,0,0,0
+
+

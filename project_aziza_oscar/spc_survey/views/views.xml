@@ -1,0 +1,11 @@
+<odoo>
+  <data>
+
+    <!-- Top menu item -->
+    <record model="ir.ui.menu" id="survey.menu_surveys">
+        <field name="name">SPEC Survey</field>
+        <field name="web_icon">spc_survey,static/description/icon.png</field>
+    </record>
+
+  </data>
+</odoo>

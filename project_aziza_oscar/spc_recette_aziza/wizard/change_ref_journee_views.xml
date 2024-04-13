@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <!-- change ref journee recue wizard -->
+        <record id="change_ref_wizard_view" model="ir.ui.view">
+            <field name="name">Changer les références de la journée</field>
+            <field name="model">change.ref.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Changer la référence">
+                    <field name="type" invisible="1"/>
+                    <field name="journee_id" />
+                    <field name="journee_mg_id" />
+                    <field name="ref_ids" />
+                    <footer>
+                        <button string="Changer" name="change_ref_button" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="change_ref_wizard_journee_tree_view" model="ir.ui.view">
+            <field name="name">Changer les références de la journée</field>
+            <field name="model">change.ref.journee</field>
+            <field name="arch" type="xml">
+                <!-- the user list is editable, but one cannot add or delete rows -->
+                <tree string="Références" editable="bottom" create="false" delete="false">
+                    <field name="user_id"/>
+                    <field name="name"/>
+                    <field name="new_ref" required="True"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="change_ref_journee_wizard_action" model="ir.actions.act_window">
+			 <field name="name">Changer les références</field>
+			 <field name="res_model">change.ref.wizard</field>
+			 <field name="view_type">form</field>
+			 <field name="view_mode">form</field>
+			 <field name="target">new</field>
+	 	</record>
+	 	
+</odoo>

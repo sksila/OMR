@@ -1,0 +1,22 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_oscar_envelope_admin,oscar.enveloppe.admin,model_oscar_envelope,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_oscar_envelope_resp_mag,oscar.enveloppe.resp.mag,model_oscar_envelope,spc_oscar_aziza.group_reponsable_magasin,1,1,1,1
+access_oscar_envelope_resp_en,oscar.enveloppe.entrepot,model_oscar_envelope,spc_oscar_aziza.group_reponsable_entrepot,1,1,1,1
+access_oscar_envelope_resp_zone,oscar.enveloppe.resp.zone,model_oscar_envelope,spc_oscar_aziza.group_reponsable_zone,1,0,0,0
+access_oscar_envelope_resp_de,oscar.enveloppe.resp.de,model_oscar_envelope,spc_oscar_aziza.group_DE,1,0,0,0
+access_oscar_envelope_resp_dre,oscar.enveloppe.resp.dre,model_oscar_envelope,spc_oscar_aziza.group_DRE,1,0,0,0
+access_oscar_envelope_siege,oscar.enveloppe.siege,spc_transfer_aziza.model_oscar_envelope,spc_oscar_aziza.group_drh,1,1,1,0
+
+access_oscar_bordereau_admin,oscar.bordereau.admin,model_oscar_bordereau,spc_oscar_aziza.group_admin_oscar,1,1,1,1
+access_oscar_bordereau_resp_mag,oscar.bordereau.resp.mag,model_oscar_bordereau,spc_oscar_aziza.group_reponsable_magasin,1,1,1,0
+access_oscar_bordereau_resp_en,oscar.bordereau.bordereau.en,model_oscar_bordereau,spc_oscar_aziza.group_reponsable_entrepot,1,1,1,0
+access_oscar_bordereau_resp_zone,oscar.bordereau.resp.zone,model_oscar_bordereau,spc_oscar_aziza.group_reponsable_zone,1,0,0,0
+access_oscar_bordereau_resp_de,oscar.bordereau.resp.de,model_oscar_bordereau,spc_oscar_aziza.group_DE,1,0,0,0
+access_oscar_bordereau_resp_dre,oscar.bordereau.resp.dre,model_oscar_bordereau,spc_oscar_aziza.group_DRE,1,0,0,0
+access_model_oscar_bordereau_siege,oscar.doc.bordereau.siege,spc_transfer_aziza.model_oscar_bordereau,spc_oscar_aziza.group_drh,1,1,1,0
+
+access_oscar_envelope_content,oscar_envelope_content admin,model_oscar_envelope_content,,1,1,1,1
+access_oscar_envelope_reference_admin,oscar_envelope_reference_admin,model_oscar_envelope_reference,,1,1,1,1
+
+access_fleet_vehicle_admin,fleet.vehicle.admin,model_fleet_vehicle,spc_oscar_aziza.group_admin_oscar,1,1,1,1

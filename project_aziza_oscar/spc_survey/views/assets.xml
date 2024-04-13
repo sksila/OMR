@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+     <template id="assets_frontend" name="spc_survey Assets" inherit_id="website.assets_frontend">
+        <xpath expr="//script[last()]" position="after">
+        	<script type="text/javascript" src="/spc_survey/static/src/js/jquery.modal.min.js"></script>
+            <script type="text/javascript" src="/spc_survey/static/src/js/cam.js"></script>
+            <link rel="stylesheet" href="/spc_survey/static/src/css/cam_style.css" />
+        </xpath>
+    </template>
+
+
+</odoo>

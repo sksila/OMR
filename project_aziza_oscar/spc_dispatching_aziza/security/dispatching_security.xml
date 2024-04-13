@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+	<!--   access rules-->
+	<record id="spc_article_admin_oscar" model="ir.rule">
+			<field name="name">Admin Oscar peut voir tous les articles</field>
+			<field name="model_id" ref="product.model_product_template" />
+			<field name="domain_force">[(1,'=',1)]</field>
+			<field name="groups" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]" />
+		</record>
+
+<!--	cette règles cache les produits pour les approvisonneur, car il n'existe pas une lien entre produit et approvisonneur-->
+	<record id="spc_article_appro_rule" model="ir.rule">
+			<field name="name">Les articles pour l'approvisonneur dispatching</field>
+			<field name="model_id" ref="product.model_product_template" />
+			<field name="domain_force">[('approvisionneur_ids','in',[user.id])]</field>
+			<field name="groups"
+				eval="[(4,ref('spc_oscar_aziza.group_approvisioneur_aziza')),
+						(4,ref('spc_oscar_aziza.group_direction_approvisionnement'))]" />
+	</record>
+
+</odoo>

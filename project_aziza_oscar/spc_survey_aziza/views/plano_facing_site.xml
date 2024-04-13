@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <record id="plano_facing_site_form" model="ir.ui.view">-->
+<!--            <field name="name">plano_facing.site.form</field>-->
+<!--            <field name="model">plano_facing.site</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Plano-Facing Site" create="false">-->
+<!--                    <sheet>-->
+<!--                        <div class="oe_title">-->
+<!--                            <label for="category_name"/>-->
+<!--                            <h1>-->
+<!--                                <field name="category_name" placeholder="Plano category" readonly="1"/>-->
+<!--                            </h1>-->
+<!--                        </div>-->
+<!--                        <group>-->
+<!--                            <group><field name="element_level" /></group>-->
+<!--                            <group><field name="site_id" /></group>-->
+<!--                        </group>-->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="plano_facing_site_tree" model="ir.ui.view">
+            <field name="name">plano_facing.site.tree</field>
+            <field name="model">plano_facing.site</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="category_name"/>
+                    <field name="element_level" />
+                    <field name="site_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="plano_facing_site_action">
+			<field name="name">Plano-Facing details per site</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">plano_facing.site</field>
+			<field name="view_id" ref="spc_survey_aziza.plano_facing_site_tree"/>
+			<field name="view_type">form</field>
+		</record>
+
+        <menuitem id="plano_facing_site_action_menu" name="Plano-Facing by site"
+              parent="spc_oscar_aziza.menu_oscar_configuration" sequence="110"
+              action="plano_facing_site_action"/>
+
+    </data>
+</odoo>

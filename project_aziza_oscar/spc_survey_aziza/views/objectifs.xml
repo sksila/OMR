@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="objectifs_tree" model="ir.ui.view">
+            <field name="name">audit.objectif.tree</field>
+            <field name="model">audit.objectif</field>
+            <field name="arch" type="xml">
+                <tree string="Objectifs">
+                    <field name="action"/>
+                    <field name="objectif" />
+                    <field name="user_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="objectifs_form" model="ir.ui.view">
+            <field name="name">audit.objectif.form</field>
+            <field name="model">audit.objectif</field>
+            <field name="arch" type="xml">
+                <form string="Objectifs">
+                    <sheet>
+                        <group>
+                            <field name="action" required="1" />
+                        </group>
+                        <group>
+                            <group>
+                                <field name="objectif" required="1"/>
+                            </group>
+                            <group>
+                                <field name="user_id" options="{'no_create': True, 'no_create_edit':True}" required="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="objectifs_action">
+			<field name="name">Objectifs</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">audit.objectif</field>
+			<field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Ajouter un objectif.
+                </p>
+            </field>
+		</record>
+
+        <menuitem id="objectifs_menu" name="Objectifs"
+              parent="spc_oscar_aziza.menu_gold_view" sequence="30"
+              action="objectifs_action"/>
+
+    </data>
+</odoo>

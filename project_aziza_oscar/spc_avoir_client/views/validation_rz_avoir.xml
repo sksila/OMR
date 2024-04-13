@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <data>
+        <record model="ir.ui.view" id="spc_avoir_client_form_view_inherited">
+            <field name="model">oscar.avoir.client</field>
+            <field name="inherit_id" ref="spc_avoir_client.spc_avoir_client_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('spc_oscar_aziza.group_reponsable_zone')])]"/>
+            <field name="arch" type="xml">
+                <field name="number_avoir" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

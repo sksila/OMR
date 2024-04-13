@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    
+        <record id="aziza_audit_type_metier" model="spc_survey.type">
+            <field name="name">Audit Métier</field>
+	    </record>
+
+        <record id="aziza_audit_type_qesh" model="spc_survey.type">
+            <field name="name">Audit Qesh</field>
+	    </record>
+
+        <record id="aziza_audit_type_quality" model="spc_survey.type">
+            <field name="name">Audit Qualité</field>
+	    </record>
+
+        <record id="aziza_audit_type_interne" model="spc_survey.type">
+            <field name="name">Audit Interne</field>
+	    </record>
+
+    </data>
+</odoo>

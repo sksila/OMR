@@ -1,0 +1,205 @@
+<odoo>
+    <data>
+
+        <record id="make_invisible" model="res.groups">
+            <field name="name">Invisible</field>
+        </record>
+
+        <!-- Top menu item -->
+        <record model="ir.ui.menu" id="survey.menu_surveys">
+            <field name="name">Audit</field>
+            <field name="web_icon">spc_survey_aziza,static/description/icon.png</field>
+            <field name="groups_id" eval="[(6, 0, [ref('spc_survey.group_audit_manager'),ref('spc_survey.group_audit_consulting')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="survey.menu_survey_form">
+            <field name="name">Maquettes</field>
+            <field name="groups_id" eval="[(6, 0, [ref('spc_survey.group_audit_manager')])]"/>
+        </record>
+
+        <record id="survey_form_inherit_spc_aziza" model="ir.ui.view">
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//form" position="attributes">
+                    <attribute name="string">Maquette</attribute>
+                </xpath>
+                <xpath expr="//h1//field[@name='title']" position="attributes">
+                    <attribute name="placeholder">Titre du maquette</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_result_survey']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_result_survey'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_test_survey']" position="attributes">
+                    <attribute name="string">Tester la maquette</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_print_survey']" position="attributes">
+                    <attribute name="groups">spc_oscar_aziza.group_admin_oscar</attribute>
+                </xpath>
+                <xpath expr="//notebook//page[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//notebook//page" position="attributes">
+                    <attribute name="string">Pages</attribute>
+                </xpath>
+                <field name="page_ids" position="replace">
+                    <field name="page_ids" mode="tree" context="{'default_survey_id': active_id}" nolabel="1">
+                        <form>
+                            <group>
+                                <field name="title" />
+                                <field name="question_ids" style="pointer-events:none" />
+                            </group>
+                        </form>
+                        <tree create="false" edit="false" delete="false" editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="title" readonly="1"/>
+                            <field name="question_ids" invisible="1"/>
+                        </tree>
+                    </field>
+                </field>
+                <xpath expr="//button[@name='action_survey_user_input']" position="attributes">
+                    <!--<attribute name="groups">spc_oscar_aziza.group_admin_oscar</attribute>-->
+                </xpath>
+
+                <xpath expr="//header//button[6]" position="attributes"> <!-- view results -->
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="survey_tree_inherit_spc_aziza" model="ir.ui.view">
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="string">Maquette</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="survey_kanban_inherit_spc_aziza" model="ir.ui.view">
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_kanban" />
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="string">Maquette</attribute>
+                </xpath>
+                <xpath expr="//ul//li[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="survey.action_survey_form">
+            <field name="name">Maquettes</field>
+            <field name="res_model">survey.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Ajouter une nouvelle maquette
+              </p>
+            </field>
+        </record>
+
+        <!-- hide website root menu -->
+        <record model="ir.ui.menu" id="website.menu_website_configuration">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]" />
+        </record>
+
+        <record id="survey_user_input_form_inherit_spc_aziza" model="ir.ui.view">
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_survey_results']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="type" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="token" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="deadline" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="email" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="test_entry" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="quizz_score" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="state" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="string">Auditor</attribute>
+			    </field>
+                <field name="user_input_line_ids" position="attributes">
+                    <attribute name="groups">spc_oscar_aziza.group_admin_oscar</attribute>
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="survey_id" position="attributes">
+                    <attribute name="string">Maquette</attribute>
+                </field>
+
+                 <xpath expr="//button[@name='action_view_answers']" position="attributes">
+                     <attribute name="icon">fa-dot-circle-o</attribute>
+                     <attribute name="string">View answers</attribute>
+                 </xpath>
+
+            </field>
+        </record>
+
+        <record id="survey_user_input_tree_inherit_spc_aziza" model="ir.ui.view">
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_tree" />
+            <field name="arch" type="xml">
+                <field name="survey_id" position="attributes">
+                    <attribute name="string">Maquette</attribute>
+                </field>
+                <field name="deadline" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="email" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="test_entry" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="quizz_score" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="state" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="type" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.menu" id="spc_survey.spc_survey_type_menu">
+            <field name="groups_id" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]" />
+        </record>
+
+        <record model="ir.ui.menu" id="spc_survey.spc_survey_res_configuration">
+            <field name="groups_id" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]" />
+        </record>
+
+        <record model="ir.ui.menu" id="survey.menu_survey_type_form1">
+            <field name="groups_id" eval="[(4,ref('spc_oscar_aziza.group_admin_oscar'))]" />
+        </record>
+
+    </data>
+</odoo>

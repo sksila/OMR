@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="planogramme_type" model="spc_product.type">
+            <field name="name">Planogramme et Facing</field>
+	    </record>
+
+		<record id="top_articles_type" model="spc_product.type">
+            <field name="name">Top Articles</field>
+	    </record>
+
+		<record id="articles_aleatoires_type" model="spc_product.type">
+            <field name="name">Articles Aléatoires</field>
+	    </record>
+
+		<record id="promo_type" model="spc_product.type">
+            <field name="name">Promo</field>
+	    </record>
+
+    </data>
+</odoo>

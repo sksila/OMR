@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+<!--        Lors de la creation de la tache-->
+      <record id="spc_template_notification_by_email_1" model="mail.template">
+          <field name="name">Envoie email au Manager</field>
+          <field name="model_id" ref="spc_planning_aziza.model_mail_activity"/>
+          <field name="subject">Envoie email au Manager</field>
+          <field name="email_from">${('&lt;%s&gt;' % (user.email)) | safe}</field>
+          <field name="recipient_ids">${object.recipient_ids|safe}</field>
+          <field name="use_default_to" eval="True"/>
+          <field name="body_html" type="html">
+              <div>${object.body_html}</div>
+          </field>
+          <field name="auto_delete" eval="True"/>
+          <field name="user_signature" eval="True"/>
+      </record>
+
+<!--      Lors de la cloture de la tache-->
+      <record id="spc_template_notification_by_email_cloture" model="mail.template">
+          <field name="name">Envoie email au Manager au cloture</field>
+          <field name="model_id" ref="spc_planning_aziza.model_mail_activity"/>
+          <field name="subject">Envoie email au Manager</field>
+          <field name="email_from">${('&lt;%s&gt;' % (user.email)) | safe}</field>
+          <field name="recipient_ids">${object.recipient_ids|safe}</field>
+          <field name="use_default_to" eval="True"/>
+          <field name="body_html" type="html">
+              <div>${object.body_html}</div>
+          </field>
+          <field name="auto_delete" eval="True"/>
+          <field name="user_signature" eval="True"/>
+      </record>
+<!--      lors de la validation-->
+      <record id="spc_template_notification_by_email_validation" model="mail.template">
+          <field name="name">Retour email au responsable de la tache apres validation</field>
+          <field name="model_id" ref="spc_planning_aziza.model_mail_activity"/>
+          <field name="subject">la validation de votre tâche est approuvée</field>
+          <field name="email_from">${('&lt;%s&gt;' % (user.email)) | safe}</field>
+          <field name="recipient_ids">${object.recipient_ids|safe}</field>
+          <field name="use_default_to" eval="True"/>
+          <field name="body_html" type="html">
+              <div>${object.body_html}</div>
+          </field>
+          <field name="auto_delete" eval="True"/>
+          <field name="user_signature" eval="True"/>
+      </record>
+
+
+  </data>
+</odoo>

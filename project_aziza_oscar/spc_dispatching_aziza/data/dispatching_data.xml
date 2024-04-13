@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+
+		<record id="seq_code_dispatching" model="ir.sequence">
+			<field name="name">Dispatching</field>
+			<field name="code">dispatch.dispatch</field>
+			<field name="padding">3</field>
+			<field name="prefix">DISP/%(y)s/</field>
+			<field name="suffix"></field>
+		</record>
+		
+	</data>
+</odoo>

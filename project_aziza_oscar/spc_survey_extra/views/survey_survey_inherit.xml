@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<odoo>
+
+	<!-- survey.survey form -->
+	<record id="survey_survey_form_inherit_extra" model="ir.ui.view">
+		<field name="model">survey.survey</field>
+		<field name="inherit_id" ref="spc_survey.survey_survey_form_inherit" />
+		<field name="arch" type="xml">
+
+			<xpath expr="//button[@type='action']" position="after">
+				<!-- smart button page -->
+				<button class="oe_stat_button"
+						type="action"
+						name="%(spc_survey_extra.action_control_m_m1)d"
+						string="Control M M-1"
+						icon="fa-chain"
+						context="{'default_survey_id': active_id}">
+				</button>
+				<field name="control_m_m1_ids" invisible="1" />
+			</xpath>
+
+
+		</field>
+	</record>
+		
+	</odoo>

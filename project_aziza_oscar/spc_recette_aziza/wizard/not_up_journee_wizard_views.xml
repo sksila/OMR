@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+   		<!-- not up journees -->
+        <record id="notup_journee_wizard_form_view" model="ir.ui.view">
+            <field name="name">notup.journee.wizard.form.view</field>
+            <field name="model">notup.journee.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Journée non remontée">
+                    <group>
+                    	<group>
+                    		<field name="date_start"/>
+                    		<field name="date_end"/>
+                    	</group>
+                    </group>
+                    <field name="notup_journee_line_ids" readonly="1"/>
+                    <footer>
+                        <button string="Annuler" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="notup_journee_wizard_line_tree_view" model="ir.ui.view">
+            <field name="name">notup.journee.wizard.line.tree.view</field>
+            <field name="model">notup.journee.wizard.line</field>
+            <field name="arch" type="xml">
+                <!-- the user list is editable, but one cannot add or delete rows -->
+                <tree string="Journées" create="false" delete="false" decoration-danger="state == 'notup'">
+                    <field name="magasin_code"/>
+                    <field name="magasin_lib"/>
+                    <field name="date_journee"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="notup_journee_wizard_action" model="ir.actions.act_window">
+			 <field name="name">Journées non remontées</field>
+			 <field name="res_model">notup.journee.wizard</field>
+			 <field name="view_type">form</field>
+			 <field name="view_mode">form</field>
+			 <field name="target">new</field>
+	 	</record>
+	 	
+	 	<menuitem name="Journées non remontées" id="menu_notup_journee"
+		parent="menu_oscar_report" action="notup_journee_wizard_action"
+		groups="spc_recette_aziza.group_consulting_oscar,spc_oscar_aziza.group_reponsable_zone"
+		sequence="30" />
+</odoo>
